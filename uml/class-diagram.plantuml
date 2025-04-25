@@ -1,0 +1,78 @@
+@startuml
+
+package sxeval {
+
+    class SXEval<T> {
+        -_operations : std::vector<std::unique_ptr<AOperation<T>>>
+        -_operands : std::vector<std::unique_ptr<AOperand<T>>>
+        +SXEval(exp : sexp_t, std::function<T&(const char*)>)
+        +SXEval(exp : char*, std::function<T&(const char*)>)
+        +evaluate() : T
+        -_build(omitted for clarity)
+    }
+
+    abstract class AInstruction<T> {
+        -_result : T&
+        +AInstruction(result : T&)
+        +getResult() : T
+    }
+
+    abstract class AOperation<T> extends AInstruction {
+        #_args : std::vector<AInstruction<T>*>
+        #_result : T
+        +AOperation(args : const std::vector<AInstruction<T>*>&)
+        +{abstract} execute()
+    }
+
+    abstract class AOperand<T> extends AInstruction {
+        +AOperand(result : T&)
+    }
+
+    class Value<T> extends AOperand {
+        -_val : T
+        +Value(val : T)
+    }
+
+    class Variable<T> extends AOperand {
+        +Variable(var : T&)
+    }
+
+    package operations {
+
+        class Operations<T> {
+            +{static} UNLIMITED_ARITY : const int := -1
+            +{static} create(key : const std::string&, args : const std::vector<AInstruction<T>*>) : std::unique_ptr<AOperation<T>>
+        }
+
+        class Addition<T> {
+            +{static} KEY : const char* := "+"
+            +{static} ARITY_MIN : const int := 2
+            +{static} ARITY_MAX : const int := Operations<T>::UNLIMITED_ARITY
+            +Addition(args : const std::vector<AInstruction<T>*>&)
+            +execute()
+        }
+
+        class Greater<T> {
+            +{static} KEY : const char* := ">"
+            +{static} ARITY_MIN : const int := 2
+            +{static} ARITY_MAX : const int := 2
+            +Greater(args : const std::vector<AInstruction<T>*>&)
+            +execute()
+        }
+
+        Addition -up-|> AOperation
+        Greater -up-|> AOperation
+
+        note "The other operations are omitted for clarity." as N
+        Addition .. N
+        Greater .. N
+
+    }
+
+    SXEval *--> AOperation : _operations\n0..*
+    SXEval *--> AOperand : _operands\n0..*
+    AOperation o-up-> AInstruction : _args\n0..*
+
+}
+
+@enduml
