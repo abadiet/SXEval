@@ -4,7 +4,7 @@ S-expression interpreter library
 Based on the origianl C library [SXEval-C](https://github.com/abadiet/SXEval-C).
 
 ## Class Diagram
-<img src="https://github.com/abadiet/SXEval/blob/9b7fd0497e0b8c030360df2f5aaf98d8a6e2e0f3/uml/class-diagram.png">
+<img src="https://github.com/abadiet/SXEval/blob/main/uml/class-diagram.png">
 
 ## Examples
 ```cpp
