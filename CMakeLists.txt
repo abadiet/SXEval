@@ -10,8 +10,8 @@ project(sxeval)
 
 # Download/Update librairies if needed
 if (UPDATE_SUBMODULES)
-	find_package(Git QUIET)
-	if(GIT_FOUND AND EXISTS "${PROJECT_SOURCE_DIR}/.git")
+    find_package(Git QUIET)
+    if(GIT_FOUND AND EXISTS "${PROJECT_SOURCE_DIR}/.git")
 		option(GIT_SUBMODULE "Check submodules during build" ON)
 		if(GIT_SUBMODULE)
 			message(STATUS "Submodules update")
@@ -25,11 +25,11 @@ if (UPDATE_SUBMODULES)
 					checkout submodules")
 			endif()
 		endif()
-	endif()
-	if(NOT EXISTS "${PROJECT_SOURCE_DIR}/lib/sfsexp")
-		message(FATAL_ERROR "The submodules were not downloaded! GIT_SUBMODULE
-			was turned off or failed. Please update submodules and try again.")
-	endif()
+    endif()
+    if(NOT EXISTS "${PROJECT_SOURCE_DIR}/lib/sfsexp")
+        message(FATAL_ERROR "The submodules were not downloaded! GIT_SUBMODULE
+            was turned off or failed. Please update submodules and try again.")
+    endif()
 endif()
 
 # Sources
@@ -40,32 +40,32 @@ file(GLOB_RECURSE INCLUDES include/*.hpp lib/sfsexp/src/*.h)
 add_library(${PROJECT_NAME} ${SOURCES} ${INCLUDES})
 
 # Flags
-set(FLAGS_FIX_LIB_GNU -Wno-error=strict-prototypes
+set(FLAGS_FIX_LIB_COMMON -Wno-error=strict-prototypes
     -Wno-error=missing-prototypes -Wno-error=implicit-fallthrough
     -Wno-error=sign-conversion -Wno-error=sign-compare -Wno-error=padded)
-set(FLAGS_FIX_LIB_CLANG ${FLAGS_FIX_LIB_GNU} -Wno-error=documentation-html
+set(FLAGS_FIX_LIB_GNU ${FLAGS_FIX_LIB_COMMON} -Wno-error=type-limits)
+set(FLAGS_FIX_LIB_CLANG ${FLAGS_FIX_LIB_COMMON} -Wno-error=documentation-html
     -Wno-error=missing-variable-declarations
     -Wno-error=tautological-unsigned-zero-compare
     -Wno-error=covered-switch-default)
 set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 target_compile_options(${PROJECT_NAME} PRIVATE
-	$<$<CXX_COMPILER_ID:AppleClang>:-O3 -Wall -Wextra -Werror -Wfloat-equal
-		-Wundef -Wcast-align -Wwrite-strings -Wconversion -Wunreachable-code
-		-Wpedantic -Wshadow -Wwrite-strings -Wcast-qual -Wstrict-aliasing
-		-Wpointer-arith -Wformat=2 -Weverything -Wextra-semi
-		-Wmissing-prototypes -Wunreachable-code-aggressive 
-		-Wimplicit-fallthrough -Wloop-analysis -Wrange-loop-analysis -Wcomma
-		-Wmove -Wconditional-uninitialized -Wassign-enum
-		-Wunused-exception-parameter -Wcovered-switch-default
-		-Wno-error=c++98-compat -Wno-error=c++98-compat-pedantic
-		${FLAGS_FIX_LIB_CLANG}>
-	$<$<CXX_COMPILER_ID:GNU>:-O3 -Wall -Wextra -Werror -Wfloat-equal -Wundef
-		-Wcast-align -Wwrite-strings -Wconversion -Wunreachable-code -Wpedantic
-		-Wshadow -Wwrite-strings -Wcast-qual -Wstrict-aliasing -Wpointer-arith
-		-Wformat=2 -Wmissing-prototypes -Wimplicit-fallthrough -Wextra-semi
-		-Wno-error=c++98-compat -Wno-error=c++98-compat-pedantic
-		${FLAGS_FIX_LIB_GNU}>
+    $<$<CXX_COMPILER_ID:AppleClang>:-O3 -Wall -Wextra -Werror -Wfloat-equal
+        -Wundef -Wcast-align -Wwrite-strings -Wconversion -Wunreachable-code
+        -Wpedantic -Wshadow -Wwrite-strings -Wcast-qual -Wstrict-aliasing
+        -Wpointer-arith -Wformat=2 -Weverything -Wextra-semi
+        -Wmissing-prototypes -Wunreachable-code-aggressive
+        -Wimplicit-fallthrough -Wloop-analysis -Wrange-loop-analysis -Wcomma
+        -Wmove -Wconditional-uninitialized -Wassign-enum
+        -Wunused-exception-parameter -Wcovered-switch-default
+        -Wno-error=c++98-compat -Wno-error=c++98-compat-pedantic
+        ${FLAGS_FIX_LIB_CLANG}>
+    $<$<CXX_COMPILER_ID:GNU>:-O3 -Wall -Wextra -Werror -Wfloat-equal -Wundef
+        -Wcast-align -Wwrite-strings -Wconversion -Wunreachable-code -Wpedantic
+        -Wshadow -Wwrite-strings -Wcast-qual -Wstrict-aliasing -Wpointer-arith
+        -Wformat=2 -Wimplicit-fallthrough
+        ${FLAGS_FIX_LIB_GNU}>
 )
 if(SXEVAL_DEBUG)
     target_compile_options(${PROJECT_NAME} PRIVATE -DSXEVAL_DEBUG)

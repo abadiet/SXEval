@@ -1,5 +1,6 @@
 #include <sxeval/SXEval.hpp>
 #include <iostream>
+#include <cstring>
 
 int main(int argc, char** argv) {
     if (argc < 2) {
@@ -10,9 +11,9 @@ int main(int argc, char** argv) {
     int x = 0, y = 0;
 
     auto resolveVariable = [&](const char* var) -> int& {
-        if (strcmp(var, "x") == 0) {
+        if (std::strcmp(var, "x") == 0) {
             return x;
-        } else if (strcmp(var, "y") == 0) {
+        } else if (std::strcmp(var, "y") == 0) {
             return y;
         }
         throw std::invalid_argument("Unknown variable");

@@ -13,6 +13,7 @@
 #include <string>
 #include <functional>
 #include <iostream>
+#include <cstring>
 
 #ifdef SXEVAL_DEBUG
 #include <sstream>
@@ -65,7 +66,7 @@ template <typename T>
 sxeval::SXEval<T>::SXEval(char* exp,
     const resolveVariable_t<T>& resolveVariable)
 {
-    sexp_t *sexp = parse_sexp(exp, strlen(exp));
+    sexp_t *sexp = parse_sexp(exp, std::strlen(exp));
     std::vector<AInstruction<T>*> dummyargs;
     _build(_operations, _operands, sexp, dummyargs, resolveVariable);
     destroy_sexp(sexp);

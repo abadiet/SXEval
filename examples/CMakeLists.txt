@@ -1,12 +1,13 @@
 cmake_minimum_required(VERSION 3.10)
 
-set(FLAGS_FIX_LIB_GNU -Wno-error=strict-prototypes
+set(FLAGS_FIX_LIB_COMMON -Wno-error=strict-prototypes
     -Wno-error=missing-prototypes -Wno-error=implicit-fallthrough
     -Wno-error=sign-conversion -Wno-error=sign-compare -Wno-error=padded)
-set(FLAGS_FIX_LIB_CLANG ${FLAGS_FIX_LIB_GNU} -Wno-error=documentation-html
-	-Wno-error=missing-variable-declarations
-	-Wno-error=tautological-unsigned-zero-compare
-	-Wno-error=covered-switch-default)
+set(FLAGS_FIX_LIB_GNU ${FLAGS_FIX_LIB_COMMON} -Wno-error=type-limits)
+set(FLAGS_FIX_LIB_CLANG ${FLAGS_FIX_LIB_COMMON} -Wno-error=documentation-html
+    -Wno-error=missing-variable-declarations
+    -Wno-error=tautological-unsigned-zero-compare
+    -Wno-error=covered-switch-default)
 set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
@@ -39,8 +40,7 @@ foreach(SUBDIR ${SUBDIRS})
 				-Wundef -Wcast-align -Wwrite-strings -Wconversion
 				-Wunreachable-code -Wpedantic -Wshadow -Wwrite-strings
 				-Wcast-qual -Wstrict-aliasing -Wpointer-arith -Wformat=2
-				-Wmissing-prototypes -Wimplicit-fallthrough -Wextra-semi
-				-Wno-error=c++98-compat -Wno-error=c++98-compat-pedantic
+				-Wimplicit-fallthrough
 				${FLAGS_FIX_LIB_GNU}>
 			)
 			if(SXEVAL_DEBUG)

@@ -19,7 +19,7 @@ public:
     virtual void execute() = 0;
 
 protected:
-    T _result;
+    T _result = T();
     const std::vector<AInstruction<T>*> _args;
 
 };

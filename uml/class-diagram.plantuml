@@ -18,7 +18,7 @@ package sxeval {
     }
 
     abstract class AOperation<T> extends AInstruction {
-        #_args : std::vector<AInstruction<T>*>
+        #_args : const std::vector<AInstruction<T>*>
         #_result : T
         +AOperation(args : const std::vector<AInstruction<T>*>&)
         +{abstract} execute()
