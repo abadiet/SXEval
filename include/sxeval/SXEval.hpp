@@ -34,6 +34,7 @@ using operands_t = std::vector<std::unique_ptr<AOperand<T>>>;
 template <typename T>
 class SXEval {
 public:
+    SXEval() {}
     SXEval(sexp_t sexp, const resolveVariable_t<T>& resolveVariable);
     SXEval(char* exp, const resolveVariable_t<T>& resolveVariable);
 

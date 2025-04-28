@@ -5,6 +5,7 @@ package sxeval {
     class SXEval<T> {
         -_operations : std::vector<std::unique_ptr<AOperation<T>>>
         -_operands : std::vector<std::unique_ptr<AOperand<T>>>
+        +SXEval()
         +SXEval(exp : sexp_t, std::function<T&(const char*)>)
         +SXEval(exp : char*, std::function<T&(const char*)>)
         +evaluate() : T
