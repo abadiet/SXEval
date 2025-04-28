@@ -43,21 +43,22 @@ package sxeval {
         class Operations<T> {
             +{static} UNLIMITED_ARITY : const int := -1
             +{static} create(key : const std::string&, args : const std::vector<AInstruction<T>*>) : std::unique_ptr<AOperation<T>>
+            -checkArity(key : const std::string&, nArgs : int, arityMin : int, arityMax : int)
         }
 
         class Addition<T> {
-            +{static} KEY : const char* := "+"
-            +{static} ARITY_MIN : const int := 2
-            +{static} ARITY_MAX : const int := Operations<T>::UNLIMITED_ARITY
-            +Addition(args : const std::vector<AInstruction<T>*>&)
+            #{static} KEY : const char* := "+"
+            #{static} ARITY_MIN : const int := 2
+            #{static} ARITY_MAX : const int := Operations<T>::UNLIMITED_ARITY
+            #Addition(args : const std::vector<AInstruction<T>*>&)
             +execute()
         }
 
         class Greater<T> {
-            +{static} KEY : const char* := ">"
-            +{static} ARITY_MIN : const int := 2
-            +{static} ARITY_MAX : const int := 2
-            +Greater(args : const std::vector<AInstruction<T>*>&)
+            #{static} KEY : const char* := ">"
+            #{static} ARITY_MIN : const int := 2
+            #{static} ARITY_MAX : const int := 2
+            #Greater(args : const std::vector<AInstruction<T>*>&)
             +execute()
         }
 
