@@ -77,7 +77,7 @@ sxeval::SXEval<T>::SXEval(char* exp,
 template <typename T>
 T sxeval::SXEval<T>::evaluate() const {
     if (_operations.size() == 0) {
-        return std::runtime_error("No operations found");
+        throw std::runtime_error("No operations found");
     }
     for (const auto& op : _operations) {
         op->execute();
