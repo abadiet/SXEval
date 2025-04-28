@@ -2,7 +2,7 @@
 #define SXEVAL_OPERATIONS_ADDITION_HPP
 
 #include "sxeval/AOperation.hpp"
-
+#include <string>
 
 /* DEFINITIONS */
 
@@ -15,6 +15,9 @@ class Operations;
 template <typename T>
 class Addition : public AOperation<T> {
 public:
+    void execute() override;
+
+protected:
     static constexpr const char *KEY = "+";
     static constexpr const int ARITY_MIN = 2;
     static constexpr const int ARITY_MAX = Operations<T>::UNLIMITED_ARITY;
@@ -22,7 +25,7 @@ public:
     inline Addition(const std::vector<AInstruction<T>*>& args) :
         AOperation<T>(args) {}
 
-    void execute() override;
+    friend class Operations<T>;
 
 };
 

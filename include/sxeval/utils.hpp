@@ -69,7 +69,9 @@ inline unsigned char sxeval::stringToType<unsigned char>(const char* str) {
 }
 
 template<>
-inline unsigned long int sxeval::stringToType<unsigned long int>(const char* str) {
+inline unsigned long int sxeval::stringToType<unsigned long int>(
+    const char* str)
+{
     unsigned long int res;
     if (sscanf(str, "%lu", &res) != 1) {
         throw std::invalid_argument("Invalid unsigned long int string");
