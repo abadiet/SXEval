@@ -15,7 +15,7 @@ T stringToType(const char* str);
 /* IMPLEMENTATIONS */
 
 template<>
-int sxeval::stringToType<int>(const char* str) {
+inline int sxeval::stringToType<int>(const char* str) {
     int res;
     if (sscanf(str, "%d", &res) != 1) {
         throw std::invalid_argument("Invalid integer string");
@@ -24,7 +24,7 @@ int sxeval::stringToType<int>(const char* str) {
 }
 
 template<>
-signed char sxeval::stringToType<signed char>(const char* str) {
+inline signed char sxeval::stringToType<signed char>(const char* str) {
     signed char res;
     if (sscanf(str, "%hhd", &res) != 1) {
         throw std::invalid_argument("Invalid signed char string");
@@ -33,7 +33,7 @@ signed char sxeval::stringToType<signed char>(const char* str) {
 }
 
 template<>
-short int sxeval::stringToType<short int>(const char* str) {
+inline short int sxeval::stringToType<short int>(const char* str) {
     short int res;
     if (sscanf(str, "%hd", &res) != 1) {
         throw std::invalid_argument("Invalid short int string");
@@ -42,7 +42,7 @@ short int sxeval::stringToType<short int>(const char* str) {
 }
 
 template<>
-long int sxeval::stringToType<long int>(const char* str) {
+inline long int sxeval::stringToType<long int>(const char* str) {
     long int res;
     if (sscanf(str, "%ld", &res) != 1) {
         throw std::invalid_argument("Invalid long int string");
@@ -51,7 +51,7 @@ long int sxeval::stringToType<long int>(const char* str) {
 }
 
 template<>
-unsigned int sxeval::stringToType<unsigned int>(const char* str) {
+inline unsigned int sxeval::stringToType<unsigned int>(const char* str) {
     unsigned int res;
     if (sscanf(str, "%u", &res) != 1) {
         throw std::invalid_argument("Invalid unsigned int string");
@@ -60,7 +60,7 @@ unsigned int sxeval::stringToType<unsigned int>(const char* str) {
 }
 
 template<>
-unsigned char sxeval::stringToType<unsigned char>(const char* str) {
+inline unsigned char sxeval::stringToType<unsigned char>(const char* str) {
     unsigned char res;
     if (sscanf(str, "%hhu", &res) != 1) {
         throw std::invalid_argument("Invalid unsigned char string");
@@ -69,7 +69,7 @@ unsigned char sxeval::stringToType<unsigned char>(const char* str) {
 }
 
 template<>
-unsigned long int sxeval::stringToType<unsigned long int>(const char* str) {
+inline unsigned long int sxeval::stringToType<unsigned long int>(const char* str) {
     unsigned long int res;
     if (sscanf(str, "%lu", &res) != 1) {
         throw std::invalid_argument("Invalid unsigned long int string");
@@ -78,7 +78,7 @@ unsigned long int sxeval::stringToType<unsigned long int>(const char* str) {
 }
 
 template<>
-float sxeval::stringToType<float>(const char* str) {
+inline float sxeval::stringToType<float>(const char* str) {
     float res;
     if (sscanf(str, "%f", &res) != 1) {
         throw std::invalid_argument("Invalid float string");
@@ -87,7 +87,7 @@ float sxeval::stringToType<float>(const char* str) {
 }
 
 template<>
-double sxeval::stringToType<double>(const char* str) {
+inline double sxeval::stringToType<double>(const char* str) {
     double res;
     if (sscanf(str, "%lf", &res) != 1) {
         throw std::invalid_argument("Invalid double string");
@@ -96,7 +96,7 @@ double sxeval::stringToType<double>(const char* str) {
 }
 
 template<>
-long double sxeval::stringToType<long double>(const char* str) {
+inline long double sxeval::stringToType<long double>(const char* str) {
     long double res;
     if (sscanf(str, "%Lf", &res) != 1) {
         throw std::invalid_argument("Invalid long double string");
