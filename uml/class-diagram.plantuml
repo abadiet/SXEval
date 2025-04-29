@@ -9,7 +9,9 @@ package sxeval {
         -_resolveEncapsulated : const resolveEncapsulated_t<T>
         +SXEval()
         +SXEval(exp : char*, const resolveVariable_t& resolveVariable, const resolveEncapsulated_t resolveEncapsulated)
+        +SXEval(exp : char*, const resolveEncapsulated_t resolveEncapsulated, const resolveVariable_t& resolveVariable)
         +evaluate() : T
+        -_SXEval(exp : char*, const resolveVariable_t& resolveVariable)
         -_build(omitted for clarity)
     }
 

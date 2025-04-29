@@ -39,10 +39,15 @@ public:
         const resolveVariable_t<T>& resolveVariable = resolveVariable_t<T>(),
         const resolveEncapsulated_t<T> resolveEncapsulated
         = resolveEncapsulated_t<T>());
+    SXEval(char* exp,
+        const resolveEncapsulated_t<T> resolveEncapsulated
+        = resolveEncapsulated_t<T>(),
+        const resolveVariable_t<T>& resolveVariable = resolveVariable_t<T>());
 
     T evaluate() const;
 
 private:
+    void _SXEval(char *exp, const resolveVariable_t<T>& resolveVariable);
     void _build(sexp_t *exp, std::vector<AInstruction<T>*>& args,
         const resolveVariable_t<T>& resolveVariable);
 
@@ -63,6 +68,22 @@ sxeval::SXEval<T>::SXEval(char* exp,
     const resolveVariable_t<T>& resolveVariable,
     const resolveEncapsulated_t<T> resolveEncapsulated) :
     _resolveEncapsulated(resolveEncapsulated)
+{
+    _SXEval(exp, resolveVariable);
+}
+
+template <typename T>
+sxeval::SXEval<T>::SXEval(char* exp,
+    const resolveEncapsulated_t<T> resolveEncapsulated,
+    const resolveVariable_t<T>& resolveVariable) :
+    _resolveEncapsulated(resolveEncapsulated)
+{
+    _SXEval(exp, resolveVariable);
+}
+
+template <typename T>
+void sxeval::SXEval<T>::_SXEval(char* exp,
+    const resolveVariable_t<T>& resolveVariable)
 {
     sexp_t *sexp = parse_sexp(exp, std::strlen(exp));
     std::vector<AInstruction<T>*> dummyargs;
