@@ -5,7 +5,7 @@ Currently supported types include:
 `int`, `signed int`, `short int`, `long int`, `unsigned int`, `unsigned char`,
 `unsigned long int`, `float`, `double` and `long double`.
 
-Based on the origianl C library [SXEval-C](https://github.com/abadiet/SXEval-C).
+Based on the original C library [SXEval-C](https://github.com/abadiet/SXEval-C).
 
 ## Class Diagram
 <img src="https://github.com/abadiet/SXEval/blob/main/uml/class-diagram.png">
