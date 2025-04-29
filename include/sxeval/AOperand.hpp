@@ -9,6 +9,7 @@ template <typename T>
 class AOperand : public AInstruction<T> {
 public:
     inline AOperand(T& result) : AInstruction<T>(result) {}
+    virtual ~AOperand() = default;
 
 };
 

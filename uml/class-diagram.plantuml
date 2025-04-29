@@ -5,9 +5,10 @@ package sxeval {
     class SXEval<T> {
         -_operations : std::vector<std::unique_ptr<AOperation<T>>>
         -_operands : std::vector<std::unique_ptr<AOperand<T>>>
+        -_encapsulated : std::vector<EncapsulatedVariable<T>*>
+        -_resolveEncapsulated : const resolveEncapsulated_t<T>
         +SXEval()
-        +SXEval(exp : sexp_t, std::function<T&(const char*)>)
-        +SXEval(exp : char*, std::function<T&(const char*)>)
+        +SXEval(exp : char*, const resolveVariable_t& resolveVariable, const resolveEncapsulated_t resolveEncapsulated)
         +evaluate() : T
         -_build(omitted for clarity)
     }
@@ -38,12 +39,19 @@ package sxeval {
         +Variable(var : T&)
     }
 
+    class EncapsulatedVariable<T> extends AOperand {
+        -_var : T
+        -_get : const std::function<T(void)>&
+        +Variable(get : const std::function<T(void)>&)
+        +retrieve()
+    }
+
     package operations {
 
         class Operations<T> {
             +{static} UNLIMITED_ARITY : const int := -1
             +{static} create(key : const std::string&, args : const std::vector<AInstruction<T>*>) : std::unique_ptr<AOperation<T>>
-            -checkArity(key : const std::string&, nArgs : int, arityMin : int, arityMax : int)
+            -{static} checkArity(key : const std::string&, nArgs : int, arityMin : int, arityMax : int)
         }
 
         class Addition<T> {

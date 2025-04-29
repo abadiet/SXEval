@@ -5,11 +5,14 @@
 int main(int argc, char** argv) {
     if (argc < 2) {
         std::cerr << "Usage: " << argv[0] << " <expression>" << std::endl;
+        std::cerr << "Example: " << argv[0] << " '(+ x 3 -4 y)'" << std::endl;
         return 1;
     }
 
+    /* variables */
     int x = 0, y = 0;
 
+    /* resolveVariable function */
     auto resolveVariable = [&](const char* var) -> int& {
         if (std::strcmp(var, "x") == 0) {
             return x;
@@ -22,6 +25,7 @@ int main(int argc, char** argv) {
     sxeval::SXEval<int> eval(argv[1], resolveVariable);
 
     {
+        /* first evaluation */
         x = 5;
         y = 10;
         int result = eval.evaluate();
@@ -30,6 +34,7 @@ int main(int argc, char** argv) {
     }
 
     {
+        /* second evaluation */
         x = 3;
         y = 2;
         int result = eval.evaluate();

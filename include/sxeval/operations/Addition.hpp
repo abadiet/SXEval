@@ -2,7 +2,7 @@
 #define SXEVAL_OPERATIONS_ADDITION_HPP
 
 #include "sxeval/AOperation.hpp"
-#include <string>
+
 
 /* DEFINITIONS */
 

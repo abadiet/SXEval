@@ -13,6 +13,4 @@ public:
 };
 
 } /* namespace sxeval */
-
-
 #endif /* SXEVAL_VARIABLE_HPP */
