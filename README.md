@@ -54,12 +54,12 @@ Result: 13 for expression '(+ 2 x (+ 3 4 y) -3 y)' with x=3 and y=2
 Variable names can be anything except `true` or `false`. These are
 reserved and defined as constant values `1` and `0`.
 
-Variables can be passed to the SXEval either by reference (usual way) or by
+Variables can be passed to SXEval either by reference (usual way) or by
 value (encapsulated way). The latter is not recommended as it is a little bit
 slower. The difference is highlighted in [/examples/encapsulated-variables](https://github.com/abadiet/SXEval/tree/main/examples/encapsulated-variables).
 
 ## Operations
-Custom operations can be easily added to the SXEval. In addition, several ones
+Custom operations can be easily added to SXEval. In addition, several ones
 are available. Please note that some of them may introduce approximations if used
 with floating-point types.
 
