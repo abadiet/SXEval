@@ -41,9 +41,9 @@ void sxeval::operations::Equal<T>::execute() {
     this->_result = static_cast<T>(1);
     size_t i = 0;
     bool verif = true;
-    while (verif) {
-        verif = sxeval::Equal(this->_args[i + 1]->getResult(),
-            this->_args[i]->getResult());
+    while (verif && (i + 1) < this->_args.size()) {
+        verif = sxeval::Equal(this->_args[i]->getResult(),
+            this->_args[i + 1]->getResult());
         ++i;
     }
     if (verif) {
