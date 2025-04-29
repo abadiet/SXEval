@@ -4,6 +4,9 @@
 #define SXEVAL_EPSILON 0.000001
 
 #include <type_traits>
+#include <cmath>
+#include <stdexcept>
+#include <cstdio>
 
 
 /* DEFINITIONS */

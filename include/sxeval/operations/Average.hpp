@@ -41,7 +41,7 @@ void sxeval::operations::Average<T>::execute() {
     for (const auto& arg : this->_args) {
         this->_result += arg->getResult();
     }
-    this->_result /= this->_args.size();
+    this->_result /= static_cast<T>(this->_args.size());
 }
 
 #endif /* SXEVAL_OPERATIONS_AVERAGE_HPP */
