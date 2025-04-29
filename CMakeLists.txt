@@ -49,7 +49,7 @@ set(FLAGS_FIX_LIB_CLANG ${FLAGS_FIX_LIB_COMMON} -Wno-error=documentation-html
     -Wno-error=missing-variable-declarations
     -Wno-error=tautological-unsigned-zero-compare
     -Wno-error=covered-switch-default)
-set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 target_compile_options(${PROJECT_NAME} PRIVATE
     $<$<CXX_COMPILER_ID:AppleClang>:-O3 -Wall -Wextra -Werror -Wfloat-equal

@@ -1,0 +1,65 @@
+<Operations>
+    <!-- Mathematical Operators -->
+    <Operation name="Addition" key="+" min_arity="2" max_arity="-1" cpp_op="+"/>
+    <Operation name="Subtraction" key="-" min_arity="2" max_arity="-1" cpp_op="-"/>
+    <Operation name="Multiplication" key="*" min_arity="2" max_arity="-1" cpp_op="*"/>
+    <Operation name="Division" key="/" min_arity="2" max_arity="-1" cpp_op="/"/>
+    <Operation name="Modulo" key="%" min_arity="2" max_arity="-1" cpp_op="sxeval::Modulo&lt;T&gt;"/>
+    <Operation name="Exponentiation" key="^" min_arity="2" max_arity="-1" cpp_op="std::pow"/>
+
+    <!-- Equalities & Inequalities -->
+    <Operation name="Equal" key="=" min_arity="2" max_arity="-1" cpp_op="sxeval"/>
+    <Operation name="NotEqual" key="!=" min_arity="2" max_arity="-1" cpp_op="sxeval"/>
+    <Operation name="Less" key="&lt;" min_arity="2" max_arity="-1" cpp_op="sxeval"/>
+    <Operation name="Greater" key="&gt;" min_arity="2" max_arity="-1" cpp_op="sxeval"/>
+    <Operation name="LessOrEqual" key="&lt;=" min_arity="2" max_arity="-1" cpp_op="sxeval"/>
+    <Operation name="GreaterOrEqual" key="&gt;=" min_arity="2" max_arity="-1" cpp_op="sxeval"/>
+
+    <!-- Logical Operators -->
+    <Operation name="LogicalAnd" key="and" min_arity="2" max_arity="-1" cpp_op="sxeval"/>
+    <Operation name="LogicalOr" key="or" min_arity="2" max_arity="-1" cpp_op="sxeval"/>
+    <Operation name="LogicalNot" key="not" min_arity="1" max_arity="1" cpp_op="sxeval"/>
+    <Operation name="LogicalXor" key="xor" min_arity="2" max_arity="-1" cpp_op="sxeval"/>
+    <Operation name="LogicalXnor" key="xnor" min_arity="2" max_arity="-1" cpp_op="sxeval"/>
+    <Operation name="LogicalNand" key="nand" min_arity="2" max_arity="-1" cpp_op="sxeval"/>
+    <Operation name="LogicalNor" key="nor" min_arity="2" max_arity="-1" cpp_op="sxeval"/>
+
+    <!-- Functions -->
+    <Operation name="AbsoluteValue" key="abs" min_arity="1" max_arity="1" cpp_op="std::abs"/>
+    <Operation name="Average" key="avg" min_arity="2" max_arity="-1" cpp_op=""/>
+    <Operation name="Ceiling" key="ceil" min_arity="1" max_arity="1" cpp_op="std::ceil"/>
+    <Operation name="Clamp" key="clamp" min_arity="3" max_arity="3" cpp_op="std::clamp"/>
+    <Operation name="Expm1" key="expm1" min_arity="1" max_arity="1" cpp_op="std::expm1"/>
+    <Operation name="Floor" key="floor" min_arity="1" max_arity="1" cpp_op="std::floor"/>
+    <Operation name="Hypotenuse" key="hypot" min_arity="2" max_arity="2" cpp_op="std::hypot"/>
+    <Operation name="NaturalLogarithm" key="ln" min_arity="1" max_arity="1" cpp_op="std::log"/>
+    <Operation name="Logarithm" key="log" min_arity="1" max_arity="1" cpp_op="std::log"/>
+    <Operation name="Logarithm10" key="log10" min_arity="1" max_arity="1" cpp_op="std::log10"/>
+    <Operation name="Logarithm1p" key="log1p" min_arity="1" max_arity="1" cpp_op="std::log1p"/>
+    <Operation name="Logarithm2" key="log2" min_arity="1" max_arity="1" cpp_op="std::log2"/>
+    <Operation name="LogarithmB" key="logB" min_arity="2" max_arity="2" cpp_op=""/>
+    <Operation name="Maximum" key="max" min_arity="2" max_arity="-1" cpp_op="std::max"/>
+    <Operation name="Minimum" key="min" min_arity="2" max_arity="-1" cpp_op="std::min"/>
+    <Operation name="Round" key="round" min_arity="1" max_arity="1" cpp_op="std::round"/>
+    <Operation name="SquareRoot" key="sqrt" min_arity="1" max_arity="1" cpp_op="std::sqrt"/>
+    <Operation name="Truncate" key="trunc" min_arity="1" max_arity="1" cpp_op="std::trunc"/>
+
+    <!-- Trigonometry -->
+    <Operation name="ArcCosine" key="acos" min_arity="1" max_arity="1" cpp_op="std::acos"/>
+    <Operation name="ArcCosh" key="acosh" min_arity="1" max_arity="1" cpp_op="std::acosh"/>
+    <Operation name="ArcSine" key="asin" min_arity="1" max_arity="1" cpp_op="std::asin"/>
+    <Operation name="ArcSinh" key="asinh" min_arity="1" max_arity="1" cpp_op="std::asinh"/>
+    <Operation name="ArcTangent" key="atan" min_arity="1" max_arity="1" cpp_op="std::atan"/>
+    <Operation name="ArcTangent2" key="atan2" min_arity="2" max_arity="2" cpp_op="std::atan2"/>
+    <Operation name="ArcTanh" key="atanh" min_arity="1" max_arity="1" cpp_op="std::atanh"/>
+    <Operation name="Cosine" key="cos" min_arity="1" max_arity="1" cpp_op="std::cos"/>
+    <Operation name="Cosh" key="cosh" min_arity="1" max_arity="1" cpp_op="std::cosh"/>
+    <Operation name="Sine" key="sin" min_arity="1" max_arity="1" cpp_op="std::sin"/>
+    <Operation name="Sinh" key="sinh" min_arity="1" max_arity="1" cpp_op="std::sinh"/>
+    <Operation name="Tangent" key="tan" min_arity="1" max_arity="1" cpp_op="std::tan"/>
+    <Operation name="Tanh" key="tanh" min_arity="1" max_arity="1" cpp_op="std::tanh"/>
+    <Operation name="DegreesToRadians" key="deg2rad" min_arity="1" max_arity="1" cpp_op=""/>
+    <Operation name="RadiansToDegrees" key="rad2deg" min_arity="1" max_arity="1" cpp_op=""/>
+    <Operation name="DegreesToGradians" key="deg2grad" min_arity="1" max_arity="1" cpp_op=""/>
+    <Operation name="GradiansToDegrees" key="grad2deg" min_arity="1" max_arity="1" cpp_op=""/>
+</Operations>

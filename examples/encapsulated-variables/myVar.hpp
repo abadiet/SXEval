@@ -5,11 +5,11 @@ class MyVar {
 public:
     MyVar() : _val(0) {}
 
-    int getValue() const { return _val; }
-    void setValue(int val) { _val = val; }
+    double getValue() const { return _val; }
+    void setValue(double val) { _val = val; }
 
 private:
-    int _val;
+    double _val;
 
 };
 

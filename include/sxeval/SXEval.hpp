@@ -93,7 +93,7 @@ void sxeval::SXEval<T>::_build(sexp_t *exp, std::vector<AInstruction<T>*>& args,
         case SEXP_VALUE:
             if (exp->aty != SEXP_BINARY) {
                 try {
-                    T val = stringToType<T>(exp->val);
+                    T val = StringToType<T>(exp->val);
                     _operands.push_back(std::make_unique<sxeval::Value<T>>(val));
                     #ifdef SXEVAL_DEBUG
                     {
@@ -144,8 +144,31 @@ void sxeval::SXEval<T>::_build(sexp_t *exp, std::vector<AInstruction<T>*>& args,
                             }
                             #endif /* SXEVAL_DEBUG */
                         } catch (...) {
-                            throw std::runtime_error("Unknown variable: " +
-                                std::string(exp->val));
+                            /* last chance, check if it is a false/true keyword
+                             */
+                            if (std::strcmp(exp->val, "true") == 0) {
+                                _operands.push_back(
+                                    std::make_unique<sxeval::Value<T>>(1));
+                            } else if (std::strcmp(exp->val, "false")
+                                == 0)
+                            {
+                                _operands.push_back(
+                                    std::make_unique<sxeval::Value<T>>(0));
+                            } else {
+                                throw std::runtime_error("Unknown variable: " +
+                                    std::string(exp->val));
+                            }
+                            #ifdef SXEVAL_DEBUG
+                            {
+                                std::ostringstream oss;
+                                oss << "[DEBUG] " << __FILE__ << ":" << __LINE__
+                                    << " in " << __func__ << "(): operation"
+                                    << _operations.size()
+                                    << "    found boolean value "
+                                    << exp->val << "\n";
+                                    std::cerr << oss.str();
+                            }
+                            #endif /* SXEVAL_DEBUG */
                         }
                     }
                     /* TODO might be better to not duplicate variables */

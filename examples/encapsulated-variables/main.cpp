@@ -6,12 +6,12 @@
 int main(int argc, char** argv) {
     if (argc < 2) {
         std::cerr << "Usage: " << argv[0] << " <expression>" << std::endl;
-        std::cerr << "Example: " << argv[0] << " '(+ x 3 -4 y a b)'" << std::endl;
+        std::cerr << "Example: " << argv[0] << " '(+ x 3.4 -4.1 y a b)'" << std::endl;
         return 1;
     }
 
     /* variables */
-    int x = 0, y = 0;
+    double x = 0.0, y = 0.0;
 
     /* encapsulated variables */
     MyVar a, b;
@@ -19,7 +19,7 @@ int main(int argc, char** argv) {
     b.setValue(0);
 
     /* resolveVariable function */
-    auto resolveVariable = [&](const char* var) -> int& {
+    auto resolveVariable = [&](const char* var) -> double& {
         if (std::strcmp(var, "x") == 0) {
             return x;
         } else if (std::strcmp(var, "y") == 0) {
@@ -30,7 +30,7 @@ int main(int argc, char** argv) {
 
     /* resolveEncapsulated function */
     auto resolveEncapsulated = [&](const char* var)
-        -> std::function<int(void)>
+        -> std::function<double(void)>
     {
         if (std::strcmp(var, "a") == 0) {
             return [&]() { return a.getValue(); };
@@ -40,29 +40,29 @@ int main(int argc, char** argv) {
         throw std::invalid_argument("Unknown encapsulated variable");
     };
 
-    sxeval::SXEval<int> eval(argv[1], resolveVariable, resolveEncapsulated);
+    sxeval::SXEval<double> eval(argv[1], resolveVariable, resolveEncapsulated);
 
     {
         /* first evaluation */
-        x = 5;
-        y = 10;
-        a.setValue(1);
-        b.setValue(-3);
-        int result = eval.evaluate();
+        x = 5.2;
+        y = 10.7;
+        a.setValue(1.3);
+        b.setValue(-3.5);
+        double result = eval.evaluate();
         printf(
-            "Result: %d for expression '%s' with x=%d, y=%d, a=%d and b=%d\n",
+            "Result: %lf for expression '%s' with x=%lf, y=%lf, a=%lf and b=%lf\n",
             result, argv[1], x, y, a.getValue(), b.getValue());
     }
 
     {
         /* second evaluation */
-        x = 3;
-        y = 2;
-        a.setValue(4);
-        b.setValue(7);
-        int result = eval.evaluate();
+        x = 3.5;
+        y = 2.0;
+        a.setValue(4.9);
+        b.setValue(7.8);
+        double result = eval.evaluate();
         printf(
-            "Result: %d for expression '%s' with x=%d, y=%d, a=%d and b=%d\n",
+            "Result: %lf for expression '%s' with x=%lf, y=%lf, a=%lf and b=%lf\n",
             result, argv[1], x, y, a.getValue(), b.getValue());
     }
 

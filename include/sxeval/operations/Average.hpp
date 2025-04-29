@@ -1,5 +1,5 @@
-#ifndef SXEVAL_OPERATIONS_ADDITION_HPP
-#define SXEVAL_OPERATIONS_ADDITION_HPP
+#ifndef SXEVAL_OPERATIONS_AVERAGE_HPP
+#define SXEVAL_OPERATIONS_AVERAGE_HPP
 
 #include "sxeval/AOperation.hpp"
 
@@ -13,16 +13,16 @@ template <typename T>
 class Operations;
 
 template <typename T>
-class Addition : public AOperation<T> {
+class Average : public AOperation<T> {
 public:
     void execute() override;
 
 protected:
-    static constexpr const char *KEY = "+";
+    static constexpr const char *KEY = "avg";
     static constexpr const int ARITY_MIN = 2;
     static constexpr const int ARITY_MAX = Operations<T>::UNLIMITED_ARITY;
 
-    inline Addition(const std::vector<AInstruction<T>*>& args) :
+    inline Average(const std::vector<AInstruction<T>*>& args) :
         AOperation<T>(args) {}
 
     friend class Operations<T>;
@@ -36,11 +36,12 @@ protected:
 /* IMPLEMENTATIONS */
 
 template <typename T>
-void sxeval::operations::Addition<T>::execute() {
-    this->_result = this->_args.front()->getResult();
-    for (size_t i = 1; i < this->_args.size(); ++i) {
-        this->_result += this->_args[i]->getResult();
+void sxeval::operations::Average<T>::execute() {
+    this->_result = static_cast<T>(0);
+    for (const auto& arg : this->_args) {
+        this->_result += arg->getResult();
     }
+    this->_result /= this->_args.size();
 }
 
-#endif /* SXEVAL_OPERATIONS_ADDITION_HPP */
+#endif /* SXEVAL_OPERATIONS_AVERAGE_HPP */

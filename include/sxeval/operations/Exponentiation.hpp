@@ -1,7 +1,8 @@
-#ifndef SXEVAL_OPERATIONS_ADDITION_HPP
-#define SXEVAL_OPERATIONS_ADDITION_HPP
+#ifndef SXEVAL_OPERATIONS_EXPONENTIATION_HPP
+#define SXEVAL_OPERATIONS_EXPONENTIATION_HPP
 
 #include "sxeval/AOperation.hpp"
+#include <cmath>
 
 
 /* DEFINITIONS */
@@ -13,16 +14,16 @@ template <typename T>
 class Operations;
 
 template <typename T>
-class Addition : public AOperation<T> {
+class Exponentiation : public AOperation<T> {
 public:
     void execute() override;
 
 protected:
-    static constexpr const char *KEY = "+";
+    static constexpr const char *KEY = "^";
     static constexpr const int ARITY_MIN = 2;
     static constexpr const int ARITY_MAX = Operations<T>::UNLIMITED_ARITY;
 
-    inline Addition(const std::vector<AInstruction<T>*>& args) :
+    inline Exponentiation(const std::vector<AInstruction<T>*>& args) :
         AOperation<T>(args) {}
 
     friend class Operations<T>;
@@ -36,11 +37,12 @@ protected:
 /* IMPLEMENTATIONS */
 
 template <typename T>
-void sxeval::operations::Addition<T>::execute() {
+void sxeval::operations::Exponentiation<T>::execute() {
     this->_result = this->_args.front()->getResult();
     for (size_t i = 1; i < this->_args.size(); ++i) {
-        this->_result += this->_args[i]->getResult();
+        this->_result = static_cast<T>(std::pow(this->_result,
+            this->_args[i]->getResult()));
     }
 }
 
-#endif /* SXEVAL_OPERATIONS_ADDITION_HPP */
+#endif /* SXEVAL_OPERATIONS_EXPONENTIATION_HPP */
