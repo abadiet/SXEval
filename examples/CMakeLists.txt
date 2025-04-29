@@ -47,7 +47,8 @@ foreach(SUBDIR ${SUBDIRS})
 				target_compile_options(${TARGET_NAME} PRIVATE -DSXEVAL_DEBUG)
 			endif()
 
-			# Link Libraries
+			# Dependencies
+			target_include_directories(${TARGET_NAME} PRIVATE ${SXEVAL_INCLUDE})
 			target_link_libraries(${TARGET_NAME} PRIVATE sxeval)
         endif()
     endif()

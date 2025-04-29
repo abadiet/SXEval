@@ -33,8 +33,9 @@ if (UPDATE_SUBMODULES)
 endif()
 
 # Sources
-file(GLOB_RECURSE SOURCES src/*.cpp lib/sfsexp/src/*.c)
-file(GLOB_RECURSE INCLUDES include/*.hpp lib/sfsexp/src/*.h)
+file(GLOB_RECURSE SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp ${CMAKE_CURRENT_SOURCE_DIR}/lib/sfsexp/src/*.c)
+file(GLOB_RECURSE INCLUDES ${CMAKE_CURRENT_SOURCE_DIR}/include/*.hpp ${CMAKE_CURRENT_SOURCE_DIR}/lib/sfsexp/src/*.h)
+set(SXEVAL_INCLUDE ${CMAKE_CURRENT_SOURCE_DIR}/include)
 
 # Library
 add_library(${PROJECT_NAME} ${SOURCES} ${INCLUDES})
@@ -71,10 +72,14 @@ if(SXEVAL_DEBUG)
     target_compile_options(${PROJECT_NAME} PRIVATE -DSXEVAL_DEBUG)
 endif()
 
-# Includes
-target_include_directories(${PROJECT_NAME} PUBLIC include lib/sfsexp/src)
+# Dependencies
+file(GLOB_RECURSE SFSEXP_SOURCE ${CMAKE_CURRENT_SOURCE_DIR}/lib/sfsexp/src/*.c ${CMAKE_CURRENT_SOURCE_DIR}/lib/sfsexp/src/*.h)
+set(SFSEXP_INCLUDE ${CMAKE_CURRENT_SOURCE_DIR}/lib/sfsexp/src)
+add_library(sfsexp STATIC ${SFSEXP_SOURCE})
+target_include_directories(${PROJECT_NAME} PUBLIC ${SFSEXP_INCLUDE})
+target_link_libraries(${PROJECT_NAME} PRIVATE sfsexp)
 
-#Examples
+# Examples
 if(BUILD_EXAMPLES)
     add_subdirectory(examples)
 endif()
