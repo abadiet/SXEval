@@ -39,11 +39,15 @@ protected:
 template <typename T>
 void sxeval::operations::NotEqual<T>::execute() {
     this->_result = static_cast<T>(1);
-    size_t i = 0;
+    size_t i = 1, j;
     bool verif = true;
-    while (verif && (i + 1) < this->_args.size()) {
-        verif = sxeval::NotEqual(this->_args[i]->getResult(),
-            this->_args[i + 1]->getResult());
+    while (verif && i < this->_args.size()) {
+        j = 0;
+        while (verif && j < i) {
+            verif = sxeval::NotEqual(this->_args[j]->getResult(),
+                this->_args[i]->getResult());
+            ++j;
+        }
         ++i;
     }
     if (verif) {
