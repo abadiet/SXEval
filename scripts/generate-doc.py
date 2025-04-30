@@ -6,8 +6,8 @@ def xml_to_markdown_array(xml_file):
     root = tree.getroot()
 
     md_lines = []
-    header = "| Name | Key | Min Arity | Max Arity |"
-    separator = "|------|-----|-----------|-----------|"
+    header = "| Name | Key | Min Arity | Max Arity | Details |"
+    separator = "|------|-----|-----------|-----------|---------|"
     md_lines.append(header)
     md_lines.append(separator)
 
@@ -20,7 +20,11 @@ def xml_to_markdown_array(xml_file):
             max_arity = '∞'
         if min_arity == '-1':
             min_arity = '∞'
-        line = f"| {name} | `{key}` | {min_arity} | {max_arity} |"
+        operation = op.attrib.get('cpp_op', '')
+        details = op.attrib.get('details', '')
+        if not details and "std::" in operation:
+            details = f'c.f. `{operation}`'
+        line = f"| {name} | `{key}` | {min_arity} | {max_arity} | {details} |"
         md_lines.append(line)
 
     return md_lines

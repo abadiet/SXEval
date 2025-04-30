@@ -1,28 +1,28 @@
 <Operations>
     <!-- Mathematical Operators -->
     <Operation name="Addition" key="+" min_arity="2" max_arity="-1" cpp_op="+"/>
-    <Operation name="Subtraction" key="-" min_arity="2" max_arity="-1" cpp_op="-"/>
+    <Operation name="Subtraction" key="-" min_arity="2" max_arity="-1" cpp_op="-" details="First argument substracted by the other ones `arg0 - arg1 - arg2 ...`"/>
     <Operation name="Multiplication" key="*" min_arity="2" max_arity="-1" cpp_op="*"/>
-    <Operation name="Division" key="/" min_arity="2" max_arity="-1" cpp_op="/"/>
-    <Operation name="Modulo" key="%" min_arity="2" max_arity="-1" cpp_op="sxeval::Modulo&lt;T&gt;"/>
-    <Operation name="Exponentiation" key="^" min_arity="2" max_arity="-1" cpp_op="std::pow"/>
+    <Operation name="Division" key="/" min_arity="2" max_arity="-1" cpp_op="/" details="First argument divided by the other ones `arg0 / arg1 / arg2 ...`"/>
+    <Operation name="Modulo" key="%" min_arity="2" max_arity="-1" cpp_op="sxeval::Modulo&lt;T&gt;" details="First argument modulo the other ones `arg0 % arg1 % arg2 ...`"/>
+    <Operation name="Exponentiation" key="^" min_arity="2" max_arity="-1" cpp_op="std::pow" details="First argument exponentiate by the other ones `arg0 ^ arg1 ^ arg2 ...`"/>
 
     <!-- Equalities & Inequalities -->
-    <Operation name="Equal" key="=" min_arity="2" max_arity="-1" cpp_op="sxeval"/>
-    <Operation name="NotEqual" key="!=" min_arity="2" max_arity="-1" cpp_op="sxeval"/>
-    <Operation name="Less" key="&lt;" min_arity="2" max_arity="-1" cpp_op="sxeval"/>
-    <Operation name="Greater" key="&gt;" min_arity="2" max_arity="-1" cpp_op="sxeval"/>
-    <Operation name="LessOrEqual" key="&lt;=" min_arity="2" max_arity="-1" cpp_op="sxeval"/>
-    <Operation name="GreaterOrEqual" key="&gt;=" min_arity="2" max_arity="-1" cpp_op="sxeval"/>
+    <Operation name="Equal" key="=" min_arity="2" max_arity="-1" cpp_op="sxeval" details="Return `true` (i.e. `1`) if all the arguments are equal"/>
+    <Operation name="NotEqual" key="!=" min_arity="2" max_arity="-1" cpp_op="sxeval" details="Return `true` (i.e. `1`) if all the arguments are not equal"/>
+    <Operation name="Less" key="&lt;" min_arity="2" max_arity="-1" cpp_op="sxeval" details="Return `true` (i.e. `1`) if the arguments are sorted in strict ascending order."/>
+    <Operation name="Greater" key="&gt;" min_arity="2" max_arity="-1" cpp_op="sxeval" details="Return `true` (i.e. `1`) if the arguments are sorted in strict descending order."/>
+    <Operation name="LessOrEqual" key="&lt;=" min_arity="2" max_arity="-1" cpp_op="sxeval" details="Return `true` (i.e. `1`) if the arguments are sorted in non-strict ascending order."/>
+    <Operation name="GreaterOrEqual" key="&gt;=" min_arity="2" max_arity="-1" cpp_op="sxeval" details="Return `true` (i.e. `1`) if the arguments are sorted in non-strict descending order."/>
 
     <!-- Logical Operators -->
-    <Operation name="LogicalAnd" key="and" min_arity="2" max_arity="-1" cpp_op="sxeval"/>
-    <Operation name="LogicalOr" key="or" min_arity="2" max_arity="-1" cpp_op="sxeval"/>
-    <Operation name="LogicalNot" key="not" min_arity="1" max_arity="1" cpp_op="sxeval"/>
-    <Operation name="LogicalXor" key="xor" min_arity="2" max_arity="-1" cpp_op="sxeval"/>
-    <Operation name="LogicalXnor" key="xnor" min_arity="2" max_arity="-1" cpp_op="sxeval"/>
-    <Operation name="LogicalNand" key="nand" min_arity="2" max_arity="-1" cpp_op="sxeval"/>
-    <Operation name="LogicalNor" key="nor" min_arity="2" max_arity="-1" cpp_op="sxeval"/>
+    <Operation name="LogicalAnd" key="and" min_arity="2" max_arity="-1" cpp_op="sxeval" details="Return `true` (i.e. `1`) if all the arguments are `true` (i.e. not `0`)."/>
+    <Operation name="LogicalOr" key="or" min_arity="2" max_arity="-1" cpp_op="sxeval" details="Return `true` (i.e. `1`) if at least one of the arguments is `true` (i.e. not `0`)."/>
+    <Operation name="LogicalNot" key="not" min_arity="1" max_arity="1" cpp_op="sxeval" details="Return `true` (i.e. `1`) if the argument is `false` (i.e. `0`)."/>
+    <Operation name="LogicalXor" key="xor" min_arity="2" max_arity="-1" cpp_op="sxeval" details="Return `true` (i.e. `1`) if the arguments, as boolean values, are not all equal."/>
+    <Operation name="LogicalXnor" key="xnor" min_arity="2" max_arity="-1" cpp_op="sxeval" details="Return `true` (i.e. `1`) if the arguments, as boolean values, are all equal."/>
+    <Operation name="LogicalNand" key="nand" min_arity="2" max_arity="-1" cpp_op="sxeval" details="Return `true` (i.e. `1`) if at least one of the arguments is `false` (i.e. `0`)."/>
+    <Operation name="LogicalNor" key="nor" min_arity="2" max_arity="-1" cpp_op="sxeval" details="Return `true` (i.e. `1`) if all the arguments are `false` (i.e. `0`)."/>
 
     <!-- Functions -->
     <Operation name="AbsoluteValue" key="abs" min_arity="1" max_arity="1" cpp_op="std::abs"/>
@@ -37,7 +37,7 @@
     <Operation name="Logarithm10" key="log10" min_arity="1" max_arity="1" cpp_op="std::log10"/>
     <Operation name="Logarithm1p" key="log1p" min_arity="1" max_arity="1" cpp_op="std::log1p"/>
     <Operation name="Logarithm2" key="log2" min_arity="1" max_arity="1" cpp_op="std::log2"/>
-    <Operation name="LogarithmB" key="logB" min_arity="2" max_arity="2" cpp_op=""/>
+    <Operation name="LogarithmB" key="logB" min_arity="2" max_arity="2" cpp_op="" details="Logarithm base B `logB(x, base)`"/>
     <Operation name="Maximum" key="max" min_arity="2" max_arity="-1" cpp_op="std::max"/>
     <Operation name="Minimum" key="min" min_arity="2" max_arity="-1" cpp_op="std::min"/>
     <Operation name="Round" key="round" min_arity="1" max_arity="1" cpp_op="std::round"/>
