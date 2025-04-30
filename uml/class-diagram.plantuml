@@ -12,7 +12,7 @@ package sxeval {
         +SXEval(exp : char*, const resolveEncapsulated_t resolveEncapsulated, const resolveVariable_t& resolveVariable)
         +evaluate() : T
         -_SXEval(exp : char*, const resolveVariable_t& resolveVariable)
-        -_build(omitted for clarity)
+        -_build(//omitted for clarity//)
     }
 
     abstract class AInstruction<T> {
