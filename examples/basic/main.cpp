@@ -12,7 +12,7 @@ int main(int argc, char** argv) {
     /* variables */
     int x = 0, y = 0;
 
-    /* resolveVariable function */
+    /* associates names to variables */
     auto resolveVariable = [&](const char* var) -> int& {
         if (std::strcmp(var, "x") == 0) {
             return x;
@@ -22,6 +22,7 @@ int main(int argc, char** argv) {
         throw std::invalid_argument("Unknown variable");
     };
 
+    /* build */
     sxeval::SXEval<int> eval(argv[1], resolveVariable);
 
     {

@@ -10,25 +10,27 @@ Based on the original C library [SXEval-C](https://github.com/abadiet/SXEval-C).
 ## Class Diagram
 <img src="https://github.com/abadiet/SXEval/blob/main/uml/class-diagram.png">
 
-## Example
+## Quick-Start
+From [/examples/basic](https://github.com/abadiet/SXEval/tree/main/examples/basic)
 ```cpp
-int x = 0, y = 0;  /* variables */
+/* variables */
+int x = 0, y = 0;
 
 /* associates names to variables */
 auto resolveVariable = [&](const char* var) -> int& {
-    if (strcmp(var, "x") == 0) {
+    if (std::strcmp(var, "x") == 0) {
         return x;
-    } else if (strcmp(var, "y") == 0) {
+    } else if (std::strcmp(var, "y") == 0) {
         return y;
     }
     throw std::invalid_argument("Unknown variable");
 };
 
 /* build */
-sxeval::SXEval<int> eval("(+ 2 x (+ 3 4 y) -3 y)", resolveVariable);
+sxeval::SXEval<int> eval(argv[1], resolveVariable);
 
 {
-    /* first evalualtion */
+    /* first evaluation */
     x = 5;
     y = 10;
     int result = eval.evaluate();
@@ -37,7 +39,7 @@ sxeval::SXEval<int> eval("(+ 2 x (+ 3 4 y) -3 y)", resolveVariable);
 }
 
 {
-    /* second evalualtion */
+    /* second evaluation */
     x = 3;
     y = 2;
     int result = eval.evaluate();
@@ -46,8 +48,9 @@ sxeval::SXEval<int> eval("(+ 2 x (+ 3 4 y) -3 y)", resolveVariable);
 }
 ```
 ```bash
-Result: 31 for expression '(+ 2 x (+ 3 4 y) -3 y)' with x=5 and y=10
-Result: 13 for expression '(+ 2 x (+ 3 4 y) -3 y)' with x=3 and y=2
+❯ ./examples/examples_basic '(+ y -2 (sqrt 16) (> (^ x 2) 20))'
+Result: 13 for expression '(+ y -2 (sqrt 16) (> (^ x 2) 20))' with x=5 and y=10
+Result: 4 for expression '(+ y -2 (sqrt 16) (> (^ x 2) 20))' with x=3 and y=2
 ```
 
 ## Operands
