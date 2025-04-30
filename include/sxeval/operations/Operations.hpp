@@ -416,6 +416,12 @@ sxeval::operations::Operations<T>::create(
             sxeval::operations::DegreesToGradians<T>::ARITY_MAX);
         return std::make_unique<sxeval::operations::DegreesToGradians<T>>(
             sxeval::operations::DegreesToGradians<T>(args));
+	} else if (key == sxeval::operations::GradiansToDegrees<T>::KEY) {
+        checkArity(key, static_cast<int>(args.size()),
+            sxeval::operations::GradiansToDegrees<T>::ARITY_MIN,
+            sxeval::operations::GradiansToDegrees<T>::ARITY_MAX);
+        return std::make_unique<sxeval::operations::GradiansToDegrees<T>>(
+            sxeval::operations::GradiansToDegrees<T>(args));
 	}
     throw std::invalid_argument("Unknown operation key: " + key);
 }

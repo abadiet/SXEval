@@ -48,7 +48,6 @@ foreach(SUBDIR ${SUBDIRS})
 			endif()
 
 			# Dependencies
-			target_include_directories(${TARGET_NAME} PRIVATE ${SXEVAL_INCLUDE})
 			target_link_libraries(${TARGET_NAME} PRIVATE sxeval)
         endif()
     endif()

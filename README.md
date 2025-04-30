@@ -130,4 +130,5 @@ with floating-point types.
 
 ## Dependencies
 - [sfsexp](https://github.com/mjsottile/sfsexp): included as a submodule
+- [catch2](https://github.com/catchorg/Catch2): testing frameworks
 - Requires at least C++17

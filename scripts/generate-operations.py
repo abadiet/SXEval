@@ -194,7 +194,7 @@ def generate_factory(operations, output_path):
             sxeval::operations::{op[0]}<T>::ARITY_MIN,
             sxeval::operations::{op[0]}<T>::ARITY_MAX);
         return std::make_unique<sxeval::operations::{op[0]}<T>>(
-            sxeval::operations::{op[0]}<T>(args));''' for op in operations[1:-1]]) + "\n\t}"
+            sxeval::operations::{op[0]}<T>(args));''' for op in operations[1:]]) + "\n\t}"
     content = TEMPLATE_FACTORY.format(include_ops=include_ops, create=create)
 
     output_path = f"{output_path}/Operations.hpp"

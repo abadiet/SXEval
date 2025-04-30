@@ -2,6 +2,7 @@ cmake_minimum_required(VERSION 3.10)
 
 # Options
 option(BUILD_EXAMPLES "Build examples" ON)
+option(BUILD_TESTS "Performs tests" OFF)
 option(UPDATE_SUBMODULES "Update submodules" ON)
 option(SXEVAL_DEBUG "Debug mode" OFF)
 
@@ -39,6 +40,7 @@ set(SXEVAL_INCLUDE ${CMAKE_CURRENT_SOURCE_DIR}/include)
 
 # Library
 add_library(${PROJECT_NAME} ${SOURCES} ${INCLUDES})
+target_include_directories(${PROJECT_NAME} PUBLIC ${SXEVAL_INCLUDE})
 
 # Flags
 set(FLAGS_FIX_LIB_COMMON -Wno-error=strict-prototypes
@@ -82,4 +84,10 @@ target_link_libraries(${PROJECT_NAME} PRIVATE sfsexp)
 # Examples
 if(BUILD_EXAMPLES)
     add_subdirectory(examples)
+endif()
+
+# Tests
+if(BUILD_TESTS)
+    enable_testing()
+    add_subdirectory(tests)
 endif()
