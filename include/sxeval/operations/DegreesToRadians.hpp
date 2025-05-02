@@ -37,7 +37,7 @@ protected:
 
 template <typename T>
 void sxeval::operations::DegreesToRadians<T>::execute() {
-    this->_result = this->_args[0]->getResult() * static_cast<T>(M_PI / 180.0);
+    this->_result = this->_args[0]->getResult() * static_cast<T>(SXEVAL_PI / 180.0);
 }
 
 #endif /* SXEVAL_OPERATIONS_DEGREESTORADIANS_HPP */

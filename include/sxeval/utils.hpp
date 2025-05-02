@@ -8,6 +8,8 @@
 #include <stdexcept>
 #include <cstdio>
 
+#define SXEVAL_PI 3.14159265358979323846
+
 
 /* DEFINITIONS */
 
