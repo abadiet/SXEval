@@ -1,7 +1,5 @@
 set(TARGET_NAME sxeval_tests)
 
-find_package(Catch2 3 REQUIRED)
-
 file(GLOB TEST_SOURCES "*.cpp")
 add_executable(${TARGET_NAME} ${TEST_SOURCES})
 
