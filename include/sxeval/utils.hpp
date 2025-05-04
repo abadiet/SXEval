@@ -1,8 +1,6 @@
 #ifndef SXEVAL_UTILS_HPP
 #define SXEVAL_UTILS_HPP
 
-#define SXEVAL_EPSILON 0.000001
-
 #include <type_traits>
 #include <cmath>
 #include <stdexcept>
@@ -23,7 +21,7 @@ inline bool Greater(const T& a, const T& b) {
     if constexpr (std::is_integral_v<T>) {
         return a > b;
     } else if constexpr (std::is_floating_point_v<T>) {
-        return (a - b) > static_cast<T>(SXEVAL_EPSILON);
+        return (a - b) > std::numeric_limits<T>::epsilon();
     } else {
         static_assert(std::is_integral_v<T> || std::is_floating_point_v<T>,
             "Unsupported type for greater");
@@ -60,7 +58,7 @@ inline bool TypeToBool(const T& val) {
     if constexpr (std::is_integral_v<T>) {
         return val != 0;
     } else if constexpr (std::is_floating_point_v<T>) {
-        return std::abs(val) > static_cast<T>(SXEVAL_EPSILON);
+        return std::abs(val) > std::numeric_limits<T>::epsilon();
     } else {
         static_assert(std::is_integral_v<T> || std::is_floating_point_v<T>,
             "Unsupported type for TypeToBool");
