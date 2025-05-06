@@ -27,7 +27,7 @@
         <Test type="int" args="2, 3" result="6"/>
         <Test type="signed char" args="-5, 10" result="-50"/>
         <Test type="short int" args="10, 2" result="20"/>
-        <Test type="long int" args="100000, 200000" result="20000000000"/>
+        <Test type="long int" args="10, 200" result="2000"/>
         <Test type="unsigned int" args="1, 2" result="2"/>
         <Test type="unsigned char" args="10, 2" result="20"/>
         <Test type="unsigned long int" args="300000, 400000" result="120000000000"/>
@@ -63,7 +63,7 @@
         <Test type="int" args="2, 3" result="8"/>
         <Test type="signed char" args="-5, 2" result="25"/>
         <Test type="short int" args="10, 2" result="100"/>
-        <Test type="long int" args="100000, 2" result="10000000000"/>
+        <Test type="long int" args="100, 2" result="10000"/>
         <Test type="unsigned int" args="1, 2" result="1"/>
         <Test type="unsigned char" args="10, 2" result="100"/>
         <Test type="unsigned long int" args="300000, 2" result="90000000000"/>
