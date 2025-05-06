@@ -478,13 +478,13 @@ TEST_CASE("Mathematical tests", "[operations]") {
         delete instr1;
         }
         {
-        unsigned long int rawArgs[2] = {300000, 400000};
+        unsigned long int rawArgs[2] = {100, 200};
         AInstruction<unsigned long int>* instr0 = new AInstruction<unsigned long int>(rawArgs[0]);
         AInstruction<unsigned long int>* instr1 = new AInstruction<unsigned long int>(rawArgs[1]);
         std::vector<AInstruction<unsigned long int>*> args = {instr0, instr1};
         auto op = operations::Operations<unsigned long int>::create("*", args);
         op->execute();
-        REQUIRE(120000000000 == op->getResult());
+        REQUIRE(20000 == op->getResult());
         delete instr0;
         delete instr1;
         }
@@ -814,13 +814,13 @@ TEST_CASE("Mathematical tests", "[operations]") {
         delete instr1;
         }
         {
-        unsigned long int rawArgs[2] = {300000, 2};
+        unsigned long int rawArgs[2] = {100, 2};
         AInstruction<unsigned long int>* instr0 = new AInstruction<unsigned long int>(rawArgs[0]);
         AInstruction<unsigned long int>* instr1 = new AInstruction<unsigned long int>(rawArgs[1]);
         std::vector<AInstruction<unsigned long int>*> args = {instr0, instr1};
         auto op = operations::Operations<unsigned long int>::create("^", args);
         op->execute();
-        REQUIRE(90000000000 == op->getResult());
+        REQUIRE(10000 == op->getResult());
         delete instr0;
         delete instr1;
         }

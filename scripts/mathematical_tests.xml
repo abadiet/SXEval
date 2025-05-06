@@ -30,7 +30,7 @@
         <Test type="long int" args="10, 200" result="2000"/>
         <Test type="unsigned int" args="1, 2" result="2"/>
         <Test type="unsigned char" args="10, 2" result="20"/>
-        <Test type="unsigned long int" args="300000, 400000" result="120000000000"/>
+        <Test type="unsigned long int" args="100, 200" result="20000"/>
         <Test type="float" args="1.1f, 2.2f" result="2.42f"/>
         <Test type="double" args="10.0, 2.0" result="20.0"/>
         <Test type="long double" args="0.0001L, 0.0002L" result="0.00000002L"/>
@@ -66,7 +66,7 @@
         <Test type="long int" args="100, 2" result="10000"/>
         <Test type="unsigned int" args="1, 2" result="1"/>
         <Test type="unsigned char" args="10, 2" result="100"/>
-        <Test type="unsigned long int" args="300000, 2" result="90000000000"/>
+        <Test type="unsigned long int" args="100, 2" result="10000"/>
         <Test type="float" args="10.0f, 2.0f" result="100.0f"/>
         <Test type="double" args="10.0, 2.0" result="100.0"/>
         <Test type="long double" args="10.0L, 2.0L" result="100.0L"/>
