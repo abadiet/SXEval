@@ -1,0 +1,554 @@
+<MathematicalTests>
+    <Operation name="Addition" key="+">
+        <Test type="int" args="2, 3" result="5"/>
+        <Test type="signed char" args="-5, 10" result="5"/>
+        <Test type="short int" args="1000, 2000" result="3000"/>
+        <Test type="long int" args="100000, 200000" result="300000"/>
+        <Test type="unsigned int" args="1, 2" result="3"/>
+        <Test type="unsigned char" args="100, 27" result="127"/>
+        <Test type="unsigned long int" args="300000, 400000" result="700000"/>
+        <Test type="float" args="1.0f, 2.2f" result="3.2f"/>
+        <Test type="double" args="1.0, 2.0" result="3.0"/>
+        <Test type="long double" args="1.0L, 2.0L" result="3.0L"/>
+    </Operation>
+    <Operation name="Subtraction" key="-">
+        <Test type="int" args="5, 2" result="3"/>
+        <Test type="signed char" args="10, 5" result="5"/>
+        <Test type="short int" args="2000, 1000" result="1000"/>
+        <Test type="long int" args="300000, 100000" result="200000"/>
+        <Test type="unsigned int" args="5, 3" result="2"/>
+        <Test type="unsigned char" args="127, 27" result="100"/>
+        <Test type="unsigned long int" args="800000, 100000" result="700000"/>
+        <Test type="float" args="5.5f, 2.2f" result="3.3f"/>
+        <Test type="double" args="0.5, 0.3" result="0.2"/>
+        <Test type="long double" args="3.0L, 2.0L" result="1.0L"/>
+    </Operation>
+    <Operation name="Multiplication" key="*">
+        <Test type="int" args="2, 3" result="6"/>
+        <Test type="signed char" args="-5, 10" result="-50"/>
+        <Test type="short int" args="10, 2" result="20"/>
+        <Test type="long int" args="100000, 200000" result="20000000000"/>
+        <Test type="unsigned int" args="1, 2" result="2"/>
+        <Test type="unsigned char" args="10, 2" result="20"/>
+        <Test type="unsigned long int" args="300000, 400000" result="120000000000"/>
+        <Test type="float" args="1.1f, 2.2f" result="2.42f"/>
+        <Test type="double" args="10.0, 2.0" result="20.0"/>
+        <Test type="long double" args="0.0001L, 0.0002L" result="0.00000002L"/>
+    </Operation>
+    <Operation name="Division" key="/">
+        <Test type="int" args="6, 2" result="3"/>
+        <Test type="signed char" args="-50, 10" result="-5"/>
+        <Test type="short int" args="2000, 1000" result="2"/>
+        <Test type="long int" args="300000, 100000" result="3"/>
+        <Test type="unsigned int" args="5, 2" result="2"/>
+        <Test type="unsigned char" args="127, 27" result="4"/>
+        <Test type="unsigned long int" args="800000, 100000" result="8"/>
+        <Test type="float" args="5.5f, 2.2f" result="2.5f"/>
+        <Test type="double" args="2.0, 0.5" result="4.0"/>
+        <Test type="long double" args="2.0L, 0.5L" result="4.0L"/>
+    </Operation>
+    <Operation name="Modulo" key="%">
+        <Test type="int" args="5, 2" result="1"/>
+        <Test type="signed char" args="-50, 10" result="0"/>
+        <Test type="short int" args="2000, 1000" result="0"/>
+        <Test type="long int" args="300000, 100000" result="0"/>
+        <Test type="unsigned int" args="5, 2" result="1"/>
+        <Test type="unsigned char" args="127, 27" result="19"/>
+        <Test type="unsigned long int" args="800000, 100000" result="0"/>
+        <Test type="float" args="5.0f, 2.0f" result="1.0f"/>
+        <Test type="double" args="5.0, 2.0" result="1.0"/>
+        <Test type="long double" args="3.0L, 2.0L" result="1.0L"/>
+    </Operation>
+    <Operation name="Exponentiation" key="^">
+        <Test type="int" args="2, 3" result="8"/>
+        <Test type="signed char" args="-5, 2" result="25"/>
+        <Test type="short int" args="10, 2" result="100"/>
+        <Test type="long int" args="100000, 2" result="10000000000"/>
+        <Test type="unsigned int" args="1, 2" result="1"/>
+        <Test type="unsigned char" args="10, 2" result="100"/>
+        <Test type="unsigned long int" args="300000, 2" result="90000000000"/>
+        <Test type="float" args="10.0f, 2.0f" result="100.0f"/>
+        <Test type="double" args="10.0, 2.0" result="100.0"/>
+        <Test type="long double" args="10.0L, 2.0L" result="100.0L"/>
+    </Operation>
+    <Operation name="Equal" key="=">
+        <Test type="int" args="2, 2" result="1"/>
+        <Test type="signed char" args="-5, -5" result="1"/>
+        <Test type="short int" args="1000, 1000" result="1"/>
+        <Test type="long int" args="100000, 100000" result="1"/>
+        <Test type="unsigned int" args="1, 1" result="1"/>
+        <Test type="unsigned char" args="100, 100" result="1"/>
+        <Test type="unsigned long int" args="300000, 300000" result="1"/>
+        <Test type="float" args="1.1f, 1.1f" result="1"/>
+        <Test type="double" args="0.1, 0.1" result="1"/>
+        <Test type="long double" args="0.0001L, 0.0001L" result="1"/>
+    </Operation>
+    <Operation name="NotEqual" key="!=">
+        <Test type="int" args="2, 3" result="1"/>
+        <Test type="signed char" args="-5, -6" result="1"/>
+        <Test type="short int" args="1000, 2000" result="1"/>
+        <Test type="long int" args="100000, 200000" result="1"/>
+        <Test type="unsigned int" args="1, 2" result="1"/>
+        <Test type="unsigned char" args="100, 27" result="1"/>
+        <Test type="unsigned long int" args="300000, 400000" result="1"/>
+        <Test type="float" args="1.1f, 2.2f" result="1"/>
+        <Test type="double" args="0.1, 0.2" result="1"/>
+        <Test type="long double" args="0.0001L, 0.0002L" result="1"/>
+    </Operation>
+    <Operation name="Less" key="&lt;">
+        <Test type="int" args="2, 3" result="1"/>
+        <Test type="int" args="3, 2" result="0"/>
+        <Test type="signed char" args="-5, -4" result="1"/>
+        <Test type="signed char" args="-4, -5" result="0"/>
+        <Test type="short int" args="1000, 2000" result="1"/>
+        <Test type="short int" args="2000, 1000" result="0"/>
+        <Test type="long int" args="100000, 200000" result="1"/>
+        <Test type="long int" args="200000, 100000" result="0"/>
+        <Test type="unsigned int" args="1, 2" result="1"/>
+        <Test type="unsigned int" args="2, 1" result="0"/>
+        <Test type="unsigned char" args="100, 127" result="1"/>
+        <Test type="unsigned char" args="127, 100" result="0"/>
+        <Test type="unsigned long int" args="300000, 400000" result="1"/>
+        <Test type="unsigned long int" args="400000, 300000" result="0"/>
+        <Test type="float" args="1.1f, 2.2f" result="1"/>
+        <Test type="float" args="2.2f, 1.1f" result="0"/>
+        <Test type="double" args="0.1, 0.2" result="1"/>
+        <Test type="double" args="0.2, 0.1" result="0"/>
+        <Test type="long double" args="0.0001L, 0.0002L" result="1"/>
+        <Test type="long double" args="0.0002L, 0.0001L" result="0"/>
+    </Operation>
+    <Operation name="Greater" key="&gt;">
+        <Test type="int" args="3, 2" result="1"/>
+        <Test type="int" args="2, 3" result="0"/>
+        <Test type="signed char" args="-4, -5" result="1"/>
+        <Test type="signed char" args="-5, -4" result="0"/>
+        <Test type="short int" args="2000, 1000" result="1"/>
+        <Test type="short int" args="1000, 2000" result="0"/>
+        <Test type="long int" args="200000, 100000" result="1"/>
+        <Test type="long int" args="100000, 200000" result="0"/>
+        <Test type="unsigned int" args="2, 1" result="1"/>
+        <Test type="unsigned int" args="1, 2" result="0"/>
+        <Test type="unsigned char" args="127, 100" result="1"/>
+        <Test type="unsigned char" args="100, 127" result="0"/>
+        <Test type="unsigned long int" args="400000, 300000" result="1"/>
+        <Test type="unsigned long int" args="300000, 400000" result="0"/>
+        <Test type="float" args="2.2f, 1.1f" result="1"/>
+        <Test type="float" args="1.1f, 2.2f" result="0"/>
+        <Test type="double" args="0.2, 0.1" result="1"/>
+        <Test type="double" args="0.1, 0.2" result="0"/>
+        <Test type="long double" args="0.0002L, 0.0001L" result="1"/>
+        <Test type="long double" args="0.0001L, 0.0002L" result="0"/>
+    </Operation>
+    <Operation name="LessOrEqual" key="&lt;=">
+        <Test type="int" args="2, 3" result="1"/>
+        <Test type="int" args="3, 2" result="0"/>
+        <Test type="signed char" args="-5, -4" result="1"/>
+        <Test type="signed char" args="-4, -5" result="0"/>
+        <Test type="short int" args="1000, 2000" result="1"/>
+        <Test type="short int" args="2000, 1000" result="0"/>
+        <Test type="long int" args="100000, 200000" result="1"/>
+        <Test type="long int" args="200000, 100000" result="0"/>
+        <Test type="unsigned int" args="1, 2" result="1"/>
+        <Test type="unsigned int" args="2, 1" result="0"/>
+        <Test type="unsigned char" args="100, 127" result="1"/>
+        <Test type="unsigned char" args="127, 100" result="0"/>
+        <Test type="unsigned long int" args="300000, 400000" result="1"/>
+        <Test type="unsigned long int" args="400000, 300000" result="0"/>
+        <Test type="float" args="1.1f, 2.2f" result="1"/>
+        <Test type="float" args="2.2f, 1.1f" result="0"/>
+        <Test type="double" args="0.1, 0.2" result="1"/>
+        <Test type="double" args="0.2, 0.1" result="0"/>
+        <Test type="long double" args="0.0001L, 0.0002L" result="1"/>
+        <Test type="long double" args="0.0002L, 0.0001L" result="0"/>
+    </Operation>
+    <Operation name="GreaterOrEqual" key="&gt;=">
+        <Test type="int" args="3, 2" result="1"/>
+        <Test type="int" args="2, 3" result="0"/>
+        <Test type="signed char" args="-4, -5" result="1"/>
+        <Test type="signed char" args="-5, -4" result="0"/>
+        <Test type="short int" args="2000, 1000" result="1"/>
+        <Test type="short int" args="1000, 2000" result="0"/>
+        <Test type="long int" args="200000, 100000" result="1"/>
+        <Test type="long int" args="100000, 200000" result="0"/>
+        <Test type="unsigned int" args="2, 1" result="1"/>
+        <Test type="unsigned int" args="1, 2" result="0"/>
+        <Test type="unsigned char" args="127, 100" result="1"/>
+        <Test type="unsigned char" args="100, 127" result="0"/>
+        <Test type="unsigned long int" args="400000, 300000" result="1"/>
+        <Test type="unsigned long int" args="300000, 400000" result="0"/>
+        <Test type="float" args="2.2f, 1.1f" result="1"/>
+        <Test type="float" args="1.1f, 2.2f" result="0"/>
+        <Test type="double" args="0.2, 0.1" result="1"/>
+        <Test type="double" args="0.1, 0.2" result="0"/>
+        <Test type="long double" args="0.0002L, 0.0001L" result="1"/>
+        <Test type="long double" args="0.0001L, 0.0002L" result="0"/>
+    </Operation>
+    <Operation name="LogicalAnd" key="and">
+        <Test type="int" args="1, 1" result="1"/>
+        <Test type="int" args="0, 1" result="0"/>
+        <Test type="int" args="1, 0" result="0"/>
+        <Test type="int" args="0, 0" result="0"/>
+        <Test type="signed char" args="1, 1" result="1"/>
+        <Test type="signed char" args="0, 1" result="0"/>
+        <Test type="signed char" args="1, 0" result="0"/>
+        <Test type="signed char" args="0, 0" result="0"/>
+        <Test type="short int" args="1, 1" result="1"/>
+        <Test type="short int" args="0, 1" result="0"/>
+        <Test type="short int" args="1, 0" result="0"/>
+        <Test type="short int" args="0, 0" result="0"/>
+        <Test type="long int" args="1, 1" result="1"/>
+        <Test type="long int" args="0, 1" result="0"/>
+        <Test type="long int" args="1, 0" result="0"/>
+        <Test type="long int" args="0, 0" result="0"/>
+        <Test type="unsigned int" args="1, 1" result="1"/>
+        <Test type="unsigned int" args="0, 1" result="0"/>
+        <Test type="unsigned int" args="1, 0" result="0"/>
+        <Test type="unsigned int" args="0, 0" result="0"/>
+        <Test type="unsigned char" args="1, 1" result="1"/>
+        <Test type="unsigned char" args="0, 1" result="0"/>
+        <Test type="unsigned char" args="1, 0" result="0"/>
+        <Test type="unsigned char" args="0, 0" result="0"/>
+        <Test type="unsigned long int" args="1, 1" result="1"/>
+        <Test type="unsigned long int" args="0, 1" result="0"/>
+        <Test type="unsigned long int" args="1, 0" result="0"/>
+        <Test type="unsigned long int" args="0, 0" result="0"/>
+        <Test type="float" args="1.0f, 1.0f" result="1.0f"/>
+        <Test type="float" args="0.0f, 1.0f" result="0.0f"/>
+        <Test type="float" args="1.0f, 0.0f" result="0.0f"/>
+        <Test type="float" args="0.0f, 0.0f" result="0.0f"/>
+        <Test type="double" args="1.0, 1.0" result="1.0"/>
+        <Test type="double" args="0.0, 1.0" result="0.0"/>
+        <Test type="double" args="1.0, 0.0" result="0.0"/>
+        <Test type="double" args="0.0, 0.0" result="0.0"/>
+        <Test type="long double" args="1.0L, 1.0L" result="1.0L"/>
+        <Test type="long double" args="0.0L, 1.0L" result="0.0L"/>
+        <Test type="long double" args="1.0L, 0.0L" result="0.0L"/>
+        <Test type="long double" args="0.0L, 0.0L" result="0.0L"/>
+    </Operation>
+    <Operation name="LogicalOr" key="or">
+        <Test type="int" args="1, 1" result="1"/>
+        <Test type="int" args="0, 1" result="1"/>
+        <Test type="int" args="1, 0" result="1"/>
+        <Test type="int" args="0, 0" result="0"/>
+        <Test type="signed char" args="1, 1" result="1"/>
+        <Test type="signed char" args="0, 1" result="1"/>
+        <Test type="signed char" args="1, 0" result="1"/>
+        <Test type="signed char" args="0, 0" result="0"/>
+        <Test type="short int" args="1, 1" result="1"/>
+        <Test type="short int" args="0, 1" result="1"/>
+        <Test type="short int" args="1, 0" result="1"/>
+        <Test type="short int" args="0, 0" result="0"/>
+        <Test type="long int" args="1, 1" result="1"/>
+        <Test type="long int" args="0, 1" result="1"/>
+        <Test type="long int" args="1, 0" result="1"/>
+        <Test type="long int" args="0, 0" result="0"/>
+        <Test type="unsigned int" args="1, 1" result="1"/>
+        <Test type="unsigned int" args="0, 1" result="1"/>
+        <Test type="unsigned int" args="1, 0" result="1"/>
+        <Test type="unsigned int" args="0, 0" result="0"/>
+        <Test type="unsigned char" args="1, 1" result="1"/>
+        <Test type="unsigned char" args="0, 1" result="1"/>
+        <Test type="unsigned char" args="1, 0" result="1"/>
+        <Test type="unsigned char" args="0, 0" result="0"/>
+        <Test type="unsigned long int" args="1, 1" result="1"/>
+        <Test type="unsigned long int" args="0, 1" result="1"/>
+        <Test type="unsigned long int" args="1, 0" result="1"/>
+        <Test type="unsigned long int" args="0, 0" result="0"/>
+        <Test type="float" args="1.0f, 1.0f" result="1.0f"/>
+        <Test type="float" args="0.0f, 1.0f" result="1.0f"/>
+        <Test type="float" args="1.0f, 0.0f" result="1.0f"/>
+        <Test type="float" args="0.0f, 0.0f" result="0.0f"/>
+        <Test type="double" args="1.0, 1.0" result="1.0"/>
+        <Test type="double" args="0.0, 1.0" result="1.0"/>
+        <Test type="double" args="1.0, 0.0" result="1.0"/>
+        <Test type="double" args="0.0, 0.0" result="0.0"/>
+        <Test type="long double" args="1.0L, 1.0L" result="1.0L"/>
+        <Test type="long double" args="0.0L, 1.0L" result="1.0L"/>
+        <Test type="long double" args="1.0L, 0.0L" result="1.0L"/>
+        <Test type="long double" args="0.0L, 0.0L" result="0.0L"/>
+    </Operation>
+    <Operation name="LogicalNot" key="not">
+        <Test type="int" args="1" result="0"/>
+        <Test type="int" args="0" result="1"/>
+        <Test type="signed char" args="1" result="0"/>
+        <Test type="signed char" args="0" result="1"/>
+        <Test type="short int" args="1" result="0"/>
+        <Test type="short int" args="0" result="1"/>
+        <Test type="long int" args="1" result="0"/>
+        <Test type="long int" args="0" result="1"/>
+        <Test type="unsigned int" args="1" result="0"/>
+        <Test type="unsigned int" args="0" result="1"/>
+        <Test type="unsigned char" args="1" result="0"/>
+        <Test type="unsigned char" args="0" result="1"/>
+        <Test type="unsigned long int" args="1" result="0"/>
+        <Test type="unsigned long int" args="0" result="1"/>
+        <Test type="float" args="0.0f" result="1.0f"/>
+        <Test type="float" args="1.0f" result="0.0f"/>
+        <Test type="double" args="0.0" result="1.0"/>
+        <Test type="double" args="1.0" result="0.0"/>
+        <Test type="long double" args="0.0L" result="1.0L"/>
+        <Test type="long double" args="1.0L" result="0.0L"/>
+    </Operation>
+    <Operation name="LogicalXor" key="xor">
+        <Test type="int" args="1, 1" result="0"/>
+        <Test type="int" args="0, 1" result="1"/>
+        <Test type="int" args="1, 0" result="1"/>
+        <Test type="int" args="0, 0" result="0"/>
+        <Test type="signed char" args="1, 1" result="0"/>
+        <Test type="signed char" args="0, 1" result="1"/>
+        <Test type="signed char" args="1, 0" result="1"/>
+        <Test type="signed char" args="0, 0" result="0"/>
+        <Test type="short int" args="1, 1" result="0"/>
+        <Test type="short int" args="0, 1" result="1"/>
+        <Test type="short int" args="1, 0" result="1"/>
+        <Test type="short int" args="0, 0" result="0"/>
+        <Test type="long int" args="1, 1" result="0"/>
+        <Test type="long int" args="0, 1" result="1"/>
+        <Test type="long int" args="1, 0" result="1"/>
+        <Test type="long int" args="0, 0" result="0"/>
+        <Test type="unsigned int" args="1, 1" result="0"/>
+        <Test type="unsigned int" args="0, 1" result="1"/>
+        <Test type="unsigned int" args="1, 0" result="1"/>
+        <Test type="unsigned int" args="0, 0" result="0"/>
+        <Test type="unsigned char" args="1, 1" result="0"/>
+        <Test type="unsigned char" args="0, 1" result="1"/>
+        <Test type="unsigned char" args="1, 0" result="1"/>
+        <Test type="unsigned char" args="0, 0" result="0"/>
+        <Test type="unsigned long int" args="1, 1" result="0"/>
+        <Test type="unsigned long int" args="0, 1" result="1"/>
+        <Test type="unsigned long int" args="1, 0" result="1"/>
+        <Test type="unsigned long int" args="0, 0" result="0"/>
+        <Test type="float" args="1.0f, 1.0f" result="0.0f"/>
+        <Test type="float" args="0.0f, 1.0f" result="1.0f"/>
+        <Test type="float" args="1.0f, 0.0f" result="1.0f"/>
+        <Test type="float" args="0.0f, 0.0f" result="0.0f"/>
+        <Test type="double" args="1.0, 1.0" result="0.0"/>
+        <Test type="double" args="0.0, 1.0" result="1.0"/>
+        <Test type="double" args="1.0, 0.0" result="1.0"/>
+        <Test type="double" args="0.0, 0.0" result="0.0"/>
+        <Test type="long double" args="1.0L, 1.0L" result="0.0L"/>
+        <Test type="long double" args="0.0L, 1.0L" result="1.0L"/>
+        <Test type="long double" args="1.0L, 0.0L" result="1.0L"/>
+        <Test type="long double" args="0.0L, 0.0L" result="0.0L"/>
+    </Operation>
+    <Operation name="LogicalXnor" key="xnor">
+        <Test type="int" args="1, 1" result="1"/>
+        <Test type="int" args="0, 1" result="0"/>
+        <Test type="int" args="1, 0" result="0"/>
+        <Test type="int" args="0, 0" result="1"/>
+        <Test type="signed char" args="1, 1" result="1"/>
+        <Test type="signed char" args="0, 1" result="0"/>
+        <Test type="signed char" args="1, 0" result="0"/>
+        <Test type="signed char" args="0, 0" result="1"/>
+        <Test type="short int" args="1, 1" result="1"/>
+        <Test type="short int" args="0, 1" result="0"/>
+        <Test type="short int" args="1, 0" result="0"/>
+        <Test type="short int" args="0, 0" result="1"/>
+        <Test type="long int" args="1, 1" result="1"/>
+        <Test type="long int" args="0, 1" result="0"/>
+        <Test type="long int" args="1, 0" result="0"/>
+        <Test type="long int" args="0, 0" result="1"/>
+        <Test type="unsigned int" args="1, 1" result="1"/>
+        <Test type="unsigned int" args="0, 1" result="0"/>
+        <Test type="unsigned int" args="1, 0" result="0"/>
+        <Test type="unsigned int" args="0, 0" result="1"/>
+        <Test type="unsigned char" args="1, 1" result="1"/>
+        <Test type="unsigned char" args="0, 1" result="0"/>
+        <Test type="unsigned char" args="1, 0" result="0"/>
+        <Test type="unsigned char" args="0, 0" result="1"/>
+        <Test type="unsigned long int" args="1, 1" result="1"/>
+        <Test type="unsigned long int" args="0, 1" result="0"/>
+        <Test type="unsigned long int" args="1, 0" result="0"/>
+        <Test type="unsigned long int" args="0, 0" result="1"/>
+        <Test type="float" args="1.0f, 1.0f" result="1.0f"/>
+        <Test type="float" args="0.0f, 1.0f" result="0.0f"/>
+        <Test type="float" args="1.0f, 0.0f" result="0.0f"/>
+        <Test type="float" args="0.0f, 0.0f" result="1.0f"/>
+        <Test type="double" args="1.0, 1.0" result="1.0"/>
+        <Test type="double" args="0.0, 1.0" result="0.0"/>
+        <Test type="double" args="1.0, 0.0" result="0.0"/>
+        <Test type="double" args="0.0, 0.0" result="1.0"/>
+        <Test type="long double" args="1.0L, 1.0L" result="1.0L"/>
+        <Test type="long double" args="0.0L, 1.0L" result="0.0L"/>
+        <Test type="long double" args="1.0L, 0.0L" result="0.0L"/>
+        <Test type="long double" args="0.0L, 0.0L" result="1.0L"/>
+    </Operation>
+    <Operation name="LogicalNand" key="nand">
+        <Test type="int" args="1, 1" result="0"/>
+        <Test type="int" args="0, 1" result="1"/>
+        <Test type="int" args="1, 0" result="1"/>
+        <Test type="int" args="0, 0" result="1"/>
+        <Test type="signed char" args="1, 1" result="0"/>
+        <Test type="signed char" args="0, 1" result="1"/>
+        <Test type="signed char" args="1, 0" result="1"/>
+        <Test type="signed char" args="0, 0" result="1"/>
+        <Test type="short int" args="1, 1" result="0"/>
+        <Test type="short int" args="0, 1" result="1"/>
+        <Test type="short int" args="1, 0" result="1"/>
+        <Test type="short int" args="0, 0" result="1"/>
+        <Test type="long int" args="1, 1" result="0"/>
+        <Test type="long int" args="0, 1" result="1"/>
+        <Test type="long int" args="1, 0" result="1"/>
+        <Test type="long int" args="0, 0" result="1"/>
+        <Test type="unsigned int" args="1, 1" result="0"/>
+        <Test type="unsigned int" args="0, 1" result="1"/>
+        <Test type="unsigned int" args="1, 0" result="1"/>
+        <Test type="unsigned int" args="0, 0" result="1"/>
+        <Test type="unsigned char" args="1, 1" result="0"/>
+        <Test type="unsigned char" args="0, 1" result="1"/>
+        <Test type="unsigned char" args="1, 0" result="1"/>
+        <Test type="unsigned char" args="0, 0" result="1"/>
+        <Test type="unsigned long int" args="1, 1" result="0"/>
+        <Test type="unsigned long int" args="0, 1" result="1"/>
+        <Test type="unsigned long int" args="1, 0" result="1"/>
+        <Test type="unsigned long int" args="0, 0" result="1"/>
+        <Test type="float" args="1.0f, 1.0f" result="0.0f"/>
+        <Test type="float" args="0.0f, 1.0f" result="1.0f"/>
+        <Test type="float" args="1.0f, 0.0f" result="1.0f"/>
+        <Test type="float" args="0.0f, 0.0f" result="1.0f"/>
+        <Test type="double" args="1.0, 1.0" result="0.0"/>
+        <Test type="double" args="0.0, 1.0" result="1.0"/>
+        <Test type="double" args="1.0, 0.0" result="1.0"/>
+        <Test type="double" args="0.0, 0.0" result="1.0"/>
+        <Test type="long double" args="1.0L, 1.0L" result="0.0L"/>
+        <Test type="long double" args="0.0L, 1.0L" result="1.0L"/>
+        <Test type="long double" args="1.0L, 0.0L" result="1.0L"/>
+        <Test type="long double" args="0.0L, 0.0L" result="1.0L"/>
+    </Operation>
+    <Operation name="LogicalNor" key="nor">
+        <Test type="int" args="1, 1" result="0"/>
+        <Test type="int" args="0, 1" result="0"/>
+        <Test type="int" args="1, 0" result="0"/>
+        <Test type="int" args="0, 0" result="1"/>
+        <Test type="signed char" args="1, 1" result="0"/>
+        <Test type="signed char" args="0, 1" result="0"/>
+        <Test type="signed char" args="1, 0" result="0"/>
+        <Test type="signed char" args="0, 0" result="1"/>
+        <Test type="short int" args="1, 1" result="0"/>
+        <Test type="short int" args="0, 1" result="0"/>
+        <Test type="short int" args="1, 0" result="0"/>
+        <Test type="short int" args="0, 0" result="1"/>
+        <Test type="long int" args="1, 1" result="0"/>
+        <Test type="long int" args="0, 1" result="0"/>
+        <Test type="long int" args="1, 0" result="0"/>
+        <Test type="long int" args="0, 0" result="1"/>
+        <Test type="unsigned int" args="1, 1" result="0"/>
+        <Test type="unsigned int" args="0, 1" result="0"/>
+        <Test type="unsigned int" args="1, 0" result="0"/>
+        <Test type="unsigned int" args="0, 0" result="1"/>
+        <Test type="unsigned char" args="1, 1" result="0"/>
+        <Test type="unsigned char" args="0, 1" result="0"/>
+        <Test type="unsigned char" args="1, 0" result="0"/>
+        <Test type="unsigned char" args="0, 0" result="1"/>
+        <Test type="unsigned long int" args="1, 1" result="0"/>
+        <Test type="unsigned long int" args="0, 1" result="0"/>
+        <Test type="unsigned long int" args="1, 0" result="0"/>
+        <Test type="unsigned long int" args="0, 0" result="1"/>
+        <Test type="float" args="1.0f, 1.0f" result="0.0f"/>
+        <Test type="float" args="0.0f, 1.0f" result="0.0f"/>
+        <Test type="float" args="1.0f, 0.0f" result="0.0f"/>
+        <Test type="float" args="0.0f, 0.0f" result="1.0f"/>
+        <Test type="double" args="1.0, 1.0" result="0.0"/>
+        <Test type="double" args="0.0, 1.0" result="0.0"/>
+        <Test type="double" args="1.0, 0.0" result="0.0"/>
+        <Test type="double" args="0.0, 0.0" result="1.0"/>
+        <Test type="long double" args="1.0L, 1.0L" result="0.0L"/>
+        <Test type="long double" args="0.0L, 1.0L" result="0.0L"/>
+        <Test type="long double" args="1.0L, 0.0L" result="0.0L"/>
+        <Test type="long double" args="0.0L, 0.0L" result="1.0L"/>
+    </Operation>
+    <Operation name="AbsoluteValue" key="abs">
+        <Test type="int" args="-1" result="1"/>
+        <Test type="int" args="1" result="1"/>
+        <Test type="signed char" args="-1" result="1"/>
+        <Test type="signed char" args="1" result="1"/>
+        <Test type="short int" args="-1" result="1"/>
+        <Test type="short int" args="1" result="1"/>
+        <Test type="long int" args="-1" result="1"/>
+        <Test type="long int" args="1" result="1"/>
+        <Test type="float" args="-1.0f" result="1.0f"/>
+        <Test type="float" args="1.0f" result="1.0f"/>
+        <Test type="double" args="-1.0" result="1.0"/>
+        <Test type="double" args="1.0" result="1.0"/>
+        <Test type="long double" args="-1.0L" result="1.0L"/>
+        <Test type="long double" args="1.0L" result="1.0L"/>
+    </Operation>
+    <Operation name="Average" key="avg">
+        <Test type="int" args="1, 2" result="1"/>
+        <Test type="signed char" args="1, 2" result="1"/>
+        <Test type="short int" args="1, 2" result="1"/>
+        <Test type="long int" args="1, 2" result="1"/>
+        <Test type="unsigned int" args="1, 2" result="1"/>
+        <Test type="unsigned char" args="1, 2" result="1"/>
+        <Test type="unsigned long int" args="1, 2" result="1"/>
+        <Test type="float" args="1.0f, 2.0f" result="1.5f"/>
+        <Test type="double" args="1.0, 2.0" result="1.5"/>
+        <Test type="long double" args="1.0L, 2.0L" result="1.5L"/>
+    </Operation>
+    <!-- <Operation name="Ceiling" key="ceil">
+    </Operation>
+    <Operation name="Clamp" key="clamp">
+    </Operation>
+    <Operation name="Expm1" key="expm1">
+    </Operation>
+    <Operation name="Floor" key="floor">
+    </Operation>
+    <Operation name="Hypotenuse" key="hypot">
+    </Operation>
+    <Operation name="NaturalLogarithm" key="ln">
+    </Operation>
+    <Operation name="Logarithm" key="log">
+    </Operation>
+    <Operation name="Logarithm10" key="log10">
+    </Operation>
+    <Operation name="Logarithm1p" key="log1p">
+    </Operation>
+    <Operation name="Logarithm2" key="log2">
+    </Operation>
+    <Operation name="LogarithmB" key="logB">
+    </Operation>
+    <Operation name="Maximum" key="max">
+    </Operation>
+    <Operation name="Minimum" key="min">
+    </Operation>
+    <Operation name="Round" key="round">
+    </Operation>
+    <Operation name="SquareRoot" key="sqrt">
+    </Operation>
+    <Operation name="Truncate" key="trunc">
+    </Operation>
+    <Operation name="ArcCosine" key="acos">
+    </Operation>
+    <Operation name="ArcCosh" key="acosh">
+    </Operation>
+    <Operation name="ArcSine" key="asin">
+    </Operation>
+    <Operation name="ArcSinh" key="asinh">
+    </Operation>
+    <Operation name="ArcTangent" key="atan">
+    </Operation>
+    <Operation name="ArcTangent2" key="atan2">
+    </Operation>
+    <Operation name="ArcTanh" key="atanh">
+    </Operation>
+    <Operation name="Cosine" key="cos">
+    </Operation>
+    <Operation name="Cosh" key="cosh">
+    </Operation>
+    <Operation name="Sine" key="sin">
+    </Operation>
+    <Operation name="Sinh" key="sinh">
+    </Operation>
+    <Operation name="Tangent" key="tan">
+    </Operation>
+    <Operation name="Tanh" key="tanh">
+    </Operation>
+    <Operation name="DegreesToRadians" key="deg2rad">
+    </Operation>
+    <Operation name="RadiansToDegrees" key="rad2deg">
+    </Operation>
+    <Operation name="DegreesToGradians" key="deg2grad">
+    </Operation>
+    <Operation name="GradiansToDegrees" key="grad2deg">
+    </Operation> -->
+</MathematicalTests>

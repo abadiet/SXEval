@@ -2,7 +2,7 @@
 A generic s-expression interpreter library.
 
 Currently supported types include:
-`int`, `signed int`, `short int`, `long int`, `unsigned int`, `unsigned char`,
+`int`, `signed char`, `short int`, `long int`, `unsigned int`, `unsigned char`,
 `unsigned long int`, `float`, `double` and `long double`.
 
 Based on the original C library [SXEval-C](https://github.com/abadiet/SXEval-C).
@@ -87,7 +87,7 @@ with floating-point types.
 | LogicalXnor | `xnor` | 2 | ∞ | Return `true` (i.e. `1`) if the arguments, as boolean values, are all equal. |
 | LogicalNand | `nand` | 2 | ∞ | Return `true` (i.e. `1`) if at least one of the arguments is `false` (i.e. `0`). |
 | LogicalNor | `nor` | 2 | ∞ | Return `true` (i.e. `1`) if all the arguments are `false` (i.e. `0`). |
-| AbsoluteValue | `abs` | 1 | 1 | c.f. `std::abs` |
+| AbsoluteValue | `abs` | 1 | 1 | |
 | Average | `avg` | 2 | ∞ |  |
 | Ceiling | `ceil` | 1 | 1 | c.f. `std::ceil` |
 | Clamp | `clamp` | 3 | 3 | c.f. `std::clamp` |
