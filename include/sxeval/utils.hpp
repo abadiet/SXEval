@@ -112,6 +112,20 @@ inline T Modulo(const T& a, const T& b) {
     }
 }
 
+template<typename T>
+inline T Absolute(const T& a) {
+    if constexpr (std::is_unsigned_v<T>) {
+        return a;
+    } else if constexpr (std::is_integral_v<T>) {
+        return std::abs(a);
+    } else if constexpr (std::is_floating_point_v<T>) {
+        return std::fabs(a);
+    } else {
+        static_assert(std::is_integral_v<T> || std::is_floating_point_v<T>,
+            "Unsupported type for absolute");
+    }
+}
+
 } /* namespace sxeval */
 
 

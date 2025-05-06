@@ -25,7 +25,7 @@
     <Operation name="LogicalNor" key="nor" min_arity="2" max_arity="-1" cpp_op="sxeval" details="Return `true` (i.e. `1`) if all the arguments are `false` (i.e. `0`)."/>
 
     <!-- Functions -->
-    <Operation name="AbsoluteValue" key="abs" min_arity="1" max_arity="1" cpp_op="std::abs"/>
+    <Operation name="AbsoluteValue" key="abs" min_arity="1" max_arity="1" cpp_op="sxeval::Absolute&lt;T&gt;"/>
     <Operation name="Average" key="avg" min_arity="2" max_arity="-1" cpp_op=""/>
     <Operation name="Ceiling" key="ceil" min_arity="1" max_arity="1" cpp_op="std::ceil"/>
     <Operation name="Clamp" key="clamp" min_arity="3" max_arity="3" cpp_op="std::clamp"/>

@@ -2,6 +2,7 @@
 #define SXEVAL_OPERATIONS_ABSOLUTEVALUE_HPP
 
 #include "sxeval/AOperation.hpp"
+#include "sxeval/utils.hpp"
 #include <cmath>
 
 
@@ -38,7 +39,7 @@ protected:
 
 template <typename T>
 void sxeval::operations::AbsoluteValue<T>::execute() {
-    this->_result = static_cast<T>(std::abs(this->_args.front()->getResult()));
+    this->_result = static_cast<T>(sxeval::Absolute<T>(this->_args.front()->getResult()));
 }
 
 #endif /* SXEVAL_OPERATIONS_ABSOLUTEVALUE_HPP */
