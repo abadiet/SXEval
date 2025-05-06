@@ -62,3 +62,10 @@ jobs:
     - name: Test
       working-directory: ${{ steps.strings.outputs.build-output-dir }}
       run: ctest --build-config ${{ matrix.build_type }}
+
+    - name: Upload execution.log artifact
+      if: always()
+      uses: actions/upload-artifact@v3
+      with:
+        name: execution.log
+        path: ${{ steps.strings.outputs.build-output-dir }}/Testing/Temporary/LastTest.log
