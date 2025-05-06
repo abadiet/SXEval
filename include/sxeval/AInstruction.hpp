@@ -7,6 +7,7 @@ template <typename T>
 class AInstruction {
 public:
     inline AInstruction(T& result) : _result(result) {}
+    virtual ~AInstruction() = default;
 
     inline T getResult() const { return _result; }
 

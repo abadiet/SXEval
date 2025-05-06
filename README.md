@@ -48,7 +48,7 @@ sxeval::SXEval<int> eval(argv[1], resolveVariable);
 }
 ```
 ```bash
-❯ ./examples/examples_basic '(+ y -2 (sqrt 16) (> (^ x 2) 20))'
+❯ ./examples/basic '(+ y -2 (sqrt 16) (> (^ x 2) 20))'
 Result: 13 for expression '(+ y -2 (sqrt 16) (> (^ x 2) 20))' with x=5 and y=10
 Result: 4 for expression '(+ y -2 (sqrt 16) (> (^ x 2) 20))' with x=3 and y=2
 ```
@@ -125,10 +125,9 @@ with floating-point types.
 
 ## Options
 - `BUILD_EXAMPLES`: Build examples
-- `UPDATE_SUBMODULES`: Update and download submodules
 - `SXEVAL_DEBUG`: Print debug informations
 
 ## Dependencies
-- [sfsexp](https://github.com/mjsottile/sfsexp): included as a submodule
-- [catch2](https://github.com/catchorg/Catch2): testing frameworks
+- [catch2](https://github.com/catchorg/Catch2): testing frameworks, fetch by
+cmake if option `BUILD_EXAMPLES` is enabled
 - Requires at least C++17

@@ -14,7 +14,7 @@ public:
     inline AOperation(const AOperation& other)
         : AInstruction<T>(_result), _result(other._result),
         _args(other._args) {}
-    virtual ~AOperation() = default;
+    virtual ~AOperation() override = default;
 
     virtual void execute() = 0;
 
