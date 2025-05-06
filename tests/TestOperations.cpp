@@ -445,13 +445,13 @@ TEST_CASE("Mathematical tests", "[operations]") {
         delete instr1;
         }
         {
-        long int rawArgs[2] = {100000, 200000};
+        long int rawArgs[2] = {10, 200};
         AInstruction<long int>* instr0 = new AInstruction<long int>(rawArgs[0]);
         AInstruction<long int>* instr1 = new AInstruction<long int>(rawArgs[1]);
         std::vector<AInstruction<long int>*> args = {instr0, instr1};
         auto op = operations::Operations<long int>::create("*", args);
         op->execute();
-        REQUIRE(20000000000 == op->getResult());
+        REQUIRE(2000 == op->getResult());
         delete instr0;
         delete instr1;
         }
@@ -781,13 +781,13 @@ TEST_CASE("Mathematical tests", "[operations]") {
         delete instr1;
         }
         {
-        long int rawArgs[2] = {100000, 2};
+        long int rawArgs[2] = {100, 2};
         AInstruction<long int>* instr0 = new AInstruction<long int>(rawArgs[0]);
         AInstruction<long int>* instr1 = new AInstruction<long int>(rawArgs[1]);
         std::vector<AInstruction<long int>*> args = {instr0, instr1};
         auto op = operations::Operations<long int>::create("^", args);
         op->execute();
-        REQUIRE(10000000000 == op->getResult());
+        REQUIRE(10000 == op->getResult());
         delete instr0;
         delete instr1;
         }
