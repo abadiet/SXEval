@@ -18,24 +18,19 @@ T StringToType(const char* str);
 
 template<typename T>
 inline bool Greater(const T& a, const T& b) {
-    if constexpr (std::is_integral_v<T>) {
-        return a > b;
-    } else if constexpr (std::is_floating_point_v<T>) {
-        return (a - b) > std::numeric_limits<T>::epsilon();
-    } else {
-        static_assert(std::is_integral_v<T> || std::is_floating_point_v<T>,
-            "Unsupported type for greater");
-    }
-}
-
-template<typename T>
-inline bool Less(const T& a, const T& b) {
-    return !Greater(b, a);
+    return a > b;
 }
 
 template<typename T>
 inline bool Equal(const T& a, const T& b) {
-    return !Greater(a, b) && !Greater(b, a);
+    if constexpr (std::is_integral_v<T>) {
+        return a == b;
+    } else if constexpr (std::is_floating_point_v<T>) {
+        return std::abs(a - b) <= std::numeric_limits<T>::epsilon();
+    } else {
+        static_assert(std::is_integral_v<T> || std::is_floating_point_v<T>,
+            "Unsupported type for equal");
+    }
 }
 
 template<typename T>
@@ -44,13 +39,18 @@ inline bool NotEqual(const T& a, const T& b) {
 }
 
 template<typename T>
-inline bool LessOrEqual(const T& a, const T& b) {
-    return Less(a, b) || Equal(a, b);
+inline bool GreaterOrEqual(const T& a, const T& b) {
+    return Greater(a, b) || Equal(a, b);
 }
 
 template<typename T>
-inline bool GreaterOrEqual(const T& a, const T& b) {
-    return Greater(a, b) || Equal(a, b);
+inline bool Less(const T& a, const T& b) {
+    return !GreaterOrEqual(a, b);
+}
+
+template<typename T>
+inline bool LessOrEqual(const T& a, const T& b) {
+    return Less(a, b) || Equal(a, b);
 }
 
 template<typename T>
