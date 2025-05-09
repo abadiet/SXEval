@@ -5,13 +5,14 @@ TEMPLATE='''
 #include <catch2/catch_test_macros.hpp>
 #include <sxeval/operations/Operations.hpp>
 #include <sxeval/AInstruction.hpp>
+#include <sxeval/Value.hpp>
 {includes}
 
 using namespace sxeval;
 
 TEST_CASE("Operations instanciation", "[operations]") {{
-    int argInt = 0;
-    AInstruction<int>* instr = new AInstruction<int>(argInt);
+    AInstruction<int>* instr = dynamic_cast<AInstruction<int>*>(
+        new Value<int>(0));
     std::vector<AInstruction<int>*> args1;
     args1.push_back(instr);
     std::vector<AInstruction<int>*> args2;
@@ -71,7 +72,8 @@ def generate(operations, mathematical_tests, output_path):
             tests_math += f'        {{\n        {type} rawArgs[{len(args)}] = {{{",".join(args)}}};\n'
             instr_lst = []
             for i in range(len(args)):
-                tests_math += f'        AInstruction<{type}>* instr{i} = new AInstruction<{type}>(rawArgs[{i}]);\n'
+                tests_math += f'''        AInstruction<{type}>* instr{i} = dynamic_cast<AInstruction<{type}>*>(
+        new Value<{type}>(rawArgs[{i}]));\n'''
                 instr_lst.append(f'instr{i}')
             tests_math += f'        std::vector<AInstruction<{type}>*> args = {{{", ".join(instr_lst)}}};\n'
             tests_math += f'        auto op = operations::Operations<{type}>::create("{key}", args);\n'
