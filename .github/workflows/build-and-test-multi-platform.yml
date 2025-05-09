@@ -2,9 +2,9 @@ name: Build and test on multiple platforms
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "v1.0" ]
   pull_request:
-    branches: [ "main" ]
+    branches: [ "v1.0" ]
 
 jobs:
   build:
