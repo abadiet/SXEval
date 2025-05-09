@@ -8,10 +8,10 @@ Currently supported types include:
 Based on the original C library [SXEval-C](https://github.com/abadiet/SXEval-C).
 
 ## Class Diagram
-<img src="https://github.com/abadiet/SXEval/blob/main/uml/class-diagram.png">
+<img src="https://github.com/abadiet/SXEval/blob/v1.0/uml/class-diagram.png">
 
 ## Quick-Start
-From [/examples/basic](https://github.com/abadiet/SXEval/tree/main/examples/basic)
+From [/examples/basic](https://github.com/abadiet/SXEval/tree/v1.0/examples/basic)
 ```cpp
 /* variables */
 int x = 0, y = 0;
