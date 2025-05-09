@@ -8,7 +8,13 @@ namespace sxeval {
 template <typename T>
 class Variable : public AOperand<T> {
 public:
-    inline Variable(T& var) : AOperand<T>(var) {}
+    inline Variable(T& var, const std::string& name) : AOperand<T>(var),
+        _name(name) {}
+
+    inline std::string toString() const override { return _name; }
+
+private:
+    const std::string _name;
 
 };
 

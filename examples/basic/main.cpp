@@ -25,6 +25,9 @@ int main(int argc, char** argv) {
     /* build */
     sxeval::SXEval<int> eval(argv[1], resolveVariable);
 
+    /* print the expression tree */
+    std::cout << "Expression: " << std::endl << eval << std::endl;
+
     {
         /* first evaluation */
         x = 5;

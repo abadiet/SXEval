@@ -18,6 +18,8 @@ class Sine : public AOperation<T> {
 public:
     void execute() override;
 
+    std::string toString() const override { return KEY; }
+
 protected:
     static constexpr const char *KEY = "sin";
     static constexpr const int ARITY_MIN = 1;

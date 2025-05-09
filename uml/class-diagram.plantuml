@@ -23,7 +23,7 @@ package sxeval {
     end note
 
     class SXEval<T> {
-        - _Node : struct {instruct : std::unique_ptr<AInstruction<T>>, subnodes : std::vector<_Node>}
+        - _Node : struct {instruct : std::unique_ptr<AInstruction<T>>, parent : _Node*, subnodes : std::vector<_Node>}
         -_operations : std::vector<std::unique_ptr<AOperation<T>>>
         -_encapsulated : std::vector<EncapsulatedVariable<T>*>
         -_resolveEncapsulated : const resolveEncapsulated_t<T>
@@ -32,9 +32,12 @@ package sxeval {
         +SXEval(exp : char*, const resolveVariable_t& resolveVariable, const resolveEncapsulated_t resolveEncapsulated)
         +SXEval(exp : char*, const resolveEncapsulated_t resolveEncapsulated, const resolveVariable_t& resolveVariable)
         +evaluate() : T
+        +toString() : std::string
         -_skipChars(exp : char**)
         -_getNextSymbol(exp : char**) : char*
         -_build(exp : char**, resolveVariable : const resolveVariable_t<T>&)  : _Node
+        -_fillParents(parent : _Node&)
+        -_buildTreeStr(std::opstream& os, const _Node& node, size_t depth) : void
     }
 
 
@@ -42,6 +45,7 @@ package sxeval {
         -_result : T&
         +AInstruction(result : T&)
         +getResult() : T
+        +toString() : std::string
     }
 
     abstract class AOperation<T> extends AInstruction {
@@ -58,17 +62,20 @@ package sxeval {
     class Value<T> extends AOperand {
         -_val : T
         +Value(val : T)
+        +toString() : std::string
     }
 
     class Variable<T> extends AOperand {
-        +Variable(var : T&)
+        +Variable(var : T&, name : const std::string&)
+        +toString() : std::string
     }
 
     class EncapsulatedVariable<T> extends AOperand {
         -_var : T
         -_get : const std::function<T(void)>&
-        +Variable(get : const std::function<T(void)>&)
+        +Variable(get : const std::function<T(void)>&, name : const std::string&)
         +retrieve()
+        +toString() : std::string
     }
 
     package operations {
@@ -85,6 +92,7 @@ package sxeval {
             #{static} ARITY_MAX : const int := Operations<T>::UNLIMITED_ARITY
             #Addition(args : const std::vector<AInstruction<T>*>&)
             +execute()
+            +toString() : std::string
         }
 
         class Greater<T> {
@@ -93,6 +101,7 @@ package sxeval {
             #{static} ARITY_MAX : const int := 2
             #Greater(args : const std::vector<AInstruction<T>*>&)
             +execute()
+            +toString() : std::string
         }
 
         Addition -up-|> AOperation

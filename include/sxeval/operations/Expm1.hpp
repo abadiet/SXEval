@@ -18,6 +18,8 @@ class Expm1 : public AOperation<T> {
 public:
     void execute() override;
 
+    std::string toString() const override { return KEY; }
+
 protected:
     static constexpr const char *KEY = "expm1";
     static constexpr const int ARITY_MIN = 1;

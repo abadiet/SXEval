@@ -39,19 +39,24 @@ public:
         const resolveEncapsulated_t<T> resolveEncapsulated
         = resolveEncapsulated_t<T>()) :
         _resolveEncapsulated(resolveEncapsulated),
-        _lastOperation(_build(&exp, resolveVariable)) {}
+        _lastOperation(_build(&exp, resolveVariable))
+    { _fillParents(_lastOperation); }
     inline SXEval(char* exp,
         const resolveEncapsulated_t<T> resolveEncapsulated
         = resolveEncapsulated_t<T>(),
         const resolveVariable_t<T>& resolveVariable = resolveVariable_t<T>()) :
         _resolveEncapsulated(resolveEncapsulated),
-        _lastOperation(_build(&exp, resolveVariable)) {}
+        _lastOperation(_build(&exp, resolveVariable))
+    { _fillParents(_lastOperation); }
 
     T evaluate() const;
+
+    std::string toString() const;
 
 private:
     struct _Node {
         std::unique_ptr<AInstruction<T>> instruct;
+        _Node *parent;
         std::vector<_Node> subnodes;
 
         #ifdef SXEVAL_DEBUG
@@ -62,6 +67,9 @@ private:
     void _skipChars(char **exp) const;
     char* _getNextSymbol(char **exp) const;
     _Node _build(char **exp, const resolveVariable_t<T>& resolveVariable);
+    void _fillParents(_Node& parent);
+    void _buildTreeStr(std::ostream& oss, const _Node& node, size_t depth)
+        const;
 
     #ifdef SXEVAL_DEBUG
     int nodeCount = 0;
@@ -73,6 +81,11 @@ private:
     _Node _lastOperation;
 
 };
+
+template <typename T>
+inline std::ostream& operator<<(std::ostream& os, const SXEval<T>& obj) {
+    return os << obj.toString();
+}
 
 } /* namespace sxeval */
 
@@ -91,6 +104,13 @@ T sxeval::SXEval<T>::evaluate() const {
         op->execute();
     }
     return _operations.back()->getResult();
+}
+
+template <typename T>
+std::string sxeval::SXEval<T>::toString() const {
+    std::ostringstream oss;
+    _buildTreeStr(oss, _lastOperation, 0);
+    return oss.str();
 }
 
 template <typename T>
@@ -132,9 +152,11 @@ typename sxeval::SXEval<T>::_Node sxeval::SXEval<T>::_build(char **exp,
     _skipChars(exp);
 
     if (**exp == '(') {
+        /* ### OPERATION ### */
         (*exp)++;
         const char* symbol = _getNextSymbol(exp);
         _Node node;
+        node.parent = nullptr;
         #ifdef SXEVAL_DEBUG
         {
             node.id = nodeCount++;
@@ -169,13 +191,15 @@ typename sxeval::SXEval<T>::_Node sxeval::SXEval<T>::_build(char **exp,
         _operations.push_back(
             dynamic_cast<AOperation<T>*>(node.instruct.get()));
         delete[] symbol;
-        return node;
+        return std::move(node);
+
     } else {
+        /* ### OPERANDS ### */
         const char* symbol = _getNextSymbol(exp);
         _Node node;
         try {
             T val = StringToType<T>(symbol);
-            node = {std::make_unique<Value<T>>(val), {}};
+            node = {std::make_unique<Value<T>>(val), nullptr, {}};
             #ifdef SXEVAL_DEBUG
             {
                 node.id = nodeCount++;
@@ -191,7 +215,7 @@ typename sxeval::SXEval<T>::_Node sxeval::SXEval<T>::_build(char **exp,
             /* as this is not castable, this may be a variable */
             try {
                 T& var = resolveVariable(symbol);
-                node = {std::make_unique<Variable<T>>(var), {}};
+                node = {std::make_unique<Variable<T>>(var, symbol), nullptr, {}};
                 #ifdef SXEVAL_DEBUG
                 {
                     node.id = nodeCount++;
@@ -208,7 +232,8 @@ typename sxeval::SXEval<T>::_Node sxeval::SXEval<T>::_build(char **exp,
                  * encapsulated variable */
                 try {
                     auto get = _resolveEncapsulated(symbol);
-                    node = {std::make_unique<EncapsulatedVariable<T>>(get), {}};
+                    node = {std::make_unique<EncapsulatedVariable<T>>(get,
+                        symbol), nullptr, {}};
                     _encapsulated.push_back(
                         dynamic_cast<EncapsulatedVariable<T>*>(
                         node.instruct.get()));
@@ -227,9 +252,9 @@ typename sxeval::SXEval<T>::_Node sxeval::SXEval<T>::_build(char **exp,
                     /* last chance, check if it is a true/false keyword
                      */
                     if (std::strcmp(symbol, "true") == 0) {
-                        node = {std::make_unique<Value<T>>(1), {}};
+                        node = {std::make_unique<Value<T>>(1), nullptr, {}};
                     } else if (std::strcmp(symbol, "false") == 0) {
-                        node = {std::make_unique<Value<T>>(0), {}};
+                        node = {std::make_unique<Value<T>>(0), nullptr, {}};
                     } else {
                         throw std::runtime_error("Unknown variable: " +
                             std::string(symbol));
@@ -250,6 +275,48 @@ typename sxeval::SXEval<T>::_Node sxeval::SXEval<T>::_build(char **exp,
         }
         delete[] symbol;
         return node;
+    }
+}
+
+template <typename T>
+void sxeval::SXEval<T>::_fillParents(_Node& parent) {
+    for (auto& child : parent.subnodes) {
+        child.parent = &parent;
+        _fillParents(child);
+    }
+}
+
+template <typename T>
+void sxeval::SXEval<T>::_buildTreeStr(std::ostream& oss, const _Node& node,
+    size_t depth) const
+{
+    if (depth > 0) {
+        for (size_t i = 0; i < depth - 1; ++i) {
+            const _Node* parent = &node;
+            const _Node* child = nullptr;
+            for (size_t j = 0; j < depth - i; ++j) {
+                child = parent;
+                parent = parent->parent;
+            }
+            if (!(parent != nullptr && parent->subnodes.back().instruct.get()
+                == child->instruct.get()))
+            {
+                oss << "│  ";
+            } else {
+                oss << "   ";
+            }
+        }
+        if (node.parent != nullptr &&
+            node.parent->subnodes.back().instruct.get() != node.instruct.get())
+        {
+            oss << "├─ ";
+        } else {
+            oss << "└─ ";
+        }
+    }
+    oss << node.instruct->toString() << std::endl;
+    for (const auto& child : node.subnodes) {
+        _buildTreeStr(oss, child, depth + 1);
     }
 }
 

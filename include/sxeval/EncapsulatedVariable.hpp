@@ -9,16 +9,18 @@ namespace sxeval {
 template <typename T>
 class EncapsulatedVariable : public AOperand<T> {
 public:
-    inline EncapsulatedVariable(const std::function<T(void)> get) :
-        AOperand<T>(_var), _get(get) {}
+    inline EncapsulatedVariable(const std::function<T(void)> get,
+        const std::string& name) :
+        AOperand<T>(_var), _get(get), _name(name) {}
 
-    inline void retrieve() {
-        _var = _get();
-    }
+    inline void retrieve() { _var = _get(); }
+
+    inline std::string toString() const override { return _name; }
 
 private:
     T _var;
     const std::function<T(void)> _get;
+    const std::string _name;
 
 };
 

@@ -20,6 +20,8 @@ class {class_name} : public AOperation<T> {{
 public:
     void execute() override;
 
+    std::string toString() const override { return KEY; }
+
 protected:
     static constexpr const char *KEY = "{key}";
     static constexpr const int ARITY_MIN = {arity_min};

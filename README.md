@@ -29,6 +29,9 @@ auto resolveVariable = [&](const char* var) -> int& {
 /* build */
 sxeval::SXEval<int> eval(argv[1], resolveVariable);
 
+/* print the expression tree */
+std::cout << eval << std::endl;
+
 {
     /* first evaluation */
     x = 5;
@@ -47,8 +50,19 @@ sxeval::SXEval<int> eval(argv[1], resolveVariable);
         argv[1], x, y);
 }
 ```
-```bash
-❯ ./examples/basic '(+ y -2 (sqrt 16) (> (^ x 2) 20))'
+```
+$ ./examples/basic '(+ y -2 (sqrt 16) (> (^ x 2) 20))'
++
+├─ y
+├─ -2
+├─ sqrt
+│  └─ 16
+└─ >
+   ├─ ^
+   │  ├─ x
+   │  └─ 2
+   └─ 20
+
 Result: 13 for expression '(+ y -2 (sqrt 16) (> (^ x 2) 20))' with x=5 and y=10
 Result: 4 for expression '(+ y -2 (sqrt 16) (> (^ x 2) 20))' with x=3 and y=2
 ```

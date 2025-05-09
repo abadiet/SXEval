@@ -17,6 +17,8 @@ class DegreesToGradians : public AOperation<T> {
 public:
     void execute() override;
 
+    std::string toString() const override { return KEY; }
+
 protected:
     static constexpr const char *KEY = "deg2grad";
     static constexpr const int ARITY_MIN = 1;

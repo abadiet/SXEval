@@ -19,6 +19,8 @@ class AbsoluteValue : public AOperation<T> {
 public:
     void execute() override;
 
+    std::string toString() const override { return KEY; }
+
 protected:
     static constexpr const char *KEY = "abs";
     static constexpr const int ARITY_MIN = 1;
