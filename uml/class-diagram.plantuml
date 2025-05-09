@@ -2,18 +2,41 @@
 
 package sxeval {
 
+    note as T_Note
+        Supported types for <b>T</b>:
+            <i>int</i>
+            <i>signed char</i>
+            <i>short int</i>
+            <i>long int</i>
+            <i>unsigned int</i>
+            <i>unsigned char</i>
+            <i>unsigned long int</i>
+            <i>float</i>
+            <i>double</i>
+            <i>long double</i>
+    end note
+
+    note as alias_Note
+        Types definitions:
+            <b>resolveVariable_t</b>: std::function<T&(const char*)>
+            <b>resolveEncapsulated_t</b>: std::function<std::function<T(void)>(const char*)>
+    end note
+
     class SXEval<T> {
+        - _Node : struct {instruct : std::unique_ptr<AInstruction<T>>, subnodes : std::vector<_Node>}
         -_operations : std::vector<std::unique_ptr<AOperation<T>>>
-        -_operands : std::vector<std::unique_ptr<AOperand<T>>>
         -_encapsulated : std::vector<EncapsulatedVariable<T>*>
         -_resolveEncapsulated : const resolveEncapsulated_t<T>
+        -_lastOperation : _Node
         +SXEval()
         +SXEval(exp : char*, const resolveVariable_t& resolveVariable, const resolveEncapsulated_t resolveEncapsulated)
         +SXEval(exp : char*, const resolveEncapsulated_t resolveEncapsulated, const resolveVariable_t& resolveVariable)
         +evaluate() : T
-        -_SXEval(exp : char*, const resolveVariable_t& resolveVariable)
-        -_build(//omitted for clarity//)
+        -_skipChars(exp : char**)
+        -_getNextSymbol(exp : char**) : char*
+        -_build(exp : char**, resolveVariable : const resolveVariable_t<T>&)  : _Node
     }
+
 
     abstract class AInstruction<T> {
         -_result : T&
@@ -75,14 +98,15 @@ package sxeval {
         Addition -up-|> AOperation
         Greater -up-|> AOperation
 
-        note "The other operations are omitted for clarity." as N
-        Addition .. N
-        Greater .. N
+        note "The other operations are omitted for clarity." as ope_Note
+        Addition .. ope_Note
+        Greater .. ope_Note
 
     }
 
-    SXEval *--> AOperation : _operations\n0..*
-    SXEval *--> AOperand : _operands\n0..*
+    SXEval *--> AInstruction : _Node::instruct\n0..*
+    SXEval o--> AOperation : _operations\n0..*
+    SXEval o--> EncapsulatedVariable : _encapsulated\n0..*
     AOperation o-up-> AInstruction : _args\n0..*
 
 }
