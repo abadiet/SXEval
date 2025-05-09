@@ -14,10 +14,7 @@
 #include <functional>
 #include <iostream>
 #include <cstring>
-
-#ifdef SXEVAL_DEBUG
 #include <sstream>
-#endif /* SXEVAL_DEBUG */
 
 
 /* DEFINITIONS */
