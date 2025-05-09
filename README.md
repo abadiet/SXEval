@@ -127,6 +127,13 @@ with floating-point types.
 - `BUILD_EXAMPLES`: Build examples
 - `SXEVAL_DEBUG`: Print debug informations
 
+## ChangeLog
+> [!WARNING]
+> The user API is considered to be limited to the class [`SXEval`](https://github.com/abadiet/SXEval/blob/v1.0/include/sxeval/SXEval.hpp). Backards
+> compatibility is not guarentee outside of this class.
+
+c.f. [CHANGELOG.md](https://github.com/abadiet/SXEval/blob/v1.0/CHANGELOG.md)
+
 ## Dependencies
 - [catch2](https://github.com/catchorg/Catch2): testing frameworks, fetch by
 cmake if option `BUILD_EXAMPLES` is enabled
