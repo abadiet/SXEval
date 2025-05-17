@@ -1,12 +1,12 @@
 #include <sxeval/SXEval.hpp>
 #include <iostream>
 #include <cstring>
-#include "MyFunc.hpp"
+#include "myOpe.hpp"
 
 int main(int argc, char** argv) {
     if (argc < 2) {
         std::cerr << "Usage: " << argv[0] << " <expression>" << std::endl;
-        std::cerr << "Example: " << argv[0] << " '(+ x 3 (myfunc y) -4)'" << std::endl;
+        std::cerr << "Example: " << argv[0] << " '(+ x 3 (myope y) -4)'" << std::endl;
         return 1;
     }
 
@@ -25,8 +25,8 @@ int main(int argc, char** argv) {
 
     sxeval::SXEval<int> eval;
 
-    /* register custom function */
-    eval.registerOperation<MyFunc>();
+    /* register custom operation */
+    eval.registerOperation<MyOpe>();
 
     /* build */
     eval.build(argv[1], resolveVariable);

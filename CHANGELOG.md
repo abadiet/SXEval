@@ -14,7 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - sxeval::operations::OperationsFactory::add
 - sxeval::SXEval::build
-- examples/custom-functions
+- examples/custom-operations
 
 ## [v1.0.1] - 2025-05-09
 ### Added

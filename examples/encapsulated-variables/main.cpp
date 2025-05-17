@@ -1,4 +1,4 @@
-#include "MyVar.hpp"
+#include "myVar.hpp"
 #include <sxeval/SXEval.hpp>
 #include <iostream>
 #include <cstring>

@@ -5,8 +5,8 @@ class MyVar {
 public:
     MyVar() : _val(0) {}
 
-    double getValue() const { return _val; }
-    void setValue(double val) { _val = val; }
+    inline double getValue() const { return _val; }
+    inline void setValue(double val) { _val = val; }
 
 private:
     double _val;

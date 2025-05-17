@@ -1,5 +1,5 @@
-#ifndef MYFUNC_HPP
-#define MYFUNC_HPP
+#ifndef MYOPE_HPP
+#define MYOPE_HPP
 
 #include "sxeval/AOperation.hpp"
 #include <string>
@@ -7,13 +7,13 @@
 
 /* DEFINITIONS */
 
-class MyFunc : public sxeval::AOperation<int> {
+class MyOpe : public sxeval::AOperation<int> {
 public:
-    static constexpr const char *KEY = "myfunc";
+    static constexpr const char *KEY = "myope";
     static constexpr const int ARITY_MIN = 1;
     static constexpr const int ARITY_MAX = 1;
 
-    MyFunc(const std::vector<sxeval::AInstruction<int>*>& args) :
+    MyOpe(const std::vector<sxeval::AInstruction<int>*>& args) :
         AOperation<int>(args) {}
 
     void execute() override;
@@ -25,8 +25,8 @@ public:
 
 /* IMPLEMENTATIONS */
 
-void MyFunc::execute() {
+void MyOpe::execute() {
      getResult() = this->getArgs()[0]->getResult() * 42;
 }
 
-#endif /* MYFUNC_HPP */
+#endif /* MYOPE_HPP */
