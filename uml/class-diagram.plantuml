@@ -44,7 +44,7 @@ package sxeval {
 
 
     abstract class AInstruction<T> {
-        -getResult() : T&
+        -_result : T&
         +AInstruction(result : T&)
         +getResult() : T
         +{abstract} toString() : std::string
@@ -53,7 +53,7 @@ package sxeval {
     abstract class AOperation<T> extends AInstruction {
         +{static} UNLIMITED_ARITY : const int := -1
         -_args : const std::vector<AInstruction<T>*>
-        -getResult() : T
+        -_result : T
         +AOperation(args : const std::vector<AInstruction<T>*>&)
         +getArgs() : const std::vector<AInstruction<T>*>&
         +getResult() : T&
