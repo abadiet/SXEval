@@ -2,7 +2,7 @@
 #define SXEVAL_OPERATIONS_CLAMP_HPP
 
 #include "sxeval/AOperation.hpp"
-#include <cmath>
+#include <algorithm>
 
 
 /* DEFINITIONS */

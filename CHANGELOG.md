@@ -10,7 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 > [operations](https://github.com/abadiet/SXEval/blob/v1.0/include/sxeval/operations).
 > Backard compatibility is not guaranteed outside of these.
 
-## [v1.1.0] - 2025-05-17
+## [v1.0.2] - 2025-05-17
 ### Added
 - sxeval::operations::OperationsFactory::add
 - sxeval::SXEval::build
