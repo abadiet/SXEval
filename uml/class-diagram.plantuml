@@ -47,7 +47,7 @@ package sxeval {
         -getResult() : T&
         +AInstruction(result : T&)
         +getResult() : T
-        +toString() : std::string
+        +{abstract} toString() : std::string
     }
 
     abstract class AOperation<T> extends AInstruction {
@@ -67,15 +67,16 @@ package sxeval {
     class Value<T> extends AOperand {
         -_val : T
         +Value(val : T)
-        +toString() : std::string
     }
 
     class Variable<T> extends AOperand {
+        -_name : const std::string
         +Variable(var : T&, name : const std::string&)
         +toString() : std::string
     }
 
     class EncapsulatedVariable<T> extends AOperand {
+        -_name : const std::string
         -_var : T
         -_get : const std::function<T(void)>&
         +Variable(get : const std::function<T(void)>&, name : const std::string&)
