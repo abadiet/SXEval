@@ -3,7 +3,6 @@
 
 #include "sxeval/AOperation.hpp"
 #include <cmath>
-#include <limits>
 
 
 /* DEFINITIONS */
@@ -12,24 +11,18 @@ namespace sxeval {
 namespace operations {
 
 template <typename T>
-class Operations;
-
-template <typename T>
 class Minimum : public AOperation<T> {
 public:
-    void execute() override;
-
-    std::string toString() const override { return KEY; }
-
-protected:
     static constexpr const char *KEY = "min";
     static constexpr const int ARITY_MIN = 2;
-    static constexpr const int ARITY_MAX = Operations<T>::UNLIMITED_ARITY;
+    static constexpr const int ARITY_MAX = AOperation<T>::UNLIMITED_ARITY;
 
     inline Minimum(const std::vector<AInstruction<T>*>& args) :
         AOperation<T>(args) {}
 
-    friend class Operations<T>;
+    void execute() override;
+
+    inline std::string toString() const override { return KEY; }
 
 };
 
@@ -41,10 +34,10 @@ protected:
 
 template <typename T>
 void sxeval::operations::Minimum<T>::execute() {
-    this->_result = this->_args.front()->getResult();
-    for (size_t i = 1; i < this->_args.size(); ++i) {
-        this->_result = static_cast<T>(std::min(this->_result,
-            this->_args[i]->getResult()));
+    this->getResult() = this->getArgs().front()->getResult();
+    for (size_t i = 1; i < this->getArgs().size(); ++i) {
+        this->getResult() = static_cast<T>(std::min(this->getResult(),
+            this->getArgs()[i]->getResult()));
     }
 }
 

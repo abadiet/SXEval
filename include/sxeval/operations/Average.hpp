@@ -10,24 +10,18 @@ namespace sxeval {
 namespace operations {
 
 template <typename T>
-class Operations;
-
-template <typename T>
 class Average : public AOperation<T> {
 public:
-    void execute() override;
-
-    std::string toString() const override { return KEY; }
-
-protected:
     static constexpr const char *KEY = "avg";
     static constexpr const int ARITY_MIN = 2;
-    static constexpr const int ARITY_MAX = Operations<T>::UNLIMITED_ARITY;
+    static constexpr const int ARITY_MAX = AOperation<T>::UNLIMITED_ARITY;
 
     inline Average(const std::vector<AInstruction<T>*>& args) :
         AOperation<T>(args) {}
 
-    friend class Operations<T>;
+    void execute() override;
+
+    inline std::string toString() const override { return KEY; }
 
 };
 
@@ -39,11 +33,11 @@ protected:
 
 template <typename T>
 void sxeval::operations::Average<T>::execute() {
-    this->_result = static_cast<T>(0);
-    for (const auto& arg : this->_args) {
-        this->_result += arg->getResult();
+    this->getResult() = static_cast<T>(0);
+    for (const auto& arg : this->getArgs()) {
+        this->getResult() += arg->getResult();
     }
-    this->_result /= static_cast<T>(this->_args.size());
+    this->getResult() /= static_cast<T>(this->getArgs().size());
 }
 
 #endif /* SXEVAL_OPERATIONS_AVERAGE_HPP */

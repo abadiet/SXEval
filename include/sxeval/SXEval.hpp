@@ -3,7 +3,7 @@
 
 #include "sxeval/AOperation.hpp"
 #include "sxeval/AOperand.hpp"
-#include "sxeval/operations/Operations.hpp"
+#include "sxeval/operations/OperationsFactory.hpp"
 #include "sxeval/Value.hpp"
 #include "sxeval/Variable.hpp"
 #include "sxeval/EncapsulatedVariable.hpp"
@@ -31,20 +31,18 @@ template <typename T>
 class SXEval {
 public:
     inline SXEval() {}
-    inline SXEval(char* exp,
+
+    template <typename OP>
+    inline void registerOperation() { _operationsFactory.template add<OP>(); }
+
+    void build(char *exp,
         const resolveVariable_t<T>& resolveVariable = resolveVariable_t<T>(),
-        const resolveEncapsulated_t<T> resolveEncapsulated
-        = resolveEncapsulated_t<T>()) :
-        _resolveEncapsulated(resolveEncapsulated),
-        _lastOperation(_build(&exp, resolveVariable))
-    { _fillParents(_lastOperation); }
-    inline SXEval(char* exp,
-        const resolveEncapsulated_t<T> resolveEncapsulated
+        const resolveEncapsulated_t<T>& resolveEncapsulated
+        = resolveEncapsulated_t<T>());
+    inline void build(char *exp, const resolveEncapsulated_t<T>& resolveEncapsulated
         = resolveEncapsulated_t<T>(),
-        const resolveVariable_t<T>& resolveVariable = resolveVariable_t<T>()) :
-        _resolveEncapsulated(resolveEncapsulated),
-        _lastOperation(_build(&exp, resolveVariable))
-    { _fillParents(_lastOperation); }
+        const resolveVariable_t<T>& resolveVariable = resolveVariable_t<T>())
+    { build(exp, resolveVariable, resolveEncapsulated); }
 
     T evaluate() const;
 
@@ -72,9 +70,10 @@ private:
     int nodeCount = 0;
     #endif /* SXEVAL_DEBUG */
 
+    operations::OperationsFactory<T> _operationsFactory;
     std::vector<AOperation<T>*> _operations;
     std::vector<EncapsulatedVariable<T>*> _encapsulated;
-    const resolveEncapsulated_t<T> _resolveEncapsulated;
+    resolveEncapsulated_t<T> _resolveEncapsulated;
     _Node _lastOperation;
 
 };
@@ -88,6 +87,16 @@ inline std::ostream& operator<<(std::ostream& os, const SXEval<T>& obj) {
 
 
 /* IMPLEMENTATIONS */
+
+template <typename T>
+void sxeval::SXEval<T>::build(char *exp,
+    const resolveVariable_t<T>& resolveVariable,
+    const resolveEncapsulated_t<T>& resolveEncapsulated)
+{
+    _resolveEncapsulated = resolveEncapsulated;
+    _lastOperation = _build(&exp, resolveVariable);
+    _fillParents(_lastOperation);
+}
 
 template <typename T>
 T sxeval::SXEval<T>::evaluate() const {
@@ -184,7 +193,7 @@ typename sxeval::SXEval<T>::_Node sxeval::SXEval<T>::_build(char **exp,
         for (auto& subnode : node.subnodes) {
             args.push_back(subnode.instruct.get());
         }
-        node.instruct = sxeval::operations::Operations<T>::create(symbol, args);
+        node.instruct = _operationsFactory.create(symbol, args);
         _operations.push_back(
             dynamic_cast<AOperation<T>*>(node.instruct.get()));
         delete[] symbol;
@@ -212,7 +221,8 @@ typename sxeval::SXEval<T>::_Node sxeval::SXEval<T>::_build(char **exp,
             /* as this is not castable, this may be a variable */
             try {
                 T& var = resolveVariable(symbol);
-                node = {std::make_unique<Variable<T>>(var, symbol), nullptr, {}};
+                node = {std::make_unique<Variable<T>>(var, symbol), nullptr,
+                    {}};
                 #ifdef SXEVAL_DEBUG
                 {
                     node.id = nodeCount++;

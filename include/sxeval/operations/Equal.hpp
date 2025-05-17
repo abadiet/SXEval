@@ -11,24 +11,18 @@ namespace sxeval {
 namespace operations {
 
 template <typename T>
-class Operations;
-
-template <typename T>
 class Equal : public AOperation<T> {
 public:
-    void execute() override;
-
-    std::string toString() const override { return KEY; }
-
-protected:
     static constexpr const char *KEY = "=";
     static constexpr const int ARITY_MIN = 2;
-    static constexpr const int ARITY_MAX = Operations<T>::UNLIMITED_ARITY;
+    static constexpr const int ARITY_MAX = AOperation<T>::UNLIMITED_ARITY;
 
     inline Equal(const std::vector<AInstruction<T>*>& args) :
         AOperation<T>(args) {}
 
-    friend class Operations<T>;
+    void execute() override;
+
+    inline std::string toString() const override { return KEY; }
 
 };
 
@@ -40,19 +34,19 @@ protected:
 
 template <typename T>
 void sxeval::operations::Equal<T>::execute() {
-    this->_result = static_cast<T>(1);
+    this->getResult() = static_cast<T>(1);
     size_t i = 0;
     bool verif = true;
-    while (verif && (i + 1) < this->_args.size()) {
-        verif = sxeval::Equal(this->_args[i]->getResult(),
-            this->_args[i + 1]->getResult());
+    while (verif && (i + 1) < this->getArgs().size()) {
+        verif = sxeval::Equal(this->getArgs()[i]->getResult(),
+            this->getArgs()[i + 1]->getResult());
         ++i;
     }
     if (verif) {
-        this->_result = static_cast<T>(1);
+        this->getResult() = static_cast<T>(1);
     }
     else {
-        this->_result = static_cast<T>(0);
+        this->getResult() = static_cast<T>(0);
     }
 }
 

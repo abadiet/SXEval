@@ -2,7 +2,7 @@
 #define SXEVAL_OPERATIONS_CLAMP_HPP
 
 #include "sxeval/AOperation.hpp"
-#include <algorithm>
+#include <cmath>
 
 
 /* DEFINITIONS */
@@ -11,16 +11,8 @@ namespace sxeval {
 namespace operations {
 
 template <typename T>
-class Operations;
-
-template <typename T>
 class Clamp : public AOperation<T> {
 public:
-    void execute() override;
-
-    std::string toString() const override { return KEY; }
-
-protected:
     static constexpr const char *KEY = "clamp";
     static constexpr const int ARITY_MIN = 3;
     static constexpr const int ARITY_MAX = 3;
@@ -28,7 +20,9 @@ protected:
     inline Clamp(const std::vector<AInstruction<T>*>& args) :
         AOperation<T>(args) {}
 
-    friend class Operations<T>;
+    void execute() override;
+
+    inline std::string toString() const override { return KEY; }
 
 };
 
@@ -40,8 +34,8 @@ protected:
 
 template <typename T>
 void sxeval::operations::Clamp<T>::execute() {
-    this->_result = static_cast<T>(std::clamp(this->_args.front()->getResult(),
-        this->_args[1]->getResult(), this->_args.back()->getResult()));
+    this->getResult() = static_cast<T>(std::clamp(this->getArgs().front()->getResult(),
+        this->getArgs()[1]->getResult(), this->getArgs().back()->getResult()));
 }
 
 #endif /* SXEVAL_OPERATIONS_CLAMP_HPP */

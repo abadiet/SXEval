@@ -10,16 +10,8 @@ namespace sxeval {
 namespace operations {
 
 template <typename T>
-class Operations;
-
-template <typename T>
 class DegreesToRadians : public AOperation<T> {
 public:
-    void execute() override;
-
-    std::string toString() const override { return KEY; }
-
-protected:
     static constexpr const char *KEY = "deg2rad";
     static constexpr const int ARITY_MIN = 1;
     static constexpr const int ARITY_MAX = 1;
@@ -27,7 +19,9 @@ protected:
     inline DegreesToRadians(const std::vector<AInstruction<T>*>& args) :
         AOperation<T>(args) {}
 
-    friend class Operations<T>;
+    void execute() override;
+
+    inline std::string toString() const override { return KEY; }
 
 };
 
@@ -39,7 +33,7 @@ protected:
 
 template <typename T>
 void sxeval::operations::DegreesToRadians<T>::execute() {
-    this->_result = this->_args[0]->getResult() * static_cast<T>(SXEVAL_PI / 180.0);
+    this->getResult() = this->getArgs()[0]->getResult() * static_cast<T>(SXEVAL_PI / 180.0);
 }
 
 #endif /* SXEVAL_OPERATIONS_DEGREESTORADIANS_HPP */

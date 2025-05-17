@@ -13,16 +13,8 @@ namespace sxeval {{
 namespace operations {{
 
 template <typename T>
-class Operations;
-
-template <typename T>
 class {class_name} : public AOperation<T> {{
 public:
-    void execute() override;
-
-    std::string toString() const override { return KEY; }
-
-protected:
     static constexpr const char *KEY = "{key}";
     static constexpr const int ARITY_MIN = {arity_min};
     static constexpr const int ARITY_MAX = {arity_max};
@@ -30,7 +22,9 @@ protected:
     inline {class_name}(const std::vector<AInstruction<T>*>& args) :
         AOperation<T>(args) {{}}
 
-    friend class Operations<T>;
+    void execute() override;
+
+    inline std::string toString() const override {{ return KEY; }}
 
 }};
 
@@ -53,9 +47,13 @@ TEMPLATE_FACTORY='''
 #define SXEVAL_OPERATIONS_HPP
 
 #include "sxeval/AOperation.hpp"
-{include_ops}
-#include <vector>
+{include}
 #include <memory>
+#include <unordered_map>
+#include <string>
+#include <stdexcept>
+#include <functional>
+#include <sstream>
 
 
 /* DEFINITIONS */
@@ -64,23 +62,20 @@ namespace sxeval {{
 namespace operations {{
 
 template <typename T>
-class Operations {{
+class OperationsFactory {{
 public:
-    static constexpr const int UNLIMITED_ARITY = -1;
+    OperationsFactory();
 
-    Operations() = delete;
-    Operations(const Operations&) = delete;
-    Operations& operator=(const Operations&) = delete;
-    Operations(Operations&&) = delete;
-    Operations& operator=(Operations&&) = delete;
-    ~Operations() = delete;
+    template <typename OP>
+    void add();
 
-    static std::unique_ptr<AOperation<T>> create(const std::string& key,
+    std::unique_ptr<AOperation<T>> create(const std::string& key,
         const std::vector<AInstruction<T>*> args);
 
 private:
-    static void checkArity(const std::string& key, int nArgs, int arityMin,
-        int arityMax);
+    std::unordered_map<std::string,
+        const std::function<std::unique_ptr<AOperation<T>>(
+        const std::vector<AInstruction<T>*>&)>> _operations;
 
 }};
 
@@ -91,26 +86,53 @@ private:
 /* IMPLEMENTATIONS */
 
 template <typename T>
-std::unique_ptr<sxeval::AOperation<T>>
-sxeval::operations::Operations<T>::create(
-    const std::string& key, const std::vector<sxeval::AInstruction<T>*> args)
-{{
-    {create}
-    throw std::invalid_argument("Unknown operation key: " + key);
+
+sxeval::operations::OperationsFactory<T>::OperationsFactory() {{
+{add}
 }}
 
 template <typename T>
-void sxeval::operations::Operations<T>::checkArity(const std::string& key,
-    int nArgs, int arityMin, int arityMax)
+template <typename OP>
+void sxeval::operations::OperationsFactory<T>::add() {{
+    if constexpr (!(std::is_base_of<AOperation<T>, OP>::value)) {{
+        throw std::invalid_argument("OP must be derived from AOperation");
+    }}
+    if (_operations.find(OP::KEY) != _operations.end()) {{
+        _operations.erase(OP::KEY);
+    }}
+    const std::function<std::unique_ptr<AOperation<T>>(
+        const std::vector<AInstruction<T>*>&)> f =
+        [](const std::vector<AInstruction<T>*>& args) {{
+            const auto nargs = static_cast<int>(args.size());
+            if (nargs < OP::ARITY_MIN) {{
+                std::ostringstream oss;
+                oss << "Operation " << OP::KEY << " requires at least "
+                    << OP::ARITY_MIN << " arguments";
+                throw std::invalid_argument(oss.str());
+            }}
+            if (OP::ARITY_MAX != AOperation<T>::UNLIMITED_ARITY
+                && nargs > OP::ARITY_MAX)
+            {{
+                std::ostringstream oss;
+                oss << "Operation " << OP::KEY << " requires at most "
+                    << OP::ARITY_MAX << " arguments";
+                throw std::invalid_argument(oss.str());
+            }}
+            return std::make_unique<OP>(args);
+        }};
+    _operations.insert(std::make_pair(OP::KEY, f));
+}}
+
+template <typename T>
+std::unique_ptr<sxeval::AOperation<T>>
+sxeval::operations::OperationsFactory<T>::create(
+    const std::string& key, const std::vector<sxeval::AInstruction<T>*> args)
 {{
-    if (nArgs < arityMin) {{
-        throw std::invalid_argument("Operation " + key + " requires at least "
-            + std::to_string(arityMin) + " arguments");
+    const auto it = _operations.find(key);
+    if (it == _operations.end()) {{
+        throw std::invalid_argument("Unknown operation key: " + key);
     }}
-    if (arityMax != UNLIMITED_ARITY && nArgs > arityMax) {{
-        throw std::invalid_argument("Operation " + key + " requires at most "
-            + std::to_string(arityMax) + " arguments");
-    }}
+    return it->second(args);
 }}
 
 #endif /* SXEVAL_OPERATIONS_HPP */
@@ -122,44 +144,44 @@ def generate_op(class_name, key, arity_min, arity_max, operation, output_path):
     execute = ""
 
     if operation == "":
-        execute = "this->_result = "
+        execute = "this->getResult() = "
     elif int(arity_min) == 1 and int(arity_max) == 1:
-        execute = f"this->_result = static_cast<T>({operation}(this->_args.front()->getResult()));"
+        execute = f"this->getResult() = static_cast<T>({operation}(this->getArgs().front()->getResult()));"
     elif int(arity_min) == 2 and int(arity_max) == 2:
-        execute = f'''this->_result = static_cast<T>({operation}(this->_args.front()->getResult(),
-        this->_args.back()->getResult()));'''
+        execute = f'''this->getResult() = static_cast<T>({operation}(this->getArgs().front()->getResult(),
+        this->getArgs().back()->getResult()));'''
     elif int(arity_min) == 3 and int(arity_max) == 3:
-        execute = f'''this->_result = static_cast<T>({operation}(this->_args.front()->getResult(),
-        this->_args[1]->getResult(), this->_args.back()->getResult()));'''
+        execute = f'''this->getResult() = static_cast<T>({operation}(this->getArgs().front()->getResult(),
+        this->getArgs()[1]->getResult(), this->getArgs().back()->getResult()));'''
     elif int(arity_max) == -1:
         if operation == "sxeval":
-            execute = '''this->_result = static_cast<T>(1);
+            execute = '''this->getResult() = static_cast<T>(1);
     size_t i = 0;
     bool verif = true;
-    while (verif && (i + 1) < this->_args.size()) {{
-        verif = sxeval::{class_name}(this->_args[i]->getResult(),
-            this->_args[i + 1]->getResult());
+    while (verif && (i + 1) < this->getArgs().size()) {{
+        verif = sxeval::{class_name}(this->getArgs()[i]->getResult(),
+            this->getArgs()[i + 1]->getResult());
         ++i;
     }}
     if (verif) {{
-        this->_result = static_cast<T>(1);
+        this->getResult() = static_cast<T>(1);
     }}
     else {{
-        this->_result = static_cast<T>(0);
+        this->getResult() = static_cast<T>(0);
     }}'''.format(class_name=class_name)
         elif "::" in operation:
-            execute = '''this->_result = this->_args.front()->getResult();
-    for (size_t i = 1; i < this->_args.size(); ++i) {{
-        this->_result = static_cast<T>({operation}(this->_result,
-            this->_args[i]->getResult()));
+            execute = '''this->getResult() = this->getArgs().front()->getResult();
+    for (size_t i = 1; i < this->getArgs().size(); ++i) {{
+        this->getResult() = static_cast<T>({operation}(this->getResult(),
+            this->getArgs()[i]->getResult()));
     }}'''.format(operation=operation)
         elif operation != "":
-            execute = '''this->_result = this->_args.front()->getResult();
-    for (size_t i = 1; i < this->_args.size(); ++i) {{
-        this->_result {operation}= this->_args[i]->getResult();
+            execute = '''this->getResult() = this->getArgs().front()->getResult();
+    for (size_t i = 1; i < this->getArgs().size(); ++i) {{
+        this->getResult() {operation}= this->getArgs()[i]->getResult();
     }}'''.format(operation=operation)
     else:
-        execute = "this->_result = "
+        execute = "this->getResult() = "
 
     includes = ""
     if "std::" in operation:
@@ -171,8 +193,8 @@ def generate_op(class_name, key, arity_min, arity_max, operation, output_path):
         include_guard=include_guard,
         class_name=class_name,
         key=key,
-        arity_min=arity_min if int(arity_min) >= 0 else "Operations<T>::UNLIMITED_ARITY",
-        arity_max=arity_max if int(arity_max) >= 0 else "Operations<T>::UNLIMITED_ARITY",
+        arity_min=arity_min if int(arity_min) >= 0 else "AOperation<T>::UNLIMITED_ARITY",
+        arity_max=arity_max if int(arity_max) >= 0 else "AOperation<T>::UNLIMITED_ARITY",
         includes=includes,
         execute=execute
     )
@@ -184,22 +206,11 @@ def generate_op(class_name, key, arity_min, arity_max, operation, output_path):
     print(f"Generated {output_path}")
 
 def generate_factory(operations, output_path):
-    include_ops = "\n".join([f"#include \"sxeval/operations/{op[0]}.hpp\"" for op in operations])
-    create = '''if (key == sxeval::operations::{name}<T>::KEY) {{
-        checkArity(key, static_cast<int>(args.size()),
-            sxeval::operations::{name}<T>::ARITY_MIN,
-            sxeval::operations::{name}<T>::ARITY_MAX);
-        return std::make_unique<sxeval::operations::{name}<T>>(
-            sxeval::operations::{name}<T>(args));
-'''.format(name=operations[0][0]) + "\n".join([f'''\t}} else if (key == sxeval::operations::{op[0]}<T>::KEY) {{
-        checkArity(key, static_cast<int>(args.size()),
-            sxeval::operations::{op[0]}<T>::ARITY_MIN,
-            sxeval::operations::{op[0]}<T>::ARITY_MAX);
-        return std::make_unique<sxeval::operations::{op[0]}<T>>(
-            sxeval::operations::{op[0]}<T>(args));''' for op in operations[1:]]) + "\n\t}"
-    content = TEMPLATE_FACTORY.format(include_ops=include_ops, create=create)
+    include = "\n".join([f"#include \"sxeval/operations/{op[0]}.hpp\"" for op in operations])
+    add = "\n".join([f"    add<{op[0]}<T>>();" for op in operations])
+    content = TEMPLATE_FACTORY.format(include=include, add=add)
 
-    output_path = f"{output_path}/Operations.hpp"
+    output_path = f"{output_path}/OperationsFactory.hpp"
     with open(output_path, "w") as f:
         f.write(content)
     print(f"Generated {output_path}")

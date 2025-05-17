@@ -10,24 +10,18 @@ namespace sxeval {
 namespace operations {
 
 template <typename T>
-class Operations;
-
-template <typename T>
 class Division : public AOperation<T> {
 public:
-    void execute() override;
-
-    std::string toString() const override { return KEY; }
-
-protected:
     static constexpr const char *KEY = "/";
     static constexpr const int ARITY_MIN = 2;
-    static constexpr const int ARITY_MAX = Operations<T>::UNLIMITED_ARITY;
+    static constexpr const int ARITY_MAX = AOperation<T>::UNLIMITED_ARITY;
 
     inline Division(const std::vector<AInstruction<T>*>& args) :
         AOperation<T>(args) {}
 
-    friend class Operations<T>;
+    void execute() override;
+
+    inline std::string toString() const override { return KEY; }
 
 };
 
@@ -39,9 +33,9 @@ protected:
 
 template <typename T>
 void sxeval::operations::Division<T>::execute() {
-    this->_result = this->_args.front()->getResult();
-    for (size_t i = 1; i < this->_args.size(); ++i) {
-        this->_result /= this->_args[i]->getResult();
+    this->getResult() = this->getArgs().front()->getResult();
+    for (size_t i = 1; i < this->getArgs().size(); ++i) {
+        this->getResult() /= this->getArgs()[i]->getResult();
     }
 }
 

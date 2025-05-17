@@ -1,11 +1,12 @@
 #include <sxeval/SXEval.hpp>
 #include <iostream>
 #include <cstring>
+#include "MyFunc.hpp"
 
 int main(int argc, char** argv) {
     if (argc < 2) {
         std::cerr << "Usage: " << argv[0] << " <expression>" << std::endl;
-        std::cerr << "Example: " << argv[0] << " '(+ x 3 -4 y)'" << std::endl;
+        std::cerr << "Example: " << argv[0] << " '(+ x 3 (myfunc y) -4)'" << std::endl;
         return 1;
     }
 
@@ -22,8 +23,12 @@ int main(int argc, char** argv) {
         throw std::invalid_argument("Unknown variable");
     };
 
-    /* build */
     sxeval::SXEval<int> eval;
+
+    /* register custom function */
+    eval.registerOperation<MyFunc>();
+
+    /* build */
     eval.build(argv[1], resolveVariable);
 
     /* print the expression tree */

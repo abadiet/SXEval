@@ -28,9 +28,11 @@ package sxeval {
         -_encapsulated : std::vector<EncapsulatedVariable<T>*>
         -_resolveEncapsulated : const resolveEncapsulated_t<T>
         -_lastOperation : _Node
+        -_operationsFactory : OperationsFactory<T>
         +SXEval()
-        +SXEval(exp : char*, const resolveVariable_t& resolveVariable, const resolveEncapsulated_t resolveEncapsulated)
-        +SXEval(exp : char*, const resolveEncapsulated_t resolveEncapsulated, const resolveVariable_t& resolveVariable)
+        +template registerOperation<OP>()
+        +build(exp : char*, const resolveVariable_t& resolveVariable, const resolveEncapsulated_t resolveEncapsulated)
+        +build(exp : char*, const resolveEncapsulated_t resolveEncapsulated, const resolveVariable_t& resolveVariable)
         +evaluate() : T
         +toString() : std::string
         -_skipChars(exp : char**)
@@ -42,16 +44,19 @@ package sxeval {
 
 
     abstract class AInstruction<T> {
-        -_result : T&
+        -getResult() : T&
         +AInstruction(result : T&)
         +getResult() : T
         +toString() : std::string
     }
 
     abstract class AOperation<T> extends AInstruction {
-        #_args : const std::vector<AInstruction<T>*>
-        #_result : T
+        +{static} UNLIMITED_ARITY : const int := -1
+        -_args : const std::vector<AInstruction<T>*>
+        -getResult() : T
         +AOperation(args : const std::vector<AInstruction<T>*>&)
+        +getArgs() : const std::vector<AInstruction<T>*>&
+        +getResult() : T&
         +{abstract} execute()
     }
 
@@ -80,40 +85,42 @@ package sxeval {
 
     package operations {
 
-        class Operations<T> {
-            +{static} UNLIMITED_ARITY : const int := -1
-            +{static} create(key : const std::string&, args : const std::vector<AInstruction<T>*>) : std::unique_ptr<AOperation<T>>
-            -{static} checkArity(key : const std::string&, nArgs : int, arityMin : int, arityMax : int)
+        class OperationsFactory<T> {
+            -_operations : std::map<std::string, std::function<std::unique_ptr<AOperation<T>>(const std::vector<AInstruction<T>*>&)>>
+            +OperationsFactory()
+            +template add<OP>()
+            +create(key : const std::string&, args : const std::vector<AInstruction<T>*>) : std::unique_ptr<AOperation<T>>
         }
 
         class Addition<T> {
             #{static} KEY : const char* := "+"
             #{static} ARITY_MIN : const int := 2
-            #{static} ARITY_MAX : const int := Operations<T>::UNLIMITED_ARITY
-            #Addition(args : const std::vector<AInstruction<T>*>&)
+            #{static} ARITY_MAX : const int := AOperation<T>::UNLIMITED_ARITY
+            +Addition(args : const std::vector<AInstruction<T>*>&)
             +execute()
             +toString() : std::string
         }
 
-        class Greater<T> {
-            #{static} KEY : const char* := ">"
-            #{static} ARITY_MIN : const int := 2
-            #{static} ARITY_MAX : const int := 2
-            #Greater(args : const std::vector<AInstruction<T>*>&)
+        class SquareRoot<T> {
+            #{static} KEY : const char* := "sqrt"
+            #{static} ARITY_MIN : const int := 1
+            #{static} ARITY_MAX : const int := 1
+            +SquareRoot(args : const std::vector<AInstruction<T>*>&)
             +execute()
             +toString() : std::string
         }
 
         Addition -up-|> AOperation
-        Greater -up-|> AOperation
+        SquareRoot -up-|> AOperation
 
         note "The other operations are omitted for clarity." as ope_Note
         Addition .. ope_Note
-        Greater .. ope_Note
+        SquareRoot .. ope_Note
 
     }
 
     SXEval *--> AInstruction : _Node::instruct\n0..*
+    SXEval *--> OperationsFactory : _operationsFactory\n1..1
     SXEval o--> AOperation : _operations\n0..*
     SXEval o--> EncapsulatedVariable : _encapsulated\n0..*
     AOperation o-up-> AInstruction : _args\n0..*

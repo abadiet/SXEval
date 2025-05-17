@@ -1,4 +1,4 @@
-#include "myVar.hpp"
+#include "MyVar.hpp"
 #include <sxeval/SXEval.hpp>
 #include <iostream>
 #include <cstring>
@@ -40,7 +40,8 @@ int main(int argc, char** argv) {
         throw std::invalid_argument("Unknown encapsulated variable");
     };
 
-    sxeval::SXEval<double> eval(argv[1], resolveVariable, resolveEncapsulated);
+    sxeval::SXEval<double> eval;
+    eval.build(argv[1], resolveVariable, resolveEncapsulated);
 
     {
         /* first evaluation */

@@ -23,13 +23,13 @@ foreach(SUBDIR ${SUBDIRS})
 				-Wloop-analysis -Wrange-loop-analysis -Wcomma -Wmove
 				-Wconditional-uninitialized -Wassign-enum
 				-Wunused-exception-parameter -Wcovered-switch-default
-				-Wno-error=c++98-compat -Wno-error=c++98-compat-pedantic
-				-Wno-error=padded>
+				-Wno-c++98-compat -Wno-c++98-compat-pedantic
+				-Wno-padded>
 			$<$<CXX_COMPILER_ID:GNU>:-O3 -Wall -Wextra -Werror -Wfloat-equal
 				-Wundef -Wcast-align -Wwrite-strings -Wconversion
 				-Wunreachable-code -Wpedantic -Wshadow -Wwrite-strings
 				-Wcast-qual -Wstrict-aliasing -Wpointer-arith -Wformat=2
-				-Wimplicit-fallthrough -Wno-error=padded>
+				-Wimplicit-fallthrough -Wno-padded>
 			)
 			if(SXEVAL_DEBUG)
 				target_compile_options(${TARGET_NAME} PRIVATE -DSXEVAL_DEBUG)

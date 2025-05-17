@@ -1,6 +1,6 @@
 
 #include <catch2/catch_test_macros.hpp>
-#include <sxeval/operations/Operations.hpp>
+#include <sxeval/operations/OperationsFactory.hpp>
 #include <sxeval/AInstruction.hpp>
 #include <sxeval/Value.hpp>
 #include <sxeval/operations/Addition.hpp>
@@ -61,6 +61,8 @@
 using namespace sxeval;
 
 TEST_CASE("Operations instanciation", "[operations]") {
+    operations::OperationsFactory<int> factory;
+
     AInstruction<int>* instr = dynamic_cast<AInstruction<int>*>(
         new Value<int>(0));
     std::vector<AInstruction<int>*> args1;
@@ -74,118 +76,129 @@ TEST_CASE("Operations instanciation", "[operations]") {
     args3.push_back(instr);
 
     REQUIRE(nullptr != dynamic_cast<operations::Addition<int>*>(
-        operations::Operations<int>::create("+", args2).get()));
+        factory.create("+", args2).get()));
     REQUIRE(nullptr != dynamic_cast<operations::Subtraction<int>*>(
-        operations::Operations<int>::create("-", args2).get()));
+        factory.create("-", args2).get()));
     REQUIRE(nullptr != dynamic_cast<operations::Multiplication<int>*>(
-        operations::Operations<int>::create("*", args2).get()));
+        factory.create("*", args2).get()));
     REQUIRE(nullptr != dynamic_cast<operations::Division<int>*>(
-        operations::Operations<int>::create("/", args2).get()));
+        factory.create("/", args2).get()));
     REQUIRE(nullptr != dynamic_cast<operations::Modulo<int>*>(
-        operations::Operations<int>::create("%", args2).get()));
+        factory.create("%", args2).get()));
     REQUIRE(nullptr != dynamic_cast<operations::Exponentiation<int>*>(
-        operations::Operations<int>::create("^", args2).get()));
+        factory.create("^", args2).get()));
     REQUIRE(nullptr != dynamic_cast<operations::Equal<int>*>(
-        operations::Operations<int>::create("=", args2).get()));
+        factory.create("=", args2).get()));
     REQUIRE(nullptr != dynamic_cast<operations::NotEqual<int>*>(
-        operations::Operations<int>::create("!=", args2).get()));
+        factory.create("!=", args2).get()));
     REQUIRE(nullptr != dynamic_cast<operations::Less<int>*>(
-        operations::Operations<int>::create("<", args2).get()));
+        factory.create("<", args2).get()));
     REQUIRE(nullptr != dynamic_cast<operations::Greater<int>*>(
-        operations::Operations<int>::create(">", args2).get()));
+        factory.create(">", args2).get()));
     REQUIRE(nullptr != dynamic_cast<operations::LessOrEqual<int>*>(
-        operations::Operations<int>::create("<=", args2).get()));
+        factory.create("<=", args2).get()));
     REQUIRE(nullptr != dynamic_cast<operations::GreaterOrEqual<int>*>(
-        operations::Operations<int>::create(">=", args2).get()));
+        factory.create(">=", args2).get()));
     REQUIRE(nullptr != dynamic_cast<operations::LogicalAnd<int>*>(
-        operations::Operations<int>::create("and", args2).get()));
+        factory.create("and", args2).get()));
     REQUIRE(nullptr != dynamic_cast<operations::LogicalOr<int>*>(
-        operations::Operations<int>::create("or", args2).get()));
+        factory.create("or", args2).get()));
     REQUIRE(nullptr != dynamic_cast<operations::LogicalNot<int>*>(
-        operations::Operations<int>::create("not", args1).get()));
+        factory.create("not", args1).get()));
     REQUIRE(nullptr != dynamic_cast<operations::LogicalXor<int>*>(
-        operations::Operations<int>::create("xor", args2).get()));
+        factory.create("xor", args2).get()));
     REQUIRE(nullptr != dynamic_cast<operations::LogicalXnor<int>*>(
-        operations::Operations<int>::create("xnor", args2).get()));
+        factory.create("xnor", args2).get()));
     REQUIRE(nullptr != dynamic_cast<operations::LogicalNand<int>*>(
-        operations::Operations<int>::create("nand", args2).get()));
+        factory.create("nand", args2).get()));
     REQUIRE(nullptr != dynamic_cast<operations::LogicalNor<int>*>(
-        operations::Operations<int>::create("nor", args2).get()));
+        factory.create("nor", args2).get()));
     REQUIRE(nullptr != dynamic_cast<operations::AbsoluteValue<int>*>(
-        operations::Operations<int>::create("abs", args1).get()));
+        factory.create("abs", args1).get()));
     REQUIRE(nullptr != dynamic_cast<operations::Average<int>*>(
-        operations::Operations<int>::create("avg", args2).get()));
+        factory.create("avg", args2).get()));
     REQUIRE(nullptr != dynamic_cast<operations::Ceiling<int>*>(
-        operations::Operations<int>::create("ceil", args1).get()));
+        factory.create("ceil", args1).get()));
     REQUIRE(nullptr != dynamic_cast<operations::Clamp<int>*>(
-        operations::Operations<int>::create("clamp", args3).get()));
+        factory.create("clamp", args3).get()));
     REQUIRE(nullptr != dynamic_cast<operations::Expm1<int>*>(
-        operations::Operations<int>::create("expm1", args1).get()));
+        factory.create("expm1", args1).get()));
     REQUIRE(nullptr != dynamic_cast<operations::Floor<int>*>(
-        operations::Operations<int>::create("floor", args1).get()));
+        factory.create("floor", args1).get()));
     REQUIRE(nullptr != dynamic_cast<operations::Hypotenuse<int>*>(
-        operations::Operations<int>::create("hypot", args2).get()));
+        factory.create("hypot", args2).get()));
     REQUIRE(nullptr != dynamic_cast<operations::NaturalLogarithm<int>*>(
-        operations::Operations<int>::create("ln", args1).get()));
+        factory.create("ln", args1).get()));
     REQUIRE(nullptr != dynamic_cast<operations::Logarithm<int>*>(
-        operations::Operations<int>::create("log", args1).get()));
+        factory.create("log", args1).get()));
     REQUIRE(nullptr != dynamic_cast<operations::Logarithm10<int>*>(
-        operations::Operations<int>::create("log10", args1).get()));
+        factory.create("log10", args1).get()));
     REQUIRE(nullptr != dynamic_cast<operations::Logarithm1p<int>*>(
-        operations::Operations<int>::create("log1p", args1).get()));
+        factory.create("log1p", args1).get()));
     REQUIRE(nullptr != dynamic_cast<operations::Logarithm2<int>*>(
-        operations::Operations<int>::create("log2", args1).get()));
+        factory.create("log2", args1).get()));
     REQUIRE(nullptr != dynamic_cast<operations::LogarithmB<int>*>(
-        operations::Operations<int>::create("logB", args2).get()));
+        factory.create("logB", args2).get()));
     REQUIRE(nullptr != dynamic_cast<operations::Maximum<int>*>(
-        operations::Operations<int>::create("max", args2).get()));
+        factory.create("max", args2).get()));
     REQUIRE(nullptr != dynamic_cast<operations::Minimum<int>*>(
-        operations::Operations<int>::create("min", args2).get()));
+        factory.create("min", args2).get()));
     REQUIRE(nullptr != dynamic_cast<operations::Round<int>*>(
-        operations::Operations<int>::create("round", args1).get()));
+        factory.create("round", args1).get()));
     REQUIRE(nullptr != dynamic_cast<operations::SquareRoot<int>*>(
-        operations::Operations<int>::create("sqrt", args1).get()));
+        factory.create("sqrt", args1).get()));
     REQUIRE(nullptr != dynamic_cast<operations::Truncate<int>*>(
-        operations::Operations<int>::create("trunc", args1).get()));
+        factory.create("trunc", args1).get()));
     REQUIRE(nullptr != dynamic_cast<operations::ArcCosine<int>*>(
-        operations::Operations<int>::create("acos", args1).get()));
+        factory.create("acos", args1).get()));
     REQUIRE(nullptr != dynamic_cast<operations::ArcCosh<int>*>(
-        operations::Operations<int>::create("acosh", args1).get()));
+        factory.create("acosh", args1).get()));
     REQUIRE(nullptr != dynamic_cast<operations::ArcSine<int>*>(
-        operations::Operations<int>::create("asin", args1).get()));
+        factory.create("asin", args1).get()));
     REQUIRE(nullptr != dynamic_cast<operations::ArcSinh<int>*>(
-        operations::Operations<int>::create("asinh", args1).get()));
+        factory.create("asinh", args1).get()));
     REQUIRE(nullptr != dynamic_cast<operations::ArcTangent<int>*>(
-        operations::Operations<int>::create("atan", args1).get()));
+        factory.create("atan", args1).get()));
     REQUIRE(nullptr != dynamic_cast<operations::ArcTangent2<int>*>(
-        operations::Operations<int>::create("atan2", args2).get()));
+        factory.create("atan2", args2).get()));
     REQUIRE(nullptr != dynamic_cast<operations::ArcTanh<int>*>(
-        operations::Operations<int>::create("atanh", args1).get()));
+        factory.create("atanh", args1).get()));
     REQUIRE(nullptr != dynamic_cast<operations::Cosine<int>*>(
-        operations::Operations<int>::create("cos", args1).get()));
+        factory.create("cos", args1).get()));
     REQUIRE(nullptr != dynamic_cast<operations::Cosh<int>*>(
-        operations::Operations<int>::create("cosh", args1).get()));
+        factory.create("cosh", args1).get()));
     REQUIRE(nullptr != dynamic_cast<operations::Sine<int>*>(
-        operations::Operations<int>::create("sin", args1).get()));
+        factory.create("sin", args1).get()));
     REQUIRE(nullptr != dynamic_cast<operations::Sinh<int>*>(
-        operations::Operations<int>::create("sinh", args1).get()));
+        factory.create("sinh", args1).get()));
     REQUIRE(nullptr != dynamic_cast<operations::Tangent<int>*>(
-        operations::Operations<int>::create("tan", args1).get()));
+        factory.create("tan", args1).get()));
     REQUIRE(nullptr != dynamic_cast<operations::Tanh<int>*>(
-        operations::Operations<int>::create("tanh", args1).get()));
+        factory.create("tanh", args1).get()));
     REQUIRE(nullptr != dynamic_cast<operations::DegreesToRadians<int>*>(
-        operations::Operations<int>::create("deg2rad", args1).get()));
+        factory.create("deg2rad", args1).get()));
     REQUIRE(nullptr != dynamic_cast<operations::RadiansToDegrees<int>*>(
-        operations::Operations<int>::create("rad2deg", args1).get()));
+        factory.create("rad2deg", args1).get()));
     REQUIRE(nullptr != dynamic_cast<operations::DegreesToGradians<int>*>(
-        operations::Operations<int>::create("deg2grad", args1).get()));
+        factory.create("deg2grad", args1).get()));
     REQUIRE(nullptr != dynamic_cast<operations::GradiansToDegrees<int>*>(
-        operations::Operations<int>::create("grad2deg", args1).get()));
+        factory.create("grad2deg", args1).get()));
 
     delete instr;
 }
 
 TEST_CASE("Mathematical tests", "[operations]") {
+
+    operations::OperationsFactory<int> factory_int;
+    operations::OperationsFactory<signed char> factory_signed_char;
+    operations::OperationsFactory<short int> factory_short_int;
+    operations::OperationsFactory<long int> factory_long_int;
+    operations::OperationsFactory<unsigned int> factory_unsigned_int;
+    operations::OperationsFactory<unsigned char> factory_unsigned_char;
+    operations::OperationsFactory<unsigned long int> factory_unsigned_long_int;
+    operations::OperationsFactory<float> factory_float;
+    operations::OperationsFactory<double> factory_double;
+    operations::OperationsFactory<long double> factory_long_double;
 
     SECTION("Addition") {
         {
@@ -195,7 +208,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<int>* instr1 = dynamic_cast<AInstruction<int>*>(
         new Value<int>(rawArgs[1]));
         std::vector<AInstruction<int>*> args = {instr0, instr1};
-        auto op = operations::Operations<int>::create("+", args);
+        auto op = factory_int.create("+", args);
         op->execute();
         REQUIRE(5 == op->getResult());
         delete instr0;
@@ -208,7 +221,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<signed char>* instr1 = dynamic_cast<AInstruction<signed char>*>(
         new Value<signed char>(rawArgs[1]));
         std::vector<AInstruction<signed char>*> args = {instr0, instr1};
-        auto op = operations::Operations<signed char>::create("+", args);
+        auto op = factory_signed_char.create("+", args);
         op->execute();
         REQUIRE(5 == op->getResult());
         delete instr0;
@@ -221,7 +234,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<short int>* instr1 = dynamic_cast<AInstruction<short int>*>(
         new Value<short int>(rawArgs[1]));
         std::vector<AInstruction<short int>*> args = {instr0, instr1};
-        auto op = operations::Operations<short int>::create("+", args);
+        auto op = factory_short_int.create("+", args);
         op->execute();
         REQUIRE(3000 == op->getResult());
         delete instr0;
@@ -234,7 +247,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<long int>* instr1 = dynamic_cast<AInstruction<long int>*>(
         new Value<long int>(rawArgs[1]));
         std::vector<AInstruction<long int>*> args = {instr0, instr1};
-        auto op = operations::Operations<long int>::create("+", args);
+        auto op = factory_long_int.create("+", args);
         op->execute();
         REQUIRE(300000 == op->getResult());
         delete instr0;
@@ -247,7 +260,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<unsigned int>* instr1 = dynamic_cast<AInstruction<unsigned int>*>(
         new Value<unsigned int>(rawArgs[1]));
         std::vector<AInstruction<unsigned int>*> args = {instr0, instr1};
-        auto op = operations::Operations<unsigned int>::create("+", args);
+        auto op = factory_unsigned_int.create("+", args);
         op->execute();
         REQUIRE(3 == op->getResult());
         delete instr0;
@@ -260,7 +273,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<unsigned char>* instr1 = dynamic_cast<AInstruction<unsigned char>*>(
         new Value<unsigned char>(rawArgs[1]));
         std::vector<AInstruction<unsigned char>*> args = {instr0, instr1};
-        auto op = operations::Operations<unsigned char>::create("+", args);
+        auto op = factory_unsigned_char.create("+", args);
         op->execute();
         REQUIRE(127 == op->getResult());
         delete instr0;
@@ -273,7 +286,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<unsigned long int>* instr1 = dynamic_cast<AInstruction<unsigned long int>*>(
         new Value<unsigned long int>(rawArgs[1]));
         std::vector<AInstruction<unsigned long int>*> args = {instr0, instr1};
-        auto op = operations::Operations<unsigned long int>::create("+", args);
+        auto op = factory_unsigned_long_int.create("+", args);
         op->execute();
         REQUIRE(700000 == op->getResult());
         delete instr0;
@@ -286,7 +299,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<float>* instr1 = dynamic_cast<AInstruction<float>*>(
         new Value<float>(rawArgs[1]));
         std::vector<AInstruction<float>*> args = {instr0, instr1};
-        auto op = operations::Operations<float>::create("+", args);
+        auto op = factory_float.create("+", args);
         op->execute();
         REQUIRE(3.2f == op->getResult());
         delete instr0;
@@ -299,7 +312,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<double>* instr1 = dynamic_cast<AInstruction<double>*>(
         new Value<double>(rawArgs[1]));
         std::vector<AInstruction<double>*> args = {instr0, instr1};
-        auto op = operations::Operations<double>::create("+", args);
+        auto op = factory_double.create("+", args);
         op->execute();
         REQUIRE(3.0 == op->getResult());
         delete instr0;
@@ -312,7 +325,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<long double>* instr1 = dynamic_cast<AInstruction<long double>*>(
         new Value<long double>(rawArgs[1]));
         std::vector<AInstruction<long double>*> args = {instr0, instr1};
-        auto op = operations::Operations<long double>::create("+", args);
+        auto op = factory_long_double.create("+", args);
         op->execute();
         REQUIRE(3.0L == op->getResult());
         delete instr0;
@@ -327,7 +340,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<int>* instr1 = dynamic_cast<AInstruction<int>*>(
         new Value<int>(rawArgs[1]));
         std::vector<AInstruction<int>*> args = {instr0, instr1};
-        auto op = operations::Operations<int>::create("-", args);
+        auto op = factory_int.create("-", args);
         op->execute();
         REQUIRE(3 == op->getResult());
         delete instr0;
@@ -340,7 +353,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<signed char>* instr1 = dynamic_cast<AInstruction<signed char>*>(
         new Value<signed char>(rawArgs[1]));
         std::vector<AInstruction<signed char>*> args = {instr0, instr1};
-        auto op = operations::Operations<signed char>::create("-", args);
+        auto op = factory_signed_char.create("-", args);
         op->execute();
         REQUIRE(5 == op->getResult());
         delete instr0;
@@ -353,7 +366,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<short int>* instr1 = dynamic_cast<AInstruction<short int>*>(
         new Value<short int>(rawArgs[1]));
         std::vector<AInstruction<short int>*> args = {instr0, instr1};
-        auto op = operations::Operations<short int>::create("-", args);
+        auto op = factory_short_int.create("-", args);
         op->execute();
         REQUIRE(1000 == op->getResult());
         delete instr0;
@@ -366,7 +379,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<long int>* instr1 = dynamic_cast<AInstruction<long int>*>(
         new Value<long int>(rawArgs[1]));
         std::vector<AInstruction<long int>*> args = {instr0, instr1};
-        auto op = operations::Operations<long int>::create("-", args);
+        auto op = factory_long_int.create("-", args);
         op->execute();
         REQUIRE(200000 == op->getResult());
         delete instr0;
@@ -379,7 +392,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<unsigned int>* instr1 = dynamic_cast<AInstruction<unsigned int>*>(
         new Value<unsigned int>(rawArgs[1]));
         std::vector<AInstruction<unsigned int>*> args = {instr0, instr1};
-        auto op = operations::Operations<unsigned int>::create("-", args);
+        auto op = factory_unsigned_int.create("-", args);
         op->execute();
         REQUIRE(2 == op->getResult());
         delete instr0;
@@ -392,7 +405,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<unsigned char>* instr1 = dynamic_cast<AInstruction<unsigned char>*>(
         new Value<unsigned char>(rawArgs[1]));
         std::vector<AInstruction<unsigned char>*> args = {instr0, instr1};
-        auto op = operations::Operations<unsigned char>::create("-", args);
+        auto op = factory_unsigned_char.create("-", args);
         op->execute();
         REQUIRE(100 == op->getResult());
         delete instr0;
@@ -405,7 +418,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<unsigned long int>* instr1 = dynamic_cast<AInstruction<unsigned long int>*>(
         new Value<unsigned long int>(rawArgs[1]));
         std::vector<AInstruction<unsigned long int>*> args = {instr0, instr1};
-        auto op = operations::Operations<unsigned long int>::create("-", args);
+        auto op = factory_unsigned_long_int.create("-", args);
         op->execute();
         REQUIRE(700000 == op->getResult());
         delete instr0;
@@ -418,7 +431,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<float>* instr1 = dynamic_cast<AInstruction<float>*>(
         new Value<float>(rawArgs[1]));
         std::vector<AInstruction<float>*> args = {instr0, instr1};
-        auto op = operations::Operations<float>::create("-", args);
+        auto op = factory_float.create("-", args);
         op->execute();
         REQUIRE(3.3f == op->getResult());
         delete instr0;
@@ -431,7 +444,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<double>* instr1 = dynamic_cast<AInstruction<double>*>(
         new Value<double>(rawArgs[1]));
         std::vector<AInstruction<double>*> args = {instr0, instr1};
-        auto op = operations::Operations<double>::create("-", args);
+        auto op = factory_double.create("-", args);
         op->execute();
         REQUIRE(0.2 == op->getResult());
         delete instr0;
@@ -444,7 +457,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<long double>* instr1 = dynamic_cast<AInstruction<long double>*>(
         new Value<long double>(rawArgs[1]));
         std::vector<AInstruction<long double>*> args = {instr0, instr1};
-        auto op = operations::Operations<long double>::create("-", args);
+        auto op = factory_long_double.create("-", args);
         op->execute();
         REQUIRE(1.0L == op->getResult());
         delete instr0;
@@ -459,7 +472,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<int>* instr1 = dynamic_cast<AInstruction<int>*>(
         new Value<int>(rawArgs[1]));
         std::vector<AInstruction<int>*> args = {instr0, instr1};
-        auto op = operations::Operations<int>::create("*", args);
+        auto op = factory_int.create("*", args);
         op->execute();
         REQUIRE(6 == op->getResult());
         delete instr0;
@@ -472,7 +485,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<signed char>* instr1 = dynamic_cast<AInstruction<signed char>*>(
         new Value<signed char>(rawArgs[1]));
         std::vector<AInstruction<signed char>*> args = {instr0, instr1};
-        auto op = operations::Operations<signed char>::create("*", args);
+        auto op = factory_signed_char.create("*", args);
         op->execute();
         REQUIRE(-50 == op->getResult());
         delete instr0;
@@ -485,7 +498,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<short int>* instr1 = dynamic_cast<AInstruction<short int>*>(
         new Value<short int>(rawArgs[1]));
         std::vector<AInstruction<short int>*> args = {instr0, instr1};
-        auto op = operations::Operations<short int>::create("*", args);
+        auto op = factory_short_int.create("*", args);
         op->execute();
         REQUIRE(20 == op->getResult());
         delete instr0;
@@ -498,7 +511,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<long int>* instr1 = dynamic_cast<AInstruction<long int>*>(
         new Value<long int>(rawArgs[1]));
         std::vector<AInstruction<long int>*> args = {instr0, instr1};
-        auto op = operations::Operations<long int>::create("*", args);
+        auto op = factory_long_int.create("*", args);
         op->execute();
         REQUIRE(2000 == op->getResult());
         delete instr0;
@@ -511,7 +524,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<unsigned int>* instr1 = dynamic_cast<AInstruction<unsigned int>*>(
         new Value<unsigned int>(rawArgs[1]));
         std::vector<AInstruction<unsigned int>*> args = {instr0, instr1};
-        auto op = operations::Operations<unsigned int>::create("*", args);
+        auto op = factory_unsigned_int.create("*", args);
         op->execute();
         REQUIRE(2 == op->getResult());
         delete instr0;
@@ -524,7 +537,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<unsigned char>* instr1 = dynamic_cast<AInstruction<unsigned char>*>(
         new Value<unsigned char>(rawArgs[1]));
         std::vector<AInstruction<unsigned char>*> args = {instr0, instr1};
-        auto op = operations::Operations<unsigned char>::create("*", args);
+        auto op = factory_unsigned_char.create("*", args);
         op->execute();
         REQUIRE(20 == op->getResult());
         delete instr0;
@@ -537,7 +550,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<unsigned long int>* instr1 = dynamic_cast<AInstruction<unsigned long int>*>(
         new Value<unsigned long int>(rawArgs[1]));
         std::vector<AInstruction<unsigned long int>*> args = {instr0, instr1};
-        auto op = operations::Operations<unsigned long int>::create("*", args);
+        auto op = factory_unsigned_long_int.create("*", args);
         op->execute();
         REQUIRE(20000 == op->getResult());
         delete instr0;
@@ -550,7 +563,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<float>* instr1 = dynamic_cast<AInstruction<float>*>(
         new Value<float>(rawArgs[1]));
         std::vector<AInstruction<float>*> args = {instr0, instr1};
-        auto op = operations::Operations<float>::create("*", args);
+        auto op = factory_float.create("*", args);
         op->execute();
         REQUIRE(2.42f == op->getResult());
         delete instr0;
@@ -563,7 +576,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<double>* instr1 = dynamic_cast<AInstruction<double>*>(
         new Value<double>(rawArgs[1]));
         std::vector<AInstruction<double>*> args = {instr0, instr1};
-        auto op = operations::Operations<double>::create("*", args);
+        auto op = factory_double.create("*", args);
         op->execute();
         REQUIRE(20.0 == op->getResult());
         delete instr0;
@@ -576,7 +589,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<long double>* instr1 = dynamic_cast<AInstruction<long double>*>(
         new Value<long double>(rawArgs[1]));
         std::vector<AInstruction<long double>*> args = {instr0, instr1};
-        auto op = operations::Operations<long double>::create("*", args);
+        auto op = factory_long_double.create("*", args);
         op->execute();
         REQUIRE(0.00000002L == op->getResult());
         delete instr0;
@@ -591,7 +604,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<int>* instr1 = dynamic_cast<AInstruction<int>*>(
         new Value<int>(rawArgs[1]));
         std::vector<AInstruction<int>*> args = {instr0, instr1};
-        auto op = operations::Operations<int>::create("/", args);
+        auto op = factory_int.create("/", args);
         op->execute();
         REQUIRE(3 == op->getResult());
         delete instr0;
@@ -604,7 +617,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<signed char>* instr1 = dynamic_cast<AInstruction<signed char>*>(
         new Value<signed char>(rawArgs[1]));
         std::vector<AInstruction<signed char>*> args = {instr0, instr1};
-        auto op = operations::Operations<signed char>::create("/", args);
+        auto op = factory_signed_char.create("/", args);
         op->execute();
         REQUIRE(-5 == op->getResult());
         delete instr0;
@@ -617,7 +630,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<short int>* instr1 = dynamic_cast<AInstruction<short int>*>(
         new Value<short int>(rawArgs[1]));
         std::vector<AInstruction<short int>*> args = {instr0, instr1};
-        auto op = operations::Operations<short int>::create("/", args);
+        auto op = factory_short_int.create("/", args);
         op->execute();
         REQUIRE(2 == op->getResult());
         delete instr0;
@@ -630,7 +643,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<long int>* instr1 = dynamic_cast<AInstruction<long int>*>(
         new Value<long int>(rawArgs[1]));
         std::vector<AInstruction<long int>*> args = {instr0, instr1};
-        auto op = operations::Operations<long int>::create("/", args);
+        auto op = factory_long_int.create("/", args);
         op->execute();
         REQUIRE(3 == op->getResult());
         delete instr0;
@@ -643,7 +656,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<unsigned int>* instr1 = dynamic_cast<AInstruction<unsigned int>*>(
         new Value<unsigned int>(rawArgs[1]));
         std::vector<AInstruction<unsigned int>*> args = {instr0, instr1};
-        auto op = operations::Operations<unsigned int>::create("/", args);
+        auto op = factory_unsigned_int.create("/", args);
         op->execute();
         REQUIRE(2 == op->getResult());
         delete instr0;
@@ -656,7 +669,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<unsigned char>* instr1 = dynamic_cast<AInstruction<unsigned char>*>(
         new Value<unsigned char>(rawArgs[1]));
         std::vector<AInstruction<unsigned char>*> args = {instr0, instr1};
-        auto op = operations::Operations<unsigned char>::create("/", args);
+        auto op = factory_unsigned_char.create("/", args);
         op->execute();
         REQUIRE(4 == op->getResult());
         delete instr0;
@@ -669,7 +682,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<unsigned long int>* instr1 = dynamic_cast<AInstruction<unsigned long int>*>(
         new Value<unsigned long int>(rawArgs[1]));
         std::vector<AInstruction<unsigned long int>*> args = {instr0, instr1};
-        auto op = operations::Operations<unsigned long int>::create("/", args);
+        auto op = factory_unsigned_long_int.create("/", args);
         op->execute();
         REQUIRE(8 == op->getResult());
         delete instr0;
@@ -682,7 +695,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<float>* instr1 = dynamic_cast<AInstruction<float>*>(
         new Value<float>(rawArgs[1]));
         std::vector<AInstruction<float>*> args = {instr0, instr1};
-        auto op = operations::Operations<float>::create("/", args);
+        auto op = factory_float.create("/", args);
         op->execute();
         REQUIRE(2.5f == op->getResult());
         delete instr0;
@@ -695,7 +708,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<double>* instr1 = dynamic_cast<AInstruction<double>*>(
         new Value<double>(rawArgs[1]));
         std::vector<AInstruction<double>*> args = {instr0, instr1};
-        auto op = operations::Operations<double>::create("/", args);
+        auto op = factory_double.create("/", args);
         op->execute();
         REQUIRE(4.0 == op->getResult());
         delete instr0;
@@ -708,7 +721,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<long double>* instr1 = dynamic_cast<AInstruction<long double>*>(
         new Value<long double>(rawArgs[1]));
         std::vector<AInstruction<long double>*> args = {instr0, instr1};
-        auto op = operations::Operations<long double>::create("/", args);
+        auto op = factory_long_double.create("/", args);
         op->execute();
         REQUIRE(4.0L == op->getResult());
         delete instr0;
@@ -723,7 +736,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<int>* instr1 = dynamic_cast<AInstruction<int>*>(
         new Value<int>(rawArgs[1]));
         std::vector<AInstruction<int>*> args = {instr0, instr1};
-        auto op = operations::Operations<int>::create("%", args);
+        auto op = factory_int.create("%", args);
         op->execute();
         REQUIRE(1 == op->getResult());
         delete instr0;
@@ -736,7 +749,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<signed char>* instr1 = dynamic_cast<AInstruction<signed char>*>(
         new Value<signed char>(rawArgs[1]));
         std::vector<AInstruction<signed char>*> args = {instr0, instr1};
-        auto op = operations::Operations<signed char>::create("%", args);
+        auto op = factory_signed_char.create("%", args);
         op->execute();
         REQUIRE(0 == op->getResult());
         delete instr0;
@@ -749,7 +762,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<short int>* instr1 = dynamic_cast<AInstruction<short int>*>(
         new Value<short int>(rawArgs[1]));
         std::vector<AInstruction<short int>*> args = {instr0, instr1};
-        auto op = operations::Operations<short int>::create("%", args);
+        auto op = factory_short_int.create("%", args);
         op->execute();
         REQUIRE(0 == op->getResult());
         delete instr0;
@@ -762,7 +775,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<long int>* instr1 = dynamic_cast<AInstruction<long int>*>(
         new Value<long int>(rawArgs[1]));
         std::vector<AInstruction<long int>*> args = {instr0, instr1};
-        auto op = operations::Operations<long int>::create("%", args);
+        auto op = factory_long_int.create("%", args);
         op->execute();
         REQUIRE(0 == op->getResult());
         delete instr0;
@@ -775,7 +788,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<unsigned int>* instr1 = dynamic_cast<AInstruction<unsigned int>*>(
         new Value<unsigned int>(rawArgs[1]));
         std::vector<AInstruction<unsigned int>*> args = {instr0, instr1};
-        auto op = operations::Operations<unsigned int>::create("%", args);
+        auto op = factory_unsigned_int.create("%", args);
         op->execute();
         REQUIRE(1 == op->getResult());
         delete instr0;
@@ -788,7 +801,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<unsigned char>* instr1 = dynamic_cast<AInstruction<unsigned char>*>(
         new Value<unsigned char>(rawArgs[1]));
         std::vector<AInstruction<unsigned char>*> args = {instr0, instr1};
-        auto op = operations::Operations<unsigned char>::create("%", args);
+        auto op = factory_unsigned_char.create("%", args);
         op->execute();
         REQUIRE(19 == op->getResult());
         delete instr0;
@@ -801,7 +814,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<unsigned long int>* instr1 = dynamic_cast<AInstruction<unsigned long int>*>(
         new Value<unsigned long int>(rawArgs[1]));
         std::vector<AInstruction<unsigned long int>*> args = {instr0, instr1};
-        auto op = operations::Operations<unsigned long int>::create("%", args);
+        auto op = factory_unsigned_long_int.create("%", args);
         op->execute();
         REQUIRE(0 == op->getResult());
         delete instr0;
@@ -814,7 +827,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<float>* instr1 = dynamic_cast<AInstruction<float>*>(
         new Value<float>(rawArgs[1]));
         std::vector<AInstruction<float>*> args = {instr0, instr1};
-        auto op = operations::Operations<float>::create("%", args);
+        auto op = factory_float.create("%", args);
         op->execute();
         REQUIRE(1.0f == op->getResult());
         delete instr0;
@@ -827,7 +840,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<double>* instr1 = dynamic_cast<AInstruction<double>*>(
         new Value<double>(rawArgs[1]));
         std::vector<AInstruction<double>*> args = {instr0, instr1};
-        auto op = operations::Operations<double>::create("%", args);
+        auto op = factory_double.create("%", args);
         op->execute();
         REQUIRE(1.0 == op->getResult());
         delete instr0;
@@ -840,7 +853,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<long double>* instr1 = dynamic_cast<AInstruction<long double>*>(
         new Value<long double>(rawArgs[1]));
         std::vector<AInstruction<long double>*> args = {instr0, instr1};
-        auto op = operations::Operations<long double>::create("%", args);
+        auto op = factory_long_double.create("%", args);
         op->execute();
         REQUIRE(1.0L == op->getResult());
         delete instr0;
@@ -855,7 +868,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<int>* instr1 = dynamic_cast<AInstruction<int>*>(
         new Value<int>(rawArgs[1]));
         std::vector<AInstruction<int>*> args = {instr0, instr1};
-        auto op = operations::Operations<int>::create("^", args);
+        auto op = factory_int.create("^", args);
         op->execute();
         REQUIRE(8 == op->getResult());
         delete instr0;
@@ -868,7 +881,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<signed char>* instr1 = dynamic_cast<AInstruction<signed char>*>(
         new Value<signed char>(rawArgs[1]));
         std::vector<AInstruction<signed char>*> args = {instr0, instr1};
-        auto op = operations::Operations<signed char>::create("^", args);
+        auto op = factory_signed_char.create("^", args);
         op->execute();
         REQUIRE(25 == op->getResult());
         delete instr0;
@@ -881,7 +894,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<short int>* instr1 = dynamic_cast<AInstruction<short int>*>(
         new Value<short int>(rawArgs[1]));
         std::vector<AInstruction<short int>*> args = {instr0, instr1};
-        auto op = operations::Operations<short int>::create("^", args);
+        auto op = factory_short_int.create("^", args);
         op->execute();
         REQUIRE(100 == op->getResult());
         delete instr0;
@@ -894,7 +907,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<long int>* instr1 = dynamic_cast<AInstruction<long int>*>(
         new Value<long int>(rawArgs[1]));
         std::vector<AInstruction<long int>*> args = {instr0, instr1};
-        auto op = operations::Operations<long int>::create("^", args);
+        auto op = factory_long_int.create("^", args);
         op->execute();
         REQUIRE(10000 == op->getResult());
         delete instr0;
@@ -907,7 +920,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<unsigned int>* instr1 = dynamic_cast<AInstruction<unsigned int>*>(
         new Value<unsigned int>(rawArgs[1]));
         std::vector<AInstruction<unsigned int>*> args = {instr0, instr1};
-        auto op = operations::Operations<unsigned int>::create("^", args);
+        auto op = factory_unsigned_int.create("^", args);
         op->execute();
         REQUIRE(1 == op->getResult());
         delete instr0;
@@ -920,7 +933,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<unsigned char>* instr1 = dynamic_cast<AInstruction<unsigned char>*>(
         new Value<unsigned char>(rawArgs[1]));
         std::vector<AInstruction<unsigned char>*> args = {instr0, instr1};
-        auto op = operations::Operations<unsigned char>::create("^", args);
+        auto op = factory_unsigned_char.create("^", args);
         op->execute();
         REQUIRE(100 == op->getResult());
         delete instr0;
@@ -933,7 +946,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<unsigned long int>* instr1 = dynamic_cast<AInstruction<unsigned long int>*>(
         new Value<unsigned long int>(rawArgs[1]));
         std::vector<AInstruction<unsigned long int>*> args = {instr0, instr1};
-        auto op = operations::Operations<unsigned long int>::create("^", args);
+        auto op = factory_unsigned_long_int.create("^", args);
         op->execute();
         REQUIRE(10000 == op->getResult());
         delete instr0;
@@ -946,7 +959,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<float>* instr1 = dynamic_cast<AInstruction<float>*>(
         new Value<float>(rawArgs[1]));
         std::vector<AInstruction<float>*> args = {instr0, instr1};
-        auto op = operations::Operations<float>::create("^", args);
+        auto op = factory_float.create("^", args);
         op->execute();
         REQUIRE(100.0f == op->getResult());
         delete instr0;
@@ -959,7 +972,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<double>* instr1 = dynamic_cast<AInstruction<double>*>(
         new Value<double>(rawArgs[1]));
         std::vector<AInstruction<double>*> args = {instr0, instr1};
-        auto op = operations::Operations<double>::create("^", args);
+        auto op = factory_double.create("^", args);
         op->execute();
         REQUIRE(100.0 == op->getResult());
         delete instr0;
@@ -972,7 +985,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<long double>* instr1 = dynamic_cast<AInstruction<long double>*>(
         new Value<long double>(rawArgs[1]));
         std::vector<AInstruction<long double>*> args = {instr0, instr1};
-        auto op = operations::Operations<long double>::create("^", args);
+        auto op = factory_long_double.create("^", args);
         op->execute();
         REQUIRE(100.0L == op->getResult());
         delete instr0;
@@ -987,7 +1000,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<int>* instr1 = dynamic_cast<AInstruction<int>*>(
         new Value<int>(rawArgs[1]));
         std::vector<AInstruction<int>*> args = {instr0, instr1};
-        auto op = operations::Operations<int>::create("=", args);
+        auto op = factory_int.create("=", args);
         op->execute();
         REQUIRE(1 == op->getResult());
         delete instr0;
@@ -1000,7 +1013,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<signed char>* instr1 = dynamic_cast<AInstruction<signed char>*>(
         new Value<signed char>(rawArgs[1]));
         std::vector<AInstruction<signed char>*> args = {instr0, instr1};
-        auto op = operations::Operations<signed char>::create("=", args);
+        auto op = factory_signed_char.create("=", args);
         op->execute();
         REQUIRE(1 == op->getResult());
         delete instr0;
@@ -1013,7 +1026,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<short int>* instr1 = dynamic_cast<AInstruction<short int>*>(
         new Value<short int>(rawArgs[1]));
         std::vector<AInstruction<short int>*> args = {instr0, instr1};
-        auto op = operations::Operations<short int>::create("=", args);
+        auto op = factory_short_int.create("=", args);
         op->execute();
         REQUIRE(1 == op->getResult());
         delete instr0;
@@ -1026,7 +1039,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<long int>* instr1 = dynamic_cast<AInstruction<long int>*>(
         new Value<long int>(rawArgs[1]));
         std::vector<AInstruction<long int>*> args = {instr0, instr1};
-        auto op = operations::Operations<long int>::create("=", args);
+        auto op = factory_long_int.create("=", args);
         op->execute();
         REQUIRE(1 == op->getResult());
         delete instr0;
@@ -1039,7 +1052,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<unsigned int>* instr1 = dynamic_cast<AInstruction<unsigned int>*>(
         new Value<unsigned int>(rawArgs[1]));
         std::vector<AInstruction<unsigned int>*> args = {instr0, instr1};
-        auto op = operations::Operations<unsigned int>::create("=", args);
+        auto op = factory_unsigned_int.create("=", args);
         op->execute();
         REQUIRE(1 == op->getResult());
         delete instr0;
@@ -1052,7 +1065,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<unsigned char>* instr1 = dynamic_cast<AInstruction<unsigned char>*>(
         new Value<unsigned char>(rawArgs[1]));
         std::vector<AInstruction<unsigned char>*> args = {instr0, instr1};
-        auto op = operations::Operations<unsigned char>::create("=", args);
+        auto op = factory_unsigned_char.create("=", args);
         op->execute();
         REQUIRE(1 == op->getResult());
         delete instr0;
@@ -1065,7 +1078,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<unsigned long int>* instr1 = dynamic_cast<AInstruction<unsigned long int>*>(
         new Value<unsigned long int>(rawArgs[1]));
         std::vector<AInstruction<unsigned long int>*> args = {instr0, instr1};
-        auto op = operations::Operations<unsigned long int>::create("=", args);
+        auto op = factory_unsigned_long_int.create("=", args);
         op->execute();
         REQUIRE(1 == op->getResult());
         delete instr0;
@@ -1078,7 +1091,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<float>* instr1 = dynamic_cast<AInstruction<float>*>(
         new Value<float>(rawArgs[1]));
         std::vector<AInstruction<float>*> args = {instr0, instr1};
-        auto op = operations::Operations<float>::create("=", args);
+        auto op = factory_float.create("=", args);
         op->execute();
         REQUIRE(1 == op->getResult());
         delete instr0;
@@ -1091,7 +1104,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<double>* instr1 = dynamic_cast<AInstruction<double>*>(
         new Value<double>(rawArgs[1]));
         std::vector<AInstruction<double>*> args = {instr0, instr1};
-        auto op = operations::Operations<double>::create("=", args);
+        auto op = factory_double.create("=", args);
         op->execute();
         REQUIRE(1 == op->getResult());
         delete instr0;
@@ -1104,7 +1117,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<long double>* instr1 = dynamic_cast<AInstruction<long double>*>(
         new Value<long double>(rawArgs[1]));
         std::vector<AInstruction<long double>*> args = {instr0, instr1};
-        auto op = operations::Operations<long double>::create("=", args);
+        auto op = factory_long_double.create("=", args);
         op->execute();
         REQUIRE(1 == op->getResult());
         delete instr0;
@@ -1119,7 +1132,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<int>* instr1 = dynamic_cast<AInstruction<int>*>(
         new Value<int>(rawArgs[1]));
         std::vector<AInstruction<int>*> args = {instr0, instr1};
-        auto op = operations::Operations<int>::create("!=", args);
+        auto op = factory_int.create("!=", args);
         op->execute();
         REQUIRE(1 == op->getResult());
         delete instr0;
@@ -1132,7 +1145,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<signed char>* instr1 = dynamic_cast<AInstruction<signed char>*>(
         new Value<signed char>(rawArgs[1]));
         std::vector<AInstruction<signed char>*> args = {instr0, instr1};
-        auto op = operations::Operations<signed char>::create("!=", args);
+        auto op = factory_signed_char.create("!=", args);
         op->execute();
         REQUIRE(1 == op->getResult());
         delete instr0;
@@ -1145,7 +1158,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<short int>* instr1 = dynamic_cast<AInstruction<short int>*>(
         new Value<short int>(rawArgs[1]));
         std::vector<AInstruction<short int>*> args = {instr0, instr1};
-        auto op = operations::Operations<short int>::create("!=", args);
+        auto op = factory_short_int.create("!=", args);
         op->execute();
         REQUIRE(1 == op->getResult());
         delete instr0;
@@ -1158,7 +1171,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<long int>* instr1 = dynamic_cast<AInstruction<long int>*>(
         new Value<long int>(rawArgs[1]));
         std::vector<AInstruction<long int>*> args = {instr0, instr1};
-        auto op = operations::Operations<long int>::create("!=", args);
+        auto op = factory_long_int.create("!=", args);
         op->execute();
         REQUIRE(1 == op->getResult());
         delete instr0;
@@ -1171,7 +1184,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<unsigned int>* instr1 = dynamic_cast<AInstruction<unsigned int>*>(
         new Value<unsigned int>(rawArgs[1]));
         std::vector<AInstruction<unsigned int>*> args = {instr0, instr1};
-        auto op = operations::Operations<unsigned int>::create("!=", args);
+        auto op = factory_unsigned_int.create("!=", args);
         op->execute();
         REQUIRE(1 == op->getResult());
         delete instr0;
@@ -1184,7 +1197,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<unsigned char>* instr1 = dynamic_cast<AInstruction<unsigned char>*>(
         new Value<unsigned char>(rawArgs[1]));
         std::vector<AInstruction<unsigned char>*> args = {instr0, instr1};
-        auto op = operations::Operations<unsigned char>::create("!=", args);
+        auto op = factory_unsigned_char.create("!=", args);
         op->execute();
         REQUIRE(1 == op->getResult());
         delete instr0;
@@ -1197,7 +1210,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<unsigned long int>* instr1 = dynamic_cast<AInstruction<unsigned long int>*>(
         new Value<unsigned long int>(rawArgs[1]));
         std::vector<AInstruction<unsigned long int>*> args = {instr0, instr1};
-        auto op = operations::Operations<unsigned long int>::create("!=", args);
+        auto op = factory_unsigned_long_int.create("!=", args);
         op->execute();
         REQUIRE(1 == op->getResult());
         delete instr0;
@@ -1210,7 +1223,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<float>* instr1 = dynamic_cast<AInstruction<float>*>(
         new Value<float>(rawArgs[1]));
         std::vector<AInstruction<float>*> args = {instr0, instr1};
-        auto op = operations::Operations<float>::create("!=", args);
+        auto op = factory_float.create("!=", args);
         op->execute();
         REQUIRE(1 == op->getResult());
         delete instr0;
@@ -1223,7 +1236,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<double>* instr1 = dynamic_cast<AInstruction<double>*>(
         new Value<double>(rawArgs[1]));
         std::vector<AInstruction<double>*> args = {instr0, instr1};
-        auto op = operations::Operations<double>::create("!=", args);
+        auto op = factory_double.create("!=", args);
         op->execute();
         REQUIRE(1 == op->getResult());
         delete instr0;
@@ -1236,7 +1249,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<long double>* instr1 = dynamic_cast<AInstruction<long double>*>(
         new Value<long double>(rawArgs[1]));
         std::vector<AInstruction<long double>*> args = {instr0, instr1};
-        auto op = operations::Operations<long double>::create("!=", args);
+        auto op = factory_long_double.create("!=", args);
         op->execute();
         REQUIRE(1 == op->getResult());
         delete instr0;
@@ -1251,7 +1264,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<int>* instr1 = dynamic_cast<AInstruction<int>*>(
         new Value<int>(rawArgs[1]));
         std::vector<AInstruction<int>*> args = {instr0, instr1};
-        auto op = operations::Operations<int>::create("<", args);
+        auto op = factory_int.create("<", args);
         op->execute();
         REQUIRE(1 == op->getResult());
         delete instr0;
@@ -1264,7 +1277,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<int>* instr1 = dynamic_cast<AInstruction<int>*>(
         new Value<int>(rawArgs[1]));
         std::vector<AInstruction<int>*> args = {instr0, instr1};
-        auto op = operations::Operations<int>::create("<", args);
+        auto op = factory_int.create("<", args);
         op->execute();
         REQUIRE(0 == op->getResult());
         delete instr0;
@@ -1277,7 +1290,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<signed char>* instr1 = dynamic_cast<AInstruction<signed char>*>(
         new Value<signed char>(rawArgs[1]));
         std::vector<AInstruction<signed char>*> args = {instr0, instr1};
-        auto op = operations::Operations<signed char>::create("<", args);
+        auto op = factory_signed_char.create("<", args);
         op->execute();
         REQUIRE(1 == op->getResult());
         delete instr0;
@@ -1290,7 +1303,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<signed char>* instr1 = dynamic_cast<AInstruction<signed char>*>(
         new Value<signed char>(rawArgs[1]));
         std::vector<AInstruction<signed char>*> args = {instr0, instr1};
-        auto op = operations::Operations<signed char>::create("<", args);
+        auto op = factory_signed_char.create("<", args);
         op->execute();
         REQUIRE(0 == op->getResult());
         delete instr0;
@@ -1303,7 +1316,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<short int>* instr1 = dynamic_cast<AInstruction<short int>*>(
         new Value<short int>(rawArgs[1]));
         std::vector<AInstruction<short int>*> args = {instr0, instr1};
-        auto op = operations::Operations<short int>::create("<", args);
+        auto op = factory_short_int.create("<", args);
         op->execute();
         REQUIRE(1 == op->getResult());
         delete instr0;
@@ -1316,7 +1329,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<short int>* instr1 = dynamic_cast<AInstruction<short int>*>(
         new Value<short int>(rawArgs[1]));
         std::vector<AInstruction<short int>*> args = {instr0, instr1};
-        auto op = operations::Operations<short int>::create("<", args);
+        auto op = factory_short_int.create("<", args);
         op->execute();
         REQUIRE(0 == op->getResult());
         delete instr0;
@@ -1329,7 +1342,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<long int>* instr1 = dynamic_cast<AInstruction<long int>*>(
         new Value<long int>(rawArgs[1]));
         std::vector<AInstruction<long int>*> args = {instr0, instr1};
-        auto op = operations::Operations<long int>::create("<", args);
+        auto op = factory_long_int.create("<", args);
         op->execute();
         REQUIRE(1 == op->getResult());
         delete instr0;
@@ -1342,7 +1355,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<long int>* instr1 = dynamic_cast<AInstruction<long int>*>(
         new Value<long int>(rawArgs[1]));
         std::vector<AInstruction<long int>*> args = {instr0, instr1};
-        auto op = operations::Operations<long int>::create("<", args);
+        auto op = factory_long_int.create("<", args);
         op->execute();
         REQUIRE(0 == op->getResult());
         delete instr0;
@@ -1355,7 +1368,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<unsigned int>* instr1 = dynamic_cast<AInstruction<unsigned int>*>(
         new Value<unsigned int>(rawArgs[1]));
         std::vector<AInstruction<unsigned int>*> args = {instr0, instr1};
-        auto op = operations::Operations<unsigned int>::create("<", args);
+        auto op = factory_unsigned_int.create("<", args);
         op->execute();
         REQUIRE(1 == op->getResult());
         delete instr0;
@@ -1368,7 +1381,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<unsigned int>* instr1 = dynamic_cast<AInstruction<unsigned int>*>(
         new Value<unsigned int>(rawArgs[1]));
         std::vector<AInstruction<unsigned int>*> args = {instr0, instr1};
-        auto op = operations::Operations<unsigned int>::create("<", args);
+        auto op = factory_unsigned_int.create("<", args);
         op->execute();
         REQUIRE(0 == op->getResult());
         delete instr0;
@@ -1381,7 +1394,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<unsigned char>* instr1 = dynamic_cast<AInstruction<unsigned char>*>(
         new Value<unsigned char>(rawArgs[1]));
         std::vector<AInstruction<unsigned char>*> args = {instr0, instr1};
-        auto op = operations::Operations<unsigned char>::create("<", args);
+        auto op = factory_unsigned_char.create("<", args);
         op->execute();
         REQUIRE(1 == op->getResult());
         delete instr0;
@@ -1394,7 +1407,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<unsigned char>* instr1 = dynamic_cast<AInstruction<unsigned char>*>(
         new Value<unsigned char>(rawArgs[1]));
         std::vector<AInstruction<unsigned char>*> args = {instr0, instr1};
-        auto op = operations::Operations<unsigned char>::create("<", args);
+        auto op = factory_unsigned_char.create("<", args);
         op->execute();
         REQUIRE(0 == op->getResult());
         delete instr0;
@@ -1407,7 +1420,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<unsigned long int>* instr1 = dynamic_cast<AInstruction<unsigned long int>*>(
         new Value<unsigned long int>(rawArgs[1]));
         std::vector<AInstruction<unsigned long int>*> args = {instr0, instr1};
-        auto op = operations::Operations<unsigned long int>::create("<", args);
+        auto op = factory_unsigned_long_int.create("<", args);
         op->execute();
         REQUIRE(1 == op->getResult());
         delete instr0;
@@ -1420,7 +1433,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<unsigned long int>* instr1 = dynamic_cast<AInstruction<unsigned long int>*>(
         new Value<unsigned long int>(rawArgs[1]));
         std::vector<AInstruction<unsigned long int>*> args = {instr0, instr1};
-        auto op = operations::Operations<unsigned long int>::create("<", args);
+        auto op = factory_unsigned_long_int.create("<", args);
         op->execute();
         REQUIRE(0 == op->getResult());
         delete instr0;
@@ -1433,7 +1446,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<float>* instr1 = dynamic_cast<AInstruction<float>*>(
         new Value<float>(rawArgs[1]));
         std::vector<AInstruction<float>*> args = {instr0, instr1};
-        auto op = operations::Operations<float>::create("<", args);
+        auto op = factory_float.create("<", args);
         op->execute();
         REQUIRE(1 == op->getResult());
         delete instr0;
@@ -1446,7 +1459,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<float>* instr1 = dynamic_cast<AInstruction<float>*>(
         new Value<float>(rawArgs[1]));
         std::vector<AInstruction<float>*> args = {instr0, instr1};
-        auto op = operations::Operations<float>::create("<", args);
+        auto op = factory_float.create("<", args);
         op->execute();
         REQUIRE(0 == op->getResult());
         delete instr0;
@@ -1459,7 +1472,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<double>* instr1 = dynamic_cast<AInstruction<double>*>(
         new Value<double>(rawArgs[1]));
         std::vector<AInstruction<double>*> args = {instr0, instr1};
-        auto op = operations::Operations<double>::create("<", args);
+        auto op = factory_double.create("<", args);
         op->execute();
         REQUIRE(1 == op->getResult());
         delete instr0;
@@ -1472,7 +1485,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<double>* instr1 = dynamic_cast<AInstruction<double>*>(
         new Value<double>(rawArgs[1]));
         std::vector<AInstruction<double>*> args = {instr0, instr1};
-        auto op = operations::Operations<double>::create("<", args);
+        auto op = factory_double.create("<", args);
         op->execute();
         REQUIRE(0 == op->getResult());
         delete instr0;
@@ -1485,7 +1498,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<long double>* instr1 = dynamic_cast<AInstruction<long double>*>(
         new Value<long double>(rawArgs[1]));
         std::vector<AInstruction<long double>*> args = {instr0, instr1};
-        auto op = operations::Operations<long double>::create("<", args);
+        auto op = factory_long_double.create("<", args);
         op->execute();
         REQUIRE(1 == op->getResult());
         delete instr0;
@@ -1498,7 +1511,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<long double>* instr1 = dynamic_cast<AInstruction<long double>*>(
         new Value<long double>(rawArgs[1]));
         std::vector<AInstruction<long double>*> args = {instr0, instr1};
-        auto op = operations::Operations<long double>::create("<", args);
+        auto op = factory_long_double.create("<", args);
         op->execute();
         REQUIRE(0 == op->getResult());
         delete instr0;
@@ -1513,7 +1526,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<int>* instr1 = dynamic_cast<AInstruction<int>*>(
         new Value<int>(rawArgs[1]));
         std::vector<AInstruction<int>*> args = {instr0, instr1};
-        auto op = operations::Operations<int>::create(">", args);
+        auto op = factory_int.create(">", args);
         op->execute();
         REQUIRE(1 == op->getResult());
         delete instr0;
@@ -1526,7 +1539,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<int>* instr1 = dynamic_cast<AInstruction<int>*>(
         new Value<int>(rawArgs[1]));
         std::vector<AInstruction<int>*> args = {instr0, instr1};
-        auto op = operations::Operations<int>::create(">", args);
+        auto op = factory_int.create(">", args);
         op->execute();
         REQUIRE(0 == op->getResult());
         delete instr0;
@@ -1539,7 +1552,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<signed char>* instr1 = dynamic_cast<AInstruction<signed char>*>(
         new Value<signed char>(rawArgs[1]));
         std::vector<AInstruction<signed char>*> args = {instr0, instr1};
-        auto op = operations::Operations<signed char>::create(">", args);
+        auto op = factory_signed_char.create(">", args);
         op->execute();
         REQUIRE(1 == op->getResult());
         delete instr0;
@@ -1552,7 +1565,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<signed char>* instr1 = dynamic_cast<AInstruction<signed char>*>(
         new Value<signed char>(rawArgs[1]));
         std::vector<AInstruction<signed char>*> args = {instr0, instr1};
-        auto op = operations::Operations<signed char>::create(">", args);
+        auto op = factory_signed_char.create(">", args);
         op->execute();
         REQUIRE(0 == op->getResult());
         delete instr0;
@@ -1565,7 +1578,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<short int>* instr1 = dynamic_cast<AInstruction<short int>*>(
         new Value<short int>(rawArgs[1]));
         std::vector<AInstruction<short int>*> args = {instr0, instr1};
-        auto op = operations::Operations<short int>::create(">", args);
+        auto op = factory_short_int.create(">", args);
         op->execute();
         REQUIRE(1 == op->getResult());
         delete instr0;
@@ -1578,7 +1591,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<short int>* instr1 = dynamic_cast<AInstruction<short int>*>(
         new Value<short int>(rawArgs[1]));
         std::vector<AInstruction<short int>*> args = {instr0, instr1};
-        auto op = operations::Operations<short int>::create(">", args);
+        auto op = factory_short_int.create(">", args);
         op->execute();
         REQUIRE(0 == op->getResult());
         delete instr0;
@@ -1591,7 +1604,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<long int>* instr1 = dynamic_cast<AInstruction<long int>*>(
         new Value<long int>(rawArgs[1]));
         std::vector<AInstruction<long int>*> args = {instr0, instr1};
-        auto op = operations::Operations<long int>::create(">", args);
+        auto op = factory_long_int.create(">", args);
         op->execute();
         REQUIRE(1 == op->getResult());
         delete instr0;
@@ -1604,7 +1617,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<long int>* instr1 = dynamic_cast<AInstruction<long int>*>(
         new Value<long int>(rawArgs[1]));
         std::vector<AInstruction<long int>*> args = {instr0, instr1};
-        auto op = operations::Operations<long int>::create(">", args);
+        auto op = factory_long_int.create(">", args);
         op->execute();
         REQUIRE(0 == op->getResult());
         delete instr0;
@@ -1617,7 +1630,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<unsigned int>* instr1 = dynamic_cast<AInstruction<unsigned int>*>(
         new Value<unsigned int>(rawArgs[1]));
         std::vector<AInstruction<unsigned int>*> args = {instr0, instr1};
-        auto op = operations::Operations<unsigned int>::create(">", args);
+        auto op = factory_unsigned_int.create(">", args);
         op->execute();
         REQUIRE(1 == op->getResult());
         delete instr0;
@@ -1630,7 +1643,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<unsigned int>* instr1 = dynamic_cast<AInstruction<unsigned int>*>(
         new Value<unsigned int>(rawArgs[1]));
         std::vector<AInstruction<unsigned int>*> args = {instr0, instr1};
-        auto op = operations::Operations<unsigned int>::create(">", args);
+        auto op = factory_unsigned_int.create(">", args);
         op->execute();
         REQUIRE(0 == op->getResult());
         delete instr0;
@@ -1643,7 +1656,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<unsigned char>* instr1 = dynamic_cast<AInstruction<unsigned char>*>(
         new Value<unsigned char>(rawArgs[1]));
         std::vector<AInstruction<unsigned char>*> args = {instr0, instr1};
-        auto op = operations::Operations<unsigned char>::create(">", args);
+        auto op = factory_unsigned_char.create(">", args);
         op->execute();
         REQUIRE(1 == op->getResult());
         delete instr0;
@@ -1656,7 +1669,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<unsigned char>* instr1 = dynamic_cast<AInstruction<unsigned char>*>(
         new Value<unsigned char>(rawArgs[1]));
         std::vector<AInstruction<unsigned char>*> args = {instr0, instr1};
-        auto op = operations::Operations<unsigned char>::create(">", args);
+        auto op = factory_unsigned_char.create(">", args);
         op->execute();
         REQUIRE(0 == op->getResult());
         delete instr0;
@@ -1669,7 +1682,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<unsigned long int>* instr1 = dynamic_cast<AInstruction<unsigned long int>*>(
         new Value<unsigned long int>(rawArgs[1]));
         std::vector<AInstruction<unsigned long int>*> args = {instr0, instr1};
-        auto op = operations::Operations<unsigned long int>::create(">", args);
+        auto op = factory_unsigned_long_int.create(">", args);
         op->execute();
         REQUIRE(1 == op->getResult());
         delete instr0;
@@ -1682,7 +1695,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<unsigned long int>* instr1 = dynamic_cast<AInstruction<unsigned long int>*>(
         new Value<unsigned long int>(rawArgs[1]));
         std::vector<AInstruction<unsigned long int>*> args = {instr0, instr1};
-        auto op = operations::Operations<unsigned long int>::create(">", args);
+        auto op = factory_unsigned_long_int.create(">", args);
         op->execute();
         REQUIRE(0 == op->getResult());
         delete instr0;
@@ -1695,7 +1708,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<float>* instr1 = dynamic_cast<AInstruction<float>*>(
         new Value<float>(rawArgs[1]));
         std::vector<AInstruction<float>*> args = {instr0, instr1};
-        auto op = operations::Operations<float>::create(">", args);
+        auto op = factory_float.create(">", args);
         op->execute();
         REQUIRE(1 == op->getResult());
         delete instr0;
@@ -1708,7 +1721,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<float>* instr1 = dynamic_cast<AInstruction<float>*>(
         new Value<float>(rawArgs[1]));
         std::vector<AInstruction<float>*> args = {instr0, instr1};
-        auto op = operations::Operations<float>::create(">", args);
+        auto op = factory_float.create(">", args);
         op->execute();
         REQUIRE(0 == op->getResult());
         delete instr0;
@@ -1721,7 +1734,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<double>* instr1 = dynamic_cast<AInstruction<double>*>(
         new Value<double>(rawArgs[1]));
         std::vector<AInstruction<double>*> args = {instr0, instr1};
-        auto op = operations::Operations<double>::create(">", args);
+        auto op = factory_double.create(">", args);
         op->execute();
         REQUIRE(1 == op->getResult());
         delete instr0;
@@ -1734,7 +1747,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<double>* instr1 = dynamic_cast<AInstruction<double>*>(
         new Value<double>(rawArgs[1]));
         std::vector<AInstruction<double>*> args = {instr0, instr1};
-        auto op = operations::Operations<double>::create(">", args);
+        auto op = factory_double.create(">", args);
         op->execute();
         REQUIRE(0 == op->getResult());
         delete instr0;
@@ -1747,7 +1760,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<long double>* instr1 = dynamic_cast<AInstruction<long double>*>(
         new Value<long double>(rawArgs[1]));
         std::vector<AInstruction<long double>*> args = {instr0, instr1};
-        auto op = operations::Operations<long double>::create(">", args);
+        auto op = factory_long_double.create(">", args);
         op->execute();
         REQUIRE(1 == op->getResult());
         delete instr0;
@@ -1760,7 +1773,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<long double>* instr1 = dynamic_cast<AInstruction<long double>*>(
         new Value<long double>(rawArgs[1]));
         std::vector<AInstruction<long double>*> args = {instr0, instr1};
-        auto op = operations::Operations<long double>::create(">", args);
+        auto op = factory_long_double.create(">", args);
         op->execute();
         REQUIRE(0 == op->getResult());
         delete instr0;
@@ -1775,7 +1788,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<int>* instr1 = dynamic_cast<AInstruction<int>*>(
         new Value<int>(rawArgs[1]));
         std::vector<AInstruction<int>*> args = {instr0, instr1};
-        auto op = operations::Operations<int>::create("<=", args);
+        auto op = factory_int.create("<=", args);
         op->execute();
         REQUIRE(1 == op->getResult());
         delete instr0;
@@ -1788,7 +1801,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<int>* instr1 = dynamic_cast<AInstruction<int>*>(
         new Value<int>(rawArgs[1]));
         std::vector<AInstruction<int>*> args = {instr0, instr1};
-        auto op = operations::Operations<int>::create("<=", args);
+        auto op = factory_int.create("<=", args);
         op->execute();
         REQUIRE(0 == op->getResult());
         delete instr0;
@@ -1801,7 +1814,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<signed char>* instr1 = dynamic_cast<AInstruction<signed char>*>(
         new Value<signed char>(rawArgs[1]));
         std::vector<AInstruction<signed char>*> args = {instr0, instr1};
-        auto op = operations::Operations<signed char>::create("<=", args);
+        auto op = factory_signed_char.create("<=", args);
         op->execute();
         REQUIRE(1 == op->getResult());
         delete instr0;
@@ -1814,7 +1827,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<signed char>* instr1 = dynamic_cast<AInstruction<signed char>*>(
         new Value<signed char>(rawArgs[1]));
         std::vector<AInstruction<signed char>*> args = {instr0, instr1};
-        auto op = operations::Operations<signed char>::create("<=", args);
+        auto op = factory_signed_char.create("<=", args);
         op->execute();
         REQUIRE(0 == op->getResult());
         delete instr0;
@@ -1827,7 +1840,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<short int>* instr1 = dynamic_cast<AInstruction<short int>*>(
         new Value<short int>(rawArgs[1]));
         std::vector<AInstruction<short int>*> args = {instr0, instr1};
-        auto op = operations::Operations<short int>::create("<=", args);
+        auto op = factory_short_int.create("<=", args);
         op->execute();
         REQUIRE(1 == op->getResult());
         delete instr0;
@@ -1840,7 +1853,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<short int>* instr1 = dynamic_cast<AInstruction<short int>*>(
         new Value<short int>(rawArgs[1]));
         std::vector<AInstruction<short int>*> args = {instr0, instr1};
-        auto op = operations::Operations<short int>::create("<=", args);
+        auto op = factory_short_int.create("<=", args);
         op->execute();
         REQUIRE(0 == op->getResult());
         delete instr0;
@@ -1853,7 +1866,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<long int>* instr1 = dynamic_cast<AInstruction<long int>*>(
         new Value<long int>(rawArgs[1]));
         std::vector<AInstruction<long int>*> args = {instr0, instr1};
-        auto op = operations::Operations<long int>::create("<=", args);
+        auto op = factory_long_int.create("<=", args);
         op->execute();
         REQUIRE(1 == op->getResult());
         delete instr0;
@@ -1866,7 +1879,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<long int>* instr1 = dynamic_cast<AInstruction<long int>*>(
         new Value<long int>(rawArgs[1]));
         std::vector<AInstruction<long int>*> args = {instr0, instr1};
-        auto op = operations::Operations<long int>::create("<=", args);
+        auto op = factory_long_int.create("<=", args);
         op->execute();
         REQUIRE(0 == op->getResult());
         delete instr0;
@@ -1879,7 +1892,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<unsigned int>* instr1 = dynamic_cast<AInstruction<unsigned int>*>(
         new Value<unsigned int>(rawArgs[1]));
         std::vector<AInstruction<unsigned int>*> args = {instr0, instr1};
-        auto op = operations::Operations<unsigned int>::create("<=", args);
+        auto op = factory_unsigned_int.create("<=", args);
         op->execute();
         REQUIRE(1 == op->getResult());
         delete instr0;
@@ -1892,7 +1905,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<unsigned int>* instr1 = dynamic_cast<AInstruction<unsigned int>*>(
         new Value<unsigned int>(rawArgs[1]));
         std::vector<AInstruction<unsigned int>*> args = {instr0, instr1};
-        auto op = operations::Operations<unsigned int>::create("<=", args);
+        auto op = factory_unsigned_int.create("<=", args);
         op->execute();
         REQUIRE(0 == op->getResult());
         delete instr0;
@@ -1905,7 +1918,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<unsigned char>* instr1 = dynamic_cast<AInstruction<unsigned char>*>(
         new Value<unsigned char>(rawArgs[1]));
         std::vector<AInstruction<unsigned char>*> args = {instr0, instr1};
-        auto op = operations::Operations<unsigned char>::create("<=", args);
+        auto op = factory_unsigned_char.create("<=", args);
         op->execute();
         REQUIRE(1 == op->getResult());
         delete instr0;
@@ -1918,7 +1931,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<unsigned char>* instr1 = dynamic_cast<AInstruction<unsigned char>*>(
         new Value<unsigned char>(rawArgs[1]));
         std::vector<AInstruction<unsigned char>*> args = {instr0, instr1};
-        auto op = operations::Operations<unsigned char>::create("<=", args);
+        auto op = factory_unsigned_char.create("<=", args);
         op->execute();
         REQUIRE(0 == op->getResult());
         delete instr0;
@@ -1931,7 +1944,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<unsigned long int>* instr1 = dynamic_cast<AInstruction<unsigned long int>*>(
         new Value<unsigned long int>(rawArgs[1]));
         std::vector<AInstruction<unsigned long int>*> args = {instr0, instr1};
-        auto op = operations::Operations<unsigned long int>::create("<=", args);
+        auto op = factory_unsigned_long_int.create("<=", args);
         op->execute();
         REQUIRE(1 == op->getResult());
         delete instr0;
@@ -1944,7 +1957,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<unsigned long int>* instr1 = dynamic_cast<AInstruction<unsigned long int>*>(
         new Value<unsigned long int>(rawArgs[1]));
         std::vector<AInstruction<unsigned long int>*> args = {instr0, instr1};
-        auto op = operations::Operations<unsigned long int>::create("<=", args);
+        auto op = factory_unsigned_long_int.create("<=", args);
         op->execute();
         REQUIRE(0 == op->getResult());
         delete instr0;
@@ -1957,7 +1970,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<float>* instr1 = dynamic_cast<AInstruction<float>*>(
         new Value<float>(rawArgs[1]));
         std::vector<AInstruction<float>*> args = {instr0, instr1};
-        auto op = operations::Operations<float>::create("<=", args);
+        auto op = factory_float.create("<=", args);
         op->execute();
         REQUIRE(1 == op->getResult());
         delete instr0;
@@ -1970,7 +1983,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<float>* instr1 = dynamic_cast<AInstruction<float>*>(
         new Value<float>(rawArgs[1]));
         std::vector<AInstruction<float>*> args = {instr0, instr1};
-        auto op = operations::Operations<float>::create("<=", args);
+        auto op = factory_float.create("<=", args);
         op->execute();
         REQUIRE(0 == op->getResult());
         delete instr0;
@@ -1983,7 +1996,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<double>* instr1 = dynamic_cast<AInstruction<double>*>(
         new Value<double>(rawArgs[1]));
         std::vector<AInstruction<double>*> args = {instr0, instr1};
-        auto op = operations::Operations<double>::create("<=", args);
+        auto op = factory_double.create("<=", args);
         op->execute();
         REQUIRE(1 == op->getResult());
         delete instr0;
@@ -1996,7 +2009,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<double>* instr1 = dynamic_cast<AInstruction<double>*>(
         new Value<double>(rawArgs[1]));
         std::vector<AInstruction<double>*> args = {instr0, instr1};
-        auto op = operations::Operations<double>::create("<=", args);
+        auto op = factory_double.create("<=", args);
         op->execute();
         REQUIRE(0 == op->getResult());
         delete instr0;
@@ -2009,7 +2022,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<long double>* instr1 = dynamic_cast<AInstruction<long double>*>(
         new Value<long double>(rawArgs[1]));
         std::vector<AInstruction<long double>*> args = {instr0, instr1};
-        auto op = operations::Operations<long double>::create("<=", args);
+        auto op = factory_long_double.create("<=", args);
         op->execute();
         REQUIRE(1 == op->getResult());
         delete instr0;
@@ -2022,7 +2035,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<long double>* instr1 = dynamic_cast<AInstruction<long double>*>(
         new Value<long double>(rawArgs[1]));
         std::vector<AInstruction<long double>*> args = {instr0, instr1};
-        auto op = operations::Operations<long double>::create("<=", args);
+        auto op = factory_long_double.create("<=", args);
         op->execute();
         REQUIRE(0 == op->getResult());
         delete instr0;
@@ -2037,7 +2050,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<int>* instr1 = dynamic_cast<AInstruction<int>*>(
         new Value<int>(rawArgs[1]));
         std::vector<AInstruction<int>*> args = {instr0, instr1};
-        auto op = operations::Operations<int>::create(">=", args);
+        auto op = factory_int.create(">=", args);
         op->execute();
         REQUIRE(1 == op->getResult());
         delete instr0;
@@ -2050,7 +2063,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<int>* instr1 = dynamic_cast<AInstruction<int>*>(
         new Value<int>(rawArgs[1]));
         std::vector<AInstruction<int>*> args = {instr0, instr1};
-        auto op = operations::Operations<int>::create(">=", args);
+        auto op = factory_int.create(">=", args);
         op->execute();
         REQUIRE(0 == op->getResult());
         delete instr0;
@@ -2063,7 +2076,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<signed char>* instr1 = dynamic_cast<AInstruction<signed char>*>(
         new Value<signed char>(rawArgs[1]));
         std::vector<AInstruction<signed char>*> args = {instr0, instr1};
-        auto op = operations::Operations<signed char>::create(">=", args);
+        auto op = factory_signed_char.create(">=", args);
         op->execute();
         REQUIRE(1 == op->getResult());
         delete instr0;
@@ -2076,7 +2089,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<signed char>* instr1 = dynamic_cast<AInstruction<signed char>*>(
         new Value<signed char>(rawArgs[1]));
         std::vector<AInstruction<signed char>*> args = {instr0, instr1};
-        auto op = operations::Operations<signed char>::create(">=", args);
+        auto op = factory_signed_char.create(">=", args);
         op->execute();
         REQUIRE(0 == op->getResult());
         delete instr0;
@@ -2089,7 +2102,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<short int>* instr1 = dynamic_cast<AInstruction<short int>*>(
         new Value<short int>(rawArgs[1]));
         std::vector<AInstruction<short int>*> args = {instr0, instr1};
-        auto op = operations::Operations<short int>::create(">=", args);
+        auto op = factory_short_int.create(">=", args);
         op->execute();
         REQUIRE(1 == op->getResult());
         delete instr0;
@@ -2102,7 +2115,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<short int>* instr1 = dynamic_cast<AInstruction<short int>*>(
         new Value<short int>(rawArgs[1]));
         std::vector<AInstruction<short int>*> args = {instr0, instr1};
-        auto op = operations::Operations<short int>::create(">=", args);
+        auto op = factory_short_int.create(">=", args);
         op->execute();
         REQUIRE(0 == op->getResult());
         delete instr0;
@@ -2115,7 +2128,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<long int>* instr1 = dynamic_cast<AInstruction<long int>*>(
         new Value<long int>(rawArgs[1]));
         std::vector<AInstruction<long int>*> args = {instr0, instr1};
-        auto op = operations::Operations<long int>::create(">=", args);
+        auto op = factory_long_int.create(">=", args);
         op->execute();
         REQUIRE(1 == op->getResult());
         delete instr0;
@@ -2128,7 +2141,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<long int>* instr1 = dynamic_cast<AInstruction<long int>*>(
         new Value<long int>(rawArgs[1]));
         std::vector<AInstruction<long int>*> args = {instr0, instr1};
-        auto op = operations::Operations<long int>::create(">=", args);
+        auto op = factory_long_int.create(">=", args);
         op->execute();
         REQUIRE(0 == op->getResult());
         delete instr0;
@@ -2141,7 +2154,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<unsigned int>* instr1 = dynamic_cast<AInstruction<unsigned int>*>(
         new Value<unsigned int>(rawArgs[1]));
         std::vector<AInstruction<unsigned int>*> args = {instr0, instr1};
-        auto op = operations::Operations<unsigned int>::create(">=", args);
+        auto op = factory_unsigned_int.create(">=", args);
         op->execute();
         REQUIRE(1 == op->getResult());
         delete instr0;
@@ -2154,7 +2167,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<unsigned int>* instr1 = dynamic_cast<AInstruction<unsigned int>*>(
         new Value<unsigned int>(rawArgs[1]));
         std::vector<AInstruction<unsigned int>*> args = {instr0, instr1};
-        auto op = operations::Operations<unsigned int>::create(">=", args);
+        auto op = factory_unsigned_int.create(">=", args);
         op->execute();
         REQUIRE(0 == op->getResult());
         delete instr0;
@@ -2167,7 +2180,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<unsigned char>* instr1 = dynamic_cast<AInstruction<unsigned char>*>(
         new Value<unsigned char>(rawArgs[1]));
         std::vector<AInstruction<unsigned char>*> args = {instr0, instr1};
-        auto op = operations::Operations<unsigned char>::create(">=", args);
+        auto op = factory_unsigned_char.create(">=", args);
         op->execute();
         REQUIRE(1 == op->getResult());
         delete instr0;
@@ -2180,7 +2193,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<unsigned char>* instr1 = dynamic_cast<AInstruction<unsigned char>*>(
         new Value<unsigned char>(rawArgs[1]));
         std::vector<AInstruction<unsigned char>*> args = {instr0, instr1};
-        auto op = operations::Operations<unsigned char>::create(">=", args);
+        auto op = factory_unsigned_char.create(">=", args);
         op->execute();
         REQUIRE(0 == op->getResult());
         delete instr0;
@@ -2193,7 +2206,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<unsigned long int>* instr1 = dynamic_cast<AInstruction<unsigned long int>*>(
         new Value<unsigned long int>(rawArgs[1]));
         std::vector<AInstruction<unsigned long int>*> args = {instr0, instr1};
-        auto op = operations::Operations<unsigned long int>::create(">=", args);
+        auto op = factory_unsigned_long_int.create(">=", args);
         op->execute();
         REQUIRE(1 == op->getResult());
         delete instr0;
@@ -2206,7 +2219,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<unsigned long int>* instr1 = dynamic_cast<AInstruction<unsigned long int>*>(
         new Value<unsigned long int>(rawArgs[1]));
         std::vector<AInstruction<unsigned long int>*> args = {instr0, instr1};
-        auto op = operations::Operations<unsigned long int>::create(">=", args);
+        auto op = factory_unsigned_long_int.create(">=", args);
         op->execute();
         REQUIRE(0 == op->getResult());
         delete instr0;
@@ -2219,7 +2232,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<float>* instr1 = dynamic_cast<AInstruction<float>*>(
         new Value<float>(rawArgs[1]));
         std::vector<AInstruction<float>*> args = {instr0, instr1};
-        auto op = operations::Operations<float>::create(">=", args);
+        auto op = factory_float.create(">=", args);
         op->execute();
         REQUIRE(1 == op->getResult());
         delete instr0;
@@ -2232,7 +2245,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<float>* instr1 = dynamic_cast<AInstruction<float>*>(
         new Value<float>(rawArgs[1]));
         std::vector<AInstruction<float>*> args = {instr0, instr1};
-        auto op = operations::Operations<float>::create(">=", args);
+        auto op = factory_float.create(">=", args);
         op->execute();
         REQUIRE(0 == op->getResult());
         delete instr0;
@@ -2245,7 +2258,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<double>* instr1 = dynamic_cast<AInstruction<double>*>(
         new Value<double>(rawArgs[1]));
         std::vector<AInstruction<double>*> args = {instr0, instr1};
-        auto op = operations::Operations<double>::create(">=", args);
+        auto op = factory_double.create(">=", args);
         op->execute();
         REQUIRE(1 == op->getResult());
         delete instr0;
@@ -2258,7 +2271,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<double>* instr1 = dynamic_cast<AInstruction<double>*>(
         new Value<double>(rawArgs[1]));
         std::vector<AInstruction<double>*> args = {instr0, instr1};
-        auto op = operations::Operations<double>::create(">=", args);
+        auto op = factory_double.create(">=", args);
         op->execute();
         REQUIRE(0 == op->getResult());
         delete instr0;
@@ -2271,7 +2284,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<long double>* instr1 = dynamic_cast<AInstruction<long double>*>(
         new Value<long double>(rawArgs[1]));
         std::vector<AInstruction<long double>*> args = {instr0, instr1};
-        auto op = operations::Operations<long double>::create(">=", args);
+        auto op = factory_long_double.create(">=", args);
         op->execute();
         REQUIRE(1 == op->getResult());
         delete instr0;
@@ -2284,7 +2297,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<long double>* instr1 = dynamic_cast<AInstruction<long double>*>(
         new Value<long double>(rawArgs[1]));
         std::vector<AInstruction<long double>*> args = {instr0, instr1};
-        auto op = operations::Operations<long double>::create(">=", args);
+        auto op = factory_long_double.create(">=", args);
         op->execute();
         REQUIRE(0 == op->getResult());
         delete instr0;
@@ -2299,7 +2312,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<int>* instr1 = dynamic_cast<AInstruction<int>*>(
         new Value<int>(rawArgs[1]));
         std::vector<AInstruction<int>*> args = {instr0, instr1};
-        auto op = operations::Operations<int>::create("and", args);
+        auto op = factory_int.create("and", args);
         op->execute();
         REQUIRE(1 == op->getResult());
         delete instr0;
@@ -2312,7 +2325,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<int>* instr1 = dynamic_cast<AInstruction<int>*>(
         new Value<int>(rawArgs[1]));
         std::vector<AInstruction<int>*> args = {instr0, instr1};
-        auto op = operations::Operations<int>::create("and", args);
+        auto op = factory_int.create("and", args);
         op->execute();
         REQUIRE(0 == op->getResult());
         delete instr0;
@@ -2325,7 +2338,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<int>* instr1 = dynamic_cast<AInstruction<int>*>(
         new Value<int>(rawArgs[1]));
         std::vector<AInstruction<int>*> args = {instr0, instr1};
-        auto op = operations::Operations<int>::create("and", args);
+        auto op = factory_int.create("and", args);
         op->execute();
         REQUIRE(0 == op->getResult());
         delete instr0;
@@ -2338,7 +2351,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<int>* instr1 = dynamic_cast<AInstruction<int>*>(
         new Value<int>(rawArgs[1]));
         std::vector<AInstruction<int>*> args = {instr0, instr1};
-        auto op = operations::Operations<int>::create("and", args);
+        auto op = factory_int.create("and", args);
         op->execute();
         REQUIRE(0 == op->getResult());
         delete instr0;
@@ -2351,7 +2364,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<signed char>* instr1 = dynamic_cast<AInstruction<signed char>*>(
         new Value<signed char>(rawArgs[1]));
         std::vector<AInstruction<signed char>*> args = {instr0, instr1};
-        auto op = operations::Operations<signed char>::create("and", args);
+        auto op = factory_signed_char.create("and", args);
         op->execute();
         REQUIRE(1 == op->getResult());
         delete instr0;
@@ -2364,7 +2377,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<signed char>* instr1 = dynamic_cast<AInstruction<signed char>*>(
         new Value<signed char>(rawArgs[1]));
         std::vector<AInstruction<signed char>*> args = {instr0, instr1};
-        auto op = operations::Operations<signed char>::create("and", args);
+        auto op = factory_signed_char.create("and", args);
         op->execute();
         REQUIRE(0 == op->getResult());
         delete instr0;
@@ -2377,7 +2390,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<signed char>* instr1 = dynamic_cast<AInstruction<signed char>*>(
         new Value<signed char>(rawArgs[1]));
         std::vector<AInstruction<signed char>*> args = {instr0, instr1};
-        auto op = operations::Operations<signed char>::create("and", args);
+        auto op = factory_signed_char.create("and", args);
         op->execute();
         REQUIRE(0 == op->getResult());
         delete instr0;
@@ -2390,7 +2403,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<signed char>* instr1 = dynamic_cast<AInstruction<signed char>*>(
         new Value<signed char>(rawArgs[1]));
         std::vector<AInstruction<signed char>*> args = {instr0, instr1};
-        auto op = operations::Operations<signed char>::create("and", args);
+        auto op = factory_signed_char.create("and", args);
         op->execute();
         REQUIRE(0 == op->getResult());
         delete instr0;
@@ -2403,7 +2416,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<short int>* instr1 = dynamic_cast<AInstruction<short int>*>(
         new Value<short int>(rawArgs[1]));
         std::vector<AInstruction<short int>*> args = {instr0, instr1};
-        auto op = operations::Operations<short int>::create("and", args);
+        auto op = factory_short_int.create("and", args);
         op->execute();
         REQUIRE(1 == op->getResult());
         delete instr0;
@@ -2416,7 +2429,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<short int>* instr1 = dynamic_cast<AInstruction<short int>*>(
         new Value<short int>(rawArgs[1]));
         std::vector<AInstruction<short int>*> args = {instr0, instr1};
-        auto op = operations::Operations<short int>::create("and", args);
+        auto op = factory_short_int.create("and", args);
         op->execute();
         REQUIRE(0 == op->getResult());
         delete instr0;
@@ -2429,7 +2442,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<short int>* instr1 = dynamic_cast<AInstruction<short int>*>(
         new Value<short int>(rawArgs[1]));
         std::vector<AInstruction<short int>*> args = {instr0, instr1};
-        auto op = operations::Operations<short int>::create("and", args);
+        auto op = factory_short_int.create("and", args);
         op->execute();
         REQUIRE(0 == op->getResult());
         delete instr0;
@@ -2442,7 +2455,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<short int>* instr1 = dynamic_cast<AInstruction<short int>*>(
         new Value<short int>(rawArgs[1]));
         std::vector<AInstruction<short int>*> args = {instr0, instr1};
-        auto op = operations::Operations<short int>::create("and", args);
+        auto op = factory_short_int.create("and", args);
         op->execute();
         REQUIRE(0 == op->getResult());
         delete instr0;
@@ -2455,7 +2468,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<long int>* instr1 = dynamic_cast<AInstruction<long int>*>(
         new Value<long int>(rawArgs[1]));
         std::vector<AInstruction<long int>*> args = {instr0, instr1};
-        auto op = operations::Operations<long int>::create("and", args);
+        auto op = factory_long_int.create("and", args);
         op->execute();
         REQUIRE(1 == op->getResult());
         delete instr0;
@@ -2468,7 +2481,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<long int>* instr1 = dynamic_cast<AInstruction<long int>*>(
         new Value<long int>(rawArgs[1]));
         std::vector<AInstruction<long int>*> args = {instr0, instr1};
-        auto op = operations::Operations<long int>::create("and", args);
+        auto op = factory_long_int.create("and", args);
         op->execute();
         REQUIRE(0 == op->getResult());
         delete instr0;
@@ -2481,7 +2494,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<long int>* instr1 = dynamic_cast<AInstruction<long int>*>(
         new Value<long int>(rawArgs[1]));
         std::vector<AInstruction<long int>*> args = {instr0, instr1};
-        auto op = operations::Operations<long int>::create("and", args);
+        auto op = factory_long_int.create("and", args);
         op->execute();
         REQUIRE(0 == op->getResult());
         delete instr0;
@@ -2494,7 +2507,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<long int>* instr1 = dynamic_cast<AInstruction<long int>*>(
         new Value<long int>(rawArgs[1]));
         std::vector<AInstruction<long int>*> args = {instr0, instr1};
-        auto op = operations::Operations<long int>::create("and", args);
+        auto op = factory_long_int.create("and", args);
         op->execute();
         REQUIRE(0 == op->getResult());
         delete instr0;
@@ -2507,7 +2520,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<unsigned int>* instr1 = dynamic_cast<AInstruction<unsigned int>*>(
         new Value<unsigned int>(rawArgs[1]));
         std::vector<AInstruction<unsigned int>*> args = {instr0, instr1};
-        auto op = operations::Operations<unsigned int>::create("and", args);
+        auto op = factory_unsigned_int.create("and", args);
         op->execute();
         REQUIRE(1 == op->getResult());
         delete instr0;
@@ -2520,7 +2533,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<unsigned int>* instr1 = dynamic_cast<AInstruction<unsigned int>*>(
         new Value<unsigned int>(rawArgs[1]));
         std::vector<AInstruction<unsigned int>*> args = {instr0, instr1};
-        auto op = operations::Operations<unsigned int>::create("and", args);
+        auto op = factory_unsigned_int.create("and", args);
         op->execute();
         REQUIRE(0 == op->getResult());
         delete instr0;
@@ -2533,7 +2546,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<unsigned int>* instr1 = dynamic_cast<AInstruction<unsigned int>*>(
         new Value<unsigned int>(rawArgs[1]));
         std::vector<AInstruction<unsigned int>*> args = {instr0, instr1};
-        auto op = operations::Operations<unsigned int>::create("and", args);
+        auto op = factory_unsigned_int.create("and", args);
         op->execute();
         REQUIRE(0 == op->getResult());
         delete instr0;
@@ -2546,7 +2559,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<unsigned int>* instr1 = dynamic_cast<AInstruction<unsigned int>*>(
         new Value<unsigned int>(rawArgs[1]));
         std::vector<AInstruction<unsigned int>*> args = {instr0, instr1};
-        auto op = operations::Operations<unsigned int>::create("and", args);
+        auto op = factory_unsigned_int.create("and", args);
         op->execute();
         REQUIRE(0 == op->getResult());
         delete instr0;
@@ -2559,7 +2572,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<unsigned char>* instr1 = dynamic_cast<AInstruction<unsigned char>*>(
         new Value<unsigned char>(rawArgs[1]));
         std::vector<AInstruction<unsigned char>*> args = {instr0, instr1};
-        auto op = operations::Operations<unsigned char>::create("and", args);
+        auto op = factory_unsigned_char.create("and", args);
         op->execute();
         REQUIRE(1 == op->getResult());
         delete instr0;
@@ -2572,7 +2585,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<unsigned char>* instr1 = dynamic_cast<AInstruction<unsigned char>*>(
         new Value<unsigned char>(rawArgs[1]));
         std::vector<AInstruction<unsigned char>*> args = {instr0, instr1};
-        auto op = operations::Operations<unsigned char>::create("and", args);
+        auto op = factory_unsigned_char.create("and", args);
         op->execute();
         REQUIRE(0 == op->getResult());
         delete instr0;
@@ -2585,7 +2598,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<unsigned char>* instr1 = dynamic_cast<AInstruction<unsigned char>*>(
         new Value<unsigned char>(rawArgs[1]));
         std::vector<AInstruction<unsigned char>*> args = {instr0, instr1};
-        auto op = operations::Operations<unsigned char>::create("and", args);
+        auto op = factory_unsigned_char.create("and", args);
         op->execute();
         REQUIRE(0 == op->getResult());
         delete instr0;
@@ -2598,7 +2611,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<unsigned char>* instr1 = dynamic_cast<AInstruction<unsigned char>*>(
         new Value<unsigned char>(rawArgs[1]));
         std::vector<AInstruction<unsigned char>*> args = {instr0, instr1};
-        auto op = operations::Operations<unsigned char>::create("and", args);
+        auto op = factory_unsigned_char.create("and", args);
         op->execute();
         REQUIRE(0 == op->getResult());
         delete instr0;
@@ -2611,7 +2624,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<unsigned long int>* instr1 = dynamic_cast<AInstruction<unsigned long int>*>(
         new Value<unsigned long int>(rawArgs[1]));
         std::vector<AInstruction<unsigned long int>*> args = {instr0, instr1};
-        auto op = operations::Operations<unsigned long int>::create("and", args);
+        auto op = factory_unsigned_long_int.create("and", args);
         op->execute();
         REQUIRE(1 == op->getResult());
         delete instr0;
@@ -2624,7 +2637,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<unsigned long int>* instr1 = dynamic_cast<AInstruction<unsigned long int>*>(
         new Value<unsigned long int>(rawArgs[1]));
         std::vector<AInstruction<unsigned long int>*> args = {instr0, instr1};
-        auto op = operations::Operations<unsigned long int>::create("and", args);
+        auto op = factory_unsigned_long_int.create("and", args);
         op->execute();
         REQUIRE(0 == op->getResult());
         delete instr0;
@@ -2637,7 +2650,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<unsigned long int>* instr1 = dynamic_cast<AInstruction<unsigned long int>*>(
         new Value<unsigned long int>(rawArgs[1]));
         std::vector<AInstruction<unsigned long int>*> args = {instr0, instr1};
-        auto op = operations::Operations<unsigned long int>::create("and", args);
+        auto op = factory_unsigned_long_int.create("and", args);
         op->execute();
         REQUIRE(0 == op->getResult());
         delete instr0;
@@ -2650,7 +2663,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<unsigned long int>* instr1 = dynamic_cast<AInstruction<unsigned long int>*>(
         new Value<unsigned long int>(rawArgs[1]));
         std::vector<AInstruction<unsigned long int>*> args = {instr0, instr1};
-        auto op = operations::Operations<unsigned long int>::create("and", args);
+        auto op = factory_unsigned_long_int.create("and", args);
         op->execute();
         REQUIRE(0 == op->getResult());
         delete instr0;
@@ -2663,7 +2676,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<float>* instr1 = dynamic_cast<AInstruction<float>*>(
         new Value<float>(rawArgs[1]));
         std::vector<AInstruction<float>*> args = {instr0, instr1};
-        auto op = operations::Operations<float>::create("and", args);
+        auto op = factory_float.create("and", args);
         op->execute();
         REQUIRE(1.0f == op->getResult());
         delete instr0;
@@ -2676,7 +2689,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<float>* instr1 = dynamic_cast<AInstruction<float>*>(
         new Value<float>(rawArgs[1]));
         std::vector<AInstruction<float>*> args = {instr0, instr1};
-        auto op = operations::Operations<float>::create("and", args);
+        auto op = factory_float.create("and", args);
         op->execute();
         REQUIRE(0.0f == op->getResult());
         delete instr0;
@@ -2689,7 +2702,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<float>* instr1 = dynamic_cast<AInstruction<float>*>(
         new Value<float>(rawArgs[1]));
         std::vector<AInstruction<float>*> args = {instr0, instr1};
-        auto op = operations::Operations<float>::create("and", args);
+        auto op = factory_float.create("and", args);
         op->execute();
         REQUIRE(0.0f == op->getResult());
         delete instr0;
@@ -2702,7 +2715,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<float>* instr1 = dynamic_cast<AInstruction<float>*>(
         new Value<float>(rawArgs[1]));
         std::vector<AInstruction<float>*> args = {instr0, instr1};
-        auto op = operations::Operations<float>::create("and", args);
+        auto op = factory_float.create("and", args);
         op->execute();
         REQUIRE(0.0f == op->getResult());
         delete instr0;
@@ -2715,7 +2728,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<double>* instr1 = dynamic_cast<AInstruction<double>*>(
         new Value<double>(rawArgs[1]));
         std::vector<AInstruction<double>*> args = {instr0, instr1};
-        auto op = operations::Operations<double>::create("and", args);
+        auto op = factory_double.create("and", args);
         op->execute();
         REQUIRE(1.0 == op->getResult());
         delete instr0;
@@ -2728,7 +2741,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<double>* instr1 = dynamic_cast<AInstruction<double>*>(
         new Value<double>(rawArgs[1]));
         std::vector<AInstruction<double>*> args = {instr0, instr1};
-        auto op = operations::Operations<double>::create("and", args);
+        auto op = factory_double.create("and", args);
         op->execute();
         REQUIRE(0.0 == op->getResult());
         delete instr0;
@@ -2741,7 +2754,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<double>* instr1 = dynamic_cast<AInstruction<double>*>(
         new Value<double>(rawArgs[1]));
         std::vector<AInstruction<double>*> args = {instr0, instr1};
-        auto op = operations::Operations<double>::create("and", args);
+        auto op = factory_double.create("and", args);
         op->execute();
         REQUIRE(0.0 == op->getResult());
         delete instr0;
@@ -2754,7 +2767,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<double>* instr1 = dynamic_cast<AInstruction<double>*>(
         new Value<double>(rawArgs[1]));
         std::vector<AInstruction<double>*> args = {instr0, instr1};
-        auto op = operations::Operations<double>::create("and", args);
+        auto op = factory_double.create("and", args);
         op->execute();
         REQUIRE(0.0 == op->getResult());
         delete instr0;
@@ -2767,7 +2780,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<long double>* instr1 = dynamic_cast<AInstruction<long double>*>(
         new Value<long double>(rawArgs[1]));
         std::vector<AInstruction<long double>*> args = {instr0, instr1};
-        auto op = operations::Operations<long double>::create("and", args);
+        auto op = factory_long_double.create("and", args);
         op->execute();
         REQUIRE(1.0L == op->getResult());
         delete instr0;
@@ -2780,7 +2793,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<long double>* instr1 = dynamic_cast<AInstruction<long double>*>(
         new Value<long double>(rawArgs[1]));
         std::vector<AInstruction<long double>*> args = {instr0, instr1};
-        auto op = operations::Operations<long double>::create("and", args);
+        auto op = factory_long_double.create("and", args);
         op->execute();
         REQUIRE(0.0L == op->getResult());
         delete instr0;
@@ -2793,7 +2806,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<long double>* instr1 = dynamic_cast<AInstruction<long double>*>(
         new Value<long double>(rawArgs[1]));
         std::vector<AInstruction<long double>*> args = {instr0, instr1};
-        auto op = operations::Operations<long double>::create("and", args);
+        auto op = factory_long_double.create("and", args);
         op->execute();
         REQUIRE(0.0L == op->getResult());
         delete instr0;
@@ -2806,7 +2819,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<long double>* instr1 = dynamic_cast<AInstruction<long double>*>(
         new Value<long double>(rawArgs[1]));
         std::vector<AInstruction<long double>*> args = {instr0, instr1};
-        auto op = operations::Operations<long double>::create("and", args);
+        auto op = factory_long_double.create("and", args);
         op->execute();
         REQUIRE(0.0L == op->getResult());
         delete instr0;
@@ -2821,7 +2834,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<int>* instr1 = dynamic_cast<AInstruction<int>*>(
         new Value<int>(rawArgs[1]));
         std::vector<AInstruction<int>*> args = {instr0, instr1};
-        auto op = operations::Operations<int>::create("or", args);
+        auto op = factory_int.create("or", args);
         op->execute();
         REQUIRE(1 == op->getResult());
         delete instr0;
@@ -2834,7 +2847,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<int>* instr1 = dynamic_cast<AInstruction<int>*>(
         new Value<int>(rawArgs[1]));
         std::vector<AInstruction<int>*> args = {instr0, instr1};
-        auto op = operations::Operations<int>::create("or", args);
+        auto op = factory_int.create("or", args);
         op->execute();
         REQUIRE(1 == op->getResult());
         delete instr0;
@@ -2847,7 +2860,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<int>* instr1 = dynamic_cast<AInstruction<int>*>(
         new Value<int>(rawArgs[1]));
         std::vector<AInstruction<int>*> args = {instr0, instr1};
-        auto op = operations::Operations<int>::create("or", args);
+        auto op = factory_int.create("or", args);
         op->execute();
         REQUIRE(1 == op->getResult());
         delete instr0;
@@ -2860,7 +2873,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<int>* instr1 = dynamic_cast<AInstruction<int>*>(
         new Value<int>(rawArgs[1]));
         std::vector<AInstruction<int>*> args = {instr0, instr1};
-        auto op = operations::Operations<int>::create("or", args);
+        auto op = factory_int.create("or", args);
         op->execute();
         REQUIRE(0 == op->getResult());
         delete instr0;
@@ -2873,7 +2886,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<signed char>* instr1 = dynamic_cast<AInstruction<signed char>*>(
         new Value<signed char>(rawArgs[1]));
         std::vector<AInstruction<signed char>*> args = {instr0, instr1};
-        auto op = operations::Operations<signed char>::create("or", args);
+        auto op = factory_signed_char.create("or", args);
         op->execute();
         REQUIRE(1 == op->getResult());
         delete instr0;
@@ -2886,7 +2899,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<signed char>* instr1 = dynamic_cast<AInstruction<signed char>*>(
         new Value<signed char>(rawArgs[1]));
         std::vector<AInstruction<signed char>*> args = {instr0, instr1};
-        auto op = operations::Operations<signed char>::create("or", args);
+        auto op = factory_signed_char.create("or", args);
         op->execute();
         REQUIRE(1 == op->getResult());
         delete instr0;
@@ -2899,7 +2912,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<signed char>* instr1 = dynamic_cast<AInstruction<signed char>*>(
         new Value<signed char>(rawArgs[1]));
         std::vector<AInstruction<signed char>*> args = {instr0, instr1};
-        auto op = operations::Operations<signed char>::create("or", args);
+        auto op = factory_signed_char.create("or", args);
         op->execute();
         REQUIRE(1 == op->getResult());
         delete instr0;
@@ -2912,7 +2925,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<signed char>* instr1 = dynamic_cast<AInstruction<signed char>*>(
         new Value<signed char>(rawArgs[1]));
         std::vector<AInstruction<signed char>*> args = {instr0, instr1};
-        auto op = operations::Operations<signed char>::create("or", args);
+        auto op = factory_signed_char.create("or", args);
         op->execute();
         REQUIRE(0 == op->getResult());
         delete instr0;
@@ -2925,7 +2938,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<short int>* instr1 = dynamic_cast<AInstruction<short int>*>(
         new Value<short int>(rawArgs[1]));
         std::vector<AInstruction<short int>*> args = {instr0, instr1};
-        auto op = operations::Operations<short int>::create("or", args);
+        auto op = factory_short_int.create("or", args);
         op->execute();
         REQUIRE(1 == op->getResult());
         delete instr0;
@@ -2938,7 +2951,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<short int>* instr1 = dynamic_cast<AInstruction<short int>*>(
         new Value<short int>(rawArgs[1]));
         std::vector<AInstruction<short int>*> args = {instr0, instr1};
-        auto op = operations::Operations<short int>::create("or", args);
+        auto op = factory_short_int.create("or", args);
         op->execute();
         REQUIRE(1 == op->getResult());
         delete instr0;
@@ -2951,7 +2964,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<short int>* instr1 = dynamic_cast<AInstruction<short int>*>(
         new Value<short int>(rawArgs[1]));
         std::vector<AInstruction<short int>*> args = {instr0, instr1};
-        auto op = operations::Operations<short int>::create("or", args);
+        auto op = factory_short_int.create("or", args);
         op->execute();
         REQUIRE(1 == op->getResult());
         delete instr0;
@@ -2964,7 +2977,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<short int>* instr1 = dynamic_cast<AInstruction<short int>*>(
         new Value<short int>(rawArgs[1]));
         std::vector<AInstruction<short int>*> args = {instr0, instr1};
-        auto op = operations::Operations<short int>::create("or", args);
+        auto op = factory_short_int.create("or", args);
         op->execute();
         REQUIRE(0 == op->getResult());
         delete instr0;
@@ -2977,7 +2990,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<long int>* instr1 = dynamic_cast<AInstruction<long int>*>(
         new Value<long int>(rawArgs[1]));
         std::vector<AInstruction<long int>*> args = {instr0, instr1};
-        auto op = operations::Operations<long int>::create("or", args);
+        auto op = factory_long_int.create("or", args);
         op->execute();
         REQUIRE(1 == op->getResult());
         delete instr0;
@@ -2990,7 +3003,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<long int>* instr1 = dynamic_cast<AInstruction<long int>*>(
         new Value<long int>(rawArgs[1]));
         std::vector<AInstruction<long int>*> args = {instr0, instr1};
-        auto op = operations::Operations<long int>::create("or", args);
+        auto op = factory_long_int.create("or", args);
         op->execute();
         REQUIRE(1 == op->getResult());
         delete instr0;
@@ -3003,7 +3016,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<long int>* instr1 = dynamic_cast<AInstruction<long int>*>(
         new Value<long int>(rawArgs[1]));
         std::vector<AInstruction<long int>*> args = {instr0, instr1};
-        auto op = operations::Operations<long int>::create("or", args);
+        auto op = factory_long_int.create("or", args);
         op->execute();
         REQUIRE(1 == op->getResult());
         delete instr0;
@@ -3016,7 +3029,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<long int>* instr1 = dynamic_cast<AInstruction<long int>*>(
         new Value<long int>(rawArgs[1]));
         std::vector<AInstruction<long int>*> args = {instr0, instr1};
-        auto op = operations::Operations<long int>::create("or", args);
+        auto op = factory_long_int.create("or", args);
         op->execute();
         REQUIRE(0 == op->getResult());
         delete instr0;
@@ -3029,7 +3042,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<unsigned int>* instr1 = dynamic_cast<AInstruction<unsigned int>*>(
         new Value<unsigned int>(rawArgs[1]));
         std::vector<AInstruction<unsigned int>*> args = {instr0, instr1};
-        auto op = operations::Operations<unsigned int>::create("or", args);
+        auto op = factory_unsigned_int.create("or", args);
         op->execute();
         REQUIRE(1 == op->getResult());
         delete instr0;
@@ -3042,7 +3055,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<unsigned int>* instr1 = dynamic_cast<AInstruction<unsigned int>*>(
         new Value<unsigned int>(rawArgs[1]));
         std::vector<AInstruction<unsigned int>*> args = {instr0, instr1};
-        auto op = operations::Operations<unsigned int>::create("or", args);
+        auto op = factory_unsigned_int.create("or", args);
         op->execute();
         REQUIRE(1 == op->getResult());
         delete instr0;
@@ -3055,7 +3068,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<unsigned int>* instr1 = dynamic_cast<AInstruction<unsigned int>*>(
         new Value<unsigned int>(rawArgs[1]));
         std::vector<AInstruction<unsigned int>*> args = {instr0, instr1};
-        auto op = operations::Operations<unsigned int>::create("or", args);
+        auto op = factory_unsigned_int.create("or", args);
         op->execute();
         REQUIRE(1 == op->getResult());
         delete instr0;
@@ -3068,7 +3081,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<unsigned int>* instr1 = dynamic_cast<AInstruction<unsigned int>*>(
         new Value<unsigned int>(rawArgs[1]));
         std::vector<AInstruction<unsigned int>*> args = {instr0, instr1};
-        auto op = operations::Operations<unsigned int>::create("or", args);
+        auto op = factory_unsigned_int.create("or", args);
         op->execute();
         REQUIRE(0 == op->getResult());
         delete instr0;
@@ -3081,7 +3094,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<unsigned char>* instr1 = dynamic_cast<AInstruction<unsigned char>*>(
         new Value<unsigned char>(rawArgs[1]));
         std::vector<AInstruction<unsigned char>*> args = {instr0, instr1};
-        auto op = operations::Operations<unsigned char>::create("or", args);
+        auto op = factory_unsigned_char.create("or", args);
         op->execute();
         REQUIRE(1 == op->getResult());
         delete instr0;
@@ -3094,7 +3107,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<unsigned char>* instr1 = dynamic_cast<AInstruction<unsigned char>*>(
         new Value<unsigned char>(rawArgs[1]));
         std::vector<AInstruction<unsigned char>*> args = {instr0, instr1};
-        auto op = operations::Operations<unsigned char>::create("or", args);
+        auto op = factory_unsigned_char.create("or", args);
         op->execute();
         REQUIRE(1 == op->getResult());
         delete instr0;
@@ -3107,7 +3120,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<unsigned char>* instr1 = dynamic_cast<AInstruction<unsigned char>*>(
         new Value<unsigned char>(rawArgs[1]));
         std::vector<AInstruction<unsigned char>*> args = {instr0, instr1};
-        auto op = operations::Operations<unsigned char>::create("or", args);
+        auto op = factory_unsigned_char.create("or", args);
         op->execute();
         REQUIRE(1 == op->getResult());
         delete instr0;
@@ -3120,7 +3133,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<unsigned char>* instr1 = dynamic_cast<AInstruction<unsigned char>*>(
         new Value<unsigned char>(rawArgs[1]));
         std::vector<AInstruction<unsigned char>*> args = {instr0, instr1};
-        auto op = operations::Operations<unsigned char>::create("or", args);
+        auto op = factory_unsigned_char.create("or", args);
         op->execute();
         REQUIRE(0 == op->getResult());
         delete instr0;
@@ -3133,7 +3146,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<unsigned long int>* instr1 = dynamic_cast<AInstruction<unsigned long int>*>(
         new Value<unsigned long int>(rawArgs[1]));
         std::vector<AInstruction<unsigned long int>*> args = {instr0, instr1};
-        auto op = operations::Operations<unsigned long int>::create("or", args);
+        auto op = factory_unsigned_long_int.create("or", args);
         op->execute();
         REQUIRE(1 == op->getResult());
         delete instr0;
@@ -3146,7 +3159,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<unsigned long int>* instr1 = dynamic_cast<AInstruction<unsigned long int>*>(
         new Value<unsigned long int>(rawArgs[1]));
         std::vector<AInstruction<unsigned long int>*> args = {instr0, instr1};
-        auto op = operations::Operations<unsigned long int>::create("or", args);
+        auto op = factory_unsigned_long_int.create("or", args);
         op->execute();
         REQUIRE(1 == op->getResult());
         delete instr0;
@@ -3159,7 +3172,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<unsigned long int>* instr1 = dynamic_cast<AInstruction<unsigned long int>*>(
         new Value<unsigned long int>(rawArgs[1]));
         std::vector<AInstruction<unsigned long int>*> args = {instr0, instr1};
-        auto op = operations::Operations<unsigned long int>::create("or", args);
+        auto op = factory_unsigned_long_int.create("or", args);
         op->execute();
         REQUIRE(1 == op->getResult());
         delete instr0;
@@ -3172,7 +3185,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<unsigned long int>* instr1 = dynamic_cast<AInstruction<unsigned long int>*>(
         new Value<unsigned long int>(rawArgs[1]));
         std::vector<AInstruction<unsigned long int>*> args = {instr0, instr1};
-        auto op = operations::Operations<unsigned long int>::create("or", args);
+        auto op = factory_unsigned_long_int.create("or", args);
         op->execute();
         REQUIRE(0 == op->getResult());
         delete instr0;
@@ -3185,7 +3198,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<float>* instr1 = dynamic_cast<AInstruction<float>*>(
         new Value<float>(rawArgs[1]));
         std::vector<AInstruction<float>*> args = {instr0, instr1};
-        auto op = operations::Operations<float>::create("or", args);
+        auto op = factory_float.create("or", args);
         op->execute();
         REQUIRE(1.0f == op->getResult());
         delete instr0;
@@ -3198,7 +3211,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<float>* instr1 = dynamic_cast<AInstruction<float>*>(
         new Value<float>(rawArgs[1]));
         std::vector<AInstruction<float>*> args = {instr0, instr1};
-        auto op = operations::Operations<float>::create("or", args);
+        auto op = factory_float.create("or", args);
         op->execute();
         REQUIRE(1.0f == op->getResult());
         delete instr0;
@@ -3211,7 +3224,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<float>* instr1 = dynamic_cast<AInstruction<float>*>(
         new Value<float>(rawArgs[1]));
         std::vector<AInstruction<float>*> args = {instr0, instr1};
-        auto op = operations::Operations<float>::create("or", args);
+        auto op = factory_float.create("or", args);
         op->execute();
         REQUIRE(1.0f == op->getResult());
         delete instr0;
@@ -3224,7 +3237,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<float>* instr1 = dynamic_cast<AInstruction<float>*>(
         new Value<float>(rawArgs[1]));
         std::vector<AInstruction<float>*> args = {instr0, instr1};
-        auto op = operations::Operations<float>::create("or", args);
+        auto op = factory_float.create("or", args);
         op->execute();
         REQUIRE(0.0f == op->getResult());
         delete instr0;
@@ -3237,7 +3250,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<double>* instr1 = dynamic_cast<AInstruction<double>*>(
         new Value<double>(rawArgs[1]));
         std::vector<AInstruction<double>*> args = {instr0, instr1};
-        auto op = operations::Operations<double>::create("or", args);
+        auto op = factory_double.create("or", args);
         op->execute();
         REQUIRE(1.0 == op->getResult());
         delete instr0;
@@ -3250,7 +3263,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<double>* instr1 = dynamic_cast<AInstruction<double>*>(
         new Value<double>(rawArgs[1]));
         std::vector<AInstruction<double>*> args = {instr0, instr1};
-        auto op = operations::Operations<double>::create("or", args);
+        auto op = factory_double.create("or", args);
         op->execute();
         REQUIRE(1.0 == op->getResult());
         delete instr0;
@@ -3263,7 +3276,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<double>* instr1 = dynamic_cast<AInstruction<double>*>(
         new Value<double>(rawArgs[1]));
         std::vector<AInstruction<double>*> args = {instr0, instr1};
-        auto op = operations::Operations<double>::create("or", args);
+        auto op = factory_double.create("or", args);
         op->execute();
         REQUIRE(1.0 == op->getResult());
         delete instr0;
@@ -3276,7 +3289,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<double>* instr1 = dynamic_cast<AInstruction<double>*>(
         new Value<double>(rawArgs[1]));
         std::vector<AInstruction<double>*> args = {instr0, instr1};
-        auto op = operations::Operations<double>::create("or", args);
+        auto op = factory_double.create("or", args);
         op->execute();
         REQUIRE(0.0 == op->getResult());
         delete instr0;
@@ -3289,7 +3302,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<long double>* instr1 = dynamic_cast<AInstruction<long double>*>(
         new Value<long double>(rawArgs[1]));
         std::vector<AInstruction<long double>*> args = {instr0, instr1};
-        auto op = operations::Operations<long double>::create("or", args);
+        auto op = factory_long_double.create("or", args);
         op->execute();
         REQUIRE(1.0L == op->getResult());
         delete instr0;
@@ -3302,7 +3315,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<long double>* instr1 = dynamic_cast<AInstruction<long double>*>(
         new Value<long double>(rawArgs[1]));
         std::vector<AInstruction<long double>*> args = {instr0, instr1};
-        auto op = operations::Operations<long double>::create("or", args);
+        auto op = factory_long_double.create("or", args);
         op->execute();
         REQUIRE(1.0L == op->getResult());
         delete instr0;
@@ -3315,7 +3328,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<long double>* instr1 = dynamic_cast<AInstruction<long double>*>(
         new Value<long double>(rawArgs[1]));
         std::vector<AInstruction<long double>*> args = {instr0, instr1};
-        auto op = operations::Operations<long double>::create("or", args);
+        auto op = factory_long_double.create("or", args);
         op->execute();
         REQUIRE(1.0L == op->getResult());
         delete instr0;
@@ -3328,7 +3341,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<long double>* instr1 = dynamic_cast<AInstruction<long double>*>(
         new Value<long double>(rawArgs[1]));
         std::vector<AInstruction<long double>*> args = {instr0, instr1};
-        auto op = operations::Operations<long double>::create("or", args);
+        auto op = factory_long_double.create("or", args);
         op->execute();
         REQUIRE(0.0L == op->getResult());
         delete instr0;
@@ -3341,7 +3354,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<int>* instr0 = dynamic_cast<AInstruction<int>*>(
         new Value<int>(rawArgs[0]));
         std::vector<AInstruction<int>*> args = {instr0};
-        auto op = operations::Operations<int>::create("not", args);
+        auto op = factory_int.create("not", args);
         op->execute();
         REQUIRE(0 == op->getResult());
         delete instr0;
@@ -3351,7 +3364,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<int>* instr0 = dynamic_cast<AInstruction<int>*>(
         new Value<int>(rawArgs[0]));
         std::vector<AInstruction<int>*> args = {instr0};
-        auto op = operations::Operations<int>::create("not", args);
+        auto op = factory_int.create("not", args);
         op->execute();
         REQUIRE(1 == op->getResult());
         delete instr0;
@@ -3361,7 +3374,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<signed char>* instr0 = dynamic_cast<AInstruction<signed char>*>(
         new Value<signed char>(rawArgs[0]));
         std::vector<AInstruction<signed char>*> args = {instr0};
-        auto op = operations::Operations<signed char>::create("not", args);
+        auto op = factory_signed_char.create("not", args);
         op->execute();
         REQUIRE(0 == op->getResult());
         delete instr0;
@@ -3371,7 +3384,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<signed char>* instr0 = dynamic_cast<AInstruction<signed char>*>(
         new Value<signed char>(rawArgs[0]));
         std::vector<AInstruction<signed char>*> args = {instr0};
-        auto op = operations::Operations<signed char>::create("not", args);
+        auto op = factory_signed_char.create("not", args);
         op->execute();
         REQUIRE(1 == op->getResult());
         delete instr0;
@@ -3381,7 +3394,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<short int>* instr0 = dynamic_cast<AInstruction<short int>*>(
         new Value<short int>(rawArgs[0]));
         std::vector<AInstruction<short int>*> args = {instr0};
-        auto op = operations::Operations<short int>::create("not", args);
+        auto op = factory_short_int.create("not", args);
         op->execute();
         REQUIRE(0 == op->getResult());
         delete instr0;
@@ -3391,7 +3404,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<short int>* instr0 = dynamic_cast<AInstruction<short int>*>(
         new Value<short int>(rawArgs[0]));
         std::vector<AInstruction<short int>*> args = {instr0};
-        auto op = operations::Operations<short int>::create("not", args);
+        auto op = factory_short_int.create("not", args);
         op->execute();
         REQUIRE(1 == op->getResult());
         delete instr0;
@@ -3401,7 +3414,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<long int>* instr0 = dynamic_cast<AInstruction<long int>*>(
         new Value<long int>(rawArgs[0]));
         std::vector<AInstruction<long int>*> args = {instr0};
-        auto op = operations::Operations<long int>::create("not", args);
+        auto op = factory_long_int.create("not", args);
         op->execute();
         REQUIRE(0 == op->getResult());
         delete instr0;
@@ -3411,7 +3424,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<long int>* instr0 = dynamic_cast<AInstruction<long int>*>(
         new Value<long int>(rawArgs[0]));
         std::vector<AInstruction<long int>*> args = {instr0};
-        auto op = operations::Operations<long int>::create("not", args);
+        auto op = factory_long_int.create("not", args);
         op->execute();
         REQUIRE(1 == op->getResult());
         delete instr0;
@@ -3421,7 +3434,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<unsigned int>* instr0 = dynamic_cast<AInstruction<unsigned int>*>(
         new Value<unsigned int>(rawArgs[0]));
         std::vector<AInstruction<unsigned int>*> args = {instr0};
-        auto op = operations::Operations<unsigned int>::create("not", args);
+        auto op = factory_unsigned_int.create("not", args);
         op->execute();
         REQUIRE(0 == op->getResult());
         delete instr0;
@@ -3431,7 +3444,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<unsigned int>* instr0 = dynamic_cast<AInstruction<unsigned int>*>(
         new Value<unsigned int>(rawArgs[0]));
         std::vector<AInstruction<unsigned int>*> args = {instr0};
-        auto op = operations::Operations<unsigned int>::create("not", args);
+        auto op = factory_unsigned_int.create("not", args);
         op->execute();
         REQUIRE(1 == op->getResult());
         delete instr0;
@@ -3441,7 +3454,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<unsigned char>* instr0 = dynamic_cast<AInstruction<unsigned char>*>(
         new Value<unsigned char>(rawArgs[0]));
         std::vector<AInstruction<unsigned char>*> args = {instr0};
-        auto op = operations::Operations<unsigned char>::create("not", args);
+        auto op = factory_unsigned_char.create("not", args);
         op->execute();
         REQUIRE(0 == op->getResult());
         delete instr0;
@@ -3451,7 +3464,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<unsigned char>* instr0 = dynamic_cast<AInstruction<unsigned char>*>(
         new Value<unsigned char>(rawArgs[0]));
         std::vector<AInstruction<unsigned char>*> args = {instr0};
-        auto op = operations::Operations<unsigned char>::create("not", args);
+        auto op = factory_unsigned_char.create("not", args);
         op->execute();
         REQUIRE(1 == op->getResult());
         delete instr0;
@@ -3461,7 +3474,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<unsigned long int>* instr0 = dynamic_cast<AInstruction<unsigned long int>*>(
         new Value<unsigned long int>(rawArgs[0]));
         std::vector<AInstruction<unsigned long int>*> args = {instr0};
-        auto op = operations::Operations<unsigned long int>::create("not", args);
+        auto op = factory_unsigned_long_int.create("not", args);
         op->execute();
         REQUIRE(0 == op->getResult());
         delete instr0;
@@ -3471,7 +3484,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<unsigned long int>* instr0 = dynamic_cast<AInstruction<unsigned long int>*>(
         new Value<unsigned long int>(rawArgs[0]));
         std::vector<AInstruction<unsigned long int>*> args = {instr0};
-        auto op = operations::Operations<unsigned long int>::create("not", args);
+        auto op = factory_unsigned_long_int.create("not", args);
         op->execute();
         REQUIRE(1 == op->getResult());
         delete instr0;
@@ -3481,7 +3494,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<float>* instr0 = dynamic_cast<AInstruction<float>*>(
         new Value<float>(rawArgs[0]));
         std::vector<AInstruction<float>*> args = {instr0};
-        auto op = operations::Operations<float>::create("not", args);
+        auto op = factory_float.create("not", args);
         op->execute();
         REQUIRE(1.0f == op->getResult());
         delete instr0;
@@ -3491,7 +3504,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<float>* instr0 = dynamic_cast<AInstruction<float>*>(
         new Value<float>(rawArgs[0]));
         std::vector<AInstruction<float>*> args = {instr0};
-        auto op = operations::Operations<float>::create("not", args);
+        auto op = factory_float.create("not", args);
         op->execute();
         REQUIRE(0.0f == op->getResult());
         delete instr0;
@@ -3501,7 +3514,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<double>* instr0 = dynamic_cast<AInstruction<double>*>(
         new Value<double>(rawArgs[0]));
         std::vector<AInstruction<double>*> args = {instr0};
-        auto op = operations::Operations<double>::create("not", args);
+        auto op = factory_double.create("not", args);
         op->execute();
         REQUIRE(1.0 == op->getResult());
         delete instr0;
@@ -3511,7 +3524,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<double>* instr0 = dynamic_cast<AInstruction<double>*>(
         new Value<double>(rawArgs[0]));
         std::vector<AInstruction<double>*> args = {instr0};
-        auto op = operations::Operations<double>::create("not", args);
+        auto op = factory_double.create("not", args);
         op->execute();
         REQUIRE(0.0 == op->getResult());
         delete instr0;
@@ -3521,7 +3534,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<long double>* instr0 = dynamic_cast<AInstruction<long double>*>(
         new Value<long double>(rawArgs[0]));
         std::vector<AInstruction<long double>*> args = {instr0};
-        auto op = operations::Operations<long double>::create("not", args);
+        auto op = factory_long_double.create("not", args);
         op->execute();
         REQUIRE(1.0L == op->getResult());
         delete instr0;
@@ -3531,7 +3544,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<long double>* instr0 = dynamic_cast<AInstruction<long double>*>(
         new Value<long double>(rawArgs[0]));
         std::vector<AInstruction<long double>*> args = {instr0};
-        auto op = operations::Operations<long double>::create("not", args);
+        auto op = factory_long_double.create("not", args);
         op->execute();
         REQUIRE(0.0L == op->getResult());
         delete instr0;
@@ -3545,7 +3558,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<int>* instr1 = dynamic_cast<AInstruction<int>*>(
         new Value<int>(rawArgs[1]));
         std::vector<AInstruction<int>*> args = {instr0, instr1};
-        auto op = operations::Operations<int>::create("xor", args);
+        auto op = factory_int.create("xor", args);
         op->execute();
         REQUIRE(0 == op->getResult());
         delete instr0;
@@ -3558,7 +3571,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<int>* instr1 = dynamic_cast<AInstruction<int>*>(
         new Value<int>(rawArgs[1]));
         std::vector<AInstruction<int>*> args = {instr0, instr1};
-        auto op = operations::Operations<int>::create("xor", args);
+        auto op = factory_int.create("xor", args);
         op->execute();
         REQUIRE(1 == op->getResult());
         delete instr0;
@@ -3571,7 +3584,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<int>* instr1 = dynamic_cast<AInstruction<int>*>(
         new Value<int>(rawArgs[1]));
         std::vector<AInstruction<int>*> args = {instr0, instr1};
-        auto op = operations::Operations<int>::create("xor", args);
+        auto op = factory_int.create("xor", args);
         op->execute();
         REQUIRE(1 == op->getResult());
         delete instr0;
@@ -3584,7 +3597,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<int>* instr1 = dynamic_cast<AInstruction<int>*>(
         new Value<int>(rawArgs[1]));
         std::vector<AInstruction<int>*> args = {instr0, instr1};
-        auto op = operations::Operations<int>::create("xor", args);
+        auto op = factory_int.create("xor", args);
         op->execute();
         REQUIRE(0 == op->getResult());
         delete instr0;
@@ -3597,7 +3610,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<signed char>* instr1 = dynamic_cast<AInstruction<signed char>*>(
         new Value<signed char>(rawArgs[1]));
         std::vector<AInstruction<signed char>*> args = {instr0, instr1};
-        auto op = operations::Operations<signed char>::create("xor", args);
+        auto op = factory_signed_char.create("xor", args);
         op->execute();
         REQUIRE(0 == op->getResult());
         delete instr0;
@@ -3610,7 +3623,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<signed char>* instr1 = dynamic_cast<AInstruction<signed char>*>(
         new Value<signed char>(rawArgs[1]));
         std::vector<AInstruction<signed char>*> args = {instr0, instr1};
-        auto op = operations::Operations<signed char>::create("xor", args);
+        auto op = factory_signed_char.create("xor", args);
         op->execute();
         REQUIRE(1 == op->getResult());
         delete instr0;
@@ -3623,7 +3636,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<signed char>* instr1 = dynamic_cast<AInstruction<signed char>*>(
         new Value<signed char>(rawArgs[1]));
         std::vector<AInstruction<signed char>*> args = {instr0, instr1};
-        auto op = operations::Operations<signed char>::create("xor", args);
+        auto op = factory_signed_char.create("xor", args);
         op->execute();
         REQUIRE(1 == op->getResult());
         delete instr0;
@@ -3636,7 +3649,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<signed char>* instr1 = dynamic_cast<AInstruction<signed char>*>(
         new Value<signed char>(rawArgs[1]));
         std::vector<AInstruction<signed char>*> args = {instr0, instr1};
-        auto op = operations::Operations<signed char>::create("xor", args);
+        auto op = factory_signed_char.create("xor", args);
         op->execute();
         REQUIRE(0 == op->getResult());
         delete instr0;
@@ -3649,7 +3662,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<short int>* instr1 = dynamic_cast<AInstruction<short int>*>(
         new Value<short int>(rawArgs[1]));
         std::vector<AInstruction<short int>*> args = {instr0, instr1};
-        auto op = operations::Operations<short int>::create("xor", args);
+        auto op = factory_short_int.create("xor", args);
         op->execute();
         REQUIRE(0 == op->getResult());
         delete instr0;
@@ -3662,7 +3675,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<short int>* instr1 = dynamic_cast<AInstruction<short int>*>(
         new Value<short int>(rawArgs[1]));
         std::vector<AInstruction<short int>*> args = {instr0, instr1};
-        auto op = operations::Operations<short int>::create("xor", args);
+        auto op = factory_short_int.create("xor", args);
         op->execute();
         REQUIRE(1 == op->getResult());
         delete instr0;
@@ -3675,7 +3688,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<short int>* instr1 = dynamic_cast<AInstruction<short int>*>(
         new Value<short int>(rawArgs[1]));
         std::vector<AInstruction<short int>*> args = {instr0, instr1};
-        auto op = operations::Operations<short int>::create("xor", args);
+        auto op = factory_short_int.create("xor", args);
         op->execute();
         REQUIRE(1 == op->getResult());
         delete instr0;
@@ -3688,7 +3701,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<short int>* instr1 = dynamic_cast<AInstruction<short int>*>(
         new Value<short int>(rawArgs[1]));
         std::vector<AInstruction<short int>*> args = {instr0, instr1};
-        auto op = operations::Operations<short int>::create("xor", args);
+        auto op = factory_short_int.create("xor", args);
         op->execute();
         REQUIRE(0 == op->getResult());
         delete instr0;
@@ -3701,7 +3714,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<long int>* instr1 = dynamic_cast<AInstruction<long int>*>(
         new Value<long int>(rawArgs[1]));
         std::vector<AInstruction<long int>*> args = {instr0, instr1};
-        auto op = operations::Operations<long int>::create("xor", args);
+        auto op = factory_long_int.create("xor", args);
         op->execute();
         REQUIRE(0 == op->getResult());
         delete instr0;
@@ -3714,7 +3727,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<long int>* instr1 = dynamic_cast<AInstruction<long int>*>(
         new Value<long int>(rawArgs[1]));
         std::vector<AInstruction<long int>*> args = {instr0, instr1};
-        auto op = operations::Operations<long int>::create("xor", args);
+        auto op = factory_long_int.create("xor", args);
         op->execute();
         REQUIRE(1 == op->getResult());
         delete instr0;
@@ -3727,7 +3740,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<long int>* instr1 = dynamic_cast<AInstruction<long int>*>(
         new Value<long int>(rawArgs[1]));
         std::vector<AInstruction<long int>*> args = {instr0, instr1};
-        auto op = operations::Operations<long int>::create("xor", args);
+        auto op = factory_long_int.create("xor", args);
         op->execute();
         REQUIRE(1 == op->getResult());
         delete instr0;
@@ -3740,7 +3753,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<long int>* instr1 = dynamic_cast<AInstruction<long int>*>(
         new Value<long int>(rawArgs[1]));
         std::vector<AInstruction<long int>*> args = {instr0, instr1};
-        auto op = operations::Operations<long int>::create("xor", args);
+        auto op = factory_long_int.create("xor", args);
         op->execute();
         REQUIRE(0 == op->getResult());
         delete instr0;
@@ -3753,7 +3766,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<unsigned int>* instr1 = dynamic_cast<AInstruction<unsigned int>*>(
         new Value<unsigned int>(rawArgs[1]));
         std::vector<AInstruction<unsigned int>*> args = {instr0, instr1};
-        auto op = operations::Operations<unsigned int>::create("xor", args);
+        auto op = factory_unsigned_int.create("xor", args);
         op->execute();
         REQUIRE(0 == op->getResult());
         delete instr0;
@@ -3766,7 +3779,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<unsigned int>* instr1 = dynamic_cast<AInstruction<unsigned int>*>(
         new Value<unsigned int>(rawArgs[1]));
         std::vector<AInstruction<unsigned int>*> args = {instr0, instr1};
-        auto op = operations::Operations<unsigned int>::create("xor", args);
+        auto op = factory_unsigned_int.create("xor", args);
         op->execute();
         REQUIRE(1 == op->getResult());
         delete instr0;
@@ -3779,7 +3792,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<unsigned int>* instr1 = dynamic_cast<AInstruction<unsigned int>*>(
         new Value<unsigned int>(rawArgs[1]));
         std::vector<AInstruction<unsigned int>*> args = {instr0, instr1};
-        auto op = operations::Operations<unsigned int>::create("xor", args);
+        auto op = factory_unsigned_int.create("xor", args);
         op->execute();
         REQUIRE(1 == op->getResult());
         delete instr0;
@@ -3792,7 +3805,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<unsigned int>* instr1 = dynamic_cast<AInstruction<unsigned int>*>(
         new Value<unsigned int>(rawArgs[1]));
         std::vector<AInstruction<unsigned int>*> args = {instr0, instr1};
-        auto op = operations::Operations<unsigned int>::create("xor", args);
+        auto op = factory_unsigned_int.create("xor", args);
         op->execute();
         REQUIRE(0 == op->getResult());
         delete instr0;
@@ -3805,7 +3818,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<unsigned char>* instr1 = dynamic_cast<AInstruction<unsigned char>*>(
         new Value<unsigned char>(rawArgs[1]));
         std::vector<AInstruction<unsigned char>*> args = {instr0, instr1};
-        auto op = operations::Operations<unsigned char>::create("xor", args);
+        auto op = factory_unsigned_char.create("xor", args);
         op->execute();
         REQUIRE(0 == op->getResult());
         delete instr0;
@@ -3818,7 +3831,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<unsigned char>* instr1 = dynamic_cast<AInstruction<unsigned char>*>(
         new Value<unsigned char>(rawArgs[1]));
         std::vector<AInstruction<unsigned char>*> args = {instr0, instr1};
-        auto op = operations::Operations<unsigned char>::create("xor", args);
+        auto op = factory_unsigned_char.create("xor", args);
         op->execute();
         REQUIRE(1 == op->getResult());
         delete instr0;
@@ -3831,7 +3844,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<unsigned char>* instr1 = dynamic_cast<AInstruction<unsigned char>*>(
         new Value<unsigned char>(rawArgs[1]));
         std::vector<AInstruction<unsigned char>*> args = {instr0, instr1};
-        auto op = operations::Operations<unsigned char>::create("xor", args);
+        auto op = factory_unsigned_char.create("xor", args);
         op->execute();
         REQUIRE(1 == op->getResult());
         delete instr0;
@@ -3844,7 +3857,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<unsigned char>* instr1 = dynamic_cast<AInstruction<unsigned char>*>(
         new Value<unsigned char>(rawArgs[1]));
         std::vector<AInstruction<unsigned char>*> args = {instr0, instr1};
-        auto op = operations::Operations<unsigned char>::create("xor", args);
+        auto op = factory_unsigned_char.create("xor", args);
         op->execute();
         REQUIRE(0 == op->getResult());
         delete instr0;
@@ -3857,7 +3870,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<unsigned long int>* instr1 = dynamic_cast<AInstruction<unsigned long int>*>(
         new Value<unsigned long int>(rawArgs[1]));
         std::vector<AInstruction<unsigned long int>*> args = {instr0, instr1};
-        auto op = operations::Operations<unsigned long int>::create("xor", args);
+        auto op = factory_unsigned_long_int.create("xor", args);
         op->execute();
         REQUIRE(0 == op->getResult());
         delete instr0;
@@ -3870,7 +3883,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<unsigned long int>* instr1 = dynamic_cast<AInstruction<unsigned long int>*>(
         new Value<unsigned long int>(rawArgs[1]));
         std::vector<AInstruction<unsigned long int>*> args = {instr0, instr1};
-        auto op = operations::Operations<unsigned long int>::create("xor", args);
+        auto op = factory_unsigned_long_int.create("xor", args);
         op->execute();
         REQUIRE(1 == op->getResult());
         delete instr0;
@@ -3883,7 +3896,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<unsigned long int>* instr1 = dynamic_cast<AInstruction<unsigned long int>*>(
         new Value<unsigned long int>(rawArgs[1]));
         std::vector<AInstruction<unsigned long int>*> args = {instr0, instr1};
-        auto op = operations::Operations<unsigned long int>::create("xor", args);
+        auto op = factory_unsigned_long_int.create("xor", args);
         op->execute();
         REQUIRE(1 == op->getResult());
         delete instr0;
@@ -3896,7 +3909,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<unsigned long int>* instr1 = dynamic_cast<AInstruction<unsigned long int>*>(
         new Value<unsigned long int>(rawArgs[1]));
         std::vector<AInstruction<unsigned long int>*> args = {instr0, instr1};
-        auto op = operations::Operations<unsigned long int>::create("xor", args);
+        auto op = factory_unsigned_long_int.create("xor", args);
         op->execute();
         REQUIRE(0 == op->getResult());
         delete instr0;
@@ -3909,7 +3922,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<float>* instr1 = dynamic_cast<AInstruction<float>*>(
         new Value<float>(rawArgs[1]));
         std::vector<AInstruction<float>*> args = {instr0, instr1};
-        auto op = operations::Operations<float>::create("xor", args);
+        auto op = factory_float.create("xor", args);
         op->execute();
         REQUIRE(0.0f == op->getResult());
         delete instr0;
@@ -3922,7 +3935,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<float>* instr1 = dynamic_cast<AInstruction<float>*>(
         new Value<float>(rawArgs[1]));
         std::vector<AInstruction<float>*> args = {instr0, instr1};
-        auto op = operations::Operations<float>::create("xor", args);
+        auto op = factory_float.create("xor", args);
         op->execute();
         REQUIRE(1.0f == op->getResult());
         delete instr0;
@@ -3935,7 +3948,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<float>* instr1 = dynamic_cast<AInstruction<float>*>(
         new Value<float>(rawArgs[1]));
         std::vector<AInstruction<float>*> args = {instr0, instr1};
-        auto op = operations::Operations<float>::create("xor", args);
+        auto op = factory_float.create("xor", args);
         op->execute();
         REQUIRE(1.0f == op->getResult());
         delete instr0;
@@ -3948,7 +3961,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<float>* instr1 = dynamic_cast<AInstruction<float>*>(
         new Value<float>(rawArgs[1]));
         std::vector<AInstruction<float>*> args = {instr0, instr1};
-        auto op = operations::Operations<float>::create("xor", args);
+        auto op = factory_float.create("xor", args);
         op->execute();
         REQUIRE(0.0f == op->getResult());
         delete instr0;
@@ -3961,7 +3974,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<double>* instr1 = dynamic_cast<AInstruction<double>*>(
         new Value<double>(rawArgs[1]));
         std::vector<AInstruction<double>*> args = {instr0, instr1};
-        auto op = operations::Operations<double>::create("xor", args);
+        auto op = factory_double.create("xor", args);
         op->execute();
         REQUIRE(0.0 == op->getResult());
         delete instr0;
@@ -3974,7 +3987,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<double>* instr1 = dynamic_cast<AInstruction<double>*>(
         new Value<double>(rawArgs[1]));
         std::vector<AInstruction<double>*> args = {instr0, instr1};
-        auto op = operations::Operations<double>::create("xor", args);
+        auto op = factory_double.create("xor", args);
         op->execute();
         REQUIRE(1.0 == op->getResult());
         delete instr0;
@@ -3987,7 +4000,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<double>* instr1 = dynamic_cast<AInstruction<double>*>(
         new Value<double>(rawArgs[1]));
         std::vector<AInstruction<double>*> args = {instr0, instr1};
-        auto op = operations::Operations<double>::create("xor", args);
+        auto op = factory_double.create("xor", args);
         op->execute();
         REQUIRE(1.0 == op->getResult());
         delete instr0;
@@ -4000,7 +4013,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<double>* instr1 = dynamic_cast<AInstruction<double>*>(
         new Value<double>(rawArgs[1]));
         std::vector<AInstruction<double>*> args = {instr0, instr1};
-        auto op = operations::Operations<double>::create("xor", args);
+        auto op = factory_double.create("xor", args);
         op->execute();
         REQUIRE(0.0 == op->getResult());
         delete instr0;
@@ -4013,7 +4026,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<long double>* instr1 = dynamic_cast<AInstruction<long double>*>(
         new Value<long double>(rawArgs[1]));
         std::vector<AInstruction<long double>*> args = {instr0, instr1};
-        auto op = operations::Operations<long double>::create("xor", args);
+        auto op = factory_long_double.create("xor", args);
         op->execute();
         REQUIRE(0.0L == op->getResult());
         delete instr0;
@@ -4026,7 +4039,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<long double>* instr1 = dynamic_cast<AInstruction<long double>*>(
         new Value<long double>(rawArgs[1]));
         std::vector<AInstruction<long double>*> args = {instr0, instr1};
-        auto op = operations::Operations<long double>::create("xor", args);
+        auto op = factory_long_double.create("xor", args);
         op->execute();
         REQUIRE(1.0L == op->getResult());
         delete instr0;
@@ -4039,7 +4052,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<long double>* instr1 = dynamic_cast<AInstruction<long double>*>(
         new Value<long double>(rawArgs[1]));
         std::vector<AInstruction<long double>*> args = {instr0, instr1};
-        auto op = operations::Operations<long double>::create("xor", args);
+        auto op = factory_long_double.create("xor", args);
         op->execute();
         REQUIRE(1.0L == op->getResult());
         delete instr0;
@@ -4052,7 +4065,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<long double>* instr1 = dynamic_cast<AInstruction<long double>*>(
         new Value<long double>(rawArgs[1]));
         std::vector<AInstruction<long double>*> args = {instr0, instr1};
-        auto op = operations::Operations<long double>::create("xor", args);
+        auto op = factory_long_double.create("xor", args);
         op->execute();
         REQUIRE(0.0L == op->getResult());
         delete instr0;
@@ -4067,7 +4080,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<int>* instr1 = dynamic_cast<AInstruction<int>*>(
         new Value<int>(rawArgs[1]));
         std::vector<AInstruction<int>*> args = {instr0, instr1};
-        auto op = operations::Operations<int>::create("xnor", args);
+        auto op = factory_int.create("xnor", args);
         op->execute();
         REQUIRE(1 == op->getResult());
         delete instr0;
@@ -4080,7 +4093,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<int>* instr1 = dynamic_cast<AInstruction<int>*>(
         new Value<int>(rawArgs[1]));
         std::vector<AInstruction<int>*> args = {instr0, instr1};
-        auto op = operations::Operations<int>::create("xnor", args);
+        auto op = factory_int.create("xnor", args);
         op->execute();
         REQUIRE(0 == op->getResult());
         delete instr0;
@@ -4093,7 +4106,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<int>* instr1 = dynamic_cast<AInstruction<int>*>(
         new Value<int>(rawArgs[1]));
         std::vector<AInstruction<int>*> args = {instr0, instr1};
-        auto op = operations::Operations<int>::create("xnor", args);
+        auto op = factory_int.create("xnor", args);
         op->execute();
         REQUIRE(0 == op->getResult());
         delete instr0;
@@ -4106,7 +4119,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<int>* instr1 = dynamic_cast<AInstruction<int>*>(
         new Value<int>(rawArgs[1]));
         std::vector<AInstruction<int>*> args = {instr0, instr1};
-        auto op = operations::Operations<int>::create("xnor", args);
+        auto op = factory_int.create("xnor", args);
         op->execute();
         REQUIRE(1 == op->getResult());
         delete instr0;
@@ -4119,7 +4132,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<signed char>* instr1 = dynamic_cast<AInstruction<signed char>*>(
         new Value<signed char>(rawArgs[1]));
         std::vector<AInstruction<signed char>*> args = {instr0, instr1};
-        auto op = operations::Operations<signed char>::create("xnor", args);
+        auto op = factory_signed_char.create("xnor", args);
         op->execute();
         REQUIRE(1 == op->getResult());
         delete instr0;
@@ -4132,7 +4145,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<signed char>* instr1 = dynamic_cast<AInstruction<signed char>*>(
         new Value<signed char>(rawArgs[1]));
         std::vector<AInstruction<signed char>*> args = {instr0, instr1};
-        auto op = operations::Operations<signed char>::create("xnor", args);
+        auto op = factory_signed_char.create("xnor", args);
         op->execute();
         REQUIRE(0 == op->getResult());
         delete instr0;
@@ -4145,7 +4158,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<signed char>* instr1 = dynamic_cast<AInstruction<signed char>*>(
         new Value<signed char>(rawArgs[1]));
         std::vector<AInstruction<signed char>*> args = {instr0, instr1};
-        auto op = operations::Operations<signed char>::create("xnor", args);
+        auto op = factory_signed_char.create("xnor", args);
         op->execute();
         REQUIRE(0 == op->getResult());
         delete instr0;
@@ -4158,7 +4171,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<signed char>* instr1 = dynamic_cast<AInstruction<signed char>*>(
         new Value<signed char>(rawArgs[1]));
         std::vector<AInstruction<signed char>*> args = {instr0, instr1};
-        auto op = operations::Operations<signed char>::create("xnor", args);
+        auto op = factory_signed_char.create("xnor", args);
         op->execute();
         REQUIRE(1 == op->getResult());
         delete instr0;
@@ -4171,7 +4184,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<short int>* instr1 = dynamic_cast<AInstruction<short int>*>(
         new Value<short int>(rawArgs[1]));
         std::vector<AInstruction<short int>*> args = {instr0, instr1};
-        auto op = operations::Operations<short int>::create("xnor", args);
+        auto op = factory_short_int.create("xnor", args);
         op->execute();
         REQUIRE(1 == op->getResult());
         delete instr0;
@@ -4184,7 +4197,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<short int>* instr1 = dynamic_cast<AInstruction<short int>*>(
         new Value<short int>(rawArgs[1]));
         std::vector<AInstruction<short int>*> args = {instr0, instr1};
-        auto op = operations::Operations<short int>::create("xnor", args);
+        auto op = factory_short_int.create("xnor", args);
         op->execute();
         REQUIRE(0 == op->getResult());
         delete instr0;
@@ -4197,7 +4210,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<short int>* instr1 = dynamic_cast<AInstruction<short int>*>(
         new Value<short int>(rawArgs[1]));
         std::vector<AInstruction<short int>*> args = {instr0, instr1};
-        auto op = operations::Operations<short int>::create("xnor", args);
+        auto op = factory_short_int.create("xnor", args);
         op->execute();
         REQUIRE(0 == op->getResult());
         delete instr0;
@@ -4210,7 +4223,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<short int>* instr1 = dynamic_cast<AInstruction<short int>*>(
         new Value<short int>(rawArgs[1]));
         std::vector<AInstruction<short int>*> args = {instr0, instr1};
-        auto op = operations::Operations<short int>::create("xnor", args);
+        auto op = factory_short_int.create("xnor", args);
         op->execute();
         REQUIRE(1 == op->getResult());
         delete instr0;
@@ -4223,7 +4236,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<long int>* instr1 = dynamic_cast<AInstruction<long int>*>(
         new Value<long int>(rawArgs[1]));
         std::vector<AInstruction<long int>*> args = {instr0, instr1};
-        auto op = operations::Operations<long int>::create("xnor", args);
+        auto op = factory_long_int.create("xnor", args);
         op->execute();
         REQUIRE(1 == op->getResult());
         delete instr0;
@@ -4236,7 +4249,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<long int>* instr1 = dynamic_cast<AInstruction<long int>*>(
         new Value<long int>(rawArgs[1]));
         std::vector<AInstruction<long int>*> args = {instr0, instr1};
-        auto op = operations::Operations<long int>::create("xnor", args);
+        auto op = factory_long_int.create("xnor", args);
         op->execute();
         REQUIRE(0 == op->getResult());
         delete instr0;
@@ -4249,7 +4262,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<long int>* instr1 = dynamic_cast<AInstruction<long int>*>(
         new Value<long int>(rawArgs[1]));
         std::vector<AInstruction<long int>*> args = {instr0, instr1};
-        auto op = operations::Operations<long int>::create("xnor", args);
+        auto op = factory_long_int.create("xnor", args);
         op->execute();
         REQUIRE(0 == op->getResult());
         delete instr0;
@@ -4262,7 +4275,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<long int>* instr1 = dynamic_cast<AInstruction<long int>*>(
         new Value<long int>(rawArgs[1]));
         std::vector<AInstruction<long int>*> args = {instr0, instr1};
-        auto op = operations::Operations<long int>::create("xnor", args);
+        auto op = factory_long_int.create("xnor", args);
         op->execute();
         REQUIRE(1 == op->getResult());
         delete instr0;
@@ -4275,7 +4288,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<unsigned int>* instr1 = dynamic_cast<AInstruction<unsigned int>*>(
         new Value<unsigned int>(rawArgs[1]));
         std::vector<AInstruction<unsigned int>*> args = {instr0, instr1};
-        auto op = operations::Operations<unsigned int>::create("xnor", args);
+        auto op = factory_unsigned_int.create("xnor", args);
         op->execute();
         REQUIRE(1 == op->getResult());
         delete instr0;
@@ -4288,7 +4301,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<unsigned int>* instr1 = dynamic_cast<AInstruction<unsigned int>*>(
         new Value<unsigned int>(rawArgs[1]));
         std::vector<AInstruction<unsigned int>*> args = {instr0, instr1};
-        auto op = operations::Operations<unsigned int>::create("xnor", args);
+        auto op = factory_unsigned_int.create("xnor", args);
         op->execute();
         REQUIRE(0 == op->getResult());
         delete instr0;
@@ -4301,7 +4314,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<unsigned int>* instr1 = dynamic_cast<AInstruction<unsigned int>*>(
         new Value<unsigned int>(rawArgs[1]));
         std::vector<AInstruction<unsigned int>*> args = {instr0, instr1};
-        auto op = operations::Operations<unsigned int>::create("xnor", args);
+        auto op = factory_unsigned_int.create("xnor", args);
         op->execute();
         REQUIRE(0 == op->getResult());
         delete instr0;
@@ -4314,7 +4327,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<unsigned int>* instr1 = dynamic_cast<AInstruction<unsigned int>*>(
         new Value<unsigned int>(rawArgs[1]));
         std::vector<AInstruction<unsigned int>*> args = {instr0, instr1};
-        auto op = operations::Operations<unsigned int>::create("xnor", args);
+        auto op = factory_unsigned_int.create("xnor", args);
         op->execute();
         REQUIRE(1 == op->getResult());
         delete instr0;
@@ -4327,7 +4340,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<unsigned char>* instr1 = dynamic_cast<AInstruction<unsigned char>*>(
         new Value<unsigned char>(rawArgs[1]));
         std::vector<AInstruction<unsigned char>*> args = {instr0, instr1};
-        auto op = operations::Operations<unsigned char>::create("xnor", args);
+        auto op = factory_unsigned_char.create("xnor", args);
         op->execute();
         REQUIRE(1 == op->getResult());
         delete instr0;
@@ -4340,7 +4353,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<unsigned char>* instr1 = dynamic_cast<AInstruction<unsigned char>*>(
         new Value<unsigned char>(rawArgs[1]));
         std::vector<AInstruction<unsigned char>*> args = {instr0, instr1};
-        auto op = operations::Operations<unsigned char>::create("xnor", args);
+        auto op = factory_unsigned_char.create("xnor", args);
         op->execute();
         REQUIRE(0 == op->getResult());
         delete instr0;
@@ -4353,7 +4366,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<unsigned char>* instr1 = dynamic_cast<AInstruction<unsigned char>*>(
         new Value<unsigned char>(rawArgs[1]));
         std::vector<AInstruction<unsigned char>*> args = {instr0, instr1};
-        auto op = operations::Operations<unsigned char>::create("xnor", args);
+        auto op = factory_unsigned_char.create("xnor", args);
         op->execute();
         REQUIRE(0 == op->getResult());
         delete instr0;
@@ -4366,7 +4379,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<unsigned char>* instr1 = dynamic_cast<AInstruction<unsigned char>*>(
         new Value<unsigned char>(rawArgs[1]));
         std::vector<AInstruction<unsigned char>*> args = {instr0, instr1};
-        auto op = operations::Operations<unsigned char>::create("xnor", args);
+        auto op = factory_unsigned_char.create("xnor", args);
         op->execute();
         REQUIRE(1 == op->getResult());
         delete instr0;
@@ -4379,7 +4392,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<unsigned long int>* instr1 = dynamic_cast<AInstruction<unsigned long int>*>(
         new Value<unsigned long int>(rawArgs[1]));
         std::vector<AInstruction<unsigned long int>*> args = {instr0, instr1};
-        auto op = operations::Operations<unsigned long int>::create("xnor", args);
+        auto op = factory_unsigned_long_int.create("xnor", args);
         op->execute();
         REQUIRE(1 == op->getResult());
         delete instr0;
@@ -4392,7 +4405,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<unsigned long int>* instr1 = dynamic_cast<AInstruction<unsigned long int>*>(
         new Value<unsigned long int>(rawArgs[1]));
         std::vector<AInstruction<unsigned long int>*> args = {instr0, instr1};
-        auto op = operations::Operations<unsigned long int>::create("xnor", args);
+        auto op = factory_unsigned_long_int.create("xnor", args);
         op->execute();
         REQUIRE(0 == op->getResult());
         delete instr0;
@@ -4405,7 +4418,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<unsigned long int>* instr1 = dynamic_cast<AInstruction<unsigned long int>*>(
         new Value<unsigned long int>(rawArgs[1]));
         std::vector<AInstruction<unsigned long int>*> args = {instr0, instr1};
-        auto op = operations::Operations<unsigned long int>::create("xnor", args);
+        auto op = factory_unsigned_long_int.create("xnor", args);
         op->execute();
         REQUIRE(0 == op->getResult());
         delete instr0;
@@ -4418,7 +4431,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<unsigned long int>* instr1 = dynamic_cast<AInstruction<unsigned long int>*>(
         new Value<unsigned long int>(rawArgs[1]));
         std::vector<AInstruction<unsigned long int>*> args = {instr0, instr1};
-        auto op = operations::Operations<unsigned long int>::create("xnor", args);
+        auto op = factory_unsigned_long_int.create("xnor", args);
         op->execute();
         REQUIRE(1 == op->getResult());
         delete instr0;
@@ -4431,7 +4444,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<float>* instr1 = dynamic_cast<AInstruction<float>*>(
         new Value<float>(rawArgs[1]));
         std::vector<AInstruction<float>*> args = {instr0, instr1};
-        auto op = operations::Operations<float>::create("xnor", args);
+        auto op = factory_float.create("xnor", args);
         op->execute();
         REQUIRE(1.0f == op->getResult());
         delete instr0;
@@ -4444,7 +4457,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<float>* instr1 = dynamic_cast<AInstruction<float>*>(
         new Value<float>(rawArgs[1]));
         std::vector<AInstruction<float>*> args = {instr0, instr1};
-        auto op = operations::Operations<float>::create("xnor", args);
+        auto op = factory_float.create("xnor", args);
         op->execute();
         REQUIRE(0.0f == op->getResult());
         delete instr0;
@@ -4457,7 +4470,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<float>* instr1 = dynamic_cast<AInstruction<float>*>(
         new Value<float>(rawArgs[1]));
         std::vector<AInstruction<float>*> args = {instr0, instr1};
-        auto op = operations::Operations<float>::create("xnor", args);
+        auto op = factory_float.create("xnor", args);
         op->execute();
         REQUIRE(0.0f == op->getResult());
         delete instr0;
@@ -4470,7 +4483,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<float>* instr1 = dynamic_cast<AInstruction<float>*>(
         new Value<float>(rawArgs[1]));
         std::vector<AInstruction<float>*> args = {instr0, instr1};
-        auto op = operations::Operations<float>::create("xnor", args);
+        auto op = factory_float.create("xnor", args);
         op->execute();
         REQUIRE(1.0f == op->getResult());
         delete instr0;
@@ -4483,7 +4496,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<double>* instr1 = dynamic_cast<AInstruction<double>*>(
         new Value<double>(rawArgs[1]));
         std::vector<AInstruction<double>*> args = {instr0, instr1};
-        auto op = operations::Operations<double>::create("xnor", args);
+        auto op = factory_double.create("xnor", args);
         op->execute();
         REQUIRE(1.0 == op->getResult());
         delete instr0;
@@ -4496,7 +4509,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<double>* instr1 = dynamic_cast<AInstruction<double>*>(
         new Value<double>(rawArgs[1]));
         std::vector<AInstruction<double>*> args = {instr0, instr1};
-        auto op = operations::Operations<double>::create("xnor", args);
+        auto op = factory_double.create("xnor", args);
         op->execute();
         REQUIRE(0.0 == op->getResult());
         delete instr0;
@@ -4509,7 +4522,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<double>* instr1 = dynamic_cast<AInstruction<double>*>(
         new Value<double>(rawArgs[1]));
         std::vector<AInstruction<double>*> args = {instr0, instr1};
-        auto op = operations::Operations<double>::create("xnor", args);
+        auto op = factory_double.create("xnor", args);
         op->execute();
         REQUIRE(0.0 == op->getResult());
         delete instr0;
@@ -4522,7 +4535,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<double>* instr1 = dynamic_cast<AInstruction<double>*>(
         new Value<double>(rawArgs[1]));
         std::vector<AInstruction<double>*> args = {instr0, instr1};
-        auto op = operations::Operations<double>::create("xnor", args);
+        auto op = factory_double.create("xnor", args);
         op->execute();
         REQUIRE(1.0 == op->getResult());
         delete instr0;
@@ -4535,7 +4548,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<long double>* instr1 = dynamic_cast<AInstruction<long double>*>(
         new Value<long double>(rawArgs[1]));
         std::vector<AInstruction<long double>*> args = {instr0, instr1};
-        auto op = operations::Operations<long double>::create("xnor", args);
+        auto op = factory_long_double.create("xnor", args);
         op->execute();
         REQUIRE(1.0L == op->getResult());
         delete instr0;
@@ -4548,7 +4561,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<long double>* instr1 = dynamic_cast<AInstruction<long double>*>(
         new Value<long double>(rawArgs[1]));
         std::vector<AInstruction<long double>*> args = {instr0, instr1};
-        auto op = operations::Operations<long double>::create("xnor", args);
+        auto op = factory_long_double.create("xnor", args);
         op->execute();
         REQUIRE(0.0L == op->getResult());
         delete instr0;
@@ -4561,7 +4574,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<long double>* instr1 = dynamic_cast<AInstruction<long double>*>(
         new Value<long double>(rawArgs[1]));
         std::vector<AInstruction<long double>*> args = {instr0, instr1};
-        auto op = operations::Operations<long double>::create("xnor", args);
+        auto op = factory_long_double.create("xnor", args);
         op->execute();
         REQUIRE(0.0L == op->getResult());
         delete instr0;
@@ -4574,7 +4587,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<long double>* instr1 = dynamic_cast<AInstruction<long double>*>(
         new Value<long double>(rawArgs[1]));
         std::vector<AInstruction<long double>*> args = {instr0, instr1};
-        auto op = operations::Operations<long double>::create("xnor", args);
+        auto op = factory_long_double.create("xnor", args);
         op->execute();
         REQUIRE(1.0L == op->getResult());
         delete instr0;
@@ -4589,7 +4602,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<int>* instr1 = dynamic_cast<AInstruction<int>*>(
         new Value<int>(rawArgs[1]));
         std::vector<AInstruction<int>*> args = {instr0, instr1};
-        auto op = operations::Operations<int>::create("nand", args);
+        auto op = factory_int.create("nand", args);
         op->execute();
         REQUIRE(0 == op->getResult());
         delete instr0;
@@ -4602,7 +4615,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<int>* instr1 = dynamic_cast<AInstruction<int>*>(
         new Value<int>(rawArgs[1]));
         std::vector<AInstruction<int>*> args = {instr0, instr1};
-        auto op = operations::Operations<int>::create("nand", args);
+        auto op = factory_int.create("nand", args);
         op->execute();
         REQUIRE(1 == op->getResult());
         delete instr0;
@@ -4615,7 +4628,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<int>* instr1 = dynamic_cast<AInstruction<int>*>(
         new Value<int>(rawArgs[1]));
         std::vector<AInstruction<int>*> args = {instr0, instr1};
-        auto op = operations::Operations<int>::create("nand", args);
+        auto op = factory_int.create("nand", args);
         op->execute();
         REQUIRE(1 == op->getResult());
         delete instr0;
@@ -4628,7 +4641,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<int>* instr1 = dynamic_cast<AInstruction<int>*>(
         new Value<int>(rawArgs[1]));
         std::vector<AInstruction<int>*> args = {instr0, instr1};
-        auto op = operations::Operations<int>::create("nand", args);
+        auto op = factory_int.create("nand", args);
         op->execute();
         REQUIRE(1 == op->getResult());
         delete instr0;
@@ -4641,7 +4654,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<signed char>* instr1 = dynamic_cast<AInstruction<signed char>*>(
         new Value<signed char>(rawArgs[1]));
         std::vector<AInstruction<signed char>*> args = {instr0, instr1};
-        auto op = operations::Operations<signed char>::create("nand", args);
+        auto op = factory_signed_char.create("nand", args);
         op->execute();
         REQUIRE(0 == op->getResult());
         delete instr0;
@@ -4654,7 +4667,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<signed char>* instr1 = dynamic_cast<AInstruction<signed char>*>(
         new Value<signed char>(rawArgs[1]));
         std::vector<AInstruction<signed char>*> args = {instr0, instr1};
-        auto op = operations::Operations<signed char>::create("nand", args);
+        auto op = factory_signed_char.create("nand", args);
         op->execute();
         REQUIRE(1 == op->getResult());
         delete instr0;
@@ -4667,7 +4680,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<signed char>* instr1 = dynamic_cast<AInstruction<signed char>*>(
         new Value<signed char>(rawArgs[1]));
         std::vector<AInstruction<signed char>*> args = {instr0, instr1};
-        auto op = operations::Operations<signed char>::create("nand", args);
+        auto op = factory_signed_char.create("nand", args);
         op->execute();
         REQUIRE(1 == op->getResult());
         delete instr0;
@@ -4680,7 +4693,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<signed char>* instr1 = dynamic_cast<AInstruction<signed char>*>(
         new Value<signed char>(rawArgs[1]));
         std::vector<AInstruction<signed char>*> args = {instr0, instr1};
-        auto op = operations::Operations<signed char>::create("nand", args);
+        auto op = factory_signed_char.create("nand", args);
         op->execute();
         REQUIRE(1 == op->getResult());
         delete instr0;
@@ -4693,7 +4706,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<short int>* instr1 = dynamic_cast<AInstruction<short int>*>(
         new Value<short int>(rawArgs[1]));
         std::vector<AInstruction<short int>*> args = {instr0, instr1};
-        auto op = operations::Operations<short int>::create("nand", args);
+        auto op = factory_short_int.create("nand", args);
         op->execute();
         REQUIRE(0 == op->getResult());
         delete instr0;
@@ -4706,7 +4719,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<short int>* instr1 = dynamic_cast<AInstruction<short int>*>(
         new Value<short int>(rawArgs[1]));
         std::vector<AInstruction<short int>*> args = {instr0, instr1};
-        auto op = operations::Operations<short int>::create("nand", args);
+        auto op = factory_short_int.create("nand", args);
         op->execute();
         REQUIRE(1 == op->getResult());
         delete instr0;
@@ -4719,7 +4732,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<short int>* instr1 = dynamic_cast<AInstruction<short int>*>(
         new Value<short int>(rawArgs[1]));
         std::vector<AInstruction<short int>*> args = {instr0, instr1};
-        auto op = operations::Operations<short int>::create("nand", args);
+        auto op = factory_short_int.create("nand", args);
         op->execute();
         REQUIRE(1 == op->getResult());
         delete instr0;
@@ -4732,7 +4745,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<short int>* instr1 = dynamic_cast<AInstruction<short int>*>(
         new Value<short int>(rawArgs[1]));
         std::vector<AInstruction<short int>*> args = {instr0, instr1};
-        auto op = operations::Operations<short int>::create("nand", args);
+        auto op = factory_short_int.create("nand", args);
         op->execute();
         REQUIRE(1 == op->getResult());
         delete instr0;
@@ -4745,7 +4758,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<long int>* instr1 = dynamic_cast<AInstruction<long int>*>(
         new Value<long int>(rawArgs[1]));
         std::vector<AInstruction<long int>*> args = {instr0, instr1};
-        auto op = operations::Operations<long int>::create("nand", args);
+        auto op = factory_long_int.create("nand", args);
         op->execute();
         REQUIRE(0 == op->getResult());
         delete instr0;
@@ -4758,7 +4771,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<long int>* instr1 = dynamic_cast<AInstruction<long int>*>(
         new Value<long int>(rawArgs[1]));
         std::vector<AInstruction<long int>*> args = {instr0, instr1};
-        auto op = operations::Operations<long int>::create("nand", args);
+        auto op = factory_long_int.create("nand", args);
         op->execute();
         REQUIRE(1 == op->getResult());
         delete instr0;
@@ -4771,7 +4784,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<long int>* instr1 = dynamic_cast<AInstruction<long int>*>(
         new Value<long int>(rawArgs[1]));
         std::vector<AInstruction<long int>*> args = {instr0, instr1};
-        auto op = operations::Operations<long int>::create("nand", args);
+        auto op = factory_long_int.create("nand", args);
         op->execute();
         REQUIRE(1 == op->getResult());
         delete instr0;
@@ -4784,7 +4797,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<long int>* instr1 = dynamic_cast<AInstruction<long int>*>(
         new Value<long int>(rawArgs[1]));
         std::vector<AInstruction<long int>*> args = {instr0, instr1};
-        auto op = operations::Operations<long int>::create("nand", args);
+        auto op = factory_long_int.create("nand", args);
         op->execute();
         REQUIRE(1 == op->getResult());
         delete instr0;
@@ -4797,7 +4810,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<unsigned int>* instr1 = dynamic_cast<AInstruction<unsigned int>*>(
         new Value<unsigned int>(rawArgs[1]));
         std::vector<AInstruction<unsigned int>*> args = {instr0, instr1};
-        auto op = operations::Operations<unsigned int>::create("nand", args);
+        auto op = factory_unsigned_int.create("nand", args);
         op->execute();
         REQUIRE(0 == op->getResult());
         delete instr0;
@@ -4810,7 +4823,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<unsigned int>* instr1 = dynamic_cast<AInstruction<unsigned int>*>(
         new Value<unsigned int>(rawArgs[1]));
         std::vector<AInstruction<unsigned int>*> args = {instr0, instr1};
-        auto op = operations::Operations<unsigned int>::create("nand", args);
+        auto op = factory_unsigned_int.create("nand", args);
         op->execute();
         REQUIRE(1 == op->getResult());
         delete instr0;
@@ -4823,7 +4836,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<unsigned int>* instr1 = dynamic_cast<AInstruction<unsigned int>*>(
         new Value<unsigned int>(rawArgs[1]));
         std::vector<AInstruction<unsigned int>*> args = {instr0, instr1};
-        auto op = operations::Operations<unsigned int>::create("nand", args);
+        auto op = factory_unsigned_int.create("nand", args);
         op->execute();
         REQUIRE(1 == op->getResult());
         delete instr0;
@@ -4836,7 +4849,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<unsigned int>* instr1 = dynamic_cast<AInstruction<unsigned int>*>(
         new Value<unsigned int>(rawArgs[1]));
         std::vector<AInstruction<unsigned int>*> args = {instr0, instr1};
-        auto op = operations::Operations<unsigned int>::create("nand", args);
+        auto op = factory_unsigned_int.create("nand", args);
         op->execute();
         REQUIRE(1 == op->getResult());
         delete instr0;
@@ -4849,7 +4862,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<unsigned char>* instr1 = dynamic_cast<AInstruction<unsigned char>*>(
         new Value<unsigned char>(rawArgs[1]));
         std::vector<AInstruction<unsigned char>*> args = {instr0, instr1};
-        auto op = operations::Operations<unsigned char>::create("nand", args);
+        auto op = factory_unsigned_char.create("nand", args);
         op->execute();
         REQUIRE(0 == op->getResult());
         delete instr0;
@@ -4862,7 +4875,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<unsigned char>* instr1 = dynamic_cast<AInstruction<unsigned char>*>(
         new Value<unsigned char>(rawArgs[1]));
         std::vector<AInstruction<unsigned char>*> args = {instr0, instr1};
-        auto op = operations::Operations<unsigned char>::create("nand", args);
+        auto op = factory_unsigned_char.create("nand", args);
         op->execute();
         REQUIRE(1 == op->getResult());
         delete instr0;
@@ -4875,7 +4888,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<unsigned char>* instr1 = dynamic_cast<AInstruction<unsigned char>*>(
         new Value<unsigned char>(rawArgs[1]));
         std::vector<AInstruction<unsigned char>*> args = {instr0, instr1};
-        auto op = operations::Operations<unsigned char>::create("nand", args);
+        auto op = factory_unsigned_char.create("nand", args);
         op->execute();
         REQUIRE(1 == op->getResult());
         delete instr0;
@@ -4888,7 +4901,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<unsigned char>* instr1 = dynamic_cast<AInstruction<unsigned char>*>(
         new Value<unsigned char>(rawArgs[1]));
         std::vector<AInstruction<unsigned char>*> args = {instr0, instr1};
-        auto op = operations::Operations<unsigned char>::create("nand", args);
+        auto op = factory_unsigned_char.create("nand", args);
         op->execute();
         REQUIRE(1 == op->getResult());
         delete instr0;
@@ -4901,7 +4914,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<unsigned long int>* instr1 = dynamic_cast<AInstruction<unsigned long int>*>(
         new Value<unsigned long int>(rawArgs[1]));
         std::vector<AInstruction<unsigned long int>*> args = {instr0, instr1};
-        auto op = operations::Operations<unsigned long int>::create("nand", args);
+        auto op = factory_unsigned_long_int.create("nand", args);
         op->execute();
         REQUIRE(0 == op->getResult());
         delete instr0;
@@ -4914,7 +4927,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<unsigned long int>* instr1 = dynamic_cast<AInstruction<unsigned long int>*>(
         new Value<unsigned long int>(rawArgs[1]));
         std::vector<AInstruction<unsigned long int>*> args = {instr0, instr1};
-        auto op = operations::Operations<unsigned long int>::create("nand", args);
+        auto op = factory_unsigned_long_int.create("nand", args);
         op->execute();
         REQUIRE(1 == op->getResult());
         delete instr0;
@@ -4927,7 +4940,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<unsigned long int>* instr1 = dynamic_cast<AInstruction<unsigned long int>*>(
         new Value<unsigned long int>(rawArgs[1]));
         std::vector<AInstruction<unsigned long int>*> args = {instr0, instr1};
-        auto op = operations::Operations<unsigned long int>::create("nand", args);
+        auto op = factory_unsigned_long_int.create("nand", args);
         op->execute();
         REQUIRE(1 == op->getResult());
         delete instr0;
@@ -4940,7 +4953,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<unsigned long int>* instr1 = dynamic_cast<AInstruction<unsigned long int>*>(
         new Value<unsigned long int>(rawArgs[1]));
         std::vector<AInstruction<unsigned long int>*> args = {instr0, instr1};
-        auto op = operations::Operations<unsigned long int>::create("nand", args);
+        auto op = factory_unsigned_long_int.create("nand", args);
         op->execute();
         REQUIRE(1 == op->getResult());
         delete instr0;
@@ -4953,7 +4966,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<float>* instr1 = dynamic_cast<AInstruction<float>*>(
         new Value<float>(rawArgs[1]));
         std::vector<AInstruction<float>*> args = {instr0, instr1};
-        auto op = operations::Operations<float>::create("nand", args);
+        auto op = factory_float.create("nand", args);
         op->execute();
         REQUIRE(0.0f == op->getResult());
         delete instr0;
@@ -4966,7 +4979,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<float>* instr1 = dynamic_cast<AInstruction<float>*>(
         new Value<float>(rawArgs[1]));
         std::vector<AInstruction<float>*> args = {instr0, instr1};
-        auto op = operations::Operations<float>::create("nand", args);
+        auto op = factory_float.create("nand", args);
         op->execute();
         REQUIRE(1.0f == op->getResult());
         delete instr0;
@@ -4979,7 +4992,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<float>* instr1 = dynamic_cast<AInstruction<float>*>(
         new Value<float>(rawArgs[1]));
         std::vector<AInstruction<float>*> args = {instr0, instr1};
-        auto op = operations::Operations<float>::create("nand", args);
+        auto op = factory_float.create("nand", args);
         op->execute();
         REQUIRE(1.0f == op->getResult());
         delete instr0;
@@ -4992,7 +5005,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<float>* instr1 = dynamic_cast<AInstruction<float>*>(
         new Value<float>(rawArgs[1]));
         std::vector<AInstruction<float>*> args = {instr0, instr1};
-        auto op = operations::Operations<float>::create("nand", args);
+        auto op = factory_float.create("nand", args);
         op->execute();
         REQUIRE(1.0f == op->getResult());
         delete instr0;
@@ -5005,7 +5018,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<double>* instr1 = dynamic_cast<AInstruction<double>*>(
         new Value<double>(rawArgs[1]));
         std::vector<AInstruction<double>*> args = {instr0, instr1};
-        auto op = operations::Operations<double>::create("nand", args);
+        auto op = factory_double.create("nand", args);
         op->execute();
         REQUIRE(0.0 == op->getResult());
         delete instr0;
@@ -5018,7 +5031,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<double>* instr1 = dynamic_cast<AInstruction<double>*>(
         new Value<double>(rawArgs[1]));
         std::vector<AInstruction<double>*> args = {instr0, instr1};
-        auto op = operations::Operations<double>::create("nand", args);
+        auto op = factory_double.create("nand", args);
         op->execute();
         REQUIRE(1.0 == op->getResult());
         delete instr0;
@@ -5031,7 +5044,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<double>* instr1 = dynamic_cast<AInstruction<double>*>(
         new Value<double>(rawArgs[1]));
         std::vector<AInstruction<double>*> args = {instr0, instr1};
-        auto op = operations::Operations<double>::create("nand", args);
+        auto op = factory_double.create("nand", args);
         op->execute();
         REQUIRE(1.0 == op->getResult());
         delete instr0;
@@ -5044,7 +5057,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<double>* instr1 = dynamic_cast<AInstruction<double>*>(
         new Value<double>(rawArgs[1]));
         std::vector<AInstruction<double>*> args = {instr0, instr1};
-        auto op = operations::Operations<double>::create("nand", args);
+        auto op = factory_double.create("nand", args);
         op->execute();
         REQUIRE(1.0 == op->getResult());
         delete instr0;
@@ -5057,7 +5070,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<long double>* instr1 = dynamic_cast<AInstruction<long double>*>(
         new Value<long double>(rawArgs[1]));
         std::vector<AInstruction<long double>*> args = {instr0, instr1};
-        auto op = operations::Operations<long double>::create("nand", args);
+        auto op = factory_long_double.create("nand", args);
         op->execute();
         REQUIRE(0.0L == op->getResult());
         delete instr0;
@@ -5070,7 +5083,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<long double>* instr1 = dynamic_cast<AInstruction<long double>*>(
         new Value<long double>(rawArgs[1]));
         std::vector<AInstruction<long double>*> args = {instr0, instr1};
-        auto op = operations::Operations<long double>::create("nand", args);
+        auto op = factory_long_double.create("nand", args);
         op->execute();
         REQUIRE(1.0L == op->getResult());
         delete instr0;
@@ -5083,7 +5096,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<long double>* instr1 = dynamic_cast<AInstruction<long double>*>(
         new Value<long double>(rawArgs[1]));
         std::vector<AInstruction<long double>*> args = {instr0, instr1};
-        auto op = operations::Operations<long double>::create("nand", args);
+        auto op = factory_long_double.create("nand", args);
         op->execute();
         REQUIRE(1.0L == op->getResult());
         delete instr0;
@@ -5096,7 +5109,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<long double>* instr1 = dynamic_cast<AInstruction<long double>*>(
         new Value<long double>(rawArgs[1]));
         std::vector<AInstruction<long double>*> args = {instr0, instr1};
-        auto op = operations::Operations<long double>::create("nand", args);
+        auto op = factory_long_double.create("nand", args);
         op->execute();
         REQUIRE(1.0L == op->getResult());
         delete instr0;
@@ -5111,7 +5124,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<int>* instr1 = dynamic_cast<AInstruction<int>*>(
         new Value<int>(rawArgs[1]));
         std::vector<AInstruction<int>*> args = {instr0, instr1};
-        auto op = operations::Operations<int>::create("nor", args);
+        auto op = factory_int.create("nor", args);
         op->execute();
         REQUIRE(0 == op->getResult());
         delete instr0;
@@ -5124,7 +5137,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<int>* instr1 = dynamic_cast<AInstruction<int>*>(
         new Value<int>(rawArgs[1]));
         std::vector<AInstruction<int>*> args = {instr0, instr1};
-        auto op = operations::Operations<int>::create("nor", args);
+        auto op = factory_int.create("nor", args);
         op->execute();
         REQUIRE(0 == op->getResult());
         delete instr0;
@@ -5137,7 +5150,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<int>* instr1 = dynamic_cast<AInstruction<int>*>(
         new Value<int>(rawArgs[1]));
         std::vector<AInstruction<int>*> args = {instr0, instr1};
-        auto op = operations::Operations<int>::create("nor", args);
+        auto op = factory_int.create("nor", args);
         op->execute();
         REQUIRE(0 == op->getResult());
         delete instr0;
@@ -5150,7 +5163,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<int>* instr1 = dynamic_cast<AInstruction<int>*>(
         new Value<int>(rawArgs[1]));
         std::vector<AInstruction<int>*> args = {instr0, instr1};
-        auto op = operations::Operations<int>::create("nor", args);
+        auto op = factory_int.create("nor", args);
         op->execute();
         REQUIRE(1 == op->getResult());
         delete instr0;
@@ -5163,7 +5176,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<signed char>* instr1 = dynamic_cast<AInstruction<signed char>*>(
         new Value<signed char>(rawArgs[1]));
         std::vector<AInstruction<signed char>*> args = {instr0, instr1};
-        auto op = operations::Operations<signed char>::create("nor", args);
+        auto op = factory_signed_char.create("nor", args);
         op->execute();
         REQUIRE(0 == op->getResult());
         delete instr0;
@@ -5176,7 +5189,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<signed char>* instr1 = dynamic_cast<AInstruction<signed char>*>(
         new Value<signed char>(rawArgs[1]));
         std::vector<AInstruction<signed char>*> args = {instr0, instr1};
-        auto op = operations::Operations<signed char>::create("nor", args);
+        auto op = factory_signed_char.create("nor", args);
         op->execute();
         REQUIRE(0 == op->getResult());
         delete instr0;
@@ -5189,7 +5202,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<signed char>* instr1 = dynamic_cast<AInstruction<signed char>*>(
         new Value<signed char>(rawArgs[1]));
         std::vector<AInstruction<signed char>*> args = {instr0, instr1};
-        auto op = operations::Operations<signed char>::create("nor", args);
+        auto op = factory_signed_char.create("nor", args);
         op->execute();
         REQUIRE(0 == op->getResult());
         delete instr0;
@@ -5202,7 +5215,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<signed char>* instr1 = dynamic_cast<AInstruction<signed char>*>(
         new Value<signed char>(rawArgs[1]));
         std::vector<AInstruction<signed char>*> args = {instr0, instr1};
-        auto op = operations::Operations<signed char>::create("nor", args);
+        auto op = factory_signed_char.create("nor", args);
         op->execute();
         REQUIRE(1 == op->getResult());
         delete instr0;
@@ -5215,7 +5228,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<short int>* instr1 = dynamic_cast<AInstruction<short int>*>(
         new Value<short int>(rawArgs[1]));
         std::vector<AInstruction<short int>*> args = {instr0, instr1};
-        auto op = operations::Operations<short int>::create("nor", args);
+        auto op = factory_short_int.create("nor", args);
         op->execute();
         REQUIRE(0 == op->getResult());
         delete instr0;
@@ -5228,7 +5241,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<short int>* instr1 = dynamic_cast<AInstruction<short int>*>(
         new Value<short int>(rawArgs[1]));
         std::vector<AInstruction<short int>*> args = {instr0, instr1};
-        auto op = operations::Operations<short int>::create("nor", args);
+        auto op = factory_short_int.create("nor", args);
         op->execute();
         REQUIRE(0 == op->getResult());
         delete instr0;
@@ -5241,7 +5254,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<short int>* instr1 = dynamic_cast<AInstruction<short int>*>(
         new Value<short int>(rawArgs[1]));
         std::vector<AInstruction<short int>*> args = {instr0, instr1};
-        auto op = operations::Operations<short int>::create("nor", args);
+        auto op = factory_short_int.create("nor", args);
         op->execute();
         REQUIRE(0 == op->getResult());
         delete instr0;
@@ -5254,7 +5267,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<short int>* instr1 = dynamic_cast<AInstruction<short int>*>(
         new Value<short int>(rawArgs[1]));
         std::vector<AInstruction<short int>*> args = {instr0, instr1};
-        auto op = operations::Operations<short int>::create("nor", args);
+        auto op = factory_short_int.create("nor", args);
         op->execute();
         REQUIRE(1 == op->getResult());
         delete instr0;
@@ -5267,7 +5280,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<long int>* instr1 = dynamic_cast<AInstruction<long int>*>(
         new Value<long int>(rawArgs[1]));
         std::vector<AInstruction<long int>*> args = {instr0, instr1};
-        auto op = operations::Operations<long int>::create("nor", args);
+        auto op = factory_long_int.create("nor", args);
         op->execute();
         REQUIRE(0 == op->getResult());
         delete instr0;
@@ -5280,7 +5293,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<long int>* instr1 = dynamic_cast<AInstruction<long int>*>(
         new Value<long int>(rawArgs[1]));
         std::vector<AInstruction<long int>*> args = {instr0, instr1};
-        auto op = operations::Operations<long int>::create("nor", args);
+        auto op = factory_long_int.create("nor", args);
         op->execute();
         REQUIRE(0 == op->getResult());
         delete instr0;
@@ -5293,7 +5306,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<long int>* instr1 = dynamic_cast<AInstruction<long int>*>(
         new Value<long int>(rawArgs[1]));
         std::vector<AInstruction<long int>*> args = {instr0, instr1};
-        auto op = operations::Operations<long int>::create("nor", args);
+        auto op = factory_long_int.create("nor", args);
         op->execute();
         REQUIRE(0 == op->getResult());
         delete instr0;
@@ -5306,7 +5319,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<long int>* instr1 = dynamic_cast<AInstruction<long int>*>(
         new Value<long int>(rawArgs[1]));
         std::vector<AInstruction<long int>*> args = {instr0, instr1};
-        auto op = operations::Operations<long int>::create("nor", args);
+        auto op = factory_long_int.create("nor", args);
         op->execute();
         REQUIRE(1 == op->getResult());
         delete instr0;
@@ -5319,7 +5332,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<unsigned int>* instr1 = dynamic_cast<AInstruction<unsigned int>*>(
         new Value<unsigned int>(rawArgs[1]));
         std::vector<AInstruction<unsigned int>*> args = {instr0, instr1};
-        auto op = operations::Operations<unsigned int>::create("nor", args);
+        auto op = factory_unsigned_int.create("nor", args);
         op->execute();
         REQUIRE(0 == op->getResult());
         delete instr0;
@@ -5332,7 +5345,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<unsigned int>* instr1 = dynamic_cast<AInstruction<unsigned int>*>(
         new Value<unsigned int>(rawArgs[1]));
         std::vector<AInstruction<unsigned int>*> args = {instr0, instr1};
-        auto op = operations::Operations<unsigned int>::create("nor", args);
+        auto op = factory_unsigned_int.create("nor", args);
         op->execute();
         REQUIRE(0 == op->getResult());
         delete instr0;
@@ -5345,7 +5358,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<unsigned int>* instr1 = dynamic_cast<AInstruction<unsigned int>*>(
         new Value<unsigned int>(rawArgs[1]));
         std::vector<AInstruction<unsigned int>*> args = {instr0, instr1};
-        auto op = operations::Operations<unsigned int>::create("nor", args);
+        auto op = factory_unsigned_int.create("nor", args);
         op->execute();
         REQUIRE(0 == op->getResult());
         delete instr0;
@@ -5358,7 +5371,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<unsigned int>* instr1 = dynamic_cast<AInstruction<unsigned int>*>(
         new Value<unsigned int>(rawArgs[1]));
         std::vector<AInstruction<unsigned int>*> args = {instr0, instr1};
-        auto op = operations::Operations<unsigned int>::create("nor", args);
+        auto op = factory_unsigned_int.create("nor", args);
         op->execute();
         REQUIRE(1 == op->getResult());
         delete instr0;
@@ -5371,7 +5384,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<unsigned char>* instr1 = dynamic_cast<AInstruction<unsigned char>*>(
         new Value<unsigned char>(rawArgs[1]));
         std::vector<AInstruction<unsigned char>*> args = {instr0, instr1};
-        auto op = operations::Operations<unsigned char>::create("nor", args);
+        auto op = factory_unsigned_char.create("nor", args);
         op->execute();
         REQUIRE(0 == op->getResult());
         delete instr0;
@@ -5384,7 +5397,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<unsigned char>* instr1 = dynamic_cast<AInstruction<unsigned char>*>(
         new Value<unsigned char>(rawArgs[1]));
         std::vector<AInstruction<unsigned char>*> args = {instr0, instr1};
-        auto op = operations::Operations<unsigned char>::create("nor", args);
+        auto op = factory_unsigned_char.create("nor", args);
         op->execute();
         REQUIRE(0 == op->getResult());
         delete instr0;
@@ -5397,7 +5410,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<unsigned char>* instr1 = dynamic_cast<AInstruction<unsigned char>*>(
         new Value<unsigned char>(rawArgs[1]));
         std::vector<AInstruction<unsigned char>*> args = {instr0, instr1};
-        auto op = operations::Operations<unsigned char>::create("nor", args);
+        auto op = factory_unsigned_char.create("nor", args);
         op->execute();
         REQUIRE(0 == op->getResult());
         delete instr0;
@@ -5410,7 +5423,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<unsigned char>* instr1 = dynamic_cast<AInstruction<unsigned char>*>(
         new Value<unsigned char>(rawArgs[1]));
         std::vector<AInstruction<unsigned char>*> args = {instr0, instr1};
-        auto op = operations::Operations<unsigned char>::create("nor", args);
+        auto op = factory_unsigned_char.create("nor", args);
         op->execute();
         REQUIRE(1 == op->getResult());
         delete instr0;
@@ -5423,7 +5436,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<unsigned long int>* instr1 = dynamic_cast<AInstruction<unsigned long int>*>(
         new Value<unsigned long int>(rawArgs[1]));
         std::vector<AInstruction<unsigned long int>*> args = {instr0, instr1};
-        auto op = operations::Operations<unsigned long int>::create("nor", args);
+        auto op = factory_unsigned_long_int.create("nor", args);
         op->execute();
         REQUIRE(0 == op->getResult());
         delete instr0;
@@ -5436,7 +5449,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<unsigned long int>* instr1 = dynamic_cast<AInstruction<unsigned long int>*>(
         new Value<unsigned long int>(rawArgs[1]));
         std::vector<AInstruction<unsigned long int>*> args = {instr0, instr1};
-        auto op = operations::Operations<unsigned long int>::create("nor", args);
+        auto op = factory_unsigned_long_int.create("nor", args);
         op->execute();
         REQUIRE(0 == op->getResult());
         delete instr0;
@@ -5449,7 +5462,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<unsigned long int>* instr1 = dynamic_cast<AInstruction<unsigned long int>*>(
         new Value<unsigned long int>(rawArgs[1]));
         std::vector<AInstruction<unsigned long int>*> args = {instr0, instr1};
-        auto op = operations::Operations<unsigned long int>::create("nor", args);
+        auto op = factory_unsigned_long_int.create("nor", args);
         op->execute();
         REQUIRE(0 == op->getResult());
         delete instr0;
@@ -5462,7 +5475,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<unsigned long int>* instr1 = dynamic_cast<AInstruction<unsigned long int>*>(
         new Value<unsigned long int>(rawArgs[1]));
         std::vector<AInstruction<unsigned long int>*> args = {instr0, instr1};
-        auto op = operations::Operations<unsigned long int>::create("nor", args);
+        auto op = factory_unsigned_long_int.create("nor", args);
         op->execute();
         REQUIRE(1 == op->getResult());
         delete instr0;
@@ -5475,7 +5488,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<float>* instr1 = dynamic_cast<AInstruction<float>*>(
         new Value<float>(rawArgs[1]));
         std::vector<AInstruction<float>*> args = {instr0, instr1};
-        auto op = operations::Operations<float>::create("nor", args);
+        auto op = factory_float.create("nor", args);
         op->execute();
         REQUIRE(0.0f == op->getResult());
         delete instr0;
@@ -5488,7 +5501,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<float>* instr1 = dynamic_cast<AInstruction<float>*>(
         new Value<float>(rawArgs[1]));
         std::vector<AInstruction<float>*> args = {instr0, instr1};
-        auto op = operations::Operations<float>::create("nor", args);
+        auto op = factory_float.create("nor", args);
         op->execute();
         REQUIRE(0.0f == op->getResult());
         delete instr0;
@@ -5501,7 +5514,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<float>* instr1 = dynamic_cast<AInstruction<float>*>(
         new Value<float>(rawArgs[1]));
         std::vector<AInstruction<float>*> args = {instr0, instr1};
-        auto op = operations::Operations<float>::create("nor", args);
+        auto op = factory_float.create("nor", args);
         op->execute();
         REQUIRE(0.0f == op->getResult());
         delete instr0;
@@ -5514,7 +5527,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<float>* instr1 = dynamic_cast<AInstruction<float>*>(
         new Value<float>(rawArgs[1]));
         std::vector<AInstruction<float>*> args = {instr0, instr1};
-        auto op = operations::Operations<float>::create("nor", args);
+        auto op = factory_float.create("nor", args);
         op->execute();
         REQUIRE(1.0f == op->getResult());
         delete instr0;
@@ -5527,7 +5540,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<double>* instr1 = dynamic_cast<AInstruction<double>*>(
         new Value<double>(rawArgs[1]));
         std::vector<AInstruction<double>*> args = {instr0, instr1};
-        auto op = operations::Operations<double>::create("nor", args);
+        auto op = factory_double.create("nor", args);
         op->execute();
         REQUIRE(0.0 == op->getResult());
         delete instr0;
@@ -5540,7 +5553,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<double>* instr1 = dynamic_cast<AInstruction<double>*>(
         new Value<double>(rawArgs[1]));
         std::vector<AInstruction<double>*> args = {instr0, instr1};
-        auto op = operations::Operations<double>::create("nor", args);
+        auto op = factory_double.create("nor", args);
         op->execute();
         REQUIRE(0.0 == op->getResult());
         delete instr0;
@@ -5553,7 +5566,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<double>* instr1 = dynamic_cast<AInstruction<double>*>(
         new Value<double>(rawArgs[1]));
         std::vector<AInstruction<double>*> args = {instr0, instr1};
-        auto op = operations::Operations<double>::create("nor", args);
+        auto op = factory_double.create("nor", args);
         op->execute();
         REQUIRE(0.0 == op->getResult());
         delete instr0;
@@ -5566,7 +5579,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<double>* instr1 = dynamic_cast<AInstruction<double>*>(
         new Value<double>(rawArgs[1]));
         std::vector<AInstruction<double>*> args = {instr0, instr1};
-        auto op = operations::Operations<double>::create("nor", args);
+        auto op = factory_double.create("nor", args);
         op->execute();
         REQUIRE(1.0 == op->getResult());
         delete instr0;
@@ -5579,7 +5592,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<long double>* instr1 = dynamic_cast<AInstruction<long double>*>(
         new Value<long double>(rawArgs[1]));
         std::vector<AInstruction<long double>*> args = {instr0, instr1};
-        auto op = operations::Operations<long double>::create("nor", args);
+        auto op = factory_long_double.create("nor", args);
         op->execute();
         REQUIRE(0.0L == op->getResult());
         delete instr0;
@@ -5592,7 +5605,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<long double>* instr1 = dynamic_cast<AInstruction<long double>*>(
         new Value<long double>(rawArgs[1]));
         std::vector<AInstruction<long double>*> args = {instr0, instr1};
-        auto op = operations::Operations<long double>::create("nor", args);
+        auto op = factory_long_double.create("nor", args);
         op->execute();
         REQUIRE(0.0L == op->getResult());
         delete instr0;
@@ -5605,7 +5618,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<long double>* instr1 = dynamic_cast<AInstruction<long double>*>(
         new Value<long double>(rawArgs[1]));
         std::vector<AInstruction<long double>*> args = {instr0, instr1};
-        auto op = operations::Operations<long double>::create("nor", args);
+        auto op = factory_long_double.create("nor", args);
         op->execute();
         REQUIRE(0.0L == op->getResult());
         delete instr0;
@@ -5618,7 +5631,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<long double>* instr1 = dynamic_cast<AInstruction<long double>*>(
         new Value<long double>(rawArgs[1]));
         std::vector<AInstruction<long double>*> args = {instr0, instr1};
-        auto op = operations::Operations<long double>::create("nor", args);
+        auto op = factory_long_double.create("nor", args);
         op->execute();
         REQUIRE(1.0L == op->getResult());
         delete instr0;
@@ -5631,7 +5644,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<int>* instr0 = dynamic_cast<AInstruction<int>*>(
         new Value<int>(rawArgs[0]));
         std::vector<AInstruction<int>*> args = {instr0};
-        auto op = operations::Operations<int>::create("abs", args);
+        auto op = factory_int.create("abs", args);
         op->execute();
         REQUIRE(1 == op->getResult());
         delete instr0;
@@ -5641,7 +5654,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<int>* instr0 = dynamic_cast<AInstruction<int>*>(
         new Value<int>(rawArgs[0]));
         std::vector<AInstruction<int>*> args = {instr0};
-        auto op = operations::Operations<int>::create("abs", args);
+        auto op = factory_int.create("abs", args);
         op->execute();
         REQUIRE(1 == op->getResult());
         delete instr0;
@@ -5651,7 +5664,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<signed char>* instr0 = dynamic_cast<AInstruction<signed char>*>(
         new Value<signed char>(rawArgs[0]));
         std::vector<AInstruction<signed char>*> args = {instr0};
-        auto op = operations::Operations<signed char>::create("abs", args);
+        auto op = factory_signed_char.create("abs", args);
         op->execute();
         REQUIRE(1 == op->getResult());
         delete instr0;
@@ -5661,7 +5674,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<signed char>* instr0 = dynamic_cast<AInstruction<signed char>*>(
         new Value<signed char>(rawArgs[0]));
         std::vector<AInstruction<signed char>*> args = {instr0};
-        auto op = operations::Operations<signed char>::create("abs", args);
+        auto op = factory_signed_char.create("abs", args);
         op->execute();
         REQUIRE(1 == op->getResult());
         delete instr0;
@@ -5671,7 +5684,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<short int>* instr0 = dynamic_cast<AInstruction<short int>*>(
         new Value<short int>(rawArgs[0]));
         std::vector<AInstruction<short int>*> args = {instr0};
-        auto op = operations::Operations<short int>::create("abs", args);
+        auto op = factory_short_int.create("abs", args);
         op->execute();
         REQUIRE(1 == op->getResult());
         delete instr0;
@@ -5681,7 +5694,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<short int>* instr0 = dynamic_cast<AInstruction<short int>*>(
         new Value<short int>(rawArgs[0]));
         std::vector<AInstruction<short int>*> args = {instr0};
-        auto op = operations::Operations<short int>::create("abs", args);
+        auto op = factory_short_int.create("abs", args);
         op->execute();
         REQUIRE(1 == op->getResult());
         delete instr0;
@@ -5691,7 +5704,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<long int>* instr0 = dynamic_cast<AInstruction<long int>*>(
         new Value<long int>(rawArgs[0]));
         std::vector<AInstruction<long int>*> args = {instr0};
-        auto op = operations::Operations<long int>::create("abs", args);
+        auto op = factory_long_int.create("abs", args);
         op->execute();
         REQUIRE(1 == op->getResult());
         delete instr0;
@@ -5701,7 +5714,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<long int>* instr0 = dynamic_cast<AInstruction<long int>*>(
         new Value<long int>(rawArgs[0]));
         std::vector<AInstruction<long int>*> args = {instr0};
-        auto op = operations::Operations<long int>::create("abs", args);
+        auto op = factory_long_int.create("abs", args);
         op->execute();
         REQUIRE(1 == op->getResult());
         delete instr0;
@@ -5711,7 +5724,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<float>* instr0 = dynamic_cast<AInstruction<float>*>(
         new Value<float>(rawArgs[0]));
         std::vector<AInstruction<float>*> args = {instr0};
-        auto op = operations::Operations<float>::create("abs", args);
+        auto op = factory_float.create("abs", args);
         op->execute();
         REQUIRE(1.0f == op->getResult());
         delete instr0;
@@ -5721,7 +5734,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<float>* instr0 = dynamic_cast<AInstruction<float>*>(
         new Value<float>(rawArgs[0]));
         std::vector<AInstruction<float>*> args = {instr0};
-        auto op = operations::Operations<float>::create("abs", args);
+        auto op = factory_float.create("abs", args);
         op->execute();
         REQUIRE(1.0f == op->getResult());
         delete instr0;
@@ -5731,7 +5744,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<double>* instr0 = dynamic_cast<AInstruction<double>*>(
         new Value<double>(rawArgs[0]));
         std::vector<AInstruction<double>*> args = {instr0};
-        auto op = operations::Operations<double>::create("abs", args);
+        auto op = factory_double.create("abs", args);
         op->execute();
         REQUIRE(1.0 == op->getResult());
         delete instr0;
@@ -5741,7 +5754,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<double>* instr0 = dynamic_cast<AInstruction<double>*>(
         new Value<double>(rawArgs[0]));
         std::vector<AInstruction<double>*> args = {instr0};
-        auto op = operations::Operations<double>::create("abs", args);
+        auto op = factory_double.create("abs", args);
         op->execute();
         REQUIRE(1.0 == op->getResult());
         delete instr0;
@@ -5751,7 +5764,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<long double>* instr0 = dynamic_cast<AInstruction<long double>*>(
         new Value<long double>(rawArgs[0]));
         std::vector<AInstruction<long double>*> args = {instr0};
-        auto op = operations::Operations<long double>::create("abs", args);
+        auto op = factory_long_double.create("abs", args);
         op->execute();
         REQUIRE(1.0L == op->getResult());
         delete instr0;
@@ -5761,7 +5774,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<long double>* instr0 = dynamic_cast<AInstruction<long double>*>(
         new Value<long double>(rawArgs[0]));
         std::vector<AInstruction<long double>*> args = {instr0};
-        auto op = operations::Operations<long double>::create("abs", args);
+        auto op = factory_long_double.create("abs", args);
         op->execute();
         REQUIRE(1.0L == op->getResult());
         delete instr0;
@@ -5775,7 +5788,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<int>* instr1 = dynamic_cast<AInstruction<int>*>(
         new Value<int>(rawArgs[1]));
         std::vector<AInstruction<int>*> args = {instr0, instr1};
-        auto op = operations::Operations<int>::create("avg", args);
+        auto op = factory_int.create("avg", args);
         op->execute();
         REQUIRE(1 == op->getResult());
         delete instr0;
@@ -5788,7 +5801,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<signed char>* instr1 = dynamic_cast<AInstruction<signed char>*>(
         new Value<signed char>(rawArgs[1]));
         std::vector<AInstruction<signed char>*> args = {instr0, instr1};
-        auto op = operations::Operations<signed char>::create("avg", args);
+        auto op = factory_signed_char.create("avg", args);
         op->execute();
         REQUIRE(1 == op->getResult());
         delete instr0;
@@ -5801,7 +5814,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<short int>* instr1 = dynamic_cast<AInstruction<short int>*>(
         new Value<short int>(rawArgs[1]));
         std::vector<AInstruction<short int>*> args = {instr0, instr1};
-        auto op = operations::Operations<short int>::create("avg", args);
+        auto op = factory_short_int.create("avg", args);
         op->execute();
         REQUIRE(1 == op->getResult());
         delete instr0;
@@ -5814,7 +5827,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<long int>* instr1 = dynamic_cast<AInstruction<long int>*>(
         new Value<long int>(rawArgs[1]));
         std::vector<AInstruction<long int>*> args = {instr0, instr1};
-        auto op = operations::Operations<long int>::create("avg", args);
+        auto op = factory_long_int.create("avg", args);
         op->execute();
         REQUIRE(1 == op->getResult());
         delete instr0;
@@ -5827,7 +5840,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<unsigned int>* instr1 = dynamic_cast<AInstruction<unsigned int>*>(
         new Value<unsigned int>(rawArgs[1]));
         std::vector<AInstruction<unsigned int>*> args = {instr0, instr1};
-        auto op = operations::Operations<unsigned int>::create("avg", args);
+        auto op = factory_unsigned_int.create("avg", args);
         op->execute();
         REQUIRE(1 == op->getResult());
         delete instr0;
@@ -5840,7 +5853,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<unsigned char>* instr1 = dynamic_cast<AInstruction<unsigned char>*>(
         new Value<unsigned char>(rawArgs[1]));
         std::vector<AInstruction<unsigned char>*> args = {instr0, instr1};
-        auto op = operations::Operations<unsigned char>::create("avg", args);
+        auto op = factory_unsigned_char.create("avg", args);
         op->execute();
         REQUIRE(1 == op->getResult());
         delete instr0;
@@ -5853,7 +5866,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<unsigned long int>* instr1 = dynamic_cast<AInstruction<unsigned long int>*>(
         new Value<unsigned long int>(rawArgs[1]));
         std::vector<AInstruction<unsigned long int>*> args = {instr0, instr1};
-        auto op = operations::Operations<unsigned long int>::create("avg", args);
+        auto op = factory_unsigned_long_int.create("avg", args);
         op->execute();
         REQUIRE(1 == op->getResult());
         delete instr0;
@@ -5866,7 +5879,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<float>* instr1 = dynamic_cast<AInstruction<float>*>(
         new Value<float>(rawArgs[1]));
         std::vector<AInstruction<float>*> args = {instr0, instr1};
-        auto op = operations::Operations<float>::create("avg", args);
+        auto op = factory_float.create("avg", args);
         op->execute();
         REQUIRE(1.5f == op->getResult());
         delete instr0;
@@ -5879,7 +5892,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<double>* instr1 = dynamic_cast<AInstruction<double>*>(
         new Value<double>(rawArgs[1]));
         std::vector<AInstruction<double>*> args = {instr0, instr1};
-        auto op = operations::Operations<double>::create("avg", args);
+        auto op = factory_double.create("avg", args);
         op->execute();
         REQUIRE(1.5 == op->getResult());
         delete instr0;
@@ -5892,7 +5905,7 @@ TEST_CASE("Mathematical tests", "[operations]") {
         AInstruction<long double>* instr1 = dynamic_cast<AInstruction<long double>*>(
         new Value<long double>(rawArgs[1]));
         std::vector<AInstruction<long double>*> args = {instr0, instr1};
-        auto op = operations::Operations<long double>::create("avg", args);
+        auto op = factory_long_double.create("avg", args);
         op->execute();
         REQUIRE(1.5L == op->getResult());
         delete instr0;
