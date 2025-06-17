@@ -39,7 +39,8 @@ public:
         const resolveVariable_t<T>& resolveVariable = resolveVariable_t<T>(),
         const resolveEncapsulated_t<T>& resolveEncapsulated
         = resolveEncapsulated_t<T>());
-    inline void build(char *exp, const resolveEncapsulated_t<T>& resolveEncapsulated
+    inline void build(char *exp,
+        const resolveEncapsulated_t<T>& resolveEncapsulated
         = resolveEncapsulated_t<T>(),
         const resolveVariable_t<T>& resolveVariable = resolveVariable_t<T>())
     { build(exp, resolveVariable, resolveEncapsulated); }
@@ -59,12 +60,13 @@ private:
         #endif /* SXEVAL_DEBUG */
     };
 
-    void _skipChars(char **exp) const;
-    char* _getNextSymbol(char **exp) const;
-    _Node _build(char **exp, const resolveVariable_t<T>& resolveVariable);
-    void _fillParents(_Node& parent);
-    void _buildTreeStr(std::ostream& oss, const _Node& node, size_t depth)
-        const;
+    static void _skipChars(char **exp);
+    static char* _getNextSymbol(char **exp);
+    _Node _build(char **exp, const resolveVariable_t<T>& resolveVariable,
+        const resolveEncapsulated_t<T>& resolveEncapsulated);
+    static void _fillParents(_Node& parent);
+    static void _buildTreeStr(std::ostream& oss, const _Node& node, size_t depth
+        );
 
     #ifdef SXEVAL_DEBUG
     int nodeCount = 0;
@@ -73,7 +75,6 @@ private:
     operations::OperationsFactory<T> _operationsFactory;
     std::vector<AOperation<T>*> _operations;
     std::vector<EncapsulatedVariable<T>*> _encapsulated;
-    resolveEncapsulated_t<T> _resolveEncapsulated;
     _Node _lastOperation;
 
 };
@@ -93,8 +94,7 @@ void sxeval::SXEval<T>::build(char *exp,
     const resolveVariable_t<T>& resolveVariable,
     const resolveEncapsulated_t<T>& resolveEncapsulated)
 {
-    _resolveEncapsulated = resolveEncapsulated;
-    _lastOperation = _build(&exp, resolveVariable);
+    _lastOperation = _build(&exp, resolveVariable, resolveEncapsulated);
     _fillParents(_lastOperation);
 }
 
@@ -120,14 +120,14 @@ std::string sxeval::SXEval<T>::toString() const {
 }
 
 template <typename T>
-void sxeval::SXEval<T>::_skipChars(char **exp) const {
+void sxeval::SXEval<T>::_skipChars(char **exp) {
     while (**exp == ' ' || **exp == '\t' || **exp == '\n' || **exp == '\r') {
         (*exp)++;
     }
 }
 
 template <typename T>
-char* sxeval::SXEval<T>::_getNextSymbol(char **exp) const {
+char* sxeval::SXEval<T>::_getNextSymbol(char **exp) {
     _skipChars(exp);
     size_t len = 0;
     while ((*exp)[len] != ' ' && (*exp)[len] != '\t' && (*exp)[len] != '\n'
@@ -144,7 +144,8 @@ char* sxeval::SXEval<T>::_getNextSymbol(char **exp) const {
 
 template <typename T>
 typename sxeval::SXEval<T>::_Node sxeval::SXEval<T>::_build(char **exp,
-    const resolveVariable_t<T>& resolveVariable)
+    const resolveVariable_t<T>& resolveVariable,
+    const resolveEncapsulated_t<T>& resolveEncapsulated)
 {
     #ifdef SXEVAL_DEBUG
     {
@@ -175,7 +176,8 @@ typename sxeval::SXEval<T>::_Node sxeval::SXEval<T>::_build(char **exp,
         #endif /* SXEVAL_DEBUG */
         _skipChars(exp);
         while (**exp != ')') {
-            node.subnodes.push_back(_build(exp, resolveVariable));
+            node.subnodes.push_back(_build(exp, resolveVariable,
+                resolveEncapsulated));
             #ifdef SXEVAL_DEBUG
             {
                 std::ostringstream oss;
@@ -238,7 +240,7 @@ typename sxeval::SXEval<T>::_Node sxeval::SXEval<T>::_build(char **exp,
                 /* as it has not been found, this is likely an
                  * encapsulated variable */
                 try {
-                    auto get = _resolveEncapsulated(symbol);
+                    auto get = resolveEncapsulated(symbol);
                     node = {std::make_unique<EncapsulatedVariable<T>>(get,
                         symbol), nullptr, {}};
                     _encapsulated.push_back(
@@ -295,7 +297,7 @@ void sxeval::SXEval<T>::_fillParents(_Node& parent) {
 
 template <typename T>
 void sxeval::SXEval<T>::_buildTreeStr(std::ostream& oss, const _Node& node,
-    size_t depth) const
+    size_t depth)
 {
     if (depth > 0) {
         for (size_t i = 0; i < depth - 1; ++i) {
