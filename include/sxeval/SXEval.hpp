@@ -47,6 +47,18 @@ public:
 
     T evaluate() const;
 
+    inline T compute(char *exp,
+        const resolveVariable_t<T>& resolveVariable = resolveVariable_t<T>(),
+        const resolveEncapsulated_t<T>& resolveEncapsulated
+        = resolveEncapsulated_t<T>()) const
+    { return _compute(&exp, resolveVariable, resolveEncapsulated); }
+    inline T compute(char *exp,
+        const resolveEncapsulated_t<T>& resolveEncapsulated
+        = resolveEncapsulated_t<T>(),
+        const resolveVariable_t<T>& resolveVariable = resolveVariable_t<T>())
+        const
+    { return _compute(&exp, resolveVariable, resolveEncapsulated); }
+
     std::string toString() const;
 
 private:
@@ -67,6 +79,8 @@ private:
     static void _fillParents(_Node& parent);
     static void _buildTreeStr(std::ostream& oss, const _Node& node, size_t depth
         );
+    T _compute(char **exp, const resolveVariable_t<T>& resolveVariable,
+        const resolveEncapsulated_t<T>& resolveEncapsulated) const;
 
     #ifdef SXEVAL_DEBUG
     int nodeCount = 0;
@@ -110,6 +124,68 @@ T sxeval::SXEval<T>::evaluate() const {
         op->execute();
     }
     return _operations.back()->getResult();
+}
+
+template <typename T>
+T sxeval::SXEval<T>::_compute(char **exp,
+    const resolveVariable_t<T>& resolveVariable,
+    const resolveEncapsulated_t<T>& resolveEncapsulated) const
+{
+    _skipChars(exp);
+
+    if (**exp == '(') {
+        /* ### OPERATION ### */
+        (*exp)++;
+        const char* symbol = _getNextSymbol(exp);
+        std::vector<std::unique_ptr<AInstruction<T>>> args;
+        std::vector<AInstruction<T>*> pargs;
+        _skipChars(exp);
+        while (**exp != ')') {
+            const auto val = _compute(exp, resolveVariable, resolveEncapsulated
+                );
+            args.push_back(std::make_unique<Value<T>>(val));
+            pargs.push_back(args.back().get());
+            _skipChars(exp);
+        }
+        (*exp)++;
+        const auto res = sxeval::operations::OperationsFactory<T>::compute(
+            symbol, pargs);
+        delete[] symbol;
+        return res;
+
+    } else {
+        /* ### OPERANDS ### */
+        const char* symbol = _getNextSymbol(exp);
+        T res;
+        try {
+            res = StringToType<T>(symbol);
+        } catch (...) {
+            /* as this is not castable, this may be a variable */
+            try {
+                res = resolveVariable(symbol);
+            } catch (...) {
+                /* as it has not been found, this is likely an
+                 * encapsulated variable */
+                try {
+                    const auto get = resolveEncapsulated(symbol);
+                    res = get();
+                } catch (...) {
+                    /* last chance, check if it is a true/false keyword
+                     */
+                    if (std::strcmp(symbol, "true") == 0) {
+                        res = 1;
+                    } else if (std::strcmp(symbol, "false") == 0) {
+                        res = 0;
+                    } else {
+                        throw std::runtime_error("Unknown variable: " +
+                            std::string(symbol));
+                    }
+                }
+            }
+        }
+        delete[] symbol;
+        return res;
+    }
 }
 
 template <typename T>
