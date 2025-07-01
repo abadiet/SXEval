@@ -135,7 +135,7 @@ char* sxeval::SXEval<T>::_getNextSymbol(char **exp) {
     {
         len++;
     }
-    char *symbol = new char[len + 1];
+    auto symbol = new char[len + 1];
     std::strncpy(symbol, *exp, len);
     symbol[len] = '\0';
     *exp += len;
@@ -161,7 +161,7 @@ typename sxeval::SXEval<T>::_Node sxeval::SXEval<T>::_build(char **exp,
     if (**exp == '(') {
         /* ### OPERATION ### */
         (*exp)++;
-        const char* symbol = _getNextSymbol(exp);
+        const auto symbol = _getNextSymbol(exp);
         _Node node;
         node.parent = nullptr;
         #ifdef SXEVAL_DEBUG
@@ -203,7 +203,7 @@ typename sxeval::SXEval<T>::_Node sxeval::SXEval<T>::_build(char **exp,
 
     } else {
         /* ### OPERANDS ### */
-        const char* symbol = _getNextSymbol(exp);
+        const auto symbol = _getNextSymbol(exp);
         _Node node;
         try {
             T val = StringToType<T>(symbol);
