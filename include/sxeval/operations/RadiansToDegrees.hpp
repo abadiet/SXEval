@@ -12,7 +12,7 @@ namespace operations {
 template <typename T>
 class RadiansToDegrees : public AOperation<T> {
 public:
-    static constexpr const char *KEY = "rad2deg";
+    static constexpr const char* KEY = "rad2deg";
     static constexpr const int ARITY_MIN = 1;
     static constexpr const int ARITY_MAX = 1;
 

@@ -13,7 +13,7 @@ namespace operations {
 template <typename T>
 class Minimum : public AOperation<T> {
 public:
-    static constexpr const char *KEY = "min";
+    static constexpr const char* KEY = "min";
     static constexpr const int ARITY_MIN = 2;
     static constexpr const int ARITY_MAX = AOperation<T>::UNLIMITED_ARITY;
 

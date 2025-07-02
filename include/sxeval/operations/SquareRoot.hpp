@@ -13,7 +13,7 @@ namespace operations {
 template <typename T>
 class SquareRoot : public AOperation<T> {
 public:
-    static constexpr const char *KEY = "sqrt";
+    static constexpr const char* KEY = "sqrt";
     static constexpr const int ARITY_MIN = 1;
     static constexpr const int ARITY_MAX = 1;
 

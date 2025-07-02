@@ -15,7 +15,7 @@ namespace operations {{
 template <typename T>
 class {class_name} : public AOperation<T> {{
 public:
-    static constexpr const char *KEY = "{key}";
+    static constexpr const char* KEY = "{key}";
     static constexpr const int ARITY_MIN = {arity_min};
     static constexpr const int ARITY_MAX = {arity_max};
 

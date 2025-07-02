@@ -13,7 +13,7 @@ namespace operations {
 template <typename T>
 class Clamp : public AOperation<T> {
 public:
-    static constexpr const char *KEY = "clamp";
+    static constexpr const char* KEY = "clamp";
     static constexpr const int ARITY_MIN = 3;
     static constexpr const int ARITY_MAX = 3;
 

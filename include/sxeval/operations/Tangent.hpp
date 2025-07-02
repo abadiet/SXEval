@@ -13,7 +13,7 @@ namespace operations {
 template <typename T>
 class Tangent : public AOperation<T> {
 public:
-    static constexpr const char *KEY = "tan";
+    static constexpr const char* KEY = "tan";
     static constexpr const int ARITY_MIN = 1;
     static constexpr const int ARITY_MAX = 1;
 

@@ -13,7 +13,7 @@ namespace operations {
 template <typename T>
 class ArcCosh : public AOperation<T> {
 public:
-    static constexpr const char *KEY = "acosh";
+    static constexpr const char* KEY = "acosh";
     static constexpr const int ARITY_MIN = 1;
     static constexpr const int ARITY_MAX = 1;
 

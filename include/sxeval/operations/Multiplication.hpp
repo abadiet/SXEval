@@ -12,7 +12,7 @@ namespace operations {
 template <typename T>
 class Multiplication : public AOperation<T> {
 public:
-    static constexpr const char *KEY = "*";
+    static constexpr const char* KEY = "*";
     static constexpr const int ARITY_MIN = 2;
     static constexpr const int ARITY_MAX = AOperation<T>::UNLIMITED_ARITY;
 
@@ -35,7 +35,7 @@ template <typename T>
 void sxeval::operations::Multiplication<T>::execute() {
     this->getResult() = this->getArgs().front()->getResult();
     for (size_t i = 1; i < this->getArgs().size(); ++i) {
-        this->getResult() *= this->getArgs()[i]->getResult();
+        this->getResult()* = this->getArgs()[i]->getResult();
     }
 }
 

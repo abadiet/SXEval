@@ -13,7 +13,7 @@ namespace operations {
 template <typename T>
 class LogicalNot : public AOperation<T> {
 public:
-    static constexpr const char *KEY = "not";
+    static constexpr const char* KEY = "not";
     static constexpr const int ARITY_MIN = 1;
     static constexpr const int ARITY_MAX = 1;
 

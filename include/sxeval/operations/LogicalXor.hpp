@@ -13,7 +13,7 @@ namespace operations {
 template <typename T>
 class LogicalXor : public AOperation<T> {
 public:
-    static constexpr const char *KEY = "xor";
+    static constexpr const char* KEY = "xor";
     static constexpr const int ARITY_MIN = 2;
     static constexpr const int ARITY_MAX = AOperation<T>::UNLIMITED_ARITY;
 

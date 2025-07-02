@@ -63,7 +63,7 @@ public:
 private:
     struct _Node {
         std::unique_ptr<AInstruction<T>> instruct;
-        _Node *parent;
+        _Node* parent;
         std::vector<_Node> subnodes;
 
         #ifdef SXEVAL_DEBUG
@@ -71,14 +71,14 @@ private:
         #endif /* SXEVAL_DEBUG */
     };
 
-    static void _skipChars(const std::string& s, size_t *idx);
-    static std::string _getNextSymbol(const std::string& s, size_t *idx);
-    _Node _build(size_t *idx, const resolveVariable_t<T>& resolveVariable,
+    static void _skipChars(const std::string& s, size_t* idx);
+    static std::string _getNextSymbol(const std::string& s, size_t* idx);
+    _Node _build(size_t* idx, const resolveVariable_t<T>& resolveVariable,
         const resolveEncapsulated_t<T>& resolveEncapsulated);
     static void _fillParents(_Node& parent);
     static void _buildTreeStr(std::ostream& oss, const _Node& node, size_t depth
         );
-    T _compute(const std::string& exp, size_t *idx,
+    T _compute(const std::string& exp, size_t* idx,
         const resolveVariable_t<T>& resolveVariable,
         const resolveEncapsulated_t<T>& resolveEncapsulated) const;
 
@@ -141,7 +141,7 @@ T sxeval::SXEval<T>::compute(const std::string& exp,
 }
 
 template <typename T>
-T sxeval::SXEval<T>::_compute(const std::string& exp, size_t *idx,
+T sxeval::SXEval<T>::_compute(const std::string& exp, size_t* idx,
     const resolveVariable_t<T>& resolveVariable,
     const resolveEncapsulated_t<T>& resolveEncapsulated) const
 {
@@ -205,7 +205,7 @@ std::string sxeval::SXEval<T>::toString() const {
 }
 
 template <typename T>
-void sxeval::SXEval<T>::_skipChars(const std::string& s, size_t *i) {
+void sxeval::SXEval<T>::_skipChars(const std::string& s, size_t* i) {
     while (s[*i] == ' ' || s[*i] == '\t' || s[*i] == '\n'  || s[*i] == '\r' )
     {
         (*i)++;
@@ -213,7 +213,7 @@ void sxeval::SXEval<T>::_skipChars(const std::string& s, size_t *i) {
 }
 
 template <typename T>
-std::string sxeval::SXEval<T>::_getNextSymbol(const std::string& s, size_t *i) {
+std::string sxeval::SXEval<T>::_getNextSymbol(const std::string& s, size_t* i) {
     _skipChars(s, i);
     std::string symbol;
     char c = s[*i];
@@ -228,7 +228,7 @@ std::string sxeval::SXEval<T>::_getNextSymbol(const std::string& s, size_t *i) {
 }
 
 template <typename T>
-typename sxeval::SXEval<T>::_Node sxeval::SXEval<T>::_build(size_t *idx,
+typename sxeval::SXEval<T>::_Node sxeval::SXEval<T>::_build(size_t* idx,
     const resolveVariable_t<T>& resolveVariable,
     const resolveEncapsulated_t<T>& resolveEncapsulated)
 {

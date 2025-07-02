@@ -12,7 +12,7 @@ namespace operations {
 template <typename T>
 class LogarithmB : public AOperation<T> {
 public:
-    static constexpr const char *KEY = "logB";
+    static constexpr const char* KEY = "logB";
     static constexpr const int ARITY_MIN = 2;
     static constexpr const int ARITY_MAX = 2;
 
