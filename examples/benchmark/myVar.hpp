@@ -3,7 +3,7 @@
 
 class MyVar {
 public:
-    MyVar() : _val(0) {}
+    MyVar() : _val(0.0) {}
 
     inline double getValue() const { return _val; }
     inline void setValue(double val) { _val = val; }
