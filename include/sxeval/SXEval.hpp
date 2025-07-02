@@ -237,7 +237,7 @@ typename sxeval::SXEval<T>::_Node sxeval::SXEval<T>::_build(size_t* idx,
         std::ostringstream oss;
         oss << "[DEBUG] " << __FILE__ << ":" << __LINE__
             << " in " << __func__ << "(): " << "parsing '"
-            << exp << "'\n";
+            << _expression << "'\n";
         std::cerr << oss.str();
     }
     #endif /* SXEVAL_DEBUG */
