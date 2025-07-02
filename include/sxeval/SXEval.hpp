@@ -22,10 +22,10 @@
 namespace sxeval {
 
 template <typename T>
-using resolveVariable_t = std::function<T&(const char*)>;
+using resolveVariable_t = std::function<T&(const std::string&)>;
 template <typename T>
 using resolveEncapsulated_t = std::function<
-    std::function<T(void)>(const char*)>;
+    std::function<T(void)>(const std::string&)>;
 
 template <typename T>
 class SXEval {
@@ -35,11 +35,11 @@ public:
     template <typename OP>
     inline void registerOperation() { _operationsFactory.template add<OP>(); }
 
-    void build(char *exp,
+    void build(const std::string& exp,
         const resolveVariable_t<T>& resolveVariable = resolveVariable_t<T>(),
         const resolveEncapsulated_t<T>& resolveEncapsulated
         = resolveEncapsulated_t<T>());
-    inline void build(char *exp,
+    inline void build(const std::string& exp,
         const resolveEncapsulated_t<T>& resolveEncapsulated
         = resolveEncapsulated_t<T>(),
         const resolveVariable_t<T>& resolveVariable = resolveVariable_t<T>())
@@ -47,17 +47,16 @@ public:
 
     T evaluate() const;
 
-    inline T compute(char *exp,
-        const resolveVariable_t<T>& resolveVariable = resolveVariable_t<T>(),
+    T compute(const std::string& exp,
+    const resolveVariable_t<T>& resolveVariable = resolveVariable_t<T>(),
         const resolveEncapsulated_t<T>& resolveEncapsulated
-        = resolveEncapsulated_t<T>()) const
-    { return _compute(&exp, resolveVariable, resolveEncapsulated); }
-    inline T compute(char *exp,
+        = resolveEncapsulated_t<T>()) const;
+    inline T compute(const std::string& exp,
         const resolveEncapsulated_t<T>& resolveEncapsulated
         = resolveEncapsulated_t<T>(),
         const resolveVariable_t<T>& resolveVariable = resolveVariable_t<T>())
         const
-    { return _compute(&exp, resolveVariable, resolveEncapsulated); }
+    { return compute(exp, resolveVariable, resolveEncapsulated); }
 
     std::string toString() const;
 
@@ -72,14 +71,15 @@ private:
         #endif /* SXEVAL_DEBUG */
     };
 
-    static void _skipChars(char **exp);
-    static char* _getNextSymbol(char **exp);
-    _Node _build(char **exp, const resolveVariable_t<T>& resolveVariable,
+    static void _skipChars(const std::string& s, size_t *idx);
+    static std::string _getNextSymbol(const std::string& s, size_t *idx);
+    _Node _build(size_t *idx, const resolveVariable_t<T>& resolveVariable,
         const resolveEncapsulated_t<T>& resolveEncapsulated);
     static void _fillParents(_Node& parent);
     static void _buildTreeStr(std::ostream& oss, const _Node& node, size_t depth
         );
-    T _compute(char **exp, const resolveVariable_t<T>& resolveVariable,
+    T _compute(const std::string& exp, size_t *idx,
+        const resolveVariable_t<T>& resolveVariable,
         const resolveEncapsulated_t<T>& resolveEncapsulated) const;
 
     #ifdef SXEVAL_DEBUG
@@ -90,6 +90,7 @@ private:
     std::vector<AOperation<T>*> _operations;
     std::vector<EncapsulatedVariable<T>*> _encapsulated;
     _Node _lastOperation;
+    std::string _expression;
 
 };
 
@@ -104,11 +105,15 @@ inline std::ostream& operator<<(std::ostream& os, const SXEval<T>& obj) {
 /* IMPLEMENTATIONS */
 
 template <typename T>
-void sxeval::SXEval<T>::build(char *exp,
+void sxeval::SXEval<T>::build(const std::string& exp,
     const resolveVariable_t<T>& resolveVariable,
     const resolveEncapsulated_t<T>& resolveEncapsulated)
 {
-    _lastOperation = _build(&exp, resolveVariable, resolveEncapsulated);
+    _operations.clear();
+    _encapsulated.clear();
+    _expression = exp;
+    size_t idx = 0;
+    _lastOperation = _build(&idx, resolveVariable, resolveEncapsulated);
     _fillParents(_lastOperation);
 }
 
@@ -127,35 +132,41 @@ T sxeval::SXEval<T>::evaluate() const {
 }
 
 template <typename T>
-T sxeval::SXEval<T>::_compute(char **exp,
+T sxeval::SXEval<T>::compute(const std::string& exp,
     const resolveVariable_t<T>& resolveVariable,
     const resolveEncapsulated_t<T>& resolveEncapsulated) const
 {
-    _skipChars(exp);
+    size_t idx = 0;
+    return _compute(exp, &idx, resolveVariable, resolveEncapsulated);
+}
 
-    if (**exp == '(') {
+template <typename T>
+T sxeval::SXEval<T>::_compute(const std::string& exp, size_t *idx,
+    const resolveVariable_t<T>& resolveVariable,
+    const resolveEncapsulated_t<T>& resolveEncapsulated) const
+{
+    _skipChars(exp, idx);
+
+    if (exp[*idx] == '(') {
         /* ### OPERATION ### */
-        (*exp)++;
-        const char* symbol = _getNextSymbol(exp);
+        (*idx)++;
+        const auto symbol = _getNextSymbol(exp, idx);
         std::vector<std::unique_ptr<AInstruction<T>>> args;
         std::vector<AInstruction<T>*> pargs;
-        _skipChars(exp);
-        while (**exp != ')') {
-            const auto val = _compute(exp, resolveVariable, resolveEncapsulated
-                );
+        _skipChars(exp, idx);
+        while (exp[*idx] != ')') {
+            const auto val = _compute(exp, idx, resolveVariable,
+                resolveEncapsulated);
             args.push_back(std::make_unique<Value<T>>(val));
             pargs.push_back(args.back().get());
-            _skipChars(exp);
+            _skipChars(exp, idx);
         }
-        (*exp)++;
-        const auto res = _operationsFactory.compute(
-            symbol, pargs);
-        delete[] symbol;
-        return res;
+        (*idx)++;
+        return _operationsFactory.compute(symbol, pargs);
 
     } else {
         /* ### OPERANDS ### */
-        const char* symbol = _getNextSymbol(exp);
+        const auto symbol = _getNextSymbol(exp, idx);
         T res;
         try {
             res = StringToType<T>(symbol);
@@ -172,18 +183,16 @@ T sxeval::SXEval<T>::_compute(char **exp,
                 } catch (...) {
                     /* last chance, check if it is a true/false keyword
                      */
-                    if (std::strcmp(symbol, "true") == 0) {
+                    if (symbol == "true") {
                         res = 1;
-                    } else if (std::strcmp(symbol, "false") == 0) {
+                    } else if (symbol == "false") {
                         res = 0;
                     } else {
-                        throw std::runtime_error("Unknown variable: " +
-                            std::string(symbol));
+                        throw std::runtime_error("Unknown variable: " + symbol);
                     }
                 }
             }
         }
-        delete[] symbol;
         return res;
     }
 }
@@ -196,30 +205,30 @@ std::string sxeval::SXEval<T>::toString() const {
 }
 
 template <typename T>
-void sxeval::SXEval<T>::_skipChars(char **exp) {
-    while (**exp == ' ' || **exp == '\t' || **exp == '\n' || **exp == '\r') {
-        (*exp)++;
+void sxeval::SXEval<T>::_skipChars(const std::string& s, size_t *i) {
+    while (s[*i] == ' ' || s[*i] == '\t' || s[*i] == '\n'  || s[*i] == '\r' )
+    {
+        (*i)++;
     }
 }
 
 template <typename T>
-char* sxeval::SXEval<T>::_getNextSymbol(char **exp) {
-    _skipChars(exp);
-    size_t len = 0;
-    while ((*exp)[len] != ' ' && (*exp)[len] != '\t' && (*exp)[len] != '\n'
-        && (*exp)[len] != '\r' && (*exp)[len] != '(' && (*exp)[len] != ')')
+std::string sxeval::SXEval<T>::_getNextSymbol(const std::string& s, size_t *i) {
+    _skipChars(s, i);
+    std::string symbol;
+    char c = s[*i];
+    while (c != ' ' && c != '\t' && c != '\n' && c != '\r' && c != '('
+        && c != ')')
     {
-        len++;
+        symbol += c;
+        (*i)++;
+        c = s[*i];
     }
-    char *symbol = new char[len + 1];
-    std::strncpy(symbol, *exp, len);
-    symbol[len] = '\0';
-    *exp += len;
     return symbol;
 }
 
 template <typename T>
-typename sxeval::SXEval<T>::_Node sxeval::SXEval<T>::_build(char **exp,
+typename sxeval::SXEval<T>::_Node sxeval::SXEval<T>::_build(size_t *idx,
     const resolveVariable_t<T>& resolveVariable,
     const resolveEncapsulated_t<T>& resolveEncapsulated)
 {
@@ -228,16 +237,16 @@ typename sxeval::SXEval<T>::_Node sxeval::SXEval<T>::_build(char **exp,
         std::ostringstream oss;
         oss << "[DEBUG] " << __FILE__ << ":" << __LINE__
             << " in " << __func__ << "(): " << "parsing '"
-            << *exp << "'\n";
+            << exp << "'\n";
         std::cerr << oss.str();
     }
     #endif /* SXEVAL_DEBUG */
-    _skipChars(exp);
+    _skipChars(_expression, idx);
 
-    if (**exp == '(') {
+    if (_expression[*idx] == '(') {
         /* ### OPERATION ### */
-        (*exp)++;
-        const char* symbol = _getNextSymbol(exp);
+        (*idx)++;
+        const auto symbol = _getNextSymbol(_expression, idx);
         _Node node;
         node.parent = nullptr;
         #ifdef SXEVAL_DEBUG
@@ -250,9 +259,9 @@ typename sxeval::SXEval<T>::_Node sxeval::SXEval<T>::_build(char **exp,
             std::cerr << oss.str();
         }
         #endif /* SXEVAL_DEBUG */
-        _skipChars(exp);
-        while (**exp != ')') {
-            node.subnodes.push_back(_build(exp, resolveVariable,
+        _skipChars(_expression, idx);
+        while (_expression[*idx] != ')') {
+            node.subnodes.push_back(_build(idx, resolveVariable,
                 resolveEncapsulated));
             #ifdef SXEVAL_DEBUG
             {
@@ -264,9 +273,9 @@ typename sxeval::SXEval<T>::_Node sxeval::SXEval<T>::_build(char **exp,
                 std::cerr << oss.str();
             }
             #endif /* SXEVAL_DEBUG */
-            _skipChars(exp);
+            _skipChars(_expression, idx);
         }
-        (*exp)++;
+        (*idx)++;
         std::vector<AInstruction<T>*> args;
         for (auto& subnode : node.subnodes) {
             args.push_back(subnode.instruct.get());
@@ -274,12 +283,11 @@ typename sxeval::SXEval<T>::_Node sxeval::SXEval<T>::_build(char **exp,
         node.instruct = _operationsFactory.create(symbol, args);
         _operations.push_back(
             dynamic_cast<AOperation<T>*>(node.instruct.get()));
-        delete[] symbol;
         return std::move(node);
 
     } else {
         /* ### OPERANDS ### */
-        const char* symbol = _getNextSymbol(exp);
+        const auto symbol = _getNextSymbol(_expression, idx);
         _Node node;
         try {
             T val = StringToType<T>(symbol);
@@ -299,8 +307,8 @@ typename sxeval::SXEval<T>::_Node sxeval::SXEval<T>::_build(char **exp,
             /* as this is not castable, this may be a variable */
             try {
                 T& var = resolveVariable(symbol);
-                node = {std::make_unique<Variable<T>>(var, symbol), nullptr,
-                    {}};
+                node = {std::make_unique<Variable<T>>(var, symbol), nullptr, {}
+                    };
                 #ifdef SXEVAL_DEBUG
                 {
                     node.id = nodeCount++;
@@ -336,13 +344,12 @@ typename sxeval::SXEval<T>::_Node sxeval::SXEval<T>::_build(char **exp,
                 } catch (...) {
                     /* last chance, check if it is a true/false keyword
                      */
-                    if (std::strcmp(symbol, "true") == 0) {
+                    if (symbol == "true") {
                         node = {std::make_unique<Value<T>>(1), nullptr, {}};
-                    } else if (std::strcmp(symbol, "false") == 0) {
+                    } else if (symbol == "false") {
                         node = {std::make_unique<Value<T>>(0), nullptr, {}};
                     } else {
-                        throw std::runtime_error("Unknown variable: " +
-                            std::string(symbol));
+                        throw std::runtime_error("Unknown variable: " + symbol);
                     }
                     #ifdef SXEVAL_DEBUG
                     {
@@ -358,7 +365,6 @@ typename sxeval::SXEval<T>::_Node sxeval::SXEval<T>::_build(char **exp,
                 }
             }
         }
-        delete[] symbol;
         return node;
     }
 }

@@ -19,22 +19,22 @@ int main(int argc, char** argv) {
     b.setValue(0);
 
     /* resolveVariable function */
-    auto resolveVariable = [&](const char* var) -> double& {
-        if (std::strcmp(var, "x") == 0) {
+    auto resolveVariable = [&](const std::string& var) -> double& {
+        if (var == "x") {
             return x;
-        } else if (std::strcmp(var, "y") == 0) {
+        } else if (var == "y") {
             return y;
         }
         throw std::invalid_argument("Unknown variable");
     };
 
     /* resolveEncapsulated function */
-    auto resolveEncapsulated = [&](const char* var)
+    auto resolveEncapsulated = [&](const std::string& var)
         -> std::function<double(void)>
     {
-        if (std::strcmp(var, "a") == 0) {
+        if (var == "a") {
             return [&]() { return a.getValue(); };
-        } else if (std::strcmp(var, "b") == 0) {
+        } else if (var == "b") {
             return [&]() { return b.getValue(); };
         }
         throw std::invalid_argument("Unknown encapsulated variable");

@@ -13,10 +13,10 @@ int main(int argc, char** argv) {
     int x = 0, y = 0;
 
     /* associates names to variables */
-    auto resolveVariable = [&](const char* var) -> int& {
-        if (std::strcmp(var, "x") == 0) {
+    auto resolveVariable = [&](const std::string var) -> int& {
+        if (var == "x") {
             return x;
-        } else if (std::strcmp(var, "y") == 0) {
+        } else if (var == "y") {
             return y;
         }
         throw std::invalid_argument("Unknown variable");
