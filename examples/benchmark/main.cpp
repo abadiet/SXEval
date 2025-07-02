@@ -3,6 +3,7 @@
 #include <iostream>
 #include <cstring>
 #include <fstream>
+#include <chrono>
 
 #define MIN -100.0
 #define MAX 100.0

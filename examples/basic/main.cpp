@@ -27,7 +27,7 @@ int main(int argc, char** argv) {
     eval.build(argv[1], resolveVariable);
 
     /* print the expression tree */
-    std::cout << "Expression: " << std::endl << eval << std::endl;
+    std::cout << eval << std::endl;
 
     {
         /* first evaluation */
