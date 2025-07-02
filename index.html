@@ -100,6 +100,9 @@ $(document).ready(function(){initNavTree('index.html',''); initResizable(); });
 Class Diagram</h1>
 <p><img src="https://raw.githubusercontent.com/abadiet/SXEval/refs/heads/v1.0/uml/class-diagram.png?raw=true" alt="" style="max-width: 100%;" class="inline"/></p>
 <h1><a class="anchor" id="autotoc_md2"></a>
+Benchmark</h1>
+<p><em>Comming soon...</em></p>
+<h1><a class="anchor" id="autotoc_md3"></a>
 Quick-Start</h1>
 <p>From <a href="https://github.com/abadiet/SXEval/tree/v1.0/examples/basic">/examples/basic</a> </p><div class="fragment"><div class="line"><span class="comment">/* variables */</span></div>
 <div class="line"><span class="keywordtype">int</span> x = 0, y = 0;</div>
@@ -155,11 +158,11 @@ Quick-Start</h1>
 <div class="line"> </div>
 <div class="line">Result: 13 for expression &#39;(+ y -2 (sqrt 16) (&gt; (^ x 2) 20))&#39; with x=5 and y=10</div>
 <div class="line">Result: 4 for expression &#39;(+ y -2 (sqrt 16) (&gt; (^ x 2) 20))&#39; with x=3 and y=2</div>
-</div><!-- fragment --><h1><a class="anchor" id="autotoc_md3"></a>
+</div><!-- fragment --><h1><a class="anchor" id="autotoc_md4"></a>
 Operands</h1>
 <p>Variable names can be anything except <code>true</code> or <code>false</code>. These are reserved and defined as constant values <code>1</code> and <code>0</code>.</p>
 <p>Variables can be passed to SXEval either by reference (usual way) or by value (encapsulated way). The latter is not recommended as it is a little bit slower. The difference is highlighted in <a href="https://github.com/abadiet/SXEval/tree/main/examples/encapsulated-variables">/examples/encapsulated-variables</a>.</p>
-<h1><a class="anchor" id="autotoc_md4"></a>
+<h1><a class="anchor" id="autotoc_md5"></a>
 Operations</h1>
 <p>Custom operations can be easily added to SXEval. In addition, several ones are available. Please note that some of them may introduce approximations if used with floating-point types.</p>
 <table class="markdownTable">
@@ -274,19 +277,19 @@ Operations</h1>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone">GradiansToDegrees   </td><td class="markdownTableBodyNone"><code>grad2deg</code>   </td><td class="markdownTableBodyNone">1   </td><td class="markdownTableBodyNone">1   </td><td class="markdownTableBodyNone"></td></tr>
 </table>
-<h1><a class="anchor" id="autotoc_md5"></a>
+<h1><a class="anchor" id="autotoc_md6"></a>
 Options</h1>
 <ul>
 <li><code>BUILD_EXAMPLES</code>: Build examples</li>
 <li><code>SXEVAL_DEBUG</code>: Print debug information</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md6"></a>
+<h1><a class="anchor" id="autotoc_md7"></a>
 ChangeLog</h1>
 <blockquote class="doxtable">
 <p>&zwj;[!WARNING] The user API is considered to be limited to the class <a href="https://github.com/abadiet/SXEval/blob/v1.0/include/sxeval/SXEval.hpp"><code>SXEval</code></a> and its <a href="https://github.com/abadiet/SXEval/blob/v1.0/include/sxeval/operations">operations</a>. Backward compatibility is not guaranteed outside. </p>
 </blockquote>
 <p>c.f. <a href="https://github.com/abadiet/SXEval/blob/v1.0/CHANGELOG.md">CHANGELOG.md</a></p>
-<h1><a class="anchor" id="autotoc_md7"></a>
+<h1><a class="anchor" id="autotoc_md8"></a>
 Dependencies</h1>
 <ul>
 <li><a href="https://github.com/catchorg/Catch2">catch2</a>: testing frameworks, fetch by cmake if option <code>BUILD_EXAMPLES</code> is enabled</li>
