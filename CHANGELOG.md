@@ -10,6 +10,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 > [operations](https://github.com/abadiet/SXEval/blob/v1.0/include/sxeval/operations).
 > Backward compatibility is not guaranteed outside.
 
+## [v1.0.3] - 2025-07-02
+### Added
+- Direct computation without building the expression tree.
+- S-expression generator script.
+- examples/benchmark
+- Documentations
+
 ## [v1.0.2] - 2025-05-17
 ### Added
 - sxeval::operations::OperationsFactory::add
@@ -20,7 +27,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Printing functions
 ### Fixed
-- Fix math tests virtual class instanciation
+- Fix math tests virtual class instantiation
 
 ## [v1.0.0] - 2025-05-09
 ### Added

@@ -50,6 +50,12 @@ private:
 
 };
 
+/**
+ * @brief Output stream operator for AInstruction.
+ * @param os The output stream.
+ * @param obj The AInstruction object to output.
+ * @return The output stream.
+ */
 template <typename T>
 inline std::ostream& operator<<(std::ostream& os, const AInstruction<T>& obj) {
    return os << obj.toString();
