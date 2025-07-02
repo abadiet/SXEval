@@ -1,0 +1,6 @@
+[submodule "benchmark/others/tinyexpr"]
+	path = benchmark/others/tinyexpr
+	url = https://github.com/codeplea/tinyexpr
+[submodule "benchmark/others/chibi-scheme"]
+	path = benchmark/others/chibi-scheme
+	url = https://github.com/ashinn/chibi-scheme

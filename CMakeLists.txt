@@ -2,7 +2,8 @@ cmake_minimum_required(VERSION 3.10)
 
 # Options
 option(BUILD_EXAMPLES "Build examples" ON)
-option(BUILD_TESTS "Performs tests" OFF)
+option(BUILD_TESTS "Build tests" OFF)
+option(BUILD_BENCHMARK "Build benchmark" OFF)
 option(SXEVAL_DEBUG "Debug mode" OFF)
 
 # Project
@@ -15,6 +16,7 @@ target_include_directories(${PROJECT_NAME} INTERFACE ${SXEVAL_INCLUDE})
 
 # Examples
 if(BUILD_EXAMPLES)
+    message(STATUS "Adding examples")
     add_subdirectory(examples)
 endif()
 
@@ -32,4 +34,10 @@ if(BUILD_TESTS)
 
     enable_testing()
     add_subdirectory(tests)
+endif()
+
+# Benchmark
+if(BUILD_BENCHMARK)
+    message(STATUS "Adding benchmark")
+    add_subdirectory(benchmark)
 endif()

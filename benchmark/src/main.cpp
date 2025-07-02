@@ -10,7 +10,7 @@
 
 int main(int argc, char** argv) {
     if (argc < 2) {
-        std::cerr << "Usage: " << argv[0] << " <expressions>" << std::endl;
+        std::cerr << "Usage: " << argv[0] << " <expressions_file>" << std::endl;
         std::cerr << "Example: " << argv[0] << " expressions.lst" << std::endl;
         return 1;
     }
