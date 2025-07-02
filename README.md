@@ -8,7 +8,7 @@ Supported types include:
 Based on the original C library [SXEval-C](https://github.com/abadiet/SXEval-C).
 
 ## Class Diagram
-<img src="https://github.com/abadiet/SXEval/blob/d3a92afc55ae0cdd55086719009b82afc98ad426/uml/class-diagram.png">
+<img src="https://raw.githubusercontent.com/abadiet/SXEval/refs/heads/v1.0/uml/class-diagram.png?raw=true">
 
 ## Quick-Start
 From [/examples/basic](https://github.com/abadiet/SXEval/tree/v1.0/examples/basic)
