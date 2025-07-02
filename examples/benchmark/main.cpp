@@ -14,6 +14,12 @@ int main(int argc, char** argv) {
         return 1;
     }
 
+    std::vector<long long> builds;
+    std::vector<long long> evaluations;
+    std::vector<long long> computations;
+    std::vector<double> resultsEval;
+    std::vector<double> resultsComp;
+
     std::ifstream exprFile(argv[1]);
     if (!exprFile) {
         std::cerr << "Failed to open file: " << argv[1] << std::endl;
@@ -67,9 +73,8 @@ int main(int argc, char** argv) {
             const auto start = std::chrono::high_resolution_clock::now();
             eval.build(line, resolveVariable, resolveEncapsulated);
             const auto end = std::chrono::high_resolution_clock::now();
-            std::cout << "Expression built in " << std::chrono::duration_cast<
-                std::chrono::microseconds>(end - start) .count() << " us."
-                << std::endl;
+            builds.push_back(std::chrono::duration_cast<
+                std::chrono::microseconds>(end - start).count());
         }
 
         /* set random values to variable */
@@ -85,10 +90,9 @@ int main(int argc, char** argv) {
             const auto start = std::chrono::high_resolution_clock::now();
             const double result = eval.evaluate();
             const auto end = std::chrono::high_resolution_clock::now();
-            std::cout << "Expression evaluated in " << std::chrono::duration_cast<
-                std::chrono::microseconds>(end - start).count() << " us."
-                << std::endl;
-            std::cout << "Result: " << result << std::endl;
+            evaluations.push_back(std::chrono::duration_cast<
+                std::chrono::microseconds>(end - start).count());
+            resultsEval.push_back(result);
         }
 
         /* ### Direct Computation ### */
@@ -96,15 +100,32 @@ int main(int argc, char** argv) {
             const auto start = std::chrono::high_resolution_clock::now();
             const double result = eval.compute(line, resolveVariable, resolveEncapsulated);
             const auto end = std::chrono::high_resolution_clock::now();
-            std::cout << "Expression computed in " << std::chrono::duration_cast<
-                std::chrono::microseconds>(end - start).count() << " us."
-                << std::endl;
-            std::cout << "Result: " << result << std::endl;
+            computations.push_back(std::chrono::duration_cast<
+                std::chrono::microseconds>(end - start).count());
+            resultsComp.push_back(result);
         }
 
         std::getline(exprFile, line);
     }
-
     exprFile.close();
+
+    long long totalBuild = 0;
+    long long totalEval = 0;
+    long long totalComp = 0;
+    const auto size = builds.size();
+    std::cout << "Building | Evaluation | Computation | Evaluation Result | Computation Result" << std::endl;
+    for (size_t i = 0; i < size; ++i) {
+        std::cout << builds[i] << " | " << evaluations[i] << " | "
+            << computations[i] << " | " << resultsEval[i] << " | "
+            << resultsComp[i] << std::endl;
+        totalBuild += builds[i];
+        totalEval += evaluations[i];
+        totalComp += computations[i];
+    }
+    std::cout << "Average: " << std::endl
+        << totalBuild / static_cast<long long>(size) << " | "
+        << totalEval / static_cast<long long>(size) << " | "
+        << totalComp / static_cast<long long>(size) << std::endl;
+
     return 0;
 }
