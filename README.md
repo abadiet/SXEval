@@ -17,7 +17,7 @@ From [/examples/basic](https://github.com/abadiet/SXEval/tree/v1.0/examples/basi
 int x = 0, y = 0;
 
 /* associates names to variables */
-auto resolveVariable = [&](const std::string var) -> int& {
+auto resolveVariable = [&](const std::string& var) -> int& {
     if (var == "x") {
         return x;
     } else if (var == "y") {

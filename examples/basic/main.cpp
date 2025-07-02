@@ -13,7 +13,7 @@ int main(int argc, char** argv) {
     int x = 0, y = 0;
 
     /* associates names to variables */
-    auto resolveVariable = [&](const std::string var) -> int& {
+    auto resolveVariable = [&](const std::string& var) -> int& {
         if (var == "x") {
             return x;
         } else if (var == "y") {

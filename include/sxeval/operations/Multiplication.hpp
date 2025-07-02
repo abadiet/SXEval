@@ -35,7 +35,7 @@ template <typename T>
 void sxeval::operations::Multiplication<T>::execute() {
     this->getResult() = this->getArgs().front()->getResult();
     for (size_t i = 1; i < this->getArgs().size(); ++i) {
-        this->getResult()* = this->getArgs()[i]->getResult();
+        this->getResult() *= this->getArgs()[i]->getResult();
     }
 }
 
