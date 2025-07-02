@@ -148,7 +148,7 @@ T sxeval::SXEval<T>::_compute(char **exp,
             _skipChars(exp);
         }
         (*exp)++;
-        const auto res = sxeval::operations::OperationsFactory<T>::compute(
+        const auto res = _operationsFactory.compute(
             symbol, pargs);
         delete[] symbol;
         return res;
