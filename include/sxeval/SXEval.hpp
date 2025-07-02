@@ -27,37 +27,156 @@ template <typename T>
 using resolveEncapsulated_t = std::function<
     std::function<T(void)>(const std::string&)>;
 
+/**
+ * @brief The SXEval class is used to evaluate s-expressions.
+ *
+ * It allows user-custom operatinos as well as user-owned variables and
+ * encapsulated variables.
+ *
+ * It can build an expression tree from a s-expression and evaluate it.
+ * It can also compute the result of an expression without building its tree, 
+ * which is much slower than the evaluation but faster than building the tree.
+ * This latter method is useful for quick/unique evaluations without the
+ * overhead of building a tree while the former is useful for repeated
+ * evaluations of the same expression.
+ *
+ * @tparam T The type of the values handle by the s-expression. The supported
+ * types are int, signed char, short int, long int, unsigned int, unsigned char,
+ * unsigned long int, float, double and long double.
+ */
 template <typename T>
 class SXEval {
 public:
+    /**
+     * @brief Default constructor.
+     */
     inline SXEval() {}
 
+    /**
+     * @brief Register an operation.
+     *
+     * @tparam OP The operation to register. The operation must inherit from
+     * sxeval::AOperation<T>.
+     */
     template <typename OP>
     inline void registerOperation() { _operationsFactory.template add<OP>(); }
 
-    void build(const std::string& exp,
+    /**
+     * @brief Build the expression tree from a s-expression.
+     *
+     * @param expression The expression to parse.
+     * @param resolveVariable A function to resolve variable names to their
+     * values. The function should take a string as input and return a reference
+     * to the variable's value. If the variable is not found, an exception
+     * should be thrown.
+     * @param resolveEncapsulated A function to resolve encapsulated variable
+     * names to their getter functions. The function should take a string as
+     * input and return a function that returns the variable's value when
+     * called. If the encapsulated variable is not found, an exception should be
+     * thrown.
+     * @throws std::runtime_error if a variable cannot be resolved or if the
+     * expression is invalid.
+     */
+    void build(const std::string& expression,
         const resolveVariable_t<T>& resolveVariable = resolveVariable_t<T>(),
         const resolveEncapsulated_t<T>& resolveEncapsulated
         = resolveEncapsulated_t<T>());
-    inline void build(const std::string& exp,
+
+    /**
+     * @brief Build the expression tree from a s-expression.
+     *
+     * @param expression The expression to parse.
+     * @param resolveEncapsulated A function to resolve encapsulated variable
+     * names to their getter functions. The function should take a string as
+     * input and return a function that returns the variable's value when
+     * called. If the encapsulated variable is not found, an exception should be
+     * thrown.
+     * @param resolveVariable A function to resolve variable names to their
+     * values. The function should take a string as input and return a reference
+     * to the variable's value. If the variable is not found, an exception
+     * should be thrown.
+     * @throws std::runtime_error if a variable cannot be resolved or if the
+     * expression is invalid.
+     * @note This is an overload of the build() method that allows
+     * specifying the resolveEncapsulated function first, which can be useful
+     * if the resolveVariable function is not needed.
+     */
+    inline void build(const std::string& expression,
         const resolveEncapsulated_t<T>& resolveEncapsulated
         = resolveEncapsulated_t<T>(),
         const resolveVariable_t<T>& resolveVariable = resolveVariable_t<T>())
-    { build(exp, resolveVariable, resolveEncapsulated); }
+    { build(expression, resolveVariable, resolveEncapsulated); }
 
+    /**
+     * @brief Evaluate the expression tree.
+     *
+     * @return The result of the evaluation.
+     * @throws std::runtime_error if no operations have been registered or if
+     * the evaluation fails.
+     * @note build() must have been called before calling this method.
+     */
     T evaluate() const;
 
-    T compute(const std::string& exp,
-    const resolveVariable_t<T>& resolveVariable = resolveVariable_t<T>(),
+    /**
+     * @brief Compute the result of an expression without building its tree.
+     *
+     * @param expression The expression to compute.
+     * @param resolveVariable A function to resolve variable names to their
+     * values. The function should take a string as input and return a reference
+     * to the variable's value. If the variable is not found, an exception
+     * should be thrown.
+     * @param resolveEncapsulated A function to resolve encapsulated variable
+     * names to their getter functions. The function should take a string as
+     * input and return a function that returns the variable's value when
+     * called. If the encapsulated variable is not found, an exception should be
+     * thrown.
+     * @return The result of the computation.
+     * @throws std::runtime_error if a variable cannot be resolved or if the
+     * expression is invalid.
+     * @note This method does not build the expression tree, it only computes
+     * the result of the expression. It is useful for quick/unique evaluations
+     * without the overhead of building a tree.
+     */
+    T compute(const std::string& expression,
+        const resolveVariable_t<T>& resolveVariable = resolveVariable_t<T>(),
         const resolveEncapsulated_t<T>& resolveEncapsulated
         = resolveEncapsulated_t<T>()) const;
-    inline T compute(const std::string& exp,
+
+    /**
+     * @brief Compute the result of an expression without building its tree.
+     *
+     * @param expression The expression to compute.
+     * @param resolveEncapsulated A function to resolve encapsulated variable
+     * names to their getter functions. The function should take a string as
+     * input and return a function that returns the variable's value when
+     * called. If the encapsulated variable is not found, an exception should be
+     * thrown.
+     * @param resolveVariable A function to resolve variable names to their
+     * values. The function should take a string as input and return a reference
+     * to the variable's value. If the variable is not found, an exception
+     * should be thrown.
+     * @return The result of the computation.
+     * @throws std::runtime_error if a variable cannot be resolved or if the
+     * expression is invalid.
+     * @note This method does not build the expression tree, it only computes
+     * the result of the expression. It is useful for quick/unique evaluations
+     * without the overhead of building a tree.
+     * @note This is an overload of the compute() method that allows
+     * specifying the resolveEncapsulated function first, which can be useful if
+     * the resolveVariable function is not needed.
+     */
+    inline T compute(const std::string& expression,
         const resolveEncapsulated_t<T>& resolveEncapsulated
         = resolveEncapsulated_t<T>(),
         const resolveVariable_t<T>& resolveVariable = resolveVariable_t<T>())
         const
-    { return compute(exp, resolveVariable, resolveEncapsulated); }
+    { return compute(expression, resolveVariable, resolveEncapsulated); }
 
+    /**
+     * @brief Convert the expression tree to a string representation.
+     *
+     * @return A string representation of the expression tree.
+     */
     std::string toString() const;
 
 private:
@@ -94,6 +213,14 @@ private:
 
 };
 
+/**
+ * @brief Output stream operator for SXEval.
+ * @param os The output stream.
+ * @param obj The SXEval object to output.
+ * @return The output stream.
+ * @note This operator outputs the string representation of the expression tree
+ * of the SXEval object.
+ */
 template <typename T>
 inline std::ostream& operator<<(std::ostream& os, const SXEval<T>& obj) {
     return os << obj.toString();
@@ -105,13 +232,13 @@ inline std::ostream& operator<<(std::ostream& os, const SXEval<T>& obj) {
 /* IMPLEMENTATIONS */
 
 template <typename T>
-void sxeval::SXEval<T>::build(const std::string& exp,
+void sxeval::SXEval<T>::build(const std::string& expression,
     const resolveVariable_t<T>& resolveVariable,
     const resolveEncapsulated_t<T>& resolveEncapsulated)
 {
     _operations.clear();
     _encapsulated.clear();
-    _expression = exp;
+    _expression = expression;
     size_t idx = 0;
     _lastOperation = _build(&idx, resolveVariable, resolveEncapsulated);
     _fillParents(_lastOperation);
@@ -132,12 +259,12 @@ T sxeval::SXEval<T>::evaluate() const {
 }
 
 template <typename T>
-T sxeval::SXEval<T>::compute(const std::string& exp,
+T sxeval::SXEval<T>::compute(const std::string& expression,
     const resolveVariable_t<T>& resolveVariable,
     const resolveEncapsulated_t<T>& resolveEncapsulated) const
 {
     size_t idx = 0;
-    return _compute(exp, &idx, resolveVariable, resolveEncapsulated);
+    return _compute(expression, &idx, resolveVariable, resolveEncapsulated);
 }
 
 template <typename T>

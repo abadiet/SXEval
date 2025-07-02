@@ -8,7 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 > [!WARNING]
 > The user API is considered to be limited to the class [`SXEval`](https://github.com/abadiet/SXEval/blob/v1.0/include/sxeval/SXEval.hpp) and its
 > [operations](https://github.com/abadiet/SXEval/blob/v1.0/include/sxeval/operations).
-> Backard compatibility is not guaranteed outside of these.
+> Backward compatibility is not guaranteed outside.
 
 ## [v1.0.2] - 2025-05-17
 ### Added

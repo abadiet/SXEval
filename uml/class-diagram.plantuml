@@ -31,11 +31,11 @@ package sxeval {
         -_expression : std::string
         +SXEval()
         +template registerOperation<OP>()
-        +build(exp : const std::string&, resolveVariable : const resolveVariable_t&, resolveEncapsulated : const resolveEncapsulated_t&)
-        +build(exp : const std::string&, resolveEncapsulated : const resolveEncapsulated_t&, resolveVariable : const resolveVariable_t&)
+        +build(expression : const std::string&, resolveVariable : const resolveVariable_t&, resolveEncapsulated : const resolveEncapsulated_t&)
+        +build(expression : const std::string&, resolveEncapsulated : const resolveEncapsulated_t&, resolveVariable : const resolveVariable_t&)
         +evaluate() : T
-        +compute(exp : const std::string&, resolveVariable : const resolveVariable_t<T>&, resolveEncapsulated : const resolveEncapsulated_t<T>&) : T
-        +compute(exp : const std::string&, resolveEncapsulated : const resolveEncapsulated_t<T>&, resolveVariable : const resolveVariable_t<T>&) : T
+        +compute(expression : const std::string&, resolveVariable : const resolveVariable_t<T>&, resolveEncapsulated : const resolveEncapsulated_t<T>&) : T
+        +compute(expression : const std::string&, resolveEncapsulated : const resolveEncapsulated_t<T>&, resolveVariable : const resolveVariable_t<T>&) : T
         +toString() : std::string
         -_skipChars(exp : std::string&)
         -_getNextSymbol(exp : std::string&) : std::string&

@@ -1,7 +1,7 @@
 # SXEval
 A generic s-expression interpreter library.
 
-Currently supported types include:
+Supported types include:
 `int`, `signed char`, `short int`, `long int`, `unsigned int`, `unsigned char`,
 `unsigned long int`, `float`, `double` and `long double`.
 
@@ -140,13 +140,13 @@ with floating-point types.
 
 ## Options
 - `BUILD_EXAMPLES`: Build examples
-- `SXEVAL_DEBUG`: Print debug informations
+- `SXEVAL_DEBUG`: Print debug information
 
 ## ChangeLog
 > [!WARNING]
 > The user API is considered to be limited to the class [`SXEval`](https://github.com/abadiet/SXEval/blob/v1.0/include/sxeval/SXEval.hpp) and its
 > [operations](https://github.com/abadiet/SXEval/blob/v1.0/include/sxeval/operations).
-> Backard compatibility is not guaranteed outside of these.
+> Backward compatibility is not guaranteed outside.
 
 c.f. [CHANGELOG.md](https://github.com/abadiet/SXEval/blob/v1.0/CHANGELOG.md)
 

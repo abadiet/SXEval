@@ -61,16 +61,53 @@ TEMPLATE_FACTORY='''
 namespace sxeval {{
 namespace operations {{
 
+/**
+ * @brief The OperationsFactory class is used to manage operations.
+ *
+ * @tparam T The type of values handled by the SXEval library. The supported
+ * types are int, signed char, short int, long int, unsigned int, unsigned char,
+ * unsigned long int, float, double and long double.
+ */
 template <typename T>
 class OperationsFactory {{
 public:
+    /**
+     * @brief Default constructor.
+     */
     OperationsFactory();
 
+    /**
+     * @brief Register an operation.
+     *
+     * @tparam OP The operation to register. The operation must inherit from
+     * sxeval::AOperation<T>.
+     */
     template <typename OP>
     void add();
 
+    /**
+     * @brief Instantiate an operation from its key and arguments.
+     *
+     * @param key The key of the operation to create.
+     * @param args The arguments of the operation.
+     * @return A unique pointer to the created operation.
+     * @throws std::invalid_argument if the key is unknown or if the number of
+     * arguments is not valid for the operation.
+     */
     std::unique_ptr<AOperation<T>> create(const std::string& key,
         const std::vector<AInstruction<T>*> args);
+
+    /**
+     * @brief Compute the result of an operation from its key and arguments.
+     *
+     * @param key The key of the operation to compute.
+     * @param args The arguments of the operation.
+     * @return The result of the operation.
+     * @throws std::invalid_argument if the key is unknown or if the number of
+     * arguments is not valid for the operation.
+     */
+    T compute(const std::string& key, const std::vector<AInstruction<T>*> args)
+        const;
 
 private:
     std::unordered_map<std::string,
