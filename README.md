@@ -17,20 +17,21 @@ From [/examples/basic](https://github.com/abadiet/SXEval/tree/v1.0/examples/basi
 int x = 0, y = 0;
 
 /* associates names to variables */
-auto resolveVariable = [&](const char* var) -> int& {
-    if (std::strcmp(var, "x") == 0) {
+auto resolveVariable = [&](const std::string var) -> int& {
+    if (var == "x") {
         return x;
-    } else if (std::strcmp(var, "y") == 0) {
+    } else if (var == "y") {
         return y;
     }
     throw std::invalid_argument("Unknown variable");
 };
 
 /* build */
-sxeval::SXEval<int> eval(argv[1], resolveVariable);
+sxeval::SXEval<int> eval;
+eval.build(argv[1], resolveVariable);
 
 /* print the expression tree */
-std::cout << eval << std::endl;
+std::cout << "Expression: " << std::endl << eval << std::endl;
 
 {
     /* first evaluation */
