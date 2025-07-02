@@ -18,26 +18,28 @@ package sxeval {
 
     note as alias_Note
         Types definitions:
-            <b>resolveVariable_t</b>: std::function<T&(const char*)>
-            <b>resolveEncapsulated_t</b>: std::function<std::function<T(void)>(const char*)>
+            <b>resolveVariable_t</b>: std::function<T&(const std::string&)>
+            <b>resolveEncapsulated_t</b>: std::function<std::function<T(void)>(const std::string&)>
     end note
 
     class SXEval<T> {
         - _Node : struct {instruct : std::unique_ptr<AInstruction<T>>, parent : _Node*, subnodes : std::vector<_Node>}
+        -_operationsFactory : OperationsFactory<T>
         -_operations : std::vector<std::unique_ptr<AOperation<T>>>
         -_encapsulated : std::vector<EncapsulatedVariable<T>*>
-        -_resolveEncapsulated : const resolveEncapsulated_t<T>
         -_lastOperation : _Node
-        -_operationsFactory : OperationsFactory<T>
+        -_expression : std::string
         +SXEval()
         +template registerOperation<OP>()
-        +build(exp : char*, const resolveVariable_t& resolveVariable, const resolveEncapsulated_t resolveEncapsulated)
-        +build(exp : char*, const resolveEncapsulated_t resolveEncapsulated, const resolveVariable_t& resolveVariable)
+        +build(exp : const std::string&, resolveVariable : const resolveVariable_t&, resolveEncapsulated : const resolveEncapsulated_t&)
+        +build(exp : const std::string&, resolveEncapsulated : const resolveEncapsulated_t&, resolveVariable : const resolveVariable_t&)
         +evaluate() : T
+        +compute(exp : const std::string&, resolveVariable : const resolveVariable_t<T>&, resolveEncapsulated : const resolveEncapsulated_t<T>&) : T
+        +compute(exp : const std::string&, resolveEncapsulated : const resolveEncapsulated_t<T>&, resolveVariable : const resolveVariable_t<T>&) : T
         +toString() : std::string
-        -_skipChars(exp : char**)
-        -_getNextSymbol(exp : char**) : char*
-        -_build(exp : char**, resolveVariable : const resolveVariable_t<T>&)  : _Node
+        -_skipChars(exp : std::string&)
+        -_getNextSymbol(exp : std::string&) : std::string&
+        -_build(exp : std::string&, resolveVariable : const resolveVariable_t<T>&)  : _Node
         -_fillParents(parent : _Node&)
         -_buildTreeStr(std::opstream& os, const _Node& node, size_t depth) : void
     }
@@ -91,6 +93,7 @@ package sxeval {
             +OperationsFactory()
             +template add<OP>()
             +create(key : const std::string&, args : const std::vector<AInstruction<T>*>) : std::unique_ptr<AOperation<T>>
+            +compute(key : const std::string&, args : const std::vector<AInstruction<T>*>) : T
         }
 
         class Addition<T> {
