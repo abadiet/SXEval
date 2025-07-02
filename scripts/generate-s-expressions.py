@@ -57,6 +57,7 @@ if __name__ == "__main__":
     parser.add_argument("--ratio-atom", type=int, default=0.1, help="Atom/Operation ratio.")
     parser.add_argument("--ratio-value", type=int, default=0.5, help="Value/Variable ratio.")
     parser.add_argument("--ratio-encapsulated", type=int, default=0.5, help="Encaspulated/Normal variable ratio.")
+    parser.add_argument("--out", type=str, default=0.5, help="Output file. Console if not provided.")
     args = parser.parse_args()
 
     operations = parse_operations(args.operations_xml)
@@ -69,4 +70,8 @@ if __name__ == "__main__":
             ratio_value=args.ratio_value,
             ratio_encapsulated=args.ratio_encapsulated
         )
-        print(expr)
+        if args.out:
+            with open(args.out, 'a') as f:
+                f.write(expr + '\n')
+        else:
+            print(expr)
