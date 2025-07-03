@@ -1,5 +1,5 @@
 #include "Wrapper.hpp"
-#include "../myVar/myVar.hpp"
+#include "../myVar.hpp"
 #include <vector>
 #include <functional>
 #include <sxeval/SXEval.hpp>

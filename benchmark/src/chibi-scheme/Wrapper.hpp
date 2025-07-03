@@ -1,27 +1,23 @@
 #ifndef BENCHMARK_CHIBI_SCHEME_WRAPPER_HPP
 #define BENCHMARK_CHIBI_SCHEME_WRAPPER_HPP
 
-#include "../myVar/myVar.hpp"
 #include <chibi/sexp.h>
 #include <string>
-#include <vector>
 #include <functional>
-
-extern std::vector<double>* normalVariables;
-extern std::vector<MyVar>* encapsulatedVariables;
+#include "../IWrapper.hpp"
 
 namespace benchmark {
 namespace chibi_scheme {
 
-class Wrapper {
+class Wrapper : public benchmark::IWrapper {
 public:
     inline Wrapper() {}
-    ~Wrapper();
+    ~Wrapper() override;
 
-    static std::string formatInput(const std::string& input);
-    void build(const std::string& input);
-    inline double execute() { return interpret(_input); }
-    double interpret(const std::string& input);
+    std::string formatInput(const std::string& input) override;
+    void build(const std::string& input) override;
+    inline double execute() override { return interpret(_input); }
+    double interpret(const std::string& input) override;
 
 private:
     static sexp _resolve(sexp ctx, sexp self, sexp_sint_t n, sexp exp);

@@ -1,10 +1,12 @@
-#include "myVar/myVar.hpp"
+#include "myVar.hpp"
 #include <iostream>
 #include <cstring>
 #include <fstream>
 #include <sstream>
 #include <vector>
 #include <regex>
+#include <chrono>
+#include "IWrapper.hpp"
 #include "sxeval/Wrapper.hpp"
 #include "chibi-scheme/Wrapper.hpp"
 
@@ -27,8 +29,7 @@ struct stats_t {
     long long totalInterp;
 };
 void setupVariables(const std::string& line);
-template<typename T>
-void testWrapper(T& wrapper, const std::string& line, stats_t& stats);
+void testWrapper(benchmark::IWrapper& wrapper, const std::string& line, stats_t& stats);
 std::string buildStats(stats_t& stats);
 
 int main(int argc, char** argv) {
@@ -116,10 +117,9 @@ void setupVariables(const std::string& line) {
     }
 }
 
-template<typename T>
-void testWrapper(T& wrapper, const std::string& line, stats_t& stats) {
+void testWrapper(benchmark::IWrapper& wrapper, const std::string& line, stats_t& stats) {
     /* Format the line */
-    const auto input = T::formatInput(line);
+    const auto input = wrapper.formatInput(line);
 
     /* Building */
     {

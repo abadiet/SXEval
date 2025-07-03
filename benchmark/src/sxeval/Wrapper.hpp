@@ -3,25 +3,21 @@
 
 #include <sxeval/SXEval.hpp>
 #include <string>
-#include <vector>
-#include "../myVar/myVar.hpp"
-
-extern std::vector<double>* normalVariables;
-extern std::vector<MyVar>* encapsulatedVariables;
+#include "../IWrapper.hpp"
 
 namespace benchmark {
 namespace sxeval {
 
-class Wrapper {
+class Wrapper : public benchmark::IWrapper {
 public:
     inline Wrapper() {}
-    ~Wrapper() = default;
+    ~Wrapper() override = default;
 
-    inline static std::string formatInput(const std::string& input) {
+    inline std::string formatInput(const std::string& input) override {
         return input; }
-    void build(const std::string& input);
-    double execute();
-    double interpret(const std::string& input);
+    void build(const std::string& input) override;
+    double execute() override;
+    double interpret(const std::string& input) override;
 
 private:
     static double& _resolveVariable(const std::string& var);
