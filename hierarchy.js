@@ -25,6 +25,7 @@ var hierarchy =
         [ "sxeval::operations::DegreesToRadians< T >", "classsxeval_1_1operations_1_1DegreesToRadians.html", null ],
         [ "sxeval::operations::Division< T >", "classsxeval_1_1operations_1_1Division.html", null ],
         [ "sxeval::operations::Equal< T >", "classsxeval_1_1operations_1_1Equal.html", null ],
+        [ "sxeval::operations::Exp< T >", "classsxeval_1_1operations_1_1Exp.html", null ],
         [ "sxeval::operations::Expm1< T >", "classsxeval_1_1operations_1_1Expm1.html", null ],
         [ "sxeval::operations::Exponentiation< T >", "classsxeval_1_1operations_1_1Exponentiation.html", null ],
         [ "sxeval::operations::Floor< T >", "classsxeval_1_1operations_1_1Floor.html", null ],

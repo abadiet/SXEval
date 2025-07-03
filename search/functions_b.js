@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['operationsfactory_0',['OperationsFactory',['../classsxeval_1_1operations_1_1OperationsFactory.html#aadc14f70a34b822bd964a0d2aa3cac0f',1,'sxeval::operations::OperationsFactory']]],
-  ['operator_3c_3c_1',['operator&lt;&lt;',['../namespacesxeval.html#ab3eba0083ea33a167b36374996211d7f',1,'sxeval::operator&lt;&lt;(std::ostream &amp;os, const AInstruction&lt; T &gt; &amp;obj)'],['../namespacesxeval.html#a0b3c9ac02d91b4ca4a34acc60ee6d9e9',1,'sxeval::operator&lt;&lt;(std::ostream &amp;os, const SXEval&lt; T &gt; &amp;obj)']]]
+  ['naturallogarithm_0',['NaturalLogarithm',['../classsxeval_1_1operations_1_1NaturalLogarithm.html#a77adbf5f0e7ffd468b71e3340a202528',1,'sxeval::operations::NaturalLogarithm']]],
+  ['notequal_1',['notequal',['../classsxeval_1_1operations_1_1NotEqual.html#a5886d2b5775779f2afc5671cb7f6e6bb',1,'sxeval::operations::NotEqual::NotEqual()'],['../namespacesxeval.html#aef95b884da097e34e28741d51b32aa48',1,'sxeval::NotEqual()']]]
 ];

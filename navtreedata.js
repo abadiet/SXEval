@@ -25,11 +25,11 @@
 var NAVTREE =
 [
   [ "SXEval", "index.html", [
-    [ "Class Diagram", "index.html#autotoc_md1", null ],
-    [ "Benchmark", "index.html#autotoc_md2", null ],
-    [ "Quick-Start", "index.html#autotoc_md3", null ],
-    [ "Operands", "index.html#autotoc_md4", null ],
-    [ "Operations", "index.html#autotoc_md5", null ],
+    [ "Benchmark", "index.html#autotoc_md1", null ],
+    [ "Quick-Start", "index.html#autotoc_md2", null ],
+    [ "Operands", "index.html#autotoc_md3", null ],
+    [ "Operations", "index.html#autotoc_md4", null ],
+    [ "Class Diagram", "index.html#autotoc_md5", null ],
     [ "Options", "index.html#autotoc_md6", null ],
     [ "ChangeLog", "index.html#autotoc_md7", null ],
     [ "Dependencies", "index.html#autotoc_md8", null ],
@@ -64,8 +64,8 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "AInstruction_8hpp.html",
-"classsxeval_1_1operations_1_1ArcTangent.html#a5dfe292c9fab63384b94ff9dd23b10f5",
-"classsxeval_1_1operations_1_1LogicalXnor.html#ac455be098fa218525eea7d9328e2a553"
+"classsxeval_1_1operations_1_1ArcTangent.html#a18b014b7b15e2e9ca779e0b432221751",
+"classsxeval_1_1operations_1_1LogicalOr.html#a56daa22be6e1785f743fa765e73bb1e4"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

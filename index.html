@@ -97,12 +97,27 @@ $(document).ready(function(){initNavTree('index.html',''); initResizable(); });
 <p>Supported types include: <code>int</code>, <code>signed char</code>, <code>short int</code>, <code>long int</code>, <code>unsigned int</code>, <code>unsigned char</code>, <code>unsigned long int</code>, <code>float</code>, <code>double</code> and <code>long double</code>.</p>
 <p>Based on the original C library <a href="https://github.com/abadiet/SXEval-C">SXEval-C</a>.</p>
 <h1><a class="anchor" id="autotoc_md1"></a>
-Class Diagram</h1>
-<p><img src="https://raw.githubusercontent.com/abadiet/SXEval/refs/heads/v1.0/uml/class-diagram.png?raw=true" alt="" style="max-width: 100%;" class="inline"/></p>
-<h1><a class="anchor" id="autotoc_md2"></a>
 Benchmark</h1>
-<p><em>Comming soon...</em></p>
-<h1><a class="anchor" id="autotoc_md3"></a>
+<p>Average duration in microseconds for 1000 complex mathematical s-expressions (c.f. <a href="https://github.com/abadiet/SXEval/tree/v1.0/benchmark/expressions.lst">expressions.lst</a>).</p>
+<p>Phases:</p><ul>
+<li><em><b>Building</b></em>: Compiles an expression to optimize its execution.</li>
+<li><em><b>Execution</b></em>: Evaluates a pre-built, constant expression (though it may reference non-constant variables). Requires a one-time <em>Building</em> step, after which the expression is immutable but can be executed efficiently multiple times.</li>
+<li><em><b>Interpretation</b></em>: Evaluates any expression directly, without prior building. Combines a lightweight build and execution step, making it ideal for one-time or infrequent evaluations.</li>
+</ul>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadNone"></th><th class="markdownTableHeadNone">Building   </th><th class="markdownTableHeadNone">Execution   </th><th class="markdownTableHeadNone">Interpretation    </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">SXEval   </td><td class="markdownTableBodyNone">6150   </td><td class="markdownTableBodyNone">19   </td><td class="markdownTableBodyNone">5988    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">Chibi Scheme   </td><td class="markdownTableBodyNone">108   </td><td class="markdownTableBodyNone">28427   </td><td class="markdownTableBodyNone">27140    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">GNU Guile   </td><td class="markdownTableBodyNone"></td><td class="markdownTableBodyNone"></td><td class="markdownTableBodyNone"></td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">s7   </td><td class="markdownTableBodyNone"></td><td class="markdownTableBodyNone"></td><td class="markdownTableBodyNone"></td></tr>
+</table>
+<p>c.f <a href="https://github.com/abadiet/SXEval/tree/v1.0/benchmark">/benchmark</a></p>
+<h1><a class="anchor" id="autotoc_md2"></a>
 Quick-Start</h1>
 <p>From <a href="https://github.com/abadiet/SXEval/tree/v1.0/examples/basic">/examples/basic</a> </p><div class="fragment"><div class="line"><span class="comment">/* variables */</span></div>
 <div class="line"><span class="keywordtype">int</span> x = 0, y = 0;</div>
@@ -128,7 +143,7 @@ Quick-Start</h1>
 <div class="line">    <span class="comment">/* first evaluation */</span></div>
 <div class="line">    x = 5;</div>
 <div class="line">    y = 10;</div>
-<div class="line">    <span class="keywordtype">int</span> result = eval.<a class="code hl_function" href="classsxeval_1_1SXEval.html#ab7e0ede6a9cfce8c3494f7aa77194c8e">evaluate</a>();</div>
+<div class="line">    <span class="keywordtype">int</span> result = eval.<a class="code hl_function" href="classsxeval_1_1SXEval.html#a38cbda01c8f9bd64df038d39c2f6e549">execute</a>();</div>
 <div class="line">    printf(<span class="stringliteral">&quot;Result: %d for expression &#39;%s&#39; with x=%d and y=%d\n&quot;</span>, result,</div>
 <div class="line">        argv[1], x, y);</div>
 <div class="line">}</div>
@@ -137,12 +152,12 @@ Quick-Start</h1>
 <div class="line">    <span class="comment">/* second evaluation */</span></div>
 <div class="line">    x = 3;</div>
 <div class="line">    y = 2;</div>
-<div class="line">    <span class="keywordtype">int</span> result = eval.<a class="code hl_function" href="classsxeval_1_1SXEval.html#ab7e0ede6a9cfce8c3494f7aa77194c8e">evaluate</a>();</div>
+<div class="line">    <span class="keywordtype">int</span> result = eval.<a class="code hl_function" href="classsxeval_1_1SXEval.html#a38cbda01c8f9bd64df038d39c2f6e549">execute</a>();</div>
 <div class="line">    printf(<span class="stringliteral">&quot;Result: %d for expression &#39;%s&#39; with x=%d and y=%d\n&quot;</span>, result,</div>
 <div class="line">        argv[1], x, y);</div>
 <div class="line">}</div>
 <div class="ttc" id="aclasssxeval_1_1SXEval_html"><div class="ttname"><a href="classsxeval_1_1SXEval.html">sxeval::SXEval</a></div><div class="ttdoc">The SXEval class is used to evaluate s-expressions.</div><div class="ttdef"><b>Definition</b> SXEval.hpp:48</div></div>
-<div class="ttc" id="aclasssxeval_1_1SXEval_html_ab7e0ede6a9cfce8c3494f7aa77194c8e"><div class="ttname"><a href="classsxeval_1_1SXEval.html#ab7e0ede6a9cfce8c3494f7aa77194c8e">sxeval::SXEval::evaluate</a></div><div class="ttdeci">T evaluate() const</div><div class="ttdoc">Evaluate the expression tree.</div><div class="ttdef"><b>Definition</b> SXEval.hpp:248</div></div>
+<div class="ttc" id="aclasssxeval_1_1SXEval_html_a38cbda01c8f9bd64df038d39c2f6e549"><div class="ttname"><a href="classsxeval_1_1SXEval.html#a38cbda01c8f9bd64df038d39c2f6e549">sxeval::SXEval::execute</a></div><div class="ttdeci">T execute() const</div><div class="ttdoc">Compute the result of the expression tree.</div><div class="ttdef"><b>Definition</b> SXEval.hpp:248</div></div>
 <div class="ttc" id="aclasssxeval_1_1SXEval_html_aef81ee34cd9159c756431c2d793a975b"><div class="ttname"><a href="classsxeval_1_1SXEval.html#aef81ee34cd9159c756431c2d793a975b">sxeval::SXEval::build</a></div><div class="ttdeci">void build(const std::string &amp;expression, const resolveVariable_t&lt; T &gt; &amp;resolveVariable=resolveVariable_t&lt; T &gt;(), const resolveEncapsulated_t&lt; T &gt; &amp;resolveEncapsulated=resolveEncapsulated_t&lt; T &gt;())</div><div class="ttdoc">Build the expression tree from a s-expression.</div><div class="ttdef"><b>Definition</b> SXEval.hpp:235</div></div>
 </div><!-- fragment --> <div class="fragment"><div class="line">$ ./examples/basic &#39;(+ y -2 (sqrt 16) (&gt; (^ x 2) 20))&#39;</div>
 <div class="line">+</div>
@@ -158,11 +173,11 @@ Quick-Start</h1>
 <div class="line"> </div>
 <div class="line">Result: 13 for expression &#39;(+ y -2 (sqrt 16) (&gt; (^ x 2) 20))&#39; with x=5 and y=10</div>
 <div class="line">Result: 4 for expression &#39;(+ y -2 (sqrt 16) (&gt; (^ x 2) 20))&#39; with x=3 and y=2</div>
-</div><!-- fragment --><h1><a class="anchor" id="autotoc_md4"></a>
+</div><!-- fragment --><h1><a class="anchor" id="autotoc_md3"></a>
 Operands</h1>
 <p>Variable names can be anything except <code>true</code> or <code>false</code>. These are reserved and defined as constant values <code>1</code> and <code>0</code>.</p>
 <p>Variables can be passed to SXEval either by reference (usual way) or by value (encapsulated way). The latter is not recommended as it is a little bit slower. The difference is highlighted in <a href="https://github.com/abadiet/SXEval/tree/main/examples/encapsulated-variables">/examples/encapsulated-variables</a>.</p>
-<h1><a class="anchor" id="autotoc_md5"></a>
+<h1><a class="anchor" id="autotoc_md4"></a>
 Operations</h1>
 <p>Custom operations can be easily added to SXEval. In addition, several ones are available. Please note that some of them may introduce approximations if used with floating-point types.</p>
 <table class="markdownTable">
@@ -217,66 +232,71 @@ Operations</h1>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone">Expm1   </td><td class="markdownTableBodyNone"><code>expm1</code>   </td><td class="markdownTableBodyNone">1   </td><td class="markdownTableBodyNone">1   </td><td class="markdownTableBodyNone">c.f. <code>std::expm1</code>    </td></tr>
 <tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">Exp   </td><td class="markdownTableBodyNone"><code>exp</code>   </td><td class="markdownTableBodyNone">1   </td><td class="markdownTableBodyNone">1   </td><td class="markdownTableBodyNone">c.f. <code>std::exp</code>    </td></tr>
+<tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone">Floor   </td><td class="markdownTableBodyNone"><code>floor</code>   </td><td class="markdownTableBodyNone">1   </td><td class="markdownTableBodyNone">1   </td><td class="markdownTableBodyNone">c.f. <code>std::floor</code>    </td></tr>
-<tr class="markdownTableRowEven">
+<tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone">Hypotenuse   </td><td class="markdownTableBodyNone"><code>hypot</code>   </td><td class="markdownTableBodyNone">2   </td><td class="markdownTableBodyNone">2   </td><td class="markdownTableBodyNone">c.f. <code>std::hypot</code>    </td></tr>
-<tr class="markdownTableRowOdd">
+<tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone">NaturalLogarithm   </td><td class="markdownTableBodyNone"><code>ln</code>   </td><td class="markdownTableBodyNone">1   </td><td class="markdownTableBodyNone">1   </td><td class="markdownTableBodyNone">c.f. <code>std::log</code>    </td></tr>
-<tr class="markdownTableRowEven">
+<tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone">Logarithm   </td><td class="markdownTableBodyNone"><code>log</code>   </td><td class="markdownTableBodyNone">1   </td><td class="markdownTableBodyNone">1   </td><td class="markdownTableBodyNone">c.f. <code>std::log</code>    </td></tr>
-<tr class="markdownTableRowOdd">
+<tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone">Logarithm10   </td><td class="markdownTableBodyNone"><code>log10</code>   </td><td class="markdownTableBodyNone">1   </td><td class="markdownTableBodyNone">1   </td><td class="markdownTableBodyNone">c.f. <code>std::log10</code>    </td></tr>
-<tr class="markdownTableRowEven">
+<tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone">Logarithm1p   </td><td class="markdownTableBodyNone"><code>log1p</code>   </td><td class="markdownTableBodyNone">1   </td><td class="markdownTableBodyNone">1   </td><td class="markdownTableBodyNone">c.f. <code>std::log1p</code>    </td></tr>
-<tr class="markdownTableRowOdd">
+<tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone">Logarithm2   </td><td class="markdownTableBodyNone"><code>log2</code>   </td><td class="markdownTableBodyNone">1   </td><td class="markdownTableBodyNone">1   </td><td class="markdownTableBodyNone">c.f. <code>std::log2</code>    </td></tr>
-<tr class="markdownTableRowEven">
+<tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone">LogarithmB   </td><td class="markdownTableBodyNone"><code>logB</code>   </td><td class="markdownTableBodyNone">2   </td><td class="markdownTableBodyNone">2   </td><td class="markdownTableBodyNone">Logarithm base B <code>logB(x, base)</code>    </td></tr>
-<tr class="markdownTableRowOdd">
+<tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone">Maximum   </td><td class="markdownTableBodyNone"><code>max</code>   </td><td class="markdownTableBodyNone">2   </td><td class="markdownTableBodyNone">∞   </td><td class="markdownTableBodyNone">c.f. <code>std::max</code>    </td></tr>
-<tr class="markdownTableRowEven">
+<tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone">Minimum   </td><td class="markdownTableBodyNone"><code>min</code>   </td><td class="markdownTableBodyNone">2   </td><td class="markdownTableBodyNone">∞   </td><td class="markdownTableBodyNone">c.f. <code>std::min</code>    </td></tr>
-<tr class="markdownTableRowOdd">
+<tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone">Round   </td><td class="markdownTableBodyNone"><code>round</code>   </td><td class="markdownTableBodyNone">1   </td><td class="markdownTableBodyNone">1   </td><td class="markdownTableBodyNone">c.f. <code>std::round</code>    </td></tr>
-<tr class="markdownTableRowEven">
+<tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone">SquareRoot   </td><td class="markdownTableBodyNone"><code>sqrt</code>   </td><td class="markdownTableBodyNone">1   </td><td class="markdownTableBodyNone">1   </td><td class="markdownTableBodyNone">c.f. <code>std::sqrt</code>    </td></tr>
-<tr class="markdownTableRowOdd">
+<tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone">Truncate   </td><td class="markdownTableBodyNone"><code>trunc</code>   </td><td class="markdownTableBodyNone">1   </td><td class="markdownTableBodyNone">1   </td><td class="markdownTableBodyNone">c.f. <code>std::trunc</code>    </td></tr>
-<tr class="markdownTableRowEven">
+<tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone">ArcCosine   </td><td class="markdownTableBodyNone"><code>acos</code>   </td><td class="markdownTableBodyNone">1   </td><td class="markdownTableBodyNone">1   </td><td class="markdownTableBodyNone">c.f. <code>std::acos</code>    </td></tr>
-<tr class="markdownTableRowOdd">
+<tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone">ArcCosh   </td><td class="markdownTableBodyNone"><code>acosh</code>   </td><td class="markdownTableBodyNone">1   </td><td class="markdownTableBodyNone">1   </td><td class="markdownTableBodyNone">c.f. <code>std::acosh</code>    </td></tr>
-<tr class="markdownTableRowEven">
+<tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone">ArcSine   </td><td class="markdownTableBodyNone"><code>asin</code>   </td><td class="markdownTableBodyNone">1   </td><td class="markdownTableBodyNone">1   </td><td class="markdownTableBodyNone">c.f. <code>std::asin</code>    </td></tr>
-<tr class="markdownTableRowOdd">
+<tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone">ArcSinh   </td><td class="markdownTableBodyNone"><code>asinh</code>   </td><td class="markdownTableBodyNone">1   </td><td class="markdownTableBodyNone">1   </td><td class="markdownTableBodyNone">c.f. <code>std::asinh</code>    </td></tr>
-<tr class="markdownTableRowEven">
+<tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone">ArcTangent   </td><td class="markdownTableBodyNone"><code>atan</code>   </td><td class="markdownTableBodyNone">1   </td><td class="markdownTableBodyNone">1   </td><td class="markdownTableBodyNone">c.f. <code>std::atan</code>    </td></tr>
-<tr class="markdownTableRowOdd">
+<tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone">ArcTangent2   </td><td class="markdownTableBodyNone"><code>atan2</code>   </td><td class="markdownTableBodyNone">2   </td><td class="markdownTableBodyNone">2   </td><td class="markdownTableBodyNone">c.f. <code>std::atan2</code>    </td></tr>
-<tr class="markdownTableRowEven">
+<tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone">ArcTanh   </td><td class="markdownTableBodyNone"><code>atanh</code>   </td><td class="markdownTableBodyNone">1   </td><td class="markdownTableBodyNone">1   </td><td class="markdownTableBodyNone">c.f. <code>std::atanh</code>    </td></tr>
-<tr class="markdownTableRowOdd">
+<tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone">Cosine   </td><td class="markdownTableBodyNone"><code>cos</code>   </td><td class="markdownTableBodyNone">1   </td><td class="markdownTableBodyNone">1   </td><td class="markdownTableBodyNone">c.f. <code>std::cos</code>    </td></tr>
-<tr class="markdownTableRowEven">
+<tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone">Cosh   </td><td class="markdownTableBodyNone"><code>cosh</code>   </td><td class="markdownTableBodyNone">1   </td><td class="markdownTableBodyNone">1   </td><td class="markdownTableBodyNone">c.f. <code>std::cosh</code>    </td></tr>
-<tr class="markdownTableRowOdd">
+<tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone">Sine   </td><td class="markdownTableBodyNone"><code>sin</code>   </td><td class="markdownTableBodyNone">1   </td><td class="markdownTableBodyNone">1   </td><td class="markdownTableBodyNone">c.f. <code>std::sin</code>    </td></tr>
-<tr class="markdownTableRowEven">
+<tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone">Sinh   </td><td class="markdownTableBodyNone"><code>sinh</code>   </td><td class="markdownTableBodyNone">1   </td><td class="markdownTableBodyNone">1   </td><td class="markdownTableBodyNone">c.f. <code>std::sinh</code>    </td></tr>
-<tr class="markdownTableRowOdd">
+<tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone">Tangent   </td><td class="markdownTableBodyNone"><code>tan</code>   </td><td class="markdownTableBodyNone">1   </td><td class="markdownTableBodyNone">1   </td><td class="markdownTableBodyNone">c.f. <code>std::tan</code>    </td></tr>
-<tr class="markdownTableRowEven">
+<tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone">Tanh   </td><td class="markdownTableBodyNone"><code>tanh</code>   </td><td class="markdownTableBodyNone">1   </td><td class="markdownTableBodyNone">1   </td><td class="markdownTableBodyNone">c.f. <code>std::tanh</code>    </td></tr>
-<tr class="markdownTableRowOdd">
+<tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone">DegreesToRadians   </td><td class="markdownTableBodyNone"><code>deg2rad</code>   </td><td class="markdownTableBodyNone">1   </td><td class="markdownTableBodyNone">1   </td><td class="markdownTableBodyNone"></td></tr>
-<tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone">RadiansToDegrees   </td><td class="markdownTableBodyNone"><code>rad2deg</code>   </td><td class="markdownTableBodyNone">1   </td><td class="markdownTableBodyNone">1   </td><td class="markdownTableBodyNone"></td></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone">DegreesToGradians   </td><td class="markdownTableBodyNone"><code>deg2grad</code>   </td><td class="markdownTableBodyNone">1   </td><td class="markdownTableBodyNone">1   </td><td class="markdownTableBodyNone"></td></tr>
+<td class="markdownTableBodyNone">RadiansToDegrees   </td><td class="markdownTableBodyNone"><code>rad2deg</code>   </td><td class="markdownTableBodyNone">1   </td><td class="markdownTableBodyNone">1   </td><td class="markdownTableBodyNone"></td></tr>
 <tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">DegreesToGradians   </td><td class="markdownTableBodyNone"><code>deg2grad</code>   </td><td class="markdownTableBodyNone">1   </td><td class="markdownTableBodyNone">1   </td><td class="markdownTableBodyNone"></td></tr>
+<tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone">GradiansToDegrees   </td><td class="markdownTableBodyNone"><code>grad2deg</code>   </td><td class="markdownTableBodyNone">1   </td><td class="markdownTableBodyNone">1   </td><td class="markdownTableBodyNone"></td></tr>
 </table>
+<h1><a class="anchor" id="autotoc_md5"></a>
+Class Diagram</h1>
+<p><img src="https://raw.githubusercontent.com/abadiet/SXEval/refs/heads/v1.0/uml/class-diagram.png?raw=true" alt="" style="max-width: 100%;" class="inline"/></p>
 <h1><a class="anchor" id="autotoc_md6"></a>
 Options</h1>
 <ul>

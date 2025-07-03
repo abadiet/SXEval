@@ -18,6 +18,7 @@ var namespacesxeval_1_1operations =
     [ "DegreesToRadians", "classsxeval_1_1operations_1_1DegreesToRadians.html", "classsxeval_1_1operations_1_1DegreesToRadians" ],
     [ "Division", "classsxeval_1_1operations_1_1Division.html", "classsxeval_1_1operations_1_1Division" ],
     [ "Equal", "classsxeval_1_1operations_1_1Equal.html", "classsxeval_1_1operations_1_1Equal" ],
+    [ "Exp", "classsxeval_1_1operations_1_1Exp.html", "classsxeval_1_1operations_1_1Exp" ],
     [ "Expm1", "classsxeval_1_1operations_1_1Expm1.html", "classsxeval_1_1operations_1_1Expm1" ],
     [ "Exponentiation", "classsxeval_1_1operations_1_1Exponentiation.html", "classsxeval_1_1operations_1_1Exponentiation" ],
     [ "Floor", "classsxeval_1_1operations_1_1Floor.html", "classsxeval_1_1operations_1_1Floor" ],

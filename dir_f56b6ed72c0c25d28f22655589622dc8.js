@@ -18,6 +18,7 @@ var dir_f56b6ed72c0c25d28f22655589622dc8 =
     [ "DegreesToRadians.hpp", "DegreesToRadians_8hpp.html", "DegreesToRadians_8hpp" ],
     [ "Division.hpp", "Division_8hpp.html", "Division_8hpp" ],
     [ "Equal.hpp", "Equal_8hpp.html", "Equal_8hpp" ],
+    [ "Exp.hpp", "Exp_8hpp.html", "Exp_8hpp" ],
     [ "Expm1.hpp", "Expm1_8hpp.html", "Expm1_8hpp" ],
     [ "Exponentiation.hpp", "Exponentiation_8hpp.html", "Exponentiation_8hpp" ],
     [ "Floor.hpp", "Floor_8hpp.html", "Floor_8hpp" ],
