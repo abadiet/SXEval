@@ -4,7 +4,7 @@ Average duration in microseconds for 1000 complex mathematical s-expressions (c.
 
 **CPU**: Apple M3
 
-Phases:
+Phases (c.f [/examples/execute-vs-interpret](https://github.com/abadiet/SXEval/tree/v1.0/examples/execute-vs-interpret)):
 - *Building*: Compiles an expression to optimize its execution.
 - *Execution*: Evaluates a pre-built, constant expression (though it may reference non-constant variables). Requires a one-time *Building* step, after which the expression is immutable but can be executed efficiently multiple times.
 - *Interpretation*: Evaluates any expression directly, without prior building. Combines a lightweight build and execution step, making it ideal for one-time or infrequent evaluations.

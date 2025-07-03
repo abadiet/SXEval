@@ -50,9 +50,9 @@ int main(int argc, char** argv) {
         a.setValue(1.3);
         b.setValue(-3.5);
         double result = eval.execute();
-        printf(
-            "Result: %lf for expression '%s' with x=%lf, y=%lf, a=%lf and b=%lf\n",
-            result, argv[1], x, y, a.getValue(), b.getValue());
+        std::cout << "Result: " << result << " for expression '" << argv[1]
+            << "' with x=" << x << ", y=" << y << ", a=" << a.getValue()
+            << " and b=" << b.getValue() << std::endl;
     }
 
     {
@@ -62,9 +62,9 @@ int main(int argc, char** argv) {
         a.setValue(4.9);
         b.setValue(7.8);
         double result = eval.execute();
-        printf(
-            "Result: %lf for expression '%s' with x=%lf, y=%lf, a=%lf and b=%lf\n",
-            result, argv[1], x, y, a.getValue(), b.getValue());
+        std::cout << "Result: " << result << " for expression '" << argv[1]
+            << "' with x=" << x << ", y=" << y << ", a=" << a.getValue()
+            << " and b=" << b.getValue() << std::endl;
     }
 
     return 0;

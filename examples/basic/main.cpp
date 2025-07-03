@@ -34,8 +34,8 @@ int main(int argc, char** argv) {
         x = 5;
         y = 10;
         int result = eval.execute();
-        printf("Result: %d for expression '%s' with x=%d and y=%d\n", result,
-            argv[1], x, y);
+        std::cout << "Result: " << result << " for expression '" << argv[1]
+            << "' with x=" << x << " and y=" << y << std::endl;
     }
 
     {
@@ -43,8 +43,8 @@ int main(int argc, char** argv) {
         x = 3;
         y = 2;
         int result = eval.execute();
-        printf("Result: %d for expression '%s' with x=%d and y=%d\n", result,
-            argv[1], x, y);
+        std::cout << "Result: " << result << " for expression '" << argv[1]
+            << "' with x=" << x << " and y=" << y << std::endl;
     }
 
     return 0;

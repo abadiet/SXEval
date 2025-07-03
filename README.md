@@ -8,7 +8,7 @@ Based on the original C library [SXEval-C](https://github.com/abadiet/SXEval-C).
 ## Benchmark
 Average duration in microseconds for 1000 complex mathematical s-expressions (c.f. [expressions.lst](https://github.com/abadiet/SXEval/tree/v1.0/benchmark/expressions.lst)).
 
-Phases:
+Phases (c.f [/examples/execute-vs-interpret](https://github.com/abadiet/SXEval/tree/v1.0/examples/execute-vs-interpret)):
 - ***Building***: Compiles an expression to optimize its execution.
 - ***Execution***: Evaluates a pre-built, constant expression (though it may reference non-constant variables). Requires a one-time *Building* step, after which the expression is immutable but can be executed efficiently multiple times.
 - ***Interpretation***: Evaluates any expression directly, without prior building. Combines a lightweight build and execution step, making it ideal for one-time or infrequent evaluations.
@@ -50,8 +50,8 @@ std::cout << eval << std::endl;
     x = 5;
     y = 10;
     int result = eval.execute();
-    printf("Result: %d for expression '%s' with x=%d and y=%d\n", result,
-        argv[1], x, y);
+    std::cout << "Result: " << result << " for expression '" << argv[1]
+        << "' with x=" << x << " and y=" << y << std::endl;
 }
 
 {
@@ -59,8 +59,8 @@ std::cout << eval << std::endl;
     x = 3;
     y = 2;
     int result = eval.execute();
-    printf("Result: %d for expression '%s' with x=%d and y=%d\n", result,
-        argv[1], x, y);
+    std::cout << "Result: " << result << " for expression '" << argv[1]
+        << "' with x=" << x << " and y=" << y << std::endl;
 }
 ```
 ```
