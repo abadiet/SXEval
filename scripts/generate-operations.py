@@ -172,6 +172,20 @@ sxeval::operations::OperationsFactory<T>::create(
     return it->second(args);
 }}
 
+template <typename T>
+T sxeval::operations::OperationsFactory<T>::compute(
+    const std::string& key, const std::vector<sxeval::AInstruction<T>*> args)
+    const
+{{
+    const auto it = _operations.find(key);
+    if (it == _operations.end()) {{
+        throw std::invalid_argument("Unknown operation key: " + key);
+    }}
+    const auto op = it->second(args);
+    op->execute();
+    return op->getResult();
+}}
+
 #endif /* SXEVAL_OPERATIONS_HPP */
 '''
 
