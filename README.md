@@ -162,6 +162,8 @@ with floating-point types.
 
 ## Options
 - `BUILD_EXAMPLES`: Build examples
+- `BUILD_TESTS`: Build tests
+- `BUILD_BENCHMARK`: Build benchmark
 - `SXEVAL_DEBUG`: Print debug information
 
 ## ChangeLog
