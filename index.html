@@ -95,7 +95,6 @@ $(document).ready(function(){initNavTree('index.html',''); initResizable(); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_README"></a>A very fast generic s-expression interpreter library.</p>
 <p><em>5x faster than <a href="https://github.com/ashinn/chibi-scheme/">Chibi Scheme</a>, ~1500x faster in its optimized mode...</em></p>
-<p>Supported types include: <code>int</code>, <code>signed char</code>, <code>short int</code>, <code>long int</code>, <code>unsigned int</code>, <code>unsigned char</code>, <code>unsigned long int</code>, <code>float</code>, <code>double</code> and <code>long double</code>.</p>
 <p>Based on the original C library <a href="https://github.com/abadiet/SXEval-C">SXEval-C</a>.</p>
 <h1><a class="anchor" id="autotoc_md1"></a>
 Benchmark</h1>
@@ -176,6 +175,7 @@ Quick-Start</h1>
 <div class="line">Result: 4 for expression &#39;(+ y -2 (sqrt 16) (&gt; (^ x 2) 20))&#39; with x=3 and y=2</div>
 </div><!-- fragment --><h1><a class="anchor" id="autotoc_md3"></a>
 Operands</h1>
+<p>Supported types include: <code>int</code>, <code>signed char</code>, <code>short int</code>, <code>long int</code>, <code>unsigned int</code>, <code>unsigned char</code>, <code>unsigned long int</code>, <code>float</code>, <code>double</code> and <code>long double</code>.</p>
 <p>Variable names can be anything except <code>true</code> or <code>false</code>. These are reserved and defined as constant values <code>1</code> and <code>0</code>.</p>
 <p>Variables can be passed to SXEval either by reference (usual way) or by value (encapsulated way). The latter is not recommended as it is a little bit slower. The difference is highlighted in <a href="https://github.com/abadiet/SXEval/tree/main/examples/encapsulated-variables">/examples/encapsulated-variables</a>.</p>
 <h1><a class="anchor" id="autotoc_md4"></a>
