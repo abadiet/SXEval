@@ -10,6 +10,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 > [operations](https://github.com/abadiet/SXEval/blob/v1.0/include/sxeval/operations).
 > Backward compatibility is not guaranteed outside.
 
+## Untracked
+### Added
+- Benchmark
+- SXEval::eval -> SXEval::execute
+- SXEval::copmute -> SXEval::interpret
+- Exp operation
+### Fixed
+- generate-operations.py
+
 ## [v1.0.3] - 2025-07-02
 ### Added
 - Direct computation without building the expression tree.

@@ -7,11 +7,23 @@ Supported types include:
 
 Based on the original C library [SXEval-C](https://github.com/abadiet/SXEval-C).
 
-## Class Diagram
-<img src="https://raw.githubusercontent.com/abadiet/SXEval/refs/heads/v1.0/uml/class-diagram.png?raw=true" style="max-width: 100%;">
-
 ## Benchmark
-*Comming soon...*
+
+Average duration in microseconds for 1000 complex mathematical s-expressions (c.f. [expressions.lst](https://github.com/abadiet/SXEval/tree/v1.0/benchmark/expressions.lst)).
+
+Phases:
+- ***Building***: Compiles an expression to optimize its execution.
+- ***Execution***: Evaluates a pre-built, constant expression (though it may reference non-constant variables). Requires a one-time *Building* step, after which the expression is immutable but can be executed efficiently multiple times.
+- ***Interpretation***: Evaluates any expression directly, without prior building. Combines a lightweight build and execution step, making it ideal for one-time or infrequent evaluations.
+
+| | Building | Execution | Interpretation |
+|-|-|-|-|
+| SXEval | 6150 | 19 | 5988 |
+| Chibi Scheme | 108 | 28427 | 27140 |
+| GNU Guile | | | |
+| s7 | | | |
+
+c.f [/benchmark](https://github.com/abadiet/SXEval/tree/v1.0/benchmark)
 
 ## Quick-Start
 From [/examples/basic](https://github.com/abadiet/SXEval/tree/v1.0/examples/basic)
@@ -40,7 +52,7 @@ std::cout << eval << std::endl;
     /* first evaluation */
     x = 5;
     y = 10;
-    int result = eval.evaluate();
+    int result = eval.execute();
     printf("Result: %d for expression '%s' with x=%d and y=%d\n", result,
         argv[1], x, y);
 }
@@ -49,7 +61,7 @@ std::cout << eval << std::endl;
     /* second evaluation */
     x = 3;
     y = 2;
-    int result = eval.evaluate();
+    int result = eval.execute();
     printf("Result: %d for expression '%s' with x=%d and y=%d\n", result,
         argv[1], x, y);
 }
@@ -141,6 +153,10 @@ with floating-point types.
 | RadiansToDegrees | `rad2deg` | 1 | 1 |  |
 | DegreesToGradians | `deg2grad` | 1 | 1 |  |
 | GradiansToDegrees | `grad2deg` | 1 | 1 |  |
+
+
+## Class Diagram
+<img src="https://raw.githubusercontent.com/abadiet/SXEval/refs/heads/v1.0/uml/class-diagram.png?raw=true" style="max-width: 100%;">
 
 ## Options
 - `BUILD_EXAMPLES`: Build examples

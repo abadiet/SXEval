@@ -1,0 +1,24 @@
+<Operations>
+    <!-- Mathematical Operators -->
+    <Operation key="+" min_arity="2" max_arity="-1"/>
+    <Operation key="-" min_arity="2" max_arity="-1"/>
+    <Operation key="*" min_arity="2" max_arity="-1"/>
+    <Operation key="/" min_arity="2" max_arity="-1"/>
+
+    <!-- Functions -->
+    <Operation key="ceil" min_arity="1" max_arity="1"/>
+    <Operation key="exp" min_arity="1" max_arity="1"/>
+    <Operation key="floor" min_arity="1" max_arity="1"/>
+    <Operation key="ln" min_arity="1" max_arity="1"/>
+    <Operation key="round" min_arity="1" max_arity="1"/>
+    <Operation key="sqrt" min_arity="1" max_arity="1"/>
+    <Operation key="trunc" min_arity="1" max_arity="1"/>
+
+    <!-- Trigonometry -->
+    <!-- <Operation key="acos" min_arity="1" max_arity="1"/>
+    <Operation key="asin" min_arity="1" max_arity="1"/>
+    <Operation key="atan" min_arity="1" max_arity="1"/>
+    <Operation key="cos" min_arity="1" max_arity="1"/>
+    <Operation key="sin" min_arity="1" max_arity="1"/>
+    <Operation key="tan" min_arity="1" max_arity="1"/> -->
+</Operations>
