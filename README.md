@@ -3,10 +3,6 @@ A very fast generic s-expression interpreter library.
 
 *5x faster than [Chibi Scheme](https://github.com/ashinn/chibi-scheme/), ~1500x faster in its optimized mode...*
 
-Supported types include:
-`int`, `signed char`, `short int`, `long int`, `unsigned int`, `unsigned char`,
-`unsigned long int`, `float`, `double` and `long double`.
-
 Based on the original C library [SXEval-C](https://github.com/abadiet/SXEval-C).
 
 ## Benchmark
@@ -85,6 +81,11 @@ Result: 4 for expression '(+ y -2 (sqrt 16) (> (^ x 2) 20))' with x=3 and y=2
 ```
 
 ## Operands
+
+Supported types include:
+`int`, `signed char`, `short int`, `long int`, `unsigned int`, `unsigned char`,
+`unsigned long int`, `float`, `double` and `long double`.
+
 Variable names can be anything except `true` or `false`. These are
 reserved and defined as constant values `1` and `0`.
 
