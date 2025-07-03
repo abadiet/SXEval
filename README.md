@@ -1,5 +1,7 @@
 # SXEval
-A generic s-expression interpreter library.
+A very fast generic s-expression interpreter library.
+
+*5x faster than [Chibi Scheme](https://github.com/ashinn/chibi-scheme/), ~1500x faster in its optimized mode...*
 
 Supported types include:
 `int`, `signed char`, `short int`, `long int`, `unsigned int`, `unsigned char`,
@@ -8,7 +10,6 @@ Supported types include:
 Based on the original C library [SXEval-C](https://github.com/abadiet/SXEval-C).
 
 ## Benchmark
-
 Average duration in microseconds for 1000 complex mathematical s-expressions (c.f. [expressions.lst](https://github.com/abadiet/SXEval/tree/v1.0/benchmark/expressions.lst)).
 
 Phases:
@@ -18,10 +19,10 @@ Phases:
 
 | | Building | Execution | Interpretation |
 |-|-|-|-|
-| SXEval | 5121 | 16 | 5004 |
-| Chibi Scheme | 99 | 26987 | 25709 |
-| GNU Guile | | | |
-| s7 | | | |
+| [SXEval](https://github.com/abadiet/SXEval) | 5121 | 16 | 5004 |
+| [Chibi Scheme](https://github.com/ashinn/chibi-scheme/) | 99 | 26987 | 25709 |
+| [GNU Guile](https://www.gnu.org/software/guile/) | | | |
+| [s7](https://ccrma.stanford.edu/software/s7/s7.html) | | | |
 
 c.f [/benchmark](https://github.com/abadiet/SXEval/tree/v1.0/benchmark)
 
