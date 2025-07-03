@@ -49,7 +49,7 @@ int main(int argc, char** argv) {
         y = 10.7;
         a.setValue(1.3);
         b.setValue(-3.5);
-        double result = eval.evaluate();
+        double result = eval.execute();
         printf(
             "Result: %lf for expression '%s' with x=%lf, y=%lf, a=%lf and b=%lf\n",
             result, argv[1], x, y, a.getValue(), b.getValue());
@@ -61,7 +61,7 @@ int main(int argc, char** argv) {
         y = 2.0;
         a.setValue(4.9);
         b.setValue(7.8);
-        double result = eval.evaluate();
+        double result = eval.execute();
         printf(
             "Result: %lf for expression '%s' with x=%lf, y=%lf, a=%lf and b=%lf\n",
             result, argv[1], x, y, a.getValue(), b.getValue());

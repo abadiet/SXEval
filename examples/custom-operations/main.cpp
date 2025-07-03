@@ -38,7 +38,7 @@ int main(int argc, char** argv) {
         /* first evaluation */
         x = 5;
         y = 10;
-        int result = eval.evaluate();
+        int result = eval.execute();
         printf("Result: %d for expression '%s' with x=%d and y=%d\n", result,
             argv[1], x, y);
     }
@@ -47,7 +47,7 @@ int main(int argc, char** argv) {
         /* second evaluation */
         x = 3;
         y = 2;
-        int result = eval.evaluate();
+        int result = eval.execute();
         printf("Result: %d for expression '%s' with x=%d and y=%d\n", result,
             argv[1], x, y);
     }

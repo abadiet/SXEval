@@ -108,14 +108,14 @@ public:
     { build(expression, resolveVariable, resolveEncapsulated); }
 
     /**
-     * @brief Evaluate the expression tree.
+     * @brief Compute the result of the expression tree.
      *
-     * @return The result of the evaluation.
+     * @return The result of the computation.
      * @throws std::runtime_error if no operations have been registered or if
      * the evaluation fails.
      * @note build() must have been called before calling this method.
      */
-    T evaluate() const;
+    T execute() const;
 
     /**
      * @brief Compute the result of an expression without building its tree.
@@ -137,7 +137,7 @@ public:
      * the result of the expression. It is useful for quick/unique evaluations
      * without the overhead of building a tree.
      */
-    T compute(const std::string& expression,
+    T interpret(const std::string& expression,
         const resolveVariable_t<T>& resolveVariable = resolveVariable_t<T>(),
         const resolveEncapsulated_t<T>& resolveEncapsulated
         = resolveEncapsulated_t<T>()) const;
@@ -161,16 +161,16 @@ public:
      * @note This method does not build the expression tree, it only computes
      * the result of the expression. It is useful for quick/unique evaluations
      * without the overhead of building a tree.
-     * @note This is an overload of the compute() method that allows
+     * @note This is an overload of the interpret() method that allows
      * specifying the resolveEncapsulated function first, which can be useful if
      * the resolveVariable function is not needed.
      */
-    inline T compute(const std::string& expression,
+    inline T interpret(const std::string& expression,
         const resolveEncapsulated_t<T>& resolveEncapsulated
         = resolveEncapsulated_t<T>(),
         const resolveVariable_t<T>& resolveVariable = resolveVariable_t<T>())
         const
-    { return compute(expression, resolveVariable, resolveEncapsulated); }
+    { return interpret(expression, resolveVariable, resolveEncapsulated); }
 
     /**
      * @brief Convert the expression tree to a string representation.
@@ -197,7 +197,7 @@ private:
     static void _fillParents(_Node& parent);
     static void _buildTreeStr(std::ostream& oss, const _Node& node, size_t depth
         );
-    T _compute(const std::string& exp, size_t* idx,
+    T _interpret(const std::string& exp, size_t* idx,
         const resolveVariable_t<T>& resolveVariable,
         const resolveEncapsulated_t<T>& resolveEncapsulated) const;
 
@@ -245,7 +245,7 @@ void sxeval::SXEval<T>::build(const std::string& expression,
 }
 
 template <typename T>
-T sxeval::SXEval<T>::evaluate() const {
+T sxeval::SXEval<T>::execute() const {
     if (_operations.size() == 0) {
         throw std::runtime_error("No operations found");
     }
@@ -259,16 +259,16 @@ T sxeval::SXEval<T>::evaluate() const {
 }
 
 template <typename T>
-T sxeval::SXEval<T>::compute(const std::string& expression,
+T sxeval::SXEval<T>::interpret(const std::string& expression,
     const resolveVariable_t<T>& resolveVariable,
     const resolveEncapsulated_t<T>& resolveEncapsulated) const
 {
     size_t idx = 0;
-    return _compute(expression, &idx, resolveVariable, resolveEncapsulated);
+    return _interpret(expression, &idx, resolveVariable, resolveEncapsulated);
 }
 
 template <typename T>
-T sxeval::SXEval<T>::_compute(const std::string& exp, size_t* idx,
+T sxeval::SXEval<T>::_interpret(const std::string& exp, size_t* idx,
     const resolveVariable_t<T>& resolveVariable,
     const resolveEncapsulated_t<T>& resolveEncapsulated) const
 {
@@ -282,7 +282,7 @@ T sxeval::SXEval<T>::_compute(const std::string& exp, size_t* idx,
         std::vector<AInstruction<T>*> pargs;
         _skipChars(exp, idx);
         while (exp[*idx] != ')') {
-            const auto val = _compute(exp, idx, resolveVariable,
+            const auto val = _interpret(exp, idx, resolveVariable,
                 resolveEncapsulated);
             args.push_back(std::make_unique<Value<T>>(val));
             pargs.push_back(args.back().get());
