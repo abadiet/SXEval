@@ -27,6 +27,7 @@
 #include "sxeval/operations/Ceiling.hpp"
 #include "sxeval/operations/Clamp.hpp"
 #include "sxeval/operations/Expm1.hpp"
+#include "sxeval/operations/Exp.hpp"
 #include "sxeval/operations/Floor.hpp"
 #include "sxeval/operations/Hypotenuse.hpp"
 #include "sxeval/operations/NaturalLogarithm.hpp"
@@ -158,6 +159,7 @@ sxeval::operations::OperationsFactory<T>::OperationsFactory() {
     add<Ceiling<T>>();
     add<Clamp<T>>();
     add<Expm1<T>>();
+    add<Exp<T>>();
     add<Floor<T>>();
     add<Hypotenuse<T>>();
     add<NaturalLogarithm<T>>();

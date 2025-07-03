@@ -105,11 +105,12 @@ with floating-point types.
 | LogicalXnor | `xnor` | 2 | ∞ | Return `true` (i.e. `1`) if the arguments, as boolean values, are all equal. |
 | LogicalNand | `nand` | 2 | ∞ | Return `true` (i.e. `1`) if at least one of the arguments is `false` (i.e. `0`). |
 | LogicalNor | `nor` | 2 | ∞ | Return `true` (i.e. `1`) if all the arguments are `false` (i.e. `0`). |
-| AbsoluteValue | `abs` | 1 | 1 | |
+| AbsoluteValue | `abs` | 1 | 1 |  |
 | Average | `avg` | 2 | ∞ |  |
 | Ceiling | `ceil` | 1 | 1 | c.f. `std::ceil` |
 | Clamp | `clamp` | 3 | 3 | c.f. `std::clamp` |
 | Expm1 | `expm1` | 1 | 1 | c.f. `std::expm1` |
+| Exp | `exp` | 1 | 1 | c.f. `std::exp` |
 | Floor | `floor` | 1 | 1 | c.f. `std::floor` |
 | Hypotenuse | `hypot` | 2 | 2 | c.f. `std::hypot` |
 | NaturalLogarithm | `ln` | 1 | 1 | c.f. `std::log` |

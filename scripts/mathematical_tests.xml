@@ -491,6 +491,8 @@
     </Operation>
     <Operation name="Expm1" key="expm1">
     </Operation>
+    <Operation name="Exp" key="exp">
+    </Operation>
     <Operation name="Floor" key="floor">
     </Operation>
     <Operation name="Hypotenuse" key="hypot">

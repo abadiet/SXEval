@@ -30,6 +30,7 @@
     <Operation name="Ceiling" key="ceil" min_arity="1" max_arity="1" cpp_op="std::ceil"/>
     <Operation name="Clamp" key="clamp" min_arity="3" max_arity="3" cpp_op="std::clamp"/>
     <Operation name="Expm1" key="expm1" min_arity="1" max_arity="1" cpp_op="std::expm1"/>
+    <Operation name="Exp" key="exp" min_arity="1" max_arity="1" cpp_op="std::exp"/>
     <Operation name="Floor" key="floor" min_arity="1" max_arity="1" cpp_op="std::floor"/>
     <Operation name="Hypotenuse" key="hypot" min_arity="2" max_arity="2" cpp_op="std::hypot"/>
     <Operation name="NaturalLogarithm" key="ln" min_arity="1" max_arity="1" cpp_op="std::log"/>
