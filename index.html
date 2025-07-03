@@ -93,7 +93,8 @@ $(document).ready(function(){initNavTree('index.html',''); initResizable(); });
   <div class="headertitle"><div class="title">SXEval </div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p><a class="anchor" id="md_README"></a>A generic s-expression interpreter library.</p>
+<div class="textblock"><p><a class="anchor" id="md_README"></a>A very fast generic s-expression interpreter library.</p>
+<p><em>5x faster than <a href="https://github.com/ashinn/chibi-scheme/">Chibi Scheme</a>, ~1500x faster in its optimized mode...</em></p>
 <p>Supported types include: <code>int</code>, <code>signed char</code>, <code>short int</code>, <code>long int</code>, <code>unsigned int</code>, <code>unsigned char</code>, <code>unsigned long int</code>, <code>float</code>, <code>double</code> and <code>long double</code>.</p>
 <p>Based on the original C library <a href="https://github.com/abadiet/SXEval-C">SXEval-C</a>.</p>
 <h1><a class="anchor" id="autotoc_md1"></a>
@@ -108,13 +109,13 @@ Benchmark</h1>
 <tr class="markdownTableHead">
 <th class="markdownTableHeadNone"></th><th class="markdownTableHeadNone">Building   </th><th class="markdownTableHeadNone">Execution   </th><th class="markdownTableHeadNone">Interpretation    </th></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone">SXEval   </td><td class="markdownTableBodyNone">5121   </td><td class="markdownTableBodyNone">16   </td><td class="markdownTableBodyNone">5004    </td></tr>
+<td class="markdownTableBodyNone"><a href="https://github.com/abadiet/SXEval">SXEval</a>   </td><td class="markdownTableBodyNone">5121   </td><td class="markdownTableBodyNone">16   </td><td class="markdownTableBodyNone">5004    </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone">Chibi Scheme   </td><td class="markdownTableBodyNone">99   </td><td class="markdownTableBodyNone">26987   </td><td class="markdownTableBodyNone">25709    </td></tr>
+<td class="markdownTableBodyNone"><a href="https://github.com/ashinn/chibi-scheme/">Chibi Scheme</a>   </td><td class="markdownTableBodyNone">99   </td><td class="markdownTableBodyNone">26987   </td><td class="markdownTableBodyNone">25709    </td></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone">GNU Guile   </td><td class="markdownTableBodyNone"></td><td class="markdownTableBodyNone"></td><td class="markdownTableBodyNone"></td></tr>
+<td class="markdownTableBodyNone"><a href="https://www.gnu.org/software/guile/">GNU Guile</a>   </td><td class="markdownTableBodyNone"></td><td class="markdownTableBodyNone"></td><td class="markdownTableBodyNone"></td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone">s7   </td><td class="markdownTableBodyNone"></td><td class="markdownTableBodyNone"></td><td class="markdownTableBodyNone"></td></tr>
+<td class="markdownTableBodyNone"><a href="https://ccrma.stanford.edu/software/s7/s7.html">s7</a>   </td><td class="markdownTableBodyNone"></td><td class="markdownTableBodyNone"></td><td class="markdownTableBodyNone"></td></tr>
 </table>
 <p>c.f <a href="https://github.com/abadiet/SXEval/tree/v1.0/benchmark">/benchmark</a></p>
 <h1><a class="anchor" id="autotoc_md2"></a>
