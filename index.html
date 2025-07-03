@@ -99,7 +99,7 @@ $(document).ready(function(){initNavTree('index.html',''); initResizable(); });
 <h1><a class="anchor" id="autotoc_md1"></a>
 Benchmark</h1>
 <p>Average duration in microseconds for 1000 complex mathematical s-expressions (c.f. <a href="https://github.com/abadiet/SXEval/tree/v1.0/benchmark/expressions.lst">expressions.lst</a>).</p>
-<p>Phases:</p><ul>
+<p>Phases (c.f <a href="https://github.com/abadiet/SXEval/tree/v1.0/examples/execute-vs-interpret">/examples/execute-vs-interpret</a>):</p><ul>
 <li><em><b>Building</b></em>: Compiles an expression to optimize its execution.</li>
 <li><em><b>Execution</b></em>: Evaluates a pre-built, constant expression (though it may reference non-constant variables). Requires a one-time <em>Building</em> step, after which the expression is immutable but can be executed efficiently multiple times.</li>
 <li><em><b>Interpretation</b></em>: Evaluates any expression directly, without prior building. Combines a lightweight build and execution step, making it ideal for one-time or infrequent evaluations.</li>
@@ -144,8 +144,8 @@ Quick-Start</h1>
 <div class="line">    x = 5;</div>
 <div class="line">    y = 10;</div>
 <div class="line">    <span class="keywordtype">int</span> result = eval.<a class="code hl_function" href="classsxeval_1_1SXEval.html#a38cbda01c8f9bd64df038d39c2f6e549">execute</a>();</div>
-<div class="line">    printf(<span class="stringliteral">&quot;Result: %d for expression &#39;%s&#39; with x=%d and y=%d\n&quot;</span>, result,</div>
-<div class="line">        argv[1], x, y);</div>
+<div class="line">    std::cout &lt;&lt; <span class="stringliteral">&quot;Result: &quot;</span> &lt;&lt; result &lt;&lt; <span class="stringliteral">&quot; for expression &#39;&quot;</span> &lt;&lt; argv[1]</div>
+<div class="line">        &lt;&lt; <span class="stringliteral">&quot;&#39; with x=&quot;</span> &lt;&lt; x &lt;&lt; <span class="stringliteral">&quot; and y=&quot;</span> &lt;&lt; y &lt;&lt; std::endl;</div>
 <div class="line">}</div>
 <div class="line"> </div>
 <div class="line">{</div>
@@ -153,8 +153,8 @@ Quick-Start</h1>
 <div class="line">    x = 3;</div>
 <div class="line">    y = 2;</div>
 <div class="line">    <span class="keywordtype">int</span> result = eval.<a class="code hl_function" href="classsxeval_1_1SXEval.html#a38cbda01c8f9bd64df038d39c2f6e549">execute</a>();</div>
-<div class="line">    printf(<span class="stringliteral">&quot;Result: %d for expression &#39;%s&#39; with x=%d and y=%d\n&quot;</span>, result,</div>
-<div class="line">        argv[1], x, y);</div>
+<div class="line">    std::cout &lt;&lt; <span class="stringliteral">&quot;Result: &quot;</span> &lt;&lt; result &lt;&lt; <span class="stringliteral">&quot; for expression &#39;&quot;</span> &lt;&lt; argv[1]</div>
+<div class="line">        &lt;&lt; <span class="stringliteral">&quot;&#39; with x=&quot;</span> &lt;&lt; x &lt;&lt; <span class="stringliteral">&quot; and y=&quot;</span> &lt;&lt; y &lt;&lt; std::endl;</div>
 <div class="line">}</div>
 <div class="ttc" id="aclasssxeval_1_1SXEval_html"><div class="ttname"><a href="classsxeval_1_1SXEval.html">sxeval::SXEval</a></div><div class="ttdoc">The SXEval class is used to evaluate s-expressions.</div><div class="ttdef"><b>Definition</b> SXEval.hpp:48</div></div>
 <div class="ttc" id="aclasssxeval_1_1SXEval_html_a38cbda01c8f9bd64df038d39c2f6e549"><div class="ttname"><a href="classsxeval_1_1SXEval.html#a38cbda01c8f9bd64df038d39c2f6e549">sxeval::SXEval::execute</a></div><div class="ttdeci">T execute() const</div><div class="ttdoc">Compute the result of the expression tree.</div><div class="ttdef"><b>Definition</b> SXEval.hpp:248</div></div>
