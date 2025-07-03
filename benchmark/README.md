@@ -18,7 +18,7 @@ Phases:
 
 | | Building | Execution | Interpretation |
 |-|-|-|-|
-| SXEval | 6150 | 19 | 5988 |
-| Chibi Scheme | 108 | 28427 | 27140 |
+| SXEval | 5121 | 16 | 5004 |
+| Chibi Scheme | 99 | 26987 | 25709 |
 | GNU Guile | | | |
 | s7 | | | |

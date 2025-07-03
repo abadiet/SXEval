@@ -52,7 +52,7 @@ def generate_expression(operations, max_depth, max_arity, ratio_atom, ratio_valu
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Random s-expression generator.")
     parser.add_argument("operations_xml", help="XML file containing operation definitions.")
-    parser.add_argument("--count", type=int, default=100, help="Number of expressions to generate.")
+    parser.add_argument("--count", type=int, default=1000, help="Number of expressions to generate.")
     parser.add_argument("--max-depth", type=int, default=10, help="Maximum recursion depth.")
     parser.add_argument("--max-arity", type=int, default=10, help="Maximum arity.")
     parser.add_argument("--ratio-atom", type=int, default=0.3, help="Atom/Operation ratio.")
