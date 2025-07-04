@@ -1,25 +1,24 @@
-#include "Wrapper.hpp"
+#include "WrapperInterpretation.hpp"
 #include "../myVar.hpp"
 #include <vector>
 #include <functional>
 #include <sxeval/SXEval.hpp>
 
+#define UNUSED(x) (void)(x)
+
 namespace benchmark {
 namespace sxeval {
 
-void Wrapper::build(const std::string& input) {
-    _eval.build(input, _resolveVariable, _resolveEncapsulated);
+void WrapperInterpretation::build(const std::string& input) {
+    _eval = new ::sxeval::SXEval<double>();
+    UNUSED(input);
 }
 
-double Wrapper::execute() {
-    return _eval.execute();
+double WrapperInterpretation::evaluate(const std::string& input) {
+    return _eval->interpret(input, _resolveVariable, _resolveEncapsulated);
 }
 
-double Wrapper::interpret(const std::string& input) {
-    return _eval.interpret(input, _resolveVariable, _resolveEncapsulated);
-}
-
-double& Wrapper::_resolveVariable(const std::string& var) {
+double& WrapperInterpretation::_resolveVariable(const std::string& var) {
     if (var.front() == 'n') {
         const std::string id = var.substr(1);
         const auto index = static_cast<size_t>(std::atoi(id.c_str()));
@@ -28,7 +27,7 @@ double& Wrapper::_resolveVariable(const std::string& var) {
     throw std::invalid_argument("Unknown variable");
 }
 
-std::function<double(void)> Wrapper::_resolveEncapsulated(
+std::function<double(void)> WrapperInterpretation::_resolveEncapsulated(
     const std::string& var)
 {
     if (var.front() == 'e') {

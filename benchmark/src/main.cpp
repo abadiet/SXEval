@@ -7,8 +7,10 @@
 #include <regex>
 #include <chrono>
 #include "IWrapper.hpp"
-#include "sxeval/Wrapper.hpp"
+#include "sxeval/WrapperCompilation.hpp"
+#include "sxeval/WrapperInterpretation.hpp"
 #include "chibi-scheme/Wrapper.hpp"
+#include "guile/Wrapper.hpp"
 
 #define MIN -100.0
 #define MAX 100.0
@@ -20,13 +22,10 @@ std::vector<MyVar>* encapsulatedVariables = nullptr;
 struct stats_t {
     std::string name;
     std::vector<long long> builds;
-    std::vector<long long> executions;
-    std::vector<long long> interpretations;
-    std::vector<double> executionResults;
-    std::vector<double> interpretationResults;
+    std::vector<long long> evaluations;
+    std::vector<double> results;
     long long totalBuild;
-    long long totalExec;
-    long long totalInterp;
+    long long totalEval;
 };
 void setupVariables(const std::string& line);
 void testWrapper(benchmark::IWrapper& wrapper, const std::string& line, stats_t& stats);
@@ -43,9 +42,11 @@ int main(int argc, char** argv) {
     srand(static_cast<unsigned int>(time(nullptr)));
     rand();
 
-    stats_t sxevalStats, chibiStats;
-    sxevalStats.name = "SXEval";
+    stats_t sxevalCompilStats, sxevalInterpStats, chibiStats, guileStats;
+    sxevalCompilStats.name = "SXEval - Compilation Mode";
+    sxevalInterpStats.name = "SXEval - Interpretation Mode";
     chibiStats.name = "Chibi Scheme";
+    guileStats.name = "GNU Guile";
 
     {
         /* Runs */
@@ -61,13 +62,29 @@ int main(int argc, char** argv) {
             /* Setup variables */
             setupVariables(line);
 
-            /* SXEval */
-            benchmark::sxeval::Wrapper sxeval;
-            testWrapper(sxeval, line, sxevalStats);
+            {
+                /* SXEval - Compilation Mode */
+                benchmark::sxeval::WrapperCompilation sxevalCompil;
+                testWrapper(sxevalCompil, line, sxevalCompilStats);
+            }
 
-            /* Chibi Scheme */
-            benchmark::chibi_scheme::Wrapper chibi;
-            testWrapper(chibi, line, chibiStats);
+            {
+                /* SXEval - Interpretation Mode */
+                benchmark::sxeval::WrapperInterpretation sxevalInterp;
+                testWrapper(sxevalInterp, line, sxevalInterpStats);
+            }
+
+            {
+                /* Chibi Scheme */
+                benchmark::chibi_scheme::Wrapper chibi;
+                testWrapper(chibi, line, chibiStats);
+            }
+
+            {
+                /* GNU Guile */
+                benchmark::guile::Wrapper guile;
+                testWrapper(guile, line, guileStats);
+            }
 
             delete normalVariables;
             delete encapsulatedVariables;
@@ -78,8 +95,10 @@ int main(int argc, char** argv) {
     }
 
     /* Statistics */
-    std::cout << buildStats(sxevalStats) << std::endl;
+    std::cout << buildStats(sxevalCompilStats) << std::endl;
+    std::cout << buildStats(sxevalInterpStats) << std::endl;
     std::cout << buildStats(chibiStats) << std::endl;
+    std::cout << buildStats(guileStats) << std::endl;
 
     return 0;
 }
@@ -130,24 +149,14 @@ void testWrapper(benchmark::IWrapper& wrapper, const std::string& line, stats_t&
             end - start).count());
     }
 
-    /* Evaluating */
+    /* Evaluation */
     {
         const auto start = std::chrono::high_resolution_clock::now();
-        const auto result = wrapper.execute();
+        const auto result = wrapper.evaluate(input);
         const auto end = std::chrono::high_resolution_clock::now();
-        stats.executions.push_back(std::chrono::duration_cast<std::chrono::microseconds>(
+        stats.evaluations.push_back(std::chrono::duration_cast<std::chrono::microseconds>(
             end - start).count());
-        stats.executionResults.push_back(result);
-    }
-
-    /* Computing */
-    {
-        const auto start = std::chrono::high_resolution_clock::now();
-        const auto result = wrapper.interpret(input);
-        const auto end = std::chrono::high_resolution_clock::now();
-        stats.interpretations.push_back(std::chrono::duration_cast<std::chrono::microseconds>(
-            end - start).count());
-        stats.interpretationResults.push_back(result);
+        stats.results.push_back(result);
     }
 }
 
@@ -156,29 +165,25 @@ std::string buildStats(stats_t& stats) {
 
     oss << "### " << stats.name << std::endl;
 
-    oss << "| Building | Execution | Interpretation | Result - Execution | Result - Interpretation |" << std::endl;
-    oss << "|-|-|-|-|-|" << std::endl;
+    oss << "| Building | Evaluation | Result |" << std::endl;
+    oss << "|-|-|-|" << std::endl;
 
     stats.totalBuild = 0;
-    stats.totalExec = 0;
-    stats.totalInterp = 0;
+    stats.totalEval = 0;
 
     const auto size = stats.builds.size();
     for (size_t i = 0; i < size; ++i) {
-        oss << stats.builds[i] << " | ";
+        oss << "| " << stats.builds[i] << " | ";
         stats.totalBuild += stats.builds[i];
-        oss << stats.executions[i] << " | ";
-        stats.totalExec += stats.executions[i];
-        oss << stats.interpretations[i] << " | ";
-        stats.totalInterp += stats.interpretations[i];
-        oss << stats.executionResults[i] << " | ";
-        oss << stats.interpretationResults[i];
+        oss << stats.evaluations[i] << " | ";
+        stats.totalEval += stats.evaluations[i];
+        oss << stats.results[i] << " | ";
         oss << std::endl;
     }
     oss << "Average: " << std::endl
-        << stats.totalBuild / static_cast<long long>(size) << " | "
-        << stats.totalExec / static_cast<long long>(size) << " | "
-        << stats.totalInterp / static_cast<long long>(size) << std::endl;
+        << "| " << stats.totalBuild / static_cast<long long>(size) << " | "
+        << stats.totalEval / static_cast<long long>(size) << " | "
+        << std::endl;
 
     return oss.str();
 }

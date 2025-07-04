@@ -1,23 +1,28 @@
 # SXEval
-A very fast generic s-expression interpreter library.
+A very fast, generic s-expression compiler & interpreter library.
 
-*5x faster than [Chibi Scheme](https://github.com/ashinn/chibi-scheme/), ~1500x faster in its optimized mode...*
+*400x faster than [GNU Guile](https://www.gnu.org/software/guile/)...*
 
 Based on the original C library [SXEval-C](https://github.com/abadiet/SXEval-C).
 
+## Modes
+c.f [/examples/execute-vs-interpret](https://github.com/abadiet/SXEval/tree/v1.0/examples/execute-vs-interpret)
+
+### Compiler Mode
+Evaluates a pre-built, constant expression (though it may reference non-constant variables). Requires a one-time building step, after which the expression is immutable but can be executed efficiently multiple times.
+
+### Interpreter Mode
+Evaluates any expression directly, without prior building. Combines a lightweight build and execution step, making it ideal for one-time or infrequent evaluations.
+
 ## Benchmark
-Average duration in microseconds for 1000 complex mathematical s-expressions (c.f. [expressions.lst](https://github.com/abadiet/SXEval/tree/v1.0/benchmark/expressions.lst)).
+Average durations in microseconds for 1000 complex mathematical s-expressions (c.f. [expressions.lst](https://github.com/abadiet/SXEval/tree/v1.0/benchmark/expressions.lst)).
 
-Phases (c.f [/examples/execute-vs-interpret](https://github.com/abadiet/SXEval/tree/v1.0/examples/execute-vs-interpret)):
-- ***Building***: Compiles an expression to optimize its execution.
-- ***Execution***: Evaluates a pre-built, constant expression (though it may reference non-constant variables). Requires a one-time *Building* step, after which the expression is immutable but can be executed efficiently multiple times.
-- ***Interpretation***: Evaluates any expression directly, without prior building. Combines a lightweight build and execution step, making it ideal for one-time or infrequent evaluations.
-
-| | Building | Execution | Interpretation |
+| | Building | Evaluation | Comparison to Best |
 |-|-|-|-|
-| [SXEval](https://github.com/abadiet/SXEval) | 5121 | 16 | 5004 |
-| [Chibi Scheme](https://github.com/ashinn/chibi-scheme/) | 99 | 26987 | 25709 |
-| [GNU Guile](https://www.gnu.org/software/guile/) | | | |
+| [SXEval - Compiler Mode](https://github.com/abadiet/SXEval) | 3420 | 13 | *reference* |
+| [SXEval - Interpreter Mode](https://github.com/abadiet/SXEval) | 3 | 3347 | x250 |
+| [GNU Guile](https://www.gnu.org/software/guile/) | 31 | 5092 | x400 |
+| [Chibi Scheme](https://github.com/ashinn/chibi-scheme/) | 100 | 11345 | x900 |
 | [s7](https://ccrma.stanford.edu/software/s7/s7.html) | | | |
 
 c.f [/benchmark](https://github.com/abadiet/SXEval/tree/v1.0/benchmark)
@@ -175,6 +180,8 @@ with floating-point types.
 c.f. [CHANGELOG.md](https://github.com/abadiet/SXEval/blob/v1.0/CHANGELOG.md)
 
 ## Dependencies
-- [catch2](https://github.com/catchorg/Catch2): testing frameworks, fetch by
-cmake if option `BUILD_EXAMPLES` is enabled
+- [catch2](https://github.com/catchorg/Catch2): testing frameworks (fetch by
+cmake if option `BUILD_EXAMPLES` is enabled)
+- [Chibi Scheme](https://github.com/ashinn/chibi-scheme/): for benchmarking (included as a submodule)
+- [GNU Guile](https://www.gnu.org/software/guile/): for benchmarking
 - Requires at least C++17

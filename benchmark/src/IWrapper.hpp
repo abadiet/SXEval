@@ -16,8 +16,7 @@ public:
 
     virtual std::string formatInput(const std::string& input) = 0;
     virtual void build(const std::string& input) = 0;
-    virtual double execute() = 0;
-    virtual double interpret(const std::string& input) = 0;
+    virtual double evaluate(const std::string& input) = 0;
 
 };
 

@@ -10,6 +10,7 @@ add_executable(${TARGET_NAME} ${SOURCES})
 
 # Flags
 set(CHIBI_FLAGS -Wno-undef -Wno-old-style-cast -Wno-zero-as-null-pointer-constant)
+set(GUILE_FLAGS -Wno-sign-conversion)
 target_compile_options(${TARGET_NAME} PRIVATE
 $<$<CXX_COMPILER_ID:AppleClang>:-O3 -Wall -Wextra -Werror
 	-Wfloat-equal -Wundef -Wcast-align -Wwrite-strings -Wconversion
@@ -24,7 +25,7 @@ $<$<CXX_COMPILER_ID:AppleClang>:-O3 -Wall -Wextra -Werror
 	-Wno-padded -Wno-cast-function-type-strict
 	-Wno-cast-function-type-mismatch -Wno-exit-time-destructors
 	-Wno-global-constructors
-	${CHIBI_FLAGS}>
+	${CHIBI_FLAGS} ${GUILE_FLAGS}>
 $<$<CXX_COMPILER_ID:GNU>:-O3 -Wall -Wextra -Werror -Wfloat-equal
 	-Wundef -Wcast-align -Wwrite-strings -Wconversion
 	-Wunreachable-code -Wpedantic -Wshadow -Wwrite-strings
@@ -32,7 +33,7 @@ $<$<CXX_COMPILER_ID:GNU>:-O3 -Wall -Wextra -Werror -Wfloat-equal
 	-Wimplicit-fallthrough -Wno-padded -Wno-cast-function-type-strict
 	-Wno-cast-function-type-mismatch -Wno-exit-time-destructors
 	-Wno-global-constructors
-	${CHIBI_FLAGS}>
+	${CHIBI_FLAGS} ${GUILE_FLAGS}>
 )
 
 # Download/Update librairies if needed
@@ -56,5 +57,11 @@ if(
 endif()
 
 # Libraries
+find_package(PkgConfig REQUIRED)
+pkg_check_modules(GUILE REQUIRED guile-3.0)
+target_include_directories(${TARGET_NAME} PRIVATE ${GUILE_INCLUDE_DIRS})
+target_link_directories(${TARGET_NAME} PRIVATE ${GUILE_LIBRARY_DIRS})
+
 add_subdirectory(others/chibi-scheme)
-target_link_libraries(${TARGET_NAME} PRIVATE libchibi-scheme sxeval)
+
+target_link_libraries(${TARGET_NAME} PRIVATE  ${GUILE_LIBRARIES} libchibi-scheme sxeval)

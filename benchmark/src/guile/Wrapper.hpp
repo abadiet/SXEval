@@ -1,32 +1,26 @@
-#ifndef BENCHMARK_CHIBI_SCHEME_WRAPPER_HPP
-#define BENCHMARK_CHIBI_SCHEME_WRAPPER_HPP
+#ifndef BENCHMARK_GUILE_WRAPPER_HPP
+#define BENCHMARK_GUILE_WRAPPER_HPP
 
-#include <chibi/sexp.h>
+#include <libguile.h>
 #include <string>
 #include <functional>
 #include "../IWrapper.hpp"
 
 namespace benchmark {
-namespace chibi_scheme {
+namespace guile {
 
 class Wrapper : public benchmark::IWrapper {
 public:
     inline Wrapper() {}
-    ~Wrapper() override;
+    ~Wrapper() override = default;
 
     std::string formatInput(const std::string& input) override;
     void build(const std::string& input) override;
     double evaluate(const std::string& input) override;
 
-private:
-    static sexp _resolve(sexp ctx, sexp self, sexp_sint_t n, sexp exp);
-
-    sexp _ctx;
-    sexp _env;
-
 };
 
-} /* namespace chibi_scheme */
+} /* namespace guile */
 } /* namespace benchmark */
 
-#endif /* BENCHMARK_CHIBI_SCHEME_WRAPPER_HPP */
+#endif /* BENCHMARK_GUILE_WRAPPER_HPP */

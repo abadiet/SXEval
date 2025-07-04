@@ -1,5 +1,5 @@
-#ifndef BENCHMARK_SXEVAL_WRAPPER_HPP
-#define BENCHMARK_SXEVAL_WRAPPER_HPP
+#ifndef BENCHMARK_SXEVAL_WRAPPER_INTERPRETATION_HPP
+#define BENCHMARK_SXEVAL_WRAPPER_INTERPRETATION_HPP
 
 #include <sxeval/SXEval.hpp>
 #include <string>
@@ -8,27 +8,26 @@
 namespace benchmark {
 namespace sxeval {
 
-class Wrapper : public benchmark::IWrapper {
+class WrapperInterpretation : public benchmark::IWrapper {
 public:
-    inline Wrapper() {}
-    ~Wrapper() override = default;
+    inline WrapperInterpretation() {}
+    ~WrapperInterpretation() override { delete _eval; }
 
     inline std::string formatInput(const std::string& input) override {
         return input; }
     void build(const std::string& input) override;
-    double execute() override;
-    double interpret(const std::string& input) override;
+    double evaluate(const std::string& input) override;
 
 private:
     static double& _resolveVariable(const std::string& var);
     static std::function<double(void)> _resolveEncapsulated(
         const std::string& var);
 
-    ::sxeval::SXEval<double> _eval;
+    ::sxeval::SXEval<double>* _eval;
 
 };
 
 } /* namespace sxeval */
 } /* namespace benchmark */
 
-#endif /* BENCHMARK_SXEVAL_WRAPPER_HPP */
+#endif /* BENCHMARK_SXEVAL_WRAPPER_INTERPRETATION_HPP */
