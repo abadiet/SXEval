@@ -25,14 +25,18 @@
 var NAVTREE =
 [
   [ "SXEval", "index.html", [
-    [ "Benchmark", "index.html#autotoc_md1", null ],
-    [ "Quick-Start", "index.html#autotoc_md2", null ],
-    [ "Operands", "index.html#autotoc_md3", null ],
-    [ "Operations", "index.html#autotoc_md4", null ],
-    [ "Class Diagram", "index.html#autotoc_md5", null ],
-    [ "Options", "index.html#autotoc_md6", null ],
-    [ "ChangeLog", "index.html#autotoc_md7", null ],
-    [ "Dependencies", "index.html#autotoc_md8", null ],
+    [ "Modes", "index.html#autotoc_md1", [
+      [ "Compiler Mode", "index.html#autotoc_md2", null ],
+      [ "Interpreter Mode", "index.html#autotoc_md3", null ]
+    ] ],
+    [ "Benchmark", "index.html#autotoc_md4", null ],
+    [ "Quick-Start", "index.html#autotoc_md5", null ],
+    [ "Operands", "index.html#autotoc_md6", null ],
+    [ "Operations", "index.html#autotoc_md7", null ],
+    [ "Class Diagram", "index.html#autotoc_md8", null ],
+    [ "Options", "index.html#autotoc_md9", null ],
+    [ "ChangeLog", "index.html#autotoc_md10", null ],
+    [ "Dependencies", "index.html#autotoc_md11", null ],
     [ "Namespaces", "namespaces.html", [
       [ "Namespace List", "namespaces.html", "namespaces_dup" ],
       [ "Namespace Members", "namespacemembers.html", [

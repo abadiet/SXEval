@@ -93,31 +93,37 @@ $(document).ready(function(){initNavTree('index.html',''); initResizable(); });
   <div class="headertitle"><div class="title">SXEval </div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p><a class="anchor" id="md_README"></a>A very fast generic s-expression interpreter library.</p>
-<p><em>5x faster than <a href="https://github.com/ashinn/chibi-scheme/">Chibi Scheme</a>, ~1500x faster in its optimized mode...</em></p>
+<div class="textblock"><p><a class="anchor" id="md_README"></a>A very fast, generic s-expression compiler &amp; interpreter library.</p>
+<p><em>400x faster than <a href="https://www.gnu.org/software/guile/">GNU Guile</a>...</em></p>
 <p>Based on the original C library <a href="https://github.com/abadiet/SXEval-C">SXEval-C</a>.</p>
 <h1><a class="anchor" id="autotoc_md1"></a>
+Modes</h1>
+<p>c.f <a href="https://github.com/abadiet/SXEval/tree/v1.0/examples/execute-vs-interpret">/examples/execute-vs-interpret</a></p>
+<h2><a class="anchor" id="autotoc_md2"></a>
+Compiler Mode</h2>
+<p>Evaluates a pre-built, constant expression (though it may reference non-constant variables). Requires a one-time building step, after which the expression is immutable but can be executed efficiently multiple times.</p>
+<h2><a class="anchor" id="autotoc_md3"></a>
+Interpreter Mode</h2>
+<p>Evaluates any expression directly, without prior building. Combines a lightweight build and execution step, making it ideal for one-time or infrequent evaluations.</p>
+<h1><a class="anchor" id="autotoc_md4"></a>
 Benchmark</h1>
-<p>Average duration in microseconds for 1000 complex mathematical s-expressions (c.f. <a href="https://github.com/abadiet/SXEval/tree/v1.0/benchmark/expressions.lst">expressions.lst</a>).</p>
-<p>Phases (c.f <a href="https://github.com/abadiet/SXEval/tree/v1.0/examples/execute-vs-interpret">/examples/execute-vs-interpret</a>):</p><ul>
-<li><em><b>Building</b></em>: Compiles an expression to optimize its execution.</li>
-<li><em><b>Execution</b></em>: Evaluates a pre-built, constant expression (though it may reference non-constant variables). Requires a one-time <em>Building</em> step, after which the expression is immutable but can be executed efficiently multiple times.</li>
-<li><em><b>Interpretation</b></em>: Evaluates any expression directly, without prior building. Combines a lightweight build and execution step, making it ideal for one-time or infrequent evaluations.</li>
-</ul>
+<p>Average durations in microseconds for 1000 complex mathematical s-expressions (c.f. <a href="https://github.com/abadiet/SXEval/tree/v1.0/benchmark/expressions.lst">expressions.lst</a>).</p>
 <table class="markdownTable">
 <tr class="markdownTableHead">
-<th class="markdownTableHeadNone"></th><th class="markdownTableHeadNone">Building   </th><th class="markdownTableHeadNone">Execution   </th><th class="markdownTableHeadNone">Interpretation    </th></tr>
+<th class="markdownTableHeadNone"></th><th class="markdownTableHeadNone">Building   </th><th class="markdownTableHeadNone">Evaluation   </th><th class="markdownTableHeadNone">Comparison to Best    </th></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><a href="https://github.com/abadiet/SXEval">SXEval</a>   </td><td class="markdownTableBodyNone">5121   </td><td class="markdownTableBodyNone">16   </td><td class="markdownTableBodyNone">5004    </td></tr>
+<td class="markdownTableBodyNone"><a href="https://github.com/abadiet/SXEval">SXEval - Compiler Mode</a>   </td><td class="markdownTableBodyNone">3420   </td><td class="markdownTableBodyNone">13   </td><td class="markdownTableBodyNone"><em>reference</em>    </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone"><a href="https://github.com/ashinn/chibi-scheme/">Chibi Scheme</a>   </td><td class="markdownTableBodyNone">99   </td><td class="markdownTableBodyNone">26987   </td><td class="markdownTableBodyNone">25709    </td></tr>
+<td class="markdownTableBodyNone"><a href="https://github.com/abadiet/SXEval">SXEval - Interpreter Mode</a>   </td><td class="markdownTableBodyNone">3   </td><td class="markdownTableBodyNone">3347   </td><td class="markdownTableBodyNone">x250    </td></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><a href="https://www.gnu.org/software/guile/">GNU Guile</a>   </td><td class="markdownTableBodyNone"></td><td class="markdownTableBodyNone"></td><td class="markdownTableBodyNone"></td></tr>
+<td class="markdownTableBodyNone"><a href="https://www.gnu.org/software/guile/">GNU Guile</a>   </td><td class="markdownTableBodyNone">31   </td><td class="markdownTableBodyNone">5092   </td><td class="markdownTableBodyNone">x400    </td></tr>
 <tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><a href="https://github.com/ashinn/chibi-scheme/">Chibi Scheme</a>   </td><td class="markdownTableBodyNone">100   </td><td class="markdownTableBodyNone">11345   </td><td class="markdownTableBodyNone">x900    </td></tr>
+<tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><a href="https://ccrma.stanford.edu/software/s7/s7.html">s7</a>   </td><td class="markdownTableBodyNone"></td><td class="markdownTableBodyNone"></td><td class="markdownTableBodyNone"></td></tr>
 </table>
 <p>c.f <a href="https://github.com/abadiet/SXEval/tree/v1.0/benchmark">/benchmark</a></p>
-<h1><a class="anchor" id="autotoc_md2"></a>
+<h1><a class="anchor" id="autotoc_md5"></a>
 Quick-Start</h1>
 <p>From <a href="https://github.com/abadiet/SXEval/tree/v1.0/examples/basic">/examples/basic</a> </p><div class="fragment"><div class="line"><span class="comment">/* variables */</span></div>
 <div class="line"><span class="keywordtype">int</span> x = 0, y = 0;</div>
@@ -173,12 +179,12 @@ Quick-Start</h1>
 <div class="line"> </div>
 <div class="line">Result: 13 for expression &#39;(+ y -2 (sqrt 16) (&gt; (^ x 2) 20))&#39; with x=5 and y=10</div>
 <div class="line">Result: 4 for expression &#39;(+ y -2 (sqrt 16) (&gt; (^ x 2) 20))&#39; with x=3 and y=2</div>
-</div><!-- fragment --><h1><a class="anchor" id="autotoc_md3"></a>
+</div><!-- fragment --><h1><a class="anchor" id="autotoc_md6"></a>
 Operands</h1>
 <p>Supported types include: <code>int</code>, <code>signed char</code>, <code>short int</code>, <code>long int</code>, <code>unsigned int</code>, <code>unsigned char</code>, <code>unsigned long int</code>, <code>float</code>, <code>double</code> and <code>long double</code>.</p>
 <p>Variable names can be anything except <code>true</code> or <code>false</code>. These are reserved and defined as constant values <code>1</code> and <code>0</code>.</p>
 <p>Variables can be passed to SXEval either by reference (usual way) or by value (encapsulated way). The latter is not recommended as it is a little bit slower. The difference is highlighted in <a href="https://github.com/abadiet/SXEval/tree/main/examples/encapsulated-variables">/examples/encapsulated-variables</a>.</p>
-<h1><a class="anchor" id="autotoc_md4"></a>
+<h1><a class="anchor" id="autotoc_md7"></a>
 Operations</h1>
 <p>Custom operations can be easily added to SXEval. In addition, several ones are available. Please note that some of them may introduce approximations if used with floating-point types.</p>
 <table class="markdownTable">
@@ -295,10 +301,10 @@ Operations</h1>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone">GradiansToDegrees   </td><td class="markdownTableBodyNone"><code>grad2deg</code>   </td><td class="markdownTableBodyNone">1   </td><td class="markdownTableBodyNone">1   </td><td class="markdownTableBodyNone"></td></tr>
 </table>
-<h1><a class="anchor" id="autotoc_md5"></a>
+<h1><a class="anchor" id="autotoc_md8"></a>
 Class Diagram</h1>
 <p><img src="https://raw.githubusercontent.com/abadiet/SXEval/refs/heads/v1.0/uml/class-diagram.png?raw=true" alt="" style="max-width: 100%;" class="inline"/></p>
-<h1><a class="anchor" id="autotoc_md6"></a>
+<h1><a class="anchor" id="autotoc_md9"></a>
 Options</h1>
 <ul>
 <li><code>BUILD_EXAMPLES</code>: Build examples</li>
@@ -306,16 +312,18 @@ Options</h1>
 <li><code>BUILD_BENCHMARK</code>: Build benchmark</li>
 <li><code>SXEVAL_DEBUG</code>: Print debug information</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md7"></a>
+<h1><a class="anchor" id="autotoc_md10"></a>
 ChangeLog</h1>
 <blockquote class="doxtable">
 <p>&zwj;[!WARNING] The user API is considered to be limited to the class <a href="https://github.com/abadiet/SXEval/blob/v1.0/include/sxeval/SXEval.hpp"><code>SXEval</code></a> and its <a href="https://github.com/abadiet/SXEval/blob/v1.0/include/sxeval/operations">operations</a>. Backward compatibility is not guaranteed outside. </p>
 </blockquote>
 <p>c.f. <a href="https://github.com/abadiet/SXEval/blob/v1.0/CHANGELOG.md">CHANGELOG.md</a></p>
-<h1><a class="anchor" id="autotoc_md8"></a>
+<h1><a class="anchor" id="autotoc_md11"></a>
 Dependencies</h1>
 <ul>
-<li><a href="https://github.com/catchorg/Catch2">catch2</a>: testing frameworks, fetch by cmake if option <code>BUILD_EXAMPLES</code> is enabled</li>
+<li><a href="https://github.com/catchorg/Catch2">catch2</a>: testing frameworks (fetch by cmake if option <code>BUILD_EXAMPLES</code> is enabled)</li>
+<li><a href="https://github.com/ashinn/chibi-scheme/">Chibi Scheme</a>: for benchmarking (included as a submodule)</li>
+<li><a href="https://www.gnu.org/software/guile/">GNU Guile</a>: for benchmarking</li>
 <li>Requires at least C++17 </li>
 </ul>
 </div></div><!-- PageDoc -->
