@@ -6,7 +6,7 @@ A very fast, generic s-expression compiler & interpreter library.
 Based on the original C library [SXEval-C](https://github.com/abadiet/SXEval-C).
 
 ## Modes
-c.f [/examples/execute-vs-interpret](https://github.com/abadiet/SXEval/tree/v1.0/examples/execute-vs-interpret)
+c.f [/examples/compiler-vs-interpreter-modes](https://github.com/abadiet/SXEval/tree/v1.0/examples/compiler-vs-interpreter-modes)
 
 ### Compiler Mode
 Evaluates a pre-built, constant expression (though it may reference non-constant variables). Requires a one-time building step, after which the expression is immutable but can be executed efficiently multiple times.
@@ -15,7 +15,7 @@ Evaluates a pre-built, constant expression (though it may reference non-constant
 Evaluates any expression directly, without prior building. Combines a lightweight build and execution step, making it ideal for one-time or infrequent evaluations.
 
 ## Benchmark
-Average durations in microseconds for 1000 complex mathematical s-expressions (c.f. [expressions.lst](https://github.com/abadiet/SXEval/tree/v1.0/benchmark/expressions.lst)).
+Average durations in microseconds for 1000 complex mathematical s-expressions (c.f. [/benchmark/expressions.lst](https://github.com/abadiet/SXEval/tree/v1.0/benchmark/expressions.lst)).
 
 | | Building | Evaluation | Comparison to Best |
 |-|-|-|-|
