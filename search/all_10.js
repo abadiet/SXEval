@@ -13,5 +13,6 @@ var searchData=
   ['sxeval_10',['sxeval',['../namespacesxeval.html',1,'sxeval'],['../classsxeval_1_1SXEval.html',1,'sxeval::SXEval&lt; T &gt;'],['../classsxeval_1_1SXEval.html#abb9fd991cef430259eae8ae6be90fcfc',1,'sxeval::SXEval::SXEval()'],['../index.html',1,'SXEval']]],
   ['sxeval_2ehpp_11',['SXEval.hpp',['../SXEval_8hpp.html',1,'']]],
   ['sxeval_3a_3aoperations_12',['operations',['../namespacesxeval_1_1operations.html',1,'sxeval']]],
-  ['sxeval_5fpi_13',['SXEVAL_PI',['../utils_8hpp.html#a4298cd2664692b04f52ece8ee7b5b1da',1,'utils.hpp']]]
+  ['sxeval_3a_3aoperations_3a_3avalidoperation_13',['ValidOperation',['../conceptsxeval_1_1operations_1_1ValidOperation.html',1,'sxeval::operations']]],
+  ['sxeval_5fpi_14',['SXEVAL_PI',['../utils_8hpp.html#a4298cd2664692b04f52ece8ee7b5b1da',1,'utils.hpp']]]
 ];

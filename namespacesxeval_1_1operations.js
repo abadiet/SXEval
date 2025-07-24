@@ -55,5 +55,6 @@ var namespacesxeval_1_1operations =
     [ "Subtraction", "classsxeval_1_1operations_1_1Subtraction.html", "classsxeval_1_1operations_1_1Subtraction" ],
     [ "Tangent", "classsxeval_1_1operations_1_1Tangent.html", "classsxeval_1_1operations_1_1Tangent" ],
     [ "Tanh", "classsxeval_1_1operations_1_1Tanh.html", "classsxeval_1_1operations_1_1Tanh" ],
-    [ "Truncate", "classsxeval_1_1operations_1_1Truncate.html", "classsxeval_1_1operations_1_1Truncate" ]
+    [ "Truncate", "classsxeval_1_1operations_1_1Truncate.html", "classsxeval_1_1operations_1_1Truncate" ],
+    [ "ValidOperation", "conceptsxeval_1_1operations_1_1ValidOperation.html", null ]
 ];

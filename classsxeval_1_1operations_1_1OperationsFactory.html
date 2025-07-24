@@ -107,7 +107,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:aadc14f70a34b822bd964a0d2aa3cac0f" id="r_aadc14f70a34b822bd964a0d2aa3cac0f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsxeval_1_1operations_1_1OperationsFactory.html#aadc14f70a34b822bd964a0d2aa3cac0f">OperationsFactory</a> ()</td></tr>
 <tr class="memdesc:aadc14f70a34b822bd964a0d2aa3cac0f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default constructor.  <br /></td></tr>
 <tr class="separator:aadc14f70a34b822bd964a0d2aa3cac0f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a28781363f6d04c733d4f9e51f1f06c3b" id="r_a28781363f6d04c733d4f9e51f1f06c3b"><td class="memTemplParams" colspan="2">template&lt;<a class="el" href="namespacesxeval.html#af2f38bf9b3795dc6a2feeb44254480dc">typename</a> <a class="el" href="namespacesxeval.html#af2f38bf9b3795dc6a2feeb44254480dc">OP</a> &gt; </td></tr>
+<tr class="memitem:a28781363f6d04c733d4f9e51f1f06c3b" id="r_a28781363f6d04c733d4f9e51f1f06c3b"><td class="memTemplParams" colspan="2">template&lt;ValidOperation&lt; <a class="el" href="namespacesxeval.html#af2f38bf9b3795dc6a2feeb44254480dc">T</a> &gt; OP&gt; </td></tr>
 <tr class="memitem:a28781363f6d04c733d4f9e51f1f06c3b"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="namespacesxeval.html#af2f38bf9b3795dc6a2feeb44254480dc">void</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classsxeval_1_1operations_1_1OperationsFactory.html#a28781363f6d04c733d4f9e51f1f06c3b">add</a> ()</td></tr>
 <tr class="memdesc:a28781363f6d04c733d4f9e51f1f06c3b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Register an operation.  <br /></td></tr>
 <tr class="separator:a28781363f6d04c733d4f9e51f1f06c3b"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -158,7 +158,7 @@ template&lt;<a class="el" href="namespacesxeval.html#af2f38bf9b3795dc6a2feeb4425
 <div class="memtemplate">
 template&lt;<a class="el" href="namespacesxeval.html#af2f38bf9b3795dc6a2feeb44254480dc">typename</a> <a class="el" href="namespacesxeval.html#af2f38bf9b3795dc6a2feeb44254480dc">T</a> &gt; </div>
 <div class="memtemplate">
-template&lt;<a class="el" href="namespacesxeval.html#af2f38bf9b3795dc6a2feeb44254480dc">typename</a> <a class="el" href="namespacesxeval.html#af2f38bf9b3795dc6a2feeb44254480dc">OP</a> &gt; </div>
+template&lt;<a class="el" href="conceptsxeval_1_1operations_1_1ValidOperation.html">sxeval::operations::ValidOperation</a>&lt; <a class="el" href="namespacesxeval.html#af2f38bf9b3795dc6a2feeb44254480dc">T</a> &gt; OP&gt; </div>
       <table class="memname">
         <tr>
           <td class="memname"><a class="el" href="namespacesxeval.html#af2f38bf9b3795dc6a2feeb44254480dc">void</a> <a class="el" href="classsxeval_1_1operations_1_1OperationsFactory.html">sxeval::operations::OperationsFactory</a>&lt; <a class="el" href="namespacesxeval.html#af2f38bf9b3795dc6a2feeb44254480dc">T</a> &gt;::add </td>
@@ -172,7 +172,7 @@ template&lt;<a class="el" href="namespacesxeval.html#af2f38bf9b3795dc6a2feeb4425
 <p>Register an operation. </p>
 <dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
-    <tr><td class="paramname">OP</td><td>The operation to register. The operation must inherit from <a class="el" href="namespacesxeval.html#af2f38bf9b3795dc6a2feeb44254480dc" title="Perform an absolute value operation on types T.">sxeval::AOperation&lt;T&gt;</a>. </td></tr>
+    <tr><td class="paramname">OP</td><td>The operation to register. The operation must inherit from <a class="el" href="namespacesxeval.html#af2f38bf9b3795dc6a2feeb44254480dc" title="Perform an absolute value operation on types T.">sxeval::AOperation&lt;T&gt;</a> and provide the static members KEY, ARITY_MIN and ARITY_MAX. </td></tr>
   </table>
   </dd>
 </dl>
