@@ -184,4 +184,4 @@ c.f. [CHANGELOG.md](https://github.com/abadiet/SXEval/blob/v1.0/CHANGELOG.md)
 cmake if option `BUILD_EXAMPLES` is enabled)
 - [Chibi Scheme](https://github.com/ashinn/chibi-scheme/): for benchmarking (included as a submodule)
 - [GNU Guile](https://www.gnu.org/software/guile/): for benchmarking
-- Requires at least C++17
+- Requires at least C++20: for concepts (c.f. [OperationsFactory](https://github.com/abadiet/SXEval/blob/v1.0/include/sxeval/operations/OperationsFactory.hpp))

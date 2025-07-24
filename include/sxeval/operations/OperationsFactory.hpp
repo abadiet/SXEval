@@ -64,12 +64,23 @@
 #include <stdexcept>
 #include <functional>
 #include <sstream>
+#include <type_traits>
+#include <concepts>
 
 
 /* DEFINITIONS */
 
 namespace sxeval {
 namespace operations {
+
+template <typename OP, typename T>
+concept ValidOperation = 
+    std::derived_from<OP, AOperation<T>> &&
+    requires {
+        { OP::KEY } -> std::convertible_to<const char* const>;
+        { OP::ARITY_MIN } -> std::convertible_to<const int>;
+        { OP::ARITY_MAX } -> std::convertible_to<const int>;
+    };
 
 /**
  * @brief The OperationsFactory class is used to manage operations.
@@ -90,9 +101,10 @@ public:
      * @brief Register an operation.
      *
      * @tparam OP The operation to register. The operation must inherit from
-     * sxeval::AOperation<T>.
+     * sxeval::AOperation<T> and provide the static members KEY, ARITY_MIN and
+     * ARITY_MAX.
      */
-    template <typename OP>
+    template <ValidOperation<T> OP>
     void add();
 
     /**
@@ -133,7 +145,6 @@ private:
 /* IMPLEMENTATIONS */
 
 template <typename T>
-
 sxeval::operations::OperationsFactory<T>::OperationsFactory() {
     add<Addition<T>>();
     add<Subtraction<T>>();
@@ -193,11 +204,8 @@ sxeval::operations::OperationsFactory<T>::OperationsFactory() {
 }
 
 template <typename T>
-template <typename OP>
+template <sxeval::operations::ValidOperation<T> OP>
 void sxeval::operations::OperationsFactory<T>::add() {
-    if constexpr (!(std::is_base_of<AOperation<T>, OP>::value)) {
-        throw std::invalid_argument("OP must be derived from AOperation");
-    }
     if (_operations.find(OP::KEY) != _operations.end()) {
         _operations.erase(OP::KEY);
     }
