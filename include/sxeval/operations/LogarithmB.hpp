@@ -13,8 +13,8 @@ template <typename T>
 class LogarithmB : public AOperation<T> {
 public:
     static constexpr const char* KEY = "logB";
-    static constexpr const int ARITY_MIN = 2;
-    static constexpr const int ARITY_MAX = 2;
+    static const int ARITY_MIN = 2;
+    static const int ARITY_MAX = 2;
 
     inline LogarithmB(const std::vector<AInstruction<T>*>& args) :
         AOperation<T>(args) {}

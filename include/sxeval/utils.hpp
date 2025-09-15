@@ -43,15 +43,22 @@ inline bool Greater(const T& a, const T& b) {
  * @return True if a is equal to b, false otherwise.
  */
 template<typename T>
-inline bool Equal(const T& a, const T& b) {
-    if constexpr (std::is_integral_v<T>) {
+inline typename std::enable_if<std::is_integral<T>::value, bool>::type
+Equal(const T& a, const T& b) {
         return a == b;
-    } else if constexpr (std::is_floating_point_v<T>) {
-        return std::abs(a - b) <= std::numeric_limits<T>::epsilon();
-    } else {
-        static_assert(std::is_integral_v<T> || std::is_floating_point_v<T>,
-            "Unsupported type for equal");
-    }
+}
+
+/**
+ * @brief Check if a is equal to b.
+ * @tparam T The type of the values.
+ * @param a The first value.
+ * @param b The second value.
+ * @return True if a is equal to b, false otherwise.
+ */
+template<typename T>
+inline typename std::enable_if<std::is_floating_point<T>::value, bool>::type
+Equal(const T& a, const T& b) {
+    return std::abs(a - b) <= std::numeric_limits<T>::epsilon();
 }
 
 /**
@@ -111,15 +118,23 @@ inline bool LessOrEqual(const T& a, const T& b) {
  * the machine epsilon.
  */
 template<typename T>
-inline bool TypeToBool(const T& val) {
-    if constexpr (std::is_integral_v<T>) {
-        return val != 0;
-    } else if constexpr (std::is_floating_point_v<T>) {
-        return std::abs(val) > std::numeric_limits<T>::epsilon();
-    } else {
-        static_assert(std::is_integral_v<T> || std::is_floating_point_v<T>,
-            "Unsupported type for TypeToBool");
-    }
+inline typename std::enable_if<std::is_integral<T>::value, bool>::type
+TypeToBool(const T& val) {
+    return val != 0;
+}
+
+/**
+ * @brief Convert a type T to a boolean value.
+ * @tparam T The type to convert.
+ * @param val The value to convert.
+ * @return True if the value is non-zero, false otherwise.
+ * @note For floating point types, it checks if the absolute value is greater than
+ * the machine epsilon.
+ */
+template<typename T>
+inline typename std::enable_if<std::is_floating_point<T>::value, bool>::type
+TypeToBool(const T& val) {
+    return std::abs(val) > std::numeric_limits<T>::epsilon();
 }
 
 /**
@@ -214,15 +229,23 @@ inline bool LogicalXnor(const T& a, const T& b) {
  * @throws std::invalid_argument if b is zero.
  */
 template<typename T>
-inline T Modulo(const T& a, const T& b) {
-    if constexpr (std::is_integral_v<T>) {
-        return a % b;
-    } else if constexpr (std::is_floating_point_v<T>) {
-        return std::fmod(a, b);
-    } else {
-        static_assert(std::is_integral_v<T> || std::is_floating_point_v<T>,
-            "Unsupported type for modulo");
-    }
+inline typename std::enable_if<std::is_integral<T>::value, T>::type
+Modulo(const T& a, const T& b) {
+    return a % b;
+}
+
+/**
+ * @brief Perform a modulo operation on types T.
+ * @tparam T The type of the values.
+ * @param a The first value.
+ * @param b The second value.
+ * @return The result of the modulo operation.
+ * @throws std::invalid_argument if b is zero.
+ */
+template<typename T>
+inline typename std::enable_if<std::is_floating_point<T>::value, T>::type
+Modulo(const T& a, const T& b) {
+    return std::fmod(a, b);
 }
 
 /**
@@ -234,17 +257,37 @@ inline T Modulo(const T& a, const T& b) {
  * it uses std::abs, and for floating point types, it uses std::fabs.
  */
 template<typename T>
-inline T Absolute(const T& a) {
-    if constexpr (std::is_unsigned_v<T>) {
-        return a;
-    } else if constexpr (std::is_integral_v<T>) {
-        return std::abs(a);
-    } else if constexpr (std::is_floating_point_v<T>) {
-        return std::fabs(a);
-    } else {
-        static_assert(std::is_integral_v<T> || std::is_floating_point_v<T>,
-            "Unsupported type for absolute");
-    }
+inline typename std::enable_if<std::is_unsigned<T>::value, T>::type
+Absolute(const T& a) {
+    return a;
+}
+
+/**
+ * @brief Perform an absolute value operation on types T.
+ * @tparam T The type of the value.
+ * @param a The value to get the absolute value of.
+ * @return The absolute value of a.
+ * @note For unsigned types, it returns the value itself. For integral types,
+ * it uses std::abs, and for floating point types, it uses std::fabs.
+ */
+template<typename T>
+inline typename std::enable_if<std::is_integral<T>::value, T>::type
+Absolute(const T& a) {
+    return std::abs(a);
+}
+
+/**
+ * @brief Perform an absolute value operation on types T.
+ * @tparam T The type of the value.
+ * @param a The value to get the absolute value of.
+ * @return The absolute value of a.
+ * @note For unsigned types, it returns the value itself. For integral types,
+ * it uses std::abs, and for floating point types, it uses std::fabs.
+ */
+template<typename T>
+inline typename std::enable_if<std::is_floating_point<T>::value, T>::type
+Absolute(const T& a) {
+    return std::fabs(a);
 }
 
 } /* namespace sxeval */

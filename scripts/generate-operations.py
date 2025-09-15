@@ -25,8 +25,8 @@ template <typename T>
 class {class_name} : public AOperation<T> {{
 public:
     static constexpr const char* KEY = "{key}";
-    static constexpr const int ARITY_MIN = {arity_min};
-    static constexpr const int ARITY_MAX = {arity_max};
+    static const int ARITY_MIN = {arity_min};
+    static const int ARITY_MAX = {arity_max};
 
     inline {class_name}(const std::vector<AInstruction<T>*>& args) :
         AOperation<T>(args) {{}}
@@ -163,7 +163,7 @@ void sxeval::operations::OperationsFactory<T>::add() {{
                     << OP::ARITY_MAX << " arguments";
                 throw std::invalid_argument(oss.str());
             }}
-            return std::make_unique<OP>(args);
+            return new OP(args);
         }};
     _operations.insert(std::make_pair(OP::KEY, f));
 }}

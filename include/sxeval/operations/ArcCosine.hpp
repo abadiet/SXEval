@@ -14,8 +14,8 @@ template <typename T>
 class ArcCosine : public AOperation<T> {
 public:
     static constexpr const char* KEY = "acos";
-    static constexpr const int ARITY_MIN = 1;
-    static constexpr const int ARITY_MAX = 1;
+    static const int ARITY_MIN = 1;
+    static const int ARITY_MAX = 1;
 
     inline ArcCosine(const std::vector<AInstruction<T>*>& args) :
         AOperation<T>(args) {}

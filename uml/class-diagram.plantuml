@@ -44,7 +44,6 @@ package sxeval {
         -_buildTreeStr(std::opstream& os, const _Node& node, size_t depth) : void
     }
 
-
     abstract class AInstruction<T> {
         -_result : T&
         +AInstruction(result : T&)
@@ -54,6 +53,9 @@ package sxeval {
 
     abstract class AOperation<T> extends AInstruction {
         +{static} UNLIMITED_ARITY : const int := -1
+        +{static} KEY : const char* const := "AOperation"
+        +{static} ARITY_MIN : const int := 0
+        +{static} ARITY_MAX : const int := UNLIMITED_ARITY
         -_args : const std::vector<AInstruction<T>*>
         -_result : T
         +AOperation(args : const std::vector<AInstruction<T>*>&)

@@ -14,8 +14,8 @@ template <typename T>
 class LogicalNor : public AOperation<T> {
 public:
     static constexpr const char* KEY = "nor";
-    static constexpr const int ARITY_MIN = 2;
-    static constexpr const int ARITY_MAX = AOperation<T>::UNLIMITED_ARITY;
+    static const int ARITY_MIN = 2;
+    static const int ARITY_MAX = AOperation<T>::UNLIMITED_ARITY;
 
     inline LogicalNor(const std::vector<AInstruction<T>*>& args) :
         AOperation<T>(args) {}

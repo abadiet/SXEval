@@ -17,6 +17,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - SXEval::copmute -> SXEval::interpret
 - Exp operation
 - Operation validity check at compile time
+- C++11 compliance
 ### Fixed
 - generate-operations.py
 

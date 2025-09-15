@@ -24,7 +24,22 @@ public:
     /**
      * @brief The value for an unlimited number of arguments. 
      */
-    static constexpr const int UNLIMITED_ARITY = -1;
+    static const int UNLIMITED_ARITY = -1;
+
+    /**
+     * @brief Default key for the operation.
+     */
+    static constexpr const char* KEY = "AOperation";
+
+    /**
+     * @brief Default minimum number of arguments for the operation.
+     */
+    static const int ARITY_MIN = 0;
+
+    /**
+     * @brief Default maximum number of arguments for the operation.
+     */
+    static const int ARITY_MAX = UNLIMITED_ARITY;
 
     /**
      * @brief Constructor that initializes the operation.

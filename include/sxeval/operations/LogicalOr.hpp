@@ -14,8 +14,8 @@ template <typename T>
 class LogicalOr : public AOperation<T> {
 public:
     static constexpr const char* KEY = "or";
-    static constexpr const int ARITY_MIN = 2;
-    static constexpr const int ARITY_MAX = AOperation<T>::UNLIMITED_ARITY;
+    static const int ARITY_MIN = 2;
+    static const int ARITY_MAX = AOperation<T>::UNLIMITED_ARITY;
 
     inline LogicalOr(const std::vector<AInstruction<T>*>& args) :
         AOperation<T>(args) {}

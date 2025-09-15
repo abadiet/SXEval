@@ -14,8 +14,8 @@ template <typename T>
 class Hypotenuse : public AOperation<T> {
 public:
     static constexpr const char* KEY = "hypot";
-    static constexpr const int ARITY_MIN = 2;
-    static constexpr const int ARITY_MAX = 2;
+    static const int ARITY_MIN = 2;
+    static const int ARITY_MAX = 2;
 
     inline Hypotenuse(const std::vector<AInstruction<T>*>& args) :
         AOperation<T>(args) {}

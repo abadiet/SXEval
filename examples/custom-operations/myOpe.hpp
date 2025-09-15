@@ -10,8 +10,8 @@
 class MyOpe : public sxeval::AOperation<int> {
 public:
     static constexpr const char* KEY = "myope";
-    static constexpr const int ARITY_MIN = 1;
-    static constexpr const int ARITY_MAX = 1;
+    static const int ARITY_MIN = 1;
+    static const int ARITY_MAX = 1;
 
     MyOpe(const std::vector<sxeval::AInstruction<int>*>& args) :
         AOperation<int>(args) {}

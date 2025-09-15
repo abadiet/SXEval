@@ -284,7 +284,7 @@ T sxeval::SXEval<T>::_interpret(const std::string& exp, size_t* idx,
         while (exp[*idx] != ')') {
             const auto val = _interpret(exp, idx, resolveVariable,
                 resolveEncapsulated);
-            args.push_back(std::make_unique<Value<T>>(val));
+            args.push_back(std::unique_ptr<AInstruction<T>>(new Value<T>(val)));
             pargs.push_back(args.back().get());
             _skipChars(exp, idx);
         }
@@ -418,7 +418,8 @@ typename sxeval::SXEval<T>::_Node sxeval::SXEval<T>::_build(size_t* idx,
         _Node node;
         try {
             T val = StringToType<T>(symbol);
-            node = {std::make_unique<Value<T>>(val), nullptr, {}};
+            node = { std::unique_ptr<AInstruction<T>>(new Value<T>(val)),
+                nullptr, {} };
             #ifdef SXEVAL_DEBUG
             {
                 node.id = nodeCount++;
@@ -434,8 +435,10 @@ typename sxeval::SXEval<T>::_Node sxeval::SXEval<T>::_build(size_t* idx,
             /* as this is not castable, this may be a variable */
             try {
                 T& var = resolveVariable(symbol);
-                node = {std::make_unique<Variable<T>>(var, symbol), nullptr, {}
-                    };
+                node = {
+                    std::unique_ptr<AInstruction<T>>(
+                        new Variable<T>(var, symbol)
+                    ), nullptr, {} };
                 #ifdef SXEVAL_DEBUG
                 {
                     node.id = nodeCount++;
@@ -452,8 +455,10 @@ typename sxeval::SXEval<T>::_Node sxeval::SXEval<T>::_build(size_t* idx,
                  * encapsulated variable */
                 try {
                     auto get = resolveEncapsulated(symbol);
-                    node = {std::make_unique<EncapsulatedVariable<T>>(get,
-                        symbol), nullptr, {}};
+                    node = {
+                        std::unique_ptr<AInstruction<T>>(
+                            new EncapsulatedVariable<T>(get, symbol)
+                        ), nullptr, {} };
                     _encapsulated.push_back(
                         dynamic_cast<EncapsulatedVariable<T>*>(
                         node.instruct.get()));
@@ -472,9 +477,13 @@ typename sxeval::SXEval<T>::_Node sxeval::SXEval<T>::_build(size_t* idx,
                     /* last chance, check if it is a true/false keyword
                      */
                     if (symbol == "true") {
-                        node = {std::make_unique<Value<T>>(1), nullptr, {}};
+                        node = {
+                            std::unique_ptr<AInstruction<T>>(new Value<T>(1)),
+                            nullptr, {} };
                     } else if (symbol == "false") {
-                        node = {std::make_unique<Value<T>>(0), nullptr, {}};
+                        node = {
+                            std::unique_ptr<AInstruction<T>>(new Value<T>(0)),
+                            nullptr, {} };
                     } else {
                         throw std::runtime_error("Unknown variable: " + symbol);
                     }

@@ -13,8 +13,8 @@ template <typename T>
 class DegreesToGradians : public AOperation<T> {
 public:
     static constexpr const char* KEY = "deg2grad";
-    static constexpr const int ARITY_MIN = 1;
-    static constexpr const int ARITY_MAX = 1;
+    static const int ARITY_MIN = 1;
+    static const int ARITY_MAX = 1;
 
     inline DegreesToGradians(const std::vector<AInstruction<T>*>& args) :
         AOperation<T>(args) {}

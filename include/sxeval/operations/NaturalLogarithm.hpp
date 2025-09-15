@@ -14,8 +14,8 @@ template <typename T>
 class NaturalLogarithm : public AOperation<T> {
 public:
     static constexpr const char* KEY = "ln";
-    static constexpr const int ARITY_MIN = 1;
-    static constexpr const int ARITY_MAX = 1;
+    static const int ARITY_MIN = 1;
+    static const int ARITY_MAX = 1;
 
     inline NaturalLogarithm(const std::vector<AInstruction<T>*>& args) :
         AOperation<T>(args) {}

@@ -14,8 +14,8 @@ template <typename T>
 class Exp : public AOperation<T> {
 public:
     static constexpr const char* KEY = "exp";
-    static constexpr const int ARITY_MIN = 1;
-    static constexpr const int ARITY_MAX = 1;
+    static const int ARITY_MIN = 1;
+    static const int ARITY_MAX = 1;
 
     inline Exp(const std::vector<AInstruction<T>*>& args) :
         AOperation<T>(args) {}

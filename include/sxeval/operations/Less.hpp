@@ -14,8 +14,8 @@ template <typename T>
 class Less : public AOperation<T> {
 public:
     static constexpr const char* KEY = "<";
-    static constexpr const int ARITY_MIN = 2;
-    static constexpr const int ARITY_MAX = AOperation<T>::UNLIMITED_ARITY;
+    static const int ARITY_MIN = 2;
+    static const int ARITY_MAX = AOperation<T>::UNLIMITED_ARITY;
 
     inline Less(const std::vector<AInstruction<T>*>& args) :
         AOperation<T>(args) {}

@@ -25,7 +25,6 @@
 #include "sxeval/operations/AbsoluteValue.hpp"
 #include "sxeval/operations/Average.hpp"
 #include "sxeval/operations/Ceiling.hpp"
-#include "sxeval/operations/Clamp.hpp"
 #include "sxeval/operations/Expm1.hpp"
 #include "sxeval/operations/Exp.hpp"
 #include "sxeval/operations/Floor.hpp"
@@ -73,15 +72,6 @@
 namespace sxeval {
 namespace operations {
 
-template <typename OP, typename T>
-concept ValidOperation = 
-    std::derived_from<OP, AOperation<T>> &&
-    requires {
-        { OP::KEY } -> std::convertible_to<const char* const>;
-        { OP::ARITY_MIN } -> std::convertible_to<const int>;
-        { OP::ARITY_MAX } -> std::convertible_to<const int>;
-    };
-
 /**
  * @brief The OperationsFactory class is used to manage operations.
  *
@@ -104,8 +94,10 @@ public:
      * sxeval::AOperation<T> and provide the static members KEY, ARITY_MIN and
      * ARITY_MAX.
      */
-    template <ValidOperation<T> OP>
-    void add();
+    template <typename OP>
+    typename std::enable_if<std::is_base_of<sxeval::AOperation<T>, OP>::value>
+        ::type
+    add();
 
     /**
      * @brief Instantiate an operation from its key and arguments.
@@ -168,7 +160,6 @@ sxeval::operations::OperationsFactory<T>::OperationsFactory() {
     add<AbsoluteValue<T>>();
     add<Average<T>>();
     add<Ceiling<T>>();
-    add<Clamp<T>>();
     add<Expm1<T>>();
     add<Exp<T>>();
     add<Floor<T>>();
@@ -204,8 +195,9 @@ sxeval::operations::OperationsFactory<T>::OperationsFactory() {
 }
 
 template <typename T>
-template <sxeval::operations::ValidOperation<T> OP>
-void sxeval::operations::OperationsFactory<T>::add() {
+template <typename OP>
+typename std::enable_if<std::is_base_of<sxeval::AOperation<T>, OP>::value>::type
+sxeval::operations::OperationsFactory<T>::add() {
     if (_operations.find(OP::KEY) != _operations.end()) {
         _operations.erase(OP::KEY);
     }
@@ -227,7 +219,7 @@ void sxeval::operations::OperationsFactory<T>::add() {
                     << OP::ARITY_MAX << " arguments";
                 throw std::invalid_argument(oss.str());
             }
-            return std::make_unique<OP>(args);
+            return std::unique_ptr<AOperation<T>>(new OP(args));
         };
     _operations.insert(std::make_pair(OP::KEY, f));
 }
