@@ -487,8 +487,6 @@
     </Operation>
     <!-- <Operation name="Ceiling" key="ceil">
     </Operation>
-    <Operation name="Clamp" key="clamp">
-    </Operation>
     <Operation name="Expm1" key="expm1">
     </Operation>
     <Operation name="Exp" key="exp">

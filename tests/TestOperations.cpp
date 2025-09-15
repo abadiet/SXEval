@@ -25,7 +25,6 @@
 #include <sxeval/operations/AbsoluteValue.hpp>
 #include <sxeval/operations/Average.hpp>
 #include <sxeval/operations/Ceiling.hpp>
-#include <sxeval/operations/Clamp.hpp>
 #include <sxeval/operations/Expm1.hpp>
 #include <sxeval/operations/Floor.hpp>
 #include <sxeval/operations/Hypotenuse.hpp>
@@ -119,8 +118,6 @@ TEST_CASE("Operations instanciation", "[operations]") {
         factory.create("avg", args2).get()));
     REQUIRE(nullptr != dynamic_cast<operations::Ceiling<int>*>(
         factory.create("ceil", args1).get()));
-    REQUIRE(nullptr != dynamic_cast<operations::Clamp<int>*>(
-        factory.create("clamp", args3).get()));
     REQUIRE(nullptr != dynamic_cast<operations::Expm1<int>*>(
         factory.create("expm1", args1).get()));
     REQUIRE(nullptr != dynamic_cast<operations::Floor<int>*>(
