@@ -1,8 +1,7 @@
 var searchData=
 [
-  ['getargs_0',['getArgs',['../classsxeval_1_1AOperation.html#aae3c9b31dc6eac91e1007c6d8148045b',1,'sxeval::AOperation']]],
-  ['getresult_1',['getresult',['../classsxeval_1_1AInstruction.html#ac78973c501e0d91010bcec8f4e85ae10',1,'sxeval::AInstruction::getResult()'],['../classsxeval_1_1AOperation.html#a36a4ce8eba64dcc0c6f17a2db3941bc8',1,'sxeval::AOperation::getResult()']]],
-  ['gradianstodegrees_2',['GradiansToDegrees',['../classsxeval_1_1operations_1_1GradiansToDegrees.html#a9f6356048206fe9f3c9d25820be4b068',1,'sxeval::operations::GradiansToDegrees']]],
-  ['greater_3',['greater',['../classsxeval_1_1operations_1_1Greater.html#a46f200afb4a0a051870df0ffcecef226',1,'sxeval::operations::Greater::Greater()'],['../namespacesxeval.html#a8daeff26dd441e11453735a147f93486',1,'sxeval::Greater()']]],
-  ['greaterorequal_4',['greaterorequal',['../classsxeval_1_1operations_1_1GreaterOrEqual.html#a0f5254757cd1c8313005f14272e8dea1',1,'sxeval::operations::GreaterOrEqual::GreaterOrEqual()'],['../namespacesxeval.html#aee8feabd519369a1a97a8d43c63b063b',1,'sxeval::GreaterOrEqual()']]]
+  ['getresult_0',['getresult',['../classsxeval_1_1AOperation.html#a1007110273b28867542e997a4ed8c07c',1,'sxeval::AOperation::getResult()'],['../classsxeval_1_1EncapsulatedVariable.html#ae028b3ba5e6ad5b91a60935fac451edf',1,'sxeval::EncapsulatedVariable::getResult()'],['../classsxeval_1_1IInstruction.html#a212fdbe130c626601574cf480dd6f6b3',1,'sxeval::IInstruction::getResult()'],['../classsxeval_1_1Value.html#a83a424cf61444654408213dae1b97c0e',1,'sxeval::Value::getResult()'],['../classsxeval_1_1Variable.html#ab64401ee36d5a5f9ac09335f8fe4d170',1,'sxeval::Variable::getResult()']]],
+  ['gradianstodegrees_1',['GradiansToDegrees',['../classsxeval_1_1operations_1_1GradiansToDegrees.html#a32740dc605fdbdda5e87e6b4075ef9bc',1,'sxeval::operations::GradiansToDegrees']]],
+  ['greater_2',['greater',['../classsxeval_1_1operations_1_1Greater.html#aff444a96afa689222803881ccf342169',1,'sxeval::operations::Greater::Greater()'],['../namespacesxeval.html#a8daeff26dd441e11453735a147f93486',1,'sxeval::Greater()']]],
+  ['greaterorequal_3',['greaterorequal',['../classsxeval_1_1operations_1_1GreaterOrEqual.html#a94dbddfd45f35a92575a62f814bbf626',1,'sxeval::operations::GreaterOrEqual::GreaterOrEqual()'],['../namespacesxeval.html#aee8feabd519369a1a97a8d43c63b063b',1,'sxeval::GreaterOrEqual()']]]
 ];

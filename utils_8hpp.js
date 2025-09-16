@@ -1,8 +1,11 @@
 var utils_8hpp =
 [
     [ "SXEVAL_PI", "utils_8hpp.html#a4298cd2664692b04f52ece8ee7b5b1da", null ],
-    [ "Absolute", "utils_8hpp.html#af2f38bf9b3795dc6a2feeb44254480dc", null ],
-    [ "Equal", "utils_8hpp.html#a3b8eb5aac172dc9e88d7de45f80d31f3", null ],
+    [ "Absolute", "utils_8hpp.html#af2e1bc915067ea9cd9b2cb0def5895ab", null ],
+    [ "Absolute", "utils_8hpp.html#ab039514a91acf1cbd1bae98a74e2f3c1", null ],
+    [ "Absolute", "utils_8hpp.html#aa3b471629035a4c2246c9e5280d6e8d2", null ],
+    [ "Equal", "utils_8hpp.html#a795513ccd63e947e44f0af8a256dcc8e", null ],
+    [ "Equal", "utils_8hpp.html#a27acf62b6263209975cc359f0d904448", null ],
     [ "Greater", "utils_8hpp.html#a8daeff26dd441e11453735a147f93486", null ],
     [ "GreaterOrEqual", "utils_8hpp.html#aee8feabd519369a1a97a8d43c63b063b", null ],
     [ "Less", "utils_8hpp.html#a57ea8ca1e3326f28dec9a006346b6e4b", null ],
@@ -14,8 +17,10 @@ var utils_8hpp =
     [ "LogicalOr", "utils_8hpp.html#abbf71aec17846092039a72152c66dd18", null ],
     [ "LogicalXnor", "utils_8hpp.html#a3da1621564331d193c1c51c62fc666e6", null ],
     [ "LogicalXor", "utils_8hpp.html#a7ed541edecb6ec1c1d84302f4a738db3", null ],
-    [ "Modulo", "utils_8hpp.html#a8c3b088344c193c7f4d125aff1d28396", null ],
+    [ "Modulo", "utils_8hpp.html#a158766c5262ac64f367e1a1c65b1cc4d", null ],
+    [ "Modulo", "utils_8hpp.html#a9a81546a047f2b97e15e9014b488934e", null ],
     [ "NotEqual", "utils_8hpp.html#aef95b884da097e34e28741d51b32aa48", null ],
     [ "StringToType", "utils_8hpp.html#af5418c88699bbc734d3be9de88d2b0e9", null ],
-    [ "TypeToBool", "utils_8hpp.html#ae7645308c33be37d67b93fed5f05b3f6", null ]
+    [ "TypeToBool", "utils_8hpp.html#af64c4cabe0f5026b82e33d00e191ca27", null ],
+    [ "TypeToBool", "utils_8hpp.html#ac028f8e0da27b681e9bcbd01085b45b3", null ]
 ];

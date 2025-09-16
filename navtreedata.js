@@ -45,7 +45,6 @@ var NAVTREE =
         [ "Typedefs", "namespacemembers_type.html", null ]
       ] ]
     ] ],
-    [ "Concepts", "concepts.html", "concepts" ],
     [ "Classes", "annotated.html", [
       [ "Class List", "annotated.html", "annotated_dup" ],
       [ "Class Index", "classes.html", null ],
@@ -68,9 +67,9 @@ var NAVTREE =
 
 var NAVTREEINDEX =
 [
-"AInstruction_8hpp.html",
-"classsxeval_1_1operations_1_1ArcTangent.html#a18b014b7b15e2e9ca779e0b432221751",
-"classsxeval_1_1operations_1_1LogicalOr.html#a56daa22be6e1785f743fa765e73bb1e4"
+"AOperation_8hpp.html",
+"classsxeval_1_1operations_1_1ArcTangent.html",
+"classsxeval_1_1operations_1_1LogicalXnor.html#a23f631de646d69e3193a7929980494e8"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

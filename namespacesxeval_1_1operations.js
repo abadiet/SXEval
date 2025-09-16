@@ -11,7 +11,6 @@ var namespacesxeval_1_1operations =
     [ "ArcTanh", "classsxeval_1_1operations_1_1ArcTanh.html", "classsxeval_1_1operations_1_1ArcTanh" ],
     [ "Average", "classsxeval_1_1operations_1_1Average.html", "classsxeval_1_1operations_1_1Average" ],
     [ "Ceiling", "classsxeval_1_1operations_1_1Ceiling.html", "classsxeval_1_1operations_1_1Ceiling" ],
-    [ "Clamp", "classsxeval_1_1operations_1_1Clamp.html", "classsxeval_1_1operations_1_1Clamp" ],
     [ "Cosh", "classsxeval_1_1operations_1_1Cosh.html", "classsxeval_1_1operations_1_1Cosh" ],
     [ "Cosine", "classsxeval_1_1operations_1_1Cosine.html", "classsxeval_1_1operations_1_1Cosine" ],
     [ "DegreesToGradians", "classsxeval_1_1operations_1_1DegreesToGradians.html", "classsxeval_1_1operations_1_1DegreesToGradians" ],
@@ -55,6 +54,5 @@ var namespacesxeval_1_1operations =
     [ "Subtraction", "classsxeval_1_1operations_1_1Subtraction.html", "classsxeval_1_1operations_1_1Subtraction" ],
     [ "Tangent", "classsxeval_1_1operations_1_1Tangent.html", "classsxeval_1_1operations_1_1Tangent" ],
     [ "Tanh", "classsxeval_1_1operations_1_1Tanh.html", "classsxeval_1_1operations_1_1Tanh" ],
-    [ "Truncate", "classsxeval_1_1operations_1_1Truncate.html", "classsxeval_1_1operations_1_1Truncate" ],
-    [ "ValidOperation", "conceptsxeval_1_1operations_1_1ValidOperation.html", null ]
+    [ "Truncate", "classsxeval_1_1operations_1_1Truncate.html", "classsxeval_1_1operations_1_1Truncate" ]
 ];

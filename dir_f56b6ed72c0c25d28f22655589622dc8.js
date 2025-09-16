@@ -11,7 +11,6 @@ var dir_f56b6ed72c0c25d28f22655589622dc8 =
     [ "ArcTanh.hpp", "ArcTanh_8hpp.html", "ArcTanh_8hpp" ],
     [ "Average.hpp", "Average_8hpp.html", "Average_8hpp" ],
     [ "Ceiling.hpp", "Ceiling_8hpp.html", "Ceiling_8hpp" ],
-    [ "Clamp.hpp", "Clamp_8hpp.html", "Clamp_8hpp" ],
     [ "Cosh.hpp", "Cosh_8hpp.html", "Cosh_8hpp" ],
     [ "Cosine.hpp", "Cosine_8hpp.html", "Cosine_8hpp" ],
     [ "DegreesToGradians.hpp", "DegreesToGradians_8hpp.html", "DegreesToGradians_8hpp" ],

@@ -13,7 +13,6 @@ var annotated_dup =
         [ "ArcTanh", "classsxeval_1_1operations_1_1ArcTanh.html", "classsxeval_1_1operations_1_1ArcTanh" ],
         [ "Average", "classsxeval_1_1operations_1_1Average.html", "classsxeval_1_1operations_1_1Average" ],
         [ "Ceiling", "classsxeval_1_1operations_1_1Ceiling.html", "classsxeval_1_1operations_1_1Ceiling" ],
-        [ "Clamp", "classsxeval_1_1operations_1_1Clamp.html", "classsxeval_1_1operations_1_1Clamp" ],
         [ "Cosh", "classsxeval_1_1operations_1_1Cosh.html", "classsxeval_1_1operations_1_1Cosh" ],
         [ "Cosine", "classsxeval_1_1operations_1_1Cosine.html", "classsxeval_1_1operations_1_1Cosine" ],
         [ "DegreesToGradians", "classsxeval_1_1operations_1_1DegreesToGradians.html", "classsxeval_1_1operations_1_1DegreesToGradians" ],
@@ -59,10 +58,10 @@ var annotated_dup =
         [ "Tanh", "classsxeval_1_1operations_1_1Tanh.html", "classsxeval_1_1operations_1_1Tanh" ],
         [ "Truncate", "classsxeval_1_1operations_1_1Truncate.html", "classsxeval_1_1operations_1_1Truncate" ]
       ] ],
-      [ "AInstruction", "classsxeval_1_1AInstruction.html", "classsxeval_1_1AInstruction" ],
-      [ "AOperand", "classsxeval_1_1AOperand.html", "classsxeval_1_1AOperand" ],
       [ "AOperation", "classsxeval_1_1AOperation.html", "classsxeval_1_1AOperation" ],
       [ "EncapsulatedVariable", "classsxeval_1_1EncapsulatedVariable.html", "classsxeval_1_1EncapsulatedVariable" ],
+      [ "IInstruction", "classsxeval_1_1IInstruction.html", "classsxeval_1_1IInstruction" ],
+      [ "IOperand", "classsxeval_1_1IOperand.html", "classsxeval_1_1IOperand" ],
       [ "SXEval", "classsxeval_1_1SXEval.html", "classsxeval_1_1SXEval" ],
       [ "Value", "classsxeval_1_1Value.html", "classsxeval_1_1Value" ],
       [ "Variable", "classsxeval_1_1Variable.html", "classsxeval_1_1Variable" ]

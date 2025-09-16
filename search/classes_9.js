@@ -1,5 +1,7 @@
 var searchData=
 [
-  ['naturallogarithm_0',['NaturalLogarithm',['../classsxeval_1_1operations_1_1NaturalLogarithm.html',1,'sxeval::operations']]],
-  ['notequal_1',['NotEqual',['../classsxeval_1_1operations_1_1NotEqual.html',1,'sxeval::operations']]]
+  ['maximum_0',['Maximum',['../classsxeval_1_1operations_1_1Maximum.html',1,'sxeval::operations']]],
+  ['minimum_1',['Minimum',['../classsxeval_1_1operations_1_1Minimum.html',1,'sxeval::operations']]],
+  ['modulo_2',['Modulo',['../classsxeval_1_1operations_1_1Modulo.html',1,'sxeval::operations']]],
+  ['multiplication_3',['Multiplication',['../classsxeval_1_1operations_1_1Multiplication.html',1,'sxeval::operations']]]
 ];

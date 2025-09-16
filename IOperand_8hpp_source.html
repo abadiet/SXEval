@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>SXEval: include/sxeval/AOperand.hpp Source File</title>
+<title>SXEval: include/sxeval/IOperand.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -69,7 +69,7 @@ $(document).ready(function() { init_codefold(0); });
 </div>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
-$(document).ready(function(){initNavTree('AOperand_8hpp_source.html',''); initResizable(); });
+$(document).ready(function(){initNavTree('IOperand_8hpp_source.html',''); initResizable(); });
 /* @license-end */
 </script>
 <div id="doc-content">
@@ -95,41 +95,38 @@ $(document).ready(function(){initNavTree('AOperand_8hpp_source.html',''); initRe
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">AOperand.hpp</div></div>
+  <div class="headertitle"><div class="title">IOperand.hpp</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="AOperand_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef SXEVAL_IOPERAND_HPP</span></div>
+<a href="IOperand_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef SXEVAL_IOPERAND_HPP</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define SXEVAL_IOPERAND_HPP</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &quot;<a class="code" href="AInstruction_8hpp.html">sxeval/AInstruction.hpp</a>&quot;</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &quot;<a class="code" href="IInstruction_8hpp.html">sxeval/IInstruction.hpp</a>&quot;</span></div>
 <div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacesxeval.html">sxeval</a> {</div>
 <div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span> </div>
 <div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
 <div class="foldopen" id="foldopen00016" data-start="{" data-end="};">
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno"><a class="line" href="classsxeval_1_1AOperand.html">   16</a></span><span class="keyword">class </span><a class="code hl_class" href="classsxeval_1_1AOperand.html">AOperand</a> : <span class="keyword">public</span> <a class="code hl_class" href="classsxeval_1_1AInstruction.html">AInstruction</a>&lt;T&gt; {</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno"><a class="line" href="classsxeval_1_1IOperand.html">   16</a></span><span class="keyword">class </span><a class="code hl_class" href="classsxeval_1_1IOperand.html">IOperand</a> : <span class="keyword">public</span> <span class="keyword">virtual</span> <a class="code hl_class" href="classsxeval_1_1IInstruction.html">IInstruction</a>&lt;T&gt; {</div>
 <div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="keyword">public</span>:</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno"><a class="line" href="classsxeval_1_1AOperand.html#a658fdabe8a4f5bcf1e7c50f32fc1efde">   23</a></span>    <span class="keyword">inline</span> <a class="code hl_function" href="classsxeval_1_1AOperand.html#a658fdabe8a4f5bcf1e7c50f32fc1efde">AOperand</a>(T&amp; result) : <a class="code hl_class" href="classsxeval_1_1AInstruction.html">AInstruction</a>&lt;T&gt;(result) {}</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno"><a class="line" href="classsxeval_1_1AOperand.html#acc4e7f87aa7924bfb63e6256687d5e17">   28</a></span>    <span class="keyword">virtual</span> <a class="code hl_function" href="classsxeval_1_1AOperand.html#acc4e7f87aa7924bfb63e6256687d5e17">~AOperand</a>() <span class="keyword">override</span> = <span class="keywordflow">default</span>;</div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>};</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno"><a class="line" href="classsxeval_1_1IOperand.html#a3226d985d7f16663d866a284ca3981a7">   21</a></span>    <span class="keyword">virtual</span> <a class="code hl_function" href="classsxeval_1_1IOperand.html#a3226d985d7f16663d866a284ca3981a7">~IOperand</a>() <span class="keyword">override</span> = <span class="keywordflow">default</span>;</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>};</div>
 </div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span> </div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>} <span class="comment">/* namespace sxeval */</span></div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span><span class="preprocessor">#endif </span><span class="comment">/* SXEVAL_IOPERAND_HPP */</span><span class="preprocessor"></span></div>
-<div class="ttc" id="aAInstruction_8hpp_html"><div class="ttname"><a href="AInstruction_8hpp.html">AInstruction.hpp</a></div></div>
-<div class="ttc" id="aclasssxeval_1_1AInstruction_html"><div class="ttname"><a href="classsxeval_1_1AInstruction.html">sxeval::AInstruction</a></div><div class="ttdoc">The AInstruction class is an abstract base class for any instructions.</div><div class="ttdef"><b>Definition</b> AInstruction.hpp:22</div></div>
-<div class="ttc" id="aclasssxeval_1_1AOperand_html"><div class="ttname"><a href="classsxeval_1_1AOperand.html">sxeval::AOperand</a></div><div class="ttdoc">The AOperand class is an abstract base class for operands.</div><div class="ttdef"><b>Definition</b> AOperand.hpp:16</div></div>
-<div class="ttc" id="aclasssxeval_1_1AOperand_html_a658fdabe8a4f5bcf1e7c50f32fc1efde"><div class="ttname"><a href="classsxeval_1_1AOperand.html#a658fdabe8a4f5bcf1e7c50f32fc1efde">sxeval::AOperand::AOperand</a></div><div class="ttdeci">AOperand(T &amp;result)</div><div class="ttdoc">Default constructor.</div><div class="ttdef"><b>Definition</b> AOperand.hpp:23</div></div>
-<div class="ttc" id="aclasssxeval_1_1AOperand_html_acc4e7f87aa7924bfb63e6256687d5e17"><div class="ttname"><a href="classsxeval_1_1AOperand.html#acc4e7f87aa7924bfb63e6256687d5e17">sxeval::AOperand::~AOperand</a></div><div class="ttdeci">virtual ~AOperand() override=default</div><div class="ttdoc">Default destructor.</div></div>
-<div class="ttc" id="anamespacesxeval_html"><div class="ttname"><a href="namespacesxeval.html">sxeval</a></div><div class="ttdef"><b>Definition</b> AInstruction.hpp:9</div></div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>} <span class="comment">/* namespace sxeval */</span></div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span><span class="preprocessor">#endif </span><span class="comment">/* SXEVAL_IOPERAND_HPP */</span><span class="preprocessor"></span></div>
+<div class="ttc" id="aIInstruction_8hpp_html"><div class="ttname"><a href="IInstruction_8hpp.html">IInstruction.hpp</a></div></div>
+<div class="ttc" id="aclasssxeval_1_1IInstruction_html"><div class="ttname"><a href="classsxeval_1_1IInstruction.html">sxeval::IInstruction</a></div><div class="ttdoc">The IInstruction class is an interface for any instructions.</div><div class="ttdef"><b>Definition</b> IInstruction.hpp:21</div></div>
+<div class="ttc" id="aclasssxeval_1_1IOperand_html"><div class="ttname"><a href="classsxeval_1_1IOperand.html">sxeval::IOperand</a></div><div class="ttdoc">The IOperand class is an interface for operands.</div><div class="ttdef"><b>Definition</b> IOperand.hpp:16</div></div>
+<div class="ttc" id="aclasssxeval_1_1IOperand_html_a3226d985d7f16663d866a284ca3981a7"><div class="ttname"><a href="classsxeval_1_1IOperand.html#a3226d985d7f16663d866a284ca3981a7">sxeval::IOperand::~IOperand</a></div><div class="ttdeci">virtual ~IOperand() override=default</div><div class="ttdoc">Default destructor.</div></div>
+<div class="ttc" id="anamespacesxeval_html"><div class="ttname"><a href="namespacesxeval.html">sxeval</a></div><div class="ttdef"><b>Definition</b> AOperation.hpp:8</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_26438d08c4c2bd89de682ba212e5b7bb.html">sxeval</a></li><li class="navelem"><a class="el" href="AOperand_8hpp.html">AOperand.hpp</a></li>
+    <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_26438d08c4c2bd89de682ba212e5b7bb.html">sxeval</a></li><li class="navelem"><a class="el" href="IOperand_8hpp.html">IOperand.hpp</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8 </li>
   </ul>
 </div>

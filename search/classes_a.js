@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['operationsfactory_0',['OperationsFactory',['../classsxeval_1_1operations_1_1OperationsFactory.html',1,'sxeval::operations']]]
+  ['naturallogarithm_0',['NaturalLogarithm',['../classsxeval_1_1operations_1_1NaturalLogarithm.html',1,'sxeval::operations']]],
+  ['notequal_1',['NotEqual',['../classsxeval_1_1operations_1_1NotEqual.html',1,'sxeval::operations']]]
 ];

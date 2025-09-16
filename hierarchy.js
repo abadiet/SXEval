@@ -1,11 +1,6 @@
 var hierarchy =
 [
-    [ "sxeval::AInstruction< T >", "classsxeval_1_1AInstruction.html", [
-      [ "sxeval::AOperand< T >", "classsxeval_1_1AOperand.html", [
-        [ "sxeval::EncapsulatedVariable< T >", "classsxeval_1_1EncapsulatedVariable.html", null ],
-        [ "sxeval::Value< T >", "classsxeval_1_1Value.html", null ],
-        [ "sxeval::Variable< T >", "classsxeval_1_1Variable.html", null ]
-      ] ],
+    [ "sxeval::IInstruction< T >", "classsxeval_1_1IInstruction.html", [
       [ "sxeval::AOperation< T >", "classsxeval_1_1AOperation.html", [
         [ "sxeval::operations::AbsoluteValue< T >", "classsxeval_1_1operations_1_1AbsoluteValue.html", null ],
         [ "sxeval::operations::Addition< T >", "classsxeval_1_1operations_1_1Addition.html", null ],
@@ -18,7 +13,6 @@ var hierarchy =
         [ "sxeval::operations::ArcTanh< T >", "classsxeval_1_1operations_1_1ArcTanh.html", null ],
         [ "sxeval::operations::Average< T >", "classsxeval_1_1operations_1_1Average.html", null ],
         [ "sxeval::operations::Ceiling< T >", "classsxeval_1_1operations_1_1Ceiling.html", null ],
-        [ "sxeval::operations::Clamp< T >", "classsxeval_1_1operations_1_1Clamp.html", null ],
         [ "sxeval::operations::Cosh< T >", "classsxeval_1_1operations_1_1Cosh.html", null ],
         [ "sxeval::operations::Cosine< T >", "classsxeval_1_1operations_1_1Cosine.html", null ],
         [ "sxeval::operations::DegreesToGradians< T >", "classsxeval_1_1operations_1_1DegreesToGradians.html", null ],
@@ -62,6 +56,11 @@ var hierarchy =
         [ "sxeval::operations::Tangent< T >", "classsxeval_1_1operations_1_1Tangent.html", null ],
         [ "sxeval::operations::Tanh< T >", "classsxeval_1_1operations_1_1Tanh.html", null ],
         [ "sxeval::operations::Truncate< T >", "classsxeval_1_1operations_1_1Truncate.html", null ]
+      ] ],
+      [ "sxeval::IOperand< T >", "classsxeval_1_1IOperand.html", [
+        [ "sxeval::EncapsulatedVariable< T >", "classsxeval_1_1EncapsulatedVariable.html", null ],
+        [ "sxeval::Value< T >", "classsxeval_1_1Value.html", null ],
+        [ "sxeval::Variable< T >", "classsxeval_1_1Variable.html", null ]
       ] ]
     ] ],
     [ "sxeval::operations::OperationsFactory< T >", "classsxeval_1_1operations_1_1OperationsFactory.html", null ],
