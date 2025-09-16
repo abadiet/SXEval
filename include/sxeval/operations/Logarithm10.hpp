@@ -33,6 +33,9 @@ public:
 /* IMPLEMENTATIONS */
 
 template <typename T>
+constexpr const char* sxeval::operations::Logarithm10<T>::KEY;
+
+template <typename T>
 void sxeval::operations::Logarithm10<T>::execute() {
     this->_result = static_cast<T>(std::log10(this->_args.front().get()));
 }

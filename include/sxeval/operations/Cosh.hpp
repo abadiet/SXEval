@@ -33,6 +33,9 @@ public:
 /* IMPLEMENTATIONS */
 
 template <typename T>
+constexpr const char* sxeval::operations::Cosh<T>::KEY;
+
+template <typename T>
 void sxeval::operations::Cosh<T>::execute() {
     this->_result = static_cast<T>(std::cosh(this->_args.front().get()));
 }

@@ -37,6 +37,9 @@ public:
 /* IMPLEMENTATIONS */
 
 template <typename T>
+constexpr const char* sxeval::operations::{class_name}<T>::KEY;
+
+template <typename T>
 void sxeval::operations::{class_name}<T>::execute() {{
     {execute}
 }}

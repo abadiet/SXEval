@@ -33,6 +33,9 @@ public:
 /* IMPLEMENTATIONS */
 
 template <typename T>
+constexpr const char* sxeval::operations::NaturalLogarithm<T>::KEY;
+
+template <typename T>
 void sxeval::operations::NaturalLogarithm<T>::execute() {
     this->_result = static_cast<T>(std::log(this->_args.front().get()));
 }

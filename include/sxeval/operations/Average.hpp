@@ -32,6 +32,9 @@ public:
 /* IMPLEMENTATIONS */
 
 template <typename T>
+constexpr const char* sxeval::operations::Average<T>::KEY;
+
+template <typename T>
 void sxeval::operations::Average<T>::execute() {
     this->_result = static_cast<T>(0);
     for (const auto& arg : this->_args) {

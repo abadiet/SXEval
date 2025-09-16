@@ -33,6 +33,9 @@ public:
 /* IMPLEMENTATIONS */
 
 template <typename T>
+constexpr const char* sxeval::operations::Sine<T>::KEY;
+
+template <typename T>
 void sxeval::operations::Sine<T>::execute() {
     this->_result = static_cast<T>(std::sin(this->_args.front().get()));
 }

@@ -33,6 +33,9 @@ public:
 /* IMPLEMENTATIONS */
 
 template <typename T>
+constexpr const char* sxeval::operations::Exp<T>::KEY;
+
+template <typename T>
 void sxeval::operations::Exp<T>::execute() {
     this->_result = static_cast<T>(std::exp(this->_args.front().get()));
 }

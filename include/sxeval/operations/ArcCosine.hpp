@@ -33,6 +33,9 @@ public:
 /* IMPLEMENTATIONS */
 
 template <typename T>
+constexpr const char* sxeval::operations::ArcCosine<T>::KEY;
+
+template <typename T>
 void sxeval::operations::ArcCosine<T>::execute() {
     this->_result = static_cast<T>(std::acos(this->_args.front().get()));
 }

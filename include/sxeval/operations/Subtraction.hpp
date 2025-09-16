@@ -32,6 +32,9 @@ public:
 /* IMPLEMENTATIONS */
 
 template <typename T>
+constexpr const char* sxeval::operations::Subtraction<T>::KEY;
+
+template <typename T>
 void sxeval::operations::Subtraction<T>::execute() {
     this->_result = this->_args.front();
     for (size_t i = 1; i < this->_args.size(); ++i) {

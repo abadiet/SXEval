@@ -33,6 +33,9 @@ public:
 /* IMPLEMENTATIONS */
 
 template <typename T>
+constexpr const char* sxeval::operations::LogicalNot<T>::KEY;
+
+template <typename T>
 void sxeval::operations::LogicalNot<T>::execute() {
     this->_result = static_cast<T>(
         sxeval::LogicalNot(this->_args.front().get()));

@@ -25,8 +25,10 @@ public:
 
 /* IMPLEMENTATIONS */
 
+constexpr const char* MyOpe::KEY;
+
 void MyOpe::execute() {
-     getResult() = this->_args[0] * 42;
+    _result = this->_args[0] * 42;
 }
 
 #endif /* MYOPE_HPP */

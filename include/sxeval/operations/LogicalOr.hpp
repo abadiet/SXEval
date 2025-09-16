@@ -33,6 +33,9 @@ public:
 /* IMPLEMENTATIONS */
 
 template <typename T>
+constexpr const char* sxeval::operations::LogicalOr<T>::KEY;
+
+template <typename T>
 void sxeval::operations::LogicalOr<T>::execute() {
     this->_result = static_cast<T>(1);
     size_t i = 0;

@@ -33,6 +33,9 @@ public:
 /* IMPLEMENTATIONS */
 
 template <typename T>
+constexpr const char* sxeval::operations::Cosine<T>::KEY;
+
+template <typename T>
 void sxeval::operations::Cosine<T>::execute() {
     this->_result = static_cast<T>(std::cos(this->_args.front().get()));
 }

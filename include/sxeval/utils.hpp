@@ -271,7 +271,8 @@ Absolute(const T& a) {
  * it uses std::abs, and for floating point types, it uses std::fabs.
  */
 template<typename T>
-inline typename std::enable_if<std::is_integral<T>::value, T>::type
+inline typename std::enable_if<
+    std::is_integral<T>::value && !std::is_unsigned<T>::value, T>::type
 Absolute(const T& a) {
     return std::abs(a);
 }
@@ -285,7 +286,8 @@ Absolute(const T& a) {
  * it uses std::abs, and for floating point types, it uses std::fabs.
  */
 template<typename T>
-inline typename std::enable_if<std::is_floating_point<T>::value, T>::type
+inline typename std::enable_if<
+    std::is_floating_point<T>::value  && !std::is_unsigned<T>::value, T>::type
 Absolute(const T& a) {
     return std::fabs(a);
 }

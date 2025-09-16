@@ -33,6 +33,9 @@ public:
 /* IMPLEMENTATIONS */
 
 template <typename T>
+constexpr const char* sxeval::operations::Minimum<T>::KEY;
+
+template <typename T>
 void sxeval::operations::Minimum<T>::execute() {
     this->_result = this->_args.front();
     for (size_t i = 1; i < this->_args.size(); ++i) {

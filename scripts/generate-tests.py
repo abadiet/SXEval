@@ -1,8 +1,7 @@
 import sys
 import xml.etree.ElementTree as ET
 
-TEMPLATE='''
-#include <catch2/catch_test_macros.hpp>
+TEMPLATE='''#include <catch2/catch_test_macros.hpp>
 #include <sxeval/operations/OperationsFactory.hpp>
 #include <sxeval/IInstruction.hpp>
 #include <sxeval/Value.hpp>
@@ -13,8 +12,7 @@ using namespace sxeval;
 TEST_CASE("Operations instanciation", "[operations]") {{
     operations::OperationsFactory<int> factory;
 
-    IInstruction<int>* instr = dynamic_cast<IInstruction<int>*>(
-        new Value<int>(0));
+    auto instr = dynamic_cast<IInstruction<int>*>(new Value<int>(0));
     std::vector<IInstruction<int>*> args1;
     args1.push_back(instr);
     std::vector<IInstruction<int>*> args2;
@@ -44,7 +42,6 @@ TEST_CASE("Mathematical tests", "[operations]") {{
 
 {tests_math}
 }}
-
 '''
 
 def generate(operations, mathematical_tests, output_path):
@@ -85,8 +82,8 @@ def generate(operations, mathematical_tests, output_path):
             tests_math += f'        {{\n        {type} rawArgs[{len(args)}] = {{{",".join(args)}}};\n'
             instr_lst = []
             for i in range(len(args)):
-                tests_math += f'''        IInstruction<{type}>* instr{i} = dynamic_cast<IInstruction<{type}>*>(
-        new Value<{type}>(rawArgs[{i}]));\n'''
+                tests_math += f'''        auto instr{i} = dynamic_cast<IInstruction<{type}>*>(
+            new Value<{type}>(rawArgs[{i}]));\n'''
                 instr_lst.append(f'instr{i}')
             tests_math += f'        std::vector<IInstruction<{type}>*> args = {{{", ".join(instr_lst)}}};\n'
             tests_math += f'        auto op = factory_{type.replace(' ', '_')}.create("{key}", args);\n'

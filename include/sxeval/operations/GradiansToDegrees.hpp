@@ -32,6 +32,9 @@ public:
 /* IMPLEMENTATIONS */
 
 template <typename T>
+constexpr const char* sxeval::operations::GradiansToDegrees<T>::KEY;
+
+template <typename T>
 void sxeval::operations::GradiansToDegrees<T>::execute() {
     this->_result = this->_args.front().get() * static_cast<T>(0.9);
 }

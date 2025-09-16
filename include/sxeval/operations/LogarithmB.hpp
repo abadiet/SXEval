@@ -32,6 +32,9 @@ public:
 /* IMPLEMENTATIONS */
 
 template <typename T>
+constexpr const char* sxeval::operations::LogarithmB<T>::KEY;
+
+template <typename T>
 void sxeval::operations::LogarithmB<T>::execute() {
     this->_result = static_cast<T>(std::log(this->_args.front().get()) /
         std::log(this->_args.back().get()));

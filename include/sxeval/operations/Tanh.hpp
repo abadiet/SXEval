@@ -33,6 +33,9 @@ public:
 /* IMPLEMENTATIONS */
 
 template <typename T>
+constexpr const char* sxeval::operations::Tanh<T>::KEY;
+
+template <typename T>
 void sxeval::operations::Tanh<T>::execute() {
     this->_result = static_cast<T>(std::tanh(this->_args.front().get()));
 }

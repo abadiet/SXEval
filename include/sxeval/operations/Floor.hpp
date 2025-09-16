@@ -33,6 +33,9 @@ public:
 /* IMPLEMENTATIONS */
 
 template <typename T>
+constexpr const char* sxeval::operations::Floor<T>::KEY;
+
+template <typename T>
 void sxeval::operations::Floor<T>::execute() {
     this->_result = static_cast<T>(std::floor(this->_args.front().get()));
 }

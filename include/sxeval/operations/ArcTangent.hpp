@@ -33,6 +33,9 @@ public:
 /* IMPLEMENTATIONS */
 
 template <typename T>
+constexpr const char* sxeval::operations::ArcTangent<T>::KEY;
+
+template <typename T>
 void sxeval::operations::ArcTangent<T>::execute() {
     this->_result = static_cast<T>(std::atan(this->_args.front().get()));
 }

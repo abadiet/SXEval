@@ -33,6 +33,9 @@ public:
 /* IMPLEMENTATIONS */
 
 template <typename T>
+constexpr const char* sxeval::operations::Truncate<T>::KEY;
+
+template <typename T>
 void sxeval::operations::Truncate<T>::execute() {
     this->_result = static_cast<T>(std::trunc(this->_args.front().get()));
 }

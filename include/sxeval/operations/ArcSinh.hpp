@@ -33,6 +33,9 @@ public:
 /* IMPLEMENTATIONS */
 
 template <typename T>
+constexpr const char* sxeval::operations::ArcSinh<T>::KEY;
+
+template <typename T>
 void sxeval::operations::ArcSinh<T>::execute() {
     this->_result = static_cast<T>(std::asinh(this->_args.front().get()));
 }

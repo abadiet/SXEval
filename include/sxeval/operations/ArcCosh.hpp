@@ -33,6 +33,9 @@ public:
 /* IMPLEMENTATIONS */
 
 template <typename T>
+constexpr const char* sxeval::operations::ArcCosh<T>::KEY;
+
+template <typename T>
 void sxeval::operations::ArcCosh<T>::execute() {
     this->_result = static_cast<T>(std::acosh(this->_args.front().get()));
 }

@@ -32,6 +32,9 @@ public:
 /* IMPLEMENTATIONS */
 
 template <typename T>
+constexpr const char* sxeval::operations::DegreesToRadians<T>::KEY;
+
+template <typename T>
 void sxeval::operations::DegreesToRadians<T>::execute() {
     this->_result = this->_args.front().get() *
         static_cast<T>(SXEVAL_PI / 180.0);

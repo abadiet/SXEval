@@ -33,6 +33,9 @@ public:
 /* IMPLEMENTATIONS */
 
 template <typename T>
+constexpr const char* sxeval::operations::SquareRoot<T>::KEY;
+
+template <typename T>
 void sxeval::operations::SquareRoot<T>::execute() {
     this->_result = static_cast<T>(std::sqrt(this->_args.front().get()));
 }
