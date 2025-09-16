@@ -10,10 +10,10 @@
 class MyOpe : public sxeval::AOperation<int> {
 public:
     static constexpr const char* KEY = "myope";
-    static const int ARITY_MIN = 1;
-    static const int ARITY_MAX = 1;
+    static constexpr const int ARITY_MIN = 1;
+    static constexpr const int ARITY_MAX = 1;
 
-    MyOpe(const std::vector<sxeval::AInstruction<int>*>& args) :
+    MyOpe(const std::vector<sxeval::IInstruction<int>*>& args) :
         AOperation<int>(args) {}
 
     void execute() override;
@@ -26,7 +26,7 @@ public:
 /* IMPLEMENTATIONS */
 
 void MyOpe::execute() {
-     getResult() = this->getArgs()[0]->getResult() * 42;
+     getResult() = this->_args[0] * 42;
 }
 
 #endif /* MYOPE_HPP */

@@ -14,10 +14,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Benchmark
 - SXEval::eval -> SXEval::execute
-- SXEval::copmute -> SXEval::interpret
+- SXEval::compute -> SXEval::interpret
 - Exp operation
-- Operation validity check at compile time
+- Default operation settings
 - C++11 compliance
+- optimization: less copy
+### Removed
+- Clamp operation (> C++11)
 ### Fixed
 - generate-operations.py
 

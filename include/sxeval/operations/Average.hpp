@@ -13,10 +13,10 @@ template <typename T>
 class Average : public AOperation<T> {
 public:
     static constexpr const char* KEY = "avg";
-    static const int ARITY_MIN = 2;
-    static const int ARITY_MAX = AOperation<T>::UNLIMITED_ARITY;
+    static constexpr const int ARITY_MIN = 2;
+    static constexpr const int ARITY_MAX = AOperation<T>::UNLIMITED_ARITY;
 
-    inline Average(const std::vector<AInstruction<T>*>& args) :
+    inline Average(const std::vector<IInstruction<T>*>& args) :
         AOperation<T>(args) {}
 
     void execute() override;
@@ -33,11 +33,11 @@ public:
 
 template <typename T>
 void sxeval::operations::Average<T>::execute() {
-    this->getResult() = static_cast<T>(0);
-    for (const auto& arg : this->getArgs()) {
-        this->getResult() += arg->getResult();
+    this->_result = static_cast<T>(0);
+    for (const auto& arg : this->_args) {
+        this->_result += arg.get();
     }
-    this->getResult() /= static_cast<T>(this->getArgs().size());
+    this->_result /= static_cast<T>(this->_args.size());
 }
 
 #endif /* SXEVAL_OPERATIONS_AVERAGE_HPP */

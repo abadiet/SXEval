@@ -1,5 +1,5 @@
-#ifndef SXEVAL_AINSTRUCTION_HPP
-#define SXEVAL_AINSTRUCTION_HPP
+#ifndef SXEVAL_IINSTRUCTION_HPP
+#define SXEVAL_IINSTRUCTION_HPP
 
 #include <string>
 
@@ -9,34 +9,28 @@
 namespace sxeval {
 
 /**
- * @brief The AInstruction class is an abstract base class for any instructions.
+ * @brief The IInstruction class is an interface for any instructions.
  *
  * It represents an instruction that can be executed and has a result.
- * The result is stored in a member variable.
  *
  * @tparam T The type of values handled by the SXEval library. The supported
  * types are int, signed char, short int, long int, unsigned int, unsigned char,
  * unsigned long int, float, double and long double.
  */
 template <typename T>
-class AInstruction {
+class IInstruction {
 public:
-    /**
-     * @brief Default constructor.
-     * @param result A reference to the result of the instruction.
-     */
-    inline AInstruction(T& result) : _result(result) {}
-
     /**
      * @brief Default destructor.
      */
-    virtual ~AInstruction() = default;
+    virtual ~IInstruction() = default;
 
     /**
-     * @brief Get the result of the instruction.
-     * @return The result of the instruction.
+     * @brief Get a reference to the result of the instruction.
+     * 
+     * @return A reference result of the instruction.
      */
-    inline T getResult() const { return _result; }
+    virtual T& getResult() = 0;
 
     /**
      * @brief String representation of the instruction.
@@ -44,9 +38,6 @@ public:
      * @return A string representation of the instruction.
      */
     virtual std::string toString() const = 0;
-
-private:
-    T& _result;
 
 };
 
@@ -57,9 +48,9 @@ private:
  * @return The output stream.
  */
 template <typename T>
-inline std::ostream& operator<<(std::ostream& os, const AInstruction<T>& obj) {
+inline std::ostream& operator<<(std::ostream& os, const IInstruction<T>& obj) {
    return os << obj.toString();
 }
 
 } /* namespace sxeval */
-#endif /* SXEVAL_AINSTRUCTION_HPP */
+#endif /* SXEVAL_IINSTRUCTION_HPP */

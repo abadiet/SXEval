@@ -14,10 +14,10 @@ template <typename T>
 class AbsoluteValue : public AOperation<T> {
 public:
     static constexpr const char* KEY = "abs";
-    static const int ARITY_MIN = 1;
-    static const int ARITY_MAX = 1;
+    static constexpr const int ARITY_MIN = 1;
+    static constexpr const int ARITY_MAX = 1;
 
-    inline AbsoluteValue(const std::vector<AInstruction<T>*>& args) :
+    inline AbsoluteValue(const std::vector<IInstruction<T>*>& args) :
         AOperation<T>(args) {}
 
     void execute() override;
@@ -34,7 +34,7 @@ public:
 
 template <typename T>
 void sxeval::operations::AbsoluteValue<T>::execute() {
-    this->getResult() = static_cast<T>(sxeval::Absolute<T>(this->getArgs().front()->getResult()));
+    this->_result = static_cast<T>(sxeval::Absolute<T>(this->_args.front().get()));
 }
 
 #endif /* SXEVAL_OPERATIONS_ABSOLUTEVALUE_HPP */

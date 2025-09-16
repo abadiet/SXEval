@@ -14,10 +14,10 @@ template <typename T>
 class Less : public AOperation<T> {
 public:
     static constexpr const char* KEY = "<";
-    static const int ARITY_MIN = 2;
-    static const int ARITY_MAX = AOperation<T>::UNLIMITED_ARITY;
+    static constexpr const int ARITY_MIN = 2;
+    static constexpr const int ARITY_MAX = AOperation<T>::UNLIMITED_ARITY;
 
-    inline Less(const std::vector<AInstruction<T>*>& args) :
+    inline Less(const std::vector<IInstruction<T>*>& args) :
         AOperation<T>(args) {}
 
     void execute() override;
@@ -34,19 +34,19 @@ public:
 
 template <typename T>
 void sxeval::operations::Less<T>::execute() {
-    this->getResult() = static_cast<T>(1);
+    this->_result = static_cast<T>(1);
     size_t i = 0;
     bool verif = true;
-    while (verif && (i + 1) < this->getArgs().size()) {
-        verif = sxeval::Less(this->getArgs()[i]->getResult(),
-            this->getArgs()[i + 1]->getResult());
+    while (verif && (i + 1) < this->_args.size()) {
+        verif = sxeval::Less(this->_args[i].get(),
+            this->_args[i + 1].get());
         ++i;
     }
     if (verif) {
-        this->getResult() = static_cast<T>(1);
+        this->_result = static_cast<T>(1);
     }
     else {
-        this->getResult() = static_cast<T>(0);
+        this->_result = static_cast<T>(0);
     }
 }
 

@@ -63,8 +63,6 @@
 #include <stdexcept>
 #include <functional>
 #include <sstream>
-#include <type_traits>
-#include <concepts>
 
 
 /* DEFINITIONS */
@@ -109,7 +107,7 @@ public:
      * arguments is not valid for the operation.
      */
     std::unique_ptr<AOperation<T>> create(const std::string& key,
-        const std::vector<AInstruction<T>*> args);
+        const std::vector<IInstruction<T>*> args);
 
     /**
      * @brief Compute the result of an operation from its key and arguments.
@@ -120,13 +118,13 @@ public:
      * @throws std::invalid_argument if the key is unknown or if the number of
      * arguments is not valid for the operation.
      */
-    T compute(const std::string& key, const std::vector<AInstruction<T>*> args)
+    T compute(const std::string& key, const std::vector<IInstruction<T>*> args)
         const;
 
 private:
     std::unordered_map<std::string,
         const std::function<std::unique_ptr<AOperation<T>>(
-        const std::vector<AInstruction<T>*>&)>> _operations;
+        const std::vector<IInstruction<T>*>&)>> _operations;
 
 };
 
@@ -202,8 +200,8 @@ sxeval::operations::OperationsFactory<T>::add() {
         _operations.erase(OP::KEY);
     }
     const std::function<std::unique_ptr<AOperation<T>>(
-        const std::vector<AInstruction<T>*>&)> f =
-        [](const std::vector<AInstruction<T>*>& args) {
+        const std::vector<IInstruction<T>*>&)> f =
+        [](const std::vector<IInstruction<T>*>& args) {
             const auto nargs = static_cast<int>(args.size());
             if (nargs < OP::ARITY_MIN) {
                 std::ostringstream oss;
@@ -227,7 +225,7 @@ sxeval::operations::OperationsFactory<T>::add() {
 template <typename T>
 std::unique_ptr<sxeval::AOperation<T>>
 sxeval::operations::OperationsFactory<T>::create(
-    const std::string& key, const std::vector<sxeval::AInstruction<T>*> args)
+    const std::string& key, const std::vector<sxeval::IInstruction<T>*> args)
 {
     const auto it = _operations.find(key);
     if (it == _operations.end()) {
@@ -238,9 +236,8 @@ sxeval::operations::OperationsFactory<T>::create(
 
 template <typename T>
 T sxeval::operations::OperationsFactory<T>::compute(
-    const std::string& key, const std::vector<sxeval::AInstruction<T>*> args)
-    const
-{
+    const std::string& key, const std::vector<sxeval::IInstruction<T>*> args
+) const {
     const auto it = _operations.find(key);
     if (it == _operations.end()) {
         throw std::invalid_argument("Unknown operation key: " + key);

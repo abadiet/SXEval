@@ -14,10 +14,10 @@ template <typename T>
 class ArcTangent2 : public AOperation<T> {
 public:
     static constexpr const char* KEY = "atan2";
-    static const int ARITY_MIN = 2;
-    static const int ARITY_MAX = 2;
+    static constexpr const int ARITY_MIN = 2;
+    static constexpr const int ARITY_MAX = 2;
 
-    inline ArcTangent2(const std::vector<AInstruction<T>*>& args) :
+    inline ArcTangent2(const std::vector<IInstruction<T>*>& args) :
         AOperation<T>(args) {}
 
     void execute() override;
@@ -34,8 +34,8 @@ public:
 
 template <typename T>
 void sxeval::operations::ArcTangent2<T>::execute() {
-    this->getResult() = static_cast<T>(std::atan2(this->getArgs().front()->getResult(),
-        this->getArgs().back()->getResult()));
+    this->_result = static_cast<T>(std::atan2(this->_args.front().get(),
+        this->_args.back().get()));
 }
 
 #endif /* SXEVAL_OPERATIONS_ARCTANGENT2_HPP */

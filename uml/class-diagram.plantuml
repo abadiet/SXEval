@@ -23,7 +23,7 @@ package sxeval {
     end note
 
     class SXEval<T> {
-        - _Node : struct {instruct : std::unique_ptr<AInstruction<T>>, parent : _Node*, subnodes : std::vector<_Node>}
+        - _Node : struct {instruct : std::unique_ptr<IInstruction<T>>, parent : _Node*, subnodes : std::vector<_Node>}
         -_operationsFactory : OperationsFactory<T>
         -_operations : std::vector<std::unique_ptr<AOperation<T>>>
         -_encapsulated : std::vector<EncapsulatedVariable<T>*>
@@ -44,46 +44,47 @@ package sxeval {
         -_buildTreeStr(std::opstream& os, const _Node& node, size_t depth) : void
     }
 
-    abstract class AInstruction<T> {
-        -_result : T&
-        +AInstruction(result : T&)
-        +getResult() : T
+    interface IInstruction<T> {
+        +getResult() : T&
         +{abstract} toString() : std::string
     }
 
-    abstract class AOperation<T> extends AInstruction {
-        +{static} UNLIMITED_ARITY : const int := -1
-        +{static} KEY : const char* const := "AOperation"
-        +{static} ARITY_MIN : const int := 0
-        +{static} ARITY_MAX : const int := UNLIMITED_ARITY
-        -_args : const std::vector<AInstruction<T>*>
-        -_result : T
-        +AOperation(args : const std::vector<AInstruction<T>*>&)
-        +getArgs() : const std::vector<AInstruction<T>*>&
+    abstract class AOperation<T> extends IInstruction {
+        +{static} UNLIMITED_ARITY : constexpr const int := -1
+        +{static} KEY : constexpr const char* const := "AOperation"
+        +{static} ARITY_MIN : constexpr const int := 0
+        +{static} ARITY_MAX : constexpr const int := UNLIMITED_ARITY
+        #_args : std::vector<std::reference_wrapper<T>>
+        #_result : T
+        +AOperation(args : const std::vector<IInstruction<T>*>&)
         +getResult() : T&
         +{abstract} execute()
     }
 
-    abstract class AOperand<T> extends AInstruction {
-        +AOperand(result : T&)
+    interface IOperand<T> extends IInstruction {
     }
 
-    class Value<T> extends AOperand {
+    class Value<T> extends IOperand {
         -_val : T
         +Value(val : T)
-    }
-
-    class Variable<T> extends AOperand {
-        -_name : const std::string
-        +Variable(var : T&, name : const std::string&)
+        +getResult() : T&
         +toString() : std::string
     }
 
-    class EncapsulatedVariable<T> extends AOperand {
+    class Variable<T> extends IOperand {
+        -_var : T&
         -_name : const std::string
+        +Variable(var : T&, name : const std::string&)
+        +getResult() : T&
+        +toString() : std::string
+    }
+
+    class EncapsulatedVariable<T> extends IOperand {
         -_var : T
+        -_name : const std::string
         -_get : const std::function<T(void)>&
         +Variable(get : const std::function<T(void)>&, name : const std::string&)
+        +getResult() : T&
         +retrieve()
         +toString() : std::string
     }
@@ -91,27 +92,27 @@ package sxeval {
     package operations {
 
         class OperationsFactory<T> {
-            -_operations : std::map<std::string, std::function<std::unique_ptr<AOperation<T>>(const std::vector<AInstruction<T>*>&)>>
+            -_operations : std::map<std::string, std::function<std::unique_ptr<AOperation<T>>(const std::vector<IInstruction<T>*>&)>>
             +OperationsFactory()
             +template add<OP>()
-            +create(key : const std::string&, args : const std::vector<AInstruction<T>*>) : std::unique_ptr<AOperation<T>>
-            +compute(key : const std::string&, args : const std::vector<AInstruction<T>*>) : T
+            +create(key : const std::string&, args : const std::vector<IInstruction<T>*>) : std::unique_ptr<AOperation<T>>
+            +compute(key : const std::string&, args : const std::vector<IInstruction<T>*>) : T
         }
 
         class Addition<T> {
-            #{static} KEY : const char* := "+"
-            #{static} ARITY_MIN : const int := 2
-            #{static} ARITY_MAX : const int := AOperation<T>::UNLIMITED_ARITY
-            +Addition(args : const std::vector<AInstruction<T>*>&)
+            +{static} KEY : constexpr const char* := "+"
+            +{static} ARITY_MIN : constexpr const int := 2
+            +{static} ARITY_MAX : constexpr const int := AOperation<T>::UNLIMITED_ARITY
+            +Addition(args : const std::vector<IInstruction<T>*>&)
             +execute()
             +toString() : std::string
         }
 
         class SquareRoot<T> {
-            #{static} KEY : const char* := "sqrt"
-            #{static} ARITY_MIN : const int := 1
-            #{static} ARITY_MAX : const int := 1
-            +SquareRoot(args : const std::vector<AInstruction<T>*>&)
+            +{static} KEY : constexpr const char* := "sqrt"
+            +{static} ARITY_MIN : constexpr const int := 1
+            +{static} ARITY_MAX : constexpr const int := 1
+            +SquareRoot(args : const std::vector<IInstruction<T>*>&)
             +execute()
             +toString() : std::string
         }
@@ -125,11 +126,11 @@ package sxeval {
 
     }
 
-    SXEval *--> AInstruction : _Node::instruct\n0..*
+    SXEval *--> IInstruction : _Node::instruct\n0..*
     SXEval *--> OperationsFactory : _operationsFactory\n1..1
     SXEval o--> AOperation : _operations\n0..*
     SXEval o--> EncapsulatedVariable : _encapsulated\n0..*
-    AOperation o-up-> AInstruction : _args\n0..*
+    AOperation o-up-> IInstruction : _args\n0..*
 
 }
 

@@ -1,7 +1,7 @@
 #ifndef SXEVAL_VARIABLE_HPP
 #define SXEVAL_VARIABLE_HPP
 
-#include "sxeval/AOperand.hpp"
+#include "sxeval/IOperand.hpp"
 
 namespace sxeval {
 
@@ -13,7 +13,7 @@ namespace sxeval {
  * double and long double.
  */
 template <typename T>
-class Variable : public AOperand<T> {
+class Variable : public virtual IOperand<T> {
 public:
     /**
      * @brief Default constructor.
@@ -22,8 +22,14 @@ public:
      * @param name The name of the variable.
      * @note The name is used for debugging and string representation purposes.
      */
-    inline Variable(T& var, const std::string& name) : AOperand<T>(var),
-        _name(name) {}
+    inline Variable(T& var, const std::string& name) : _var(var), _name(name) {}
+
+    /**
+     * @brief Get a reference to the variable.
+     *
+     * @return A reference to the variable.
+     */
+    inline T& getResult() override { return _var; }
 
     /**
      * @brief String representation of the variable.
@@ -33,6 +39,7 @@ public:
     inline std::string toString() const override { return _name; }
 
 private:
+    T& _var;
     const std::string _name;
 
 };

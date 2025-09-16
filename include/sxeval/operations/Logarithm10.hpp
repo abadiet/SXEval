@@ -14,10 +14,10 @@ template <typename T>
 class Logarithm10 : public AOperation<T> {
 public:
     static constexpr const char* KEY = "log10";
-    static const int ARITY_MIN = 1;
-    static const int ARITY_MAX = 1;
+    static constexpr const int ARITY_MIN = 1;
+    static constexpr const int ARITY_MAX = 1;
 
-    inline Logarithm10(const std::vector<AInstruction<T>*>& args) :
+    inline Logarithm10(const std::vector<IInstruction<T>*>& args) :
         AOperation<T>(args) {}
 
     void execute() override;
@@ -34,7 +34,7 @@ public:
 
 template <typename T>
 void sxeval::operations::Logarithm10<T>::execute() {
-    this->getResult() = static_cast<T>(std::log10(this->getArgs().front()->getResult()));
+    this->_result = static_cast<T>(std::log10(this->_args.front().get()));
 }
 
 #endif /* SXEVAL_OPERATIONS_LOGARITHM10_HPP */

@@ -12,26 +12,19 @@ TEMPLATE_OP = '''#ifndef {include_guard}
 namespace sxeval {{
 namespace operations {{
 
-template <typename OP, typename T>
-concept ValidOperation = 
-    std::derived_from<OP, AOperation<T>> &&
-    requires {{
-        {{ OP::KEY }} -> std::convertible_to<const char* const>;
-        {{ OP::ARITY_MIN }} -> std::convertible_to<const int>;
-        {{ OP::ARITY_MAX }} -> std::convertible_to<const int>;
-    }};
-
 template <typename T>
 class {class_name} : public AOperation<T> {{
 public:
     static constexpr const char* KEY = "{key}";
-    static const int ARITY_MIN = {arity_min};
-    static const int ARITY_MAX = {arity_max};
+    static constexpr const int ARITY_MIN = {arity_min};
+    static constexpr const int ARITY_MAX = {arity_max};
 
-    inline {class_name}(const std::vector<AInstruction<T>*>& args) :
+    inline {class_name}(const std::vector<IInstruction<T>*>& args) :
         AOperation<T>(args) {{}}
 
     void execute() override;
+
+    inline std::string toString() const override { return KEY; }
 
     inline std::string toString() const override {{ return KEY; }}
 
@@ -63,8 +56,6 @@ TEMPLATE_FACTORY='''
 #include <stdexcept>
 #include <functional>
 #include <sstream>
-#include <type_traits>
-#include <concepts>
 
 
 /* DEFINITIONS */
@@ -94,8 +85,10 @@ public:
      * sxeval::AOperation<T> and provide the static members KEY, ARITY_MIN and
      * ARITY_MAX.
      */
-    template <ValidOperation<T> OP>
-    void add();
+    template <typename OP>
+    typename std::enable_if<std::is_base_of<sxeval::AOperation<T>, OP>::value>
+        ::type
+    add();
 
     /**
      * @brief Instantiate an operation from its key and arguments.
@@ -107,7 +100,7 @@ public:
      * arguments is not valid for the operation.
      */
     std::unique_ptr<AOperation<T>> create(const std::string& key,
-        const std::vector<AInstruction<T>*> args);
+        const std::vector<IInstruction<T>*> args);
 
     /**
      * @brief Compute the result of an operation from its key and arguments.
@@ -118,13 +111,13 @@ public:
      * @throws std::invalid_argument if the key is unknown or if the number of
      * arguments is not valid for the operation.
      */
-    T compute(const std::string& key, const std::vector<AInstruction<T>*> args)
+    T compute(const std::string& key, const std::vector<IInstruction<T>*> args)
         const;
 
 private:
     std::unordered_map<std::string,
         const std::function<std::unique_ptr<AOperation<T>>(
-        const std::vector<AInstruction<T>*>&)>> _operations;
+        const std::vector<IInstruction<T>*>&)>> _operations;
 
 }};
 
@@ -140,14 +133,15 @@ sxeval::operations::OperationsFactory<T>::OperationsFactory() {{
 }}
 
 template <typename T>
-template <sxeval::operations::ValidOperation<T> OP>
-void sxeval::operations::OperationsFactory<T>::add() {{
+template <typename OP>
+typename std::enable_if<std::is_base_of<sxeval::AOperation<T>, OP>::value>::type
+sxeval::operations::OperationsFactory<T>::add() {{
     if (_operations.find(OP::KEY) != _operations.end()) {{
         _operations.erase(OP::KEY);
     }}
     const std::function<std::unique_ptr<AOperation<T>>(
-        const std::vector<AInstruction<T>*>&)> f =
-        [](const std::vector<AInstruction<T>*>& args) {{
+        const std::vector<IInstruction<T>*>&)> f =
+        [](const std::vector<IInstruction<T>*>& args) {{
             const auto nargs = static_cast<int>(args.size());
             if (nargs < OP::ARITY_MIN) {{
                 std::ostringstream oss;
@@ -163,7 +157,7 @@ void sxeval::operations::OperationsFactory<T>::add() {{
                     << OP::ARITY_MAX << " arguments";
                 throw std::invalid_argument(oss.str());
             }}
-            return new OP(args);
+            return std::unique_ptr<AOperation<T>>(new OP(args));
         }};
     _operations.insert(std::make_pair(OP::KEY, f));
 }}
@@ -171,7 +165,7 @@ void sxeval::operations::OperationsFactory<T>::add() {{
 template <typename T>
 std::unique_ptr<sxeval::AOperation<T>>
 sxeval::operations::OperationsFactory<T>::create(
-    const std::string& key, const std::vector<sxeval::AInstruction<T>*> args)
+    const std::string& key, const std::vector<sxeval::IInstruction<T>*> args)
 {{
     const auto it = _operations.find(key);
     if (it == _operations.end()) {{
@@ -182,9 +176,8 @@ sxeval::operations::OperationsFactory<T>::create(
 
 template <typename T>
 T sxeval::operations::OperationsFactory<T>::compute(
-    const std::string& key, const std::vector<sxeval::AInstruction<T>*> args)
-    const
-{{
+    const std::string& key, const std::vector<sxeval::IInstruction<T>*> args
+) const {{
     const auto it = _operations.find(key);
     if (it == _operations.end()) {{
         throw std::invalid_argument("Unknown operation key: " + key);
@@ -203,44 +196,42 @@ def generate_op(class_name, key, arity_min, arity_max, operation, output_path):
     execute = ""
 
     if operation == "":
-        execute = "this->getResult() = "
+        execute = "this->_result = "
     elif int(arity_min) == 1 and int(arity_max) == 1:
-        execute = f"this->getResult() = static_cast<T>({operation}(this->getArgs().front()->getResult()));"
+        execute = f"this->_result = static_cast<T>({operation}(this->_args.front().get()));"
     elif int(arity_min) == 2 and int(arity_max) == 2:
-        execute = f'''this->getResult() = static_cast<T>({operation}(this->getArgs().front()->getResult(),
-        this->getArgs().back()->getResult()));'''
+        execute = f'''this->_result = static_cast<T>({operation}(this->_args.front().get(),
+        this->_args.back().get()));'''
     elif int(arity_min) == 3 and int(arity_max) == 3:
-        execute = f'''this->getResult() = static_cast<T>({operation}(this->getArgs().front()->getResult(),
-        this->getArgs()[1]->getResult(), this->getArgs().back()->getResult()));'''
+        execute = f'''this->_result = static_cast<T>({operation}(this->_args.front().get(),
+        this->_args[1].get(), this->_args.back().get()));'''
     elif int(arity_max) == -1:
         if operation == "sxeval":
-            execute = '''this->getResult() = static_cast<T>(1);
+            execute = '''this->_result = static_cast<T>(1);
     size_t i = 0;
     bool verif = true;
-    while (verif && (i + 1) < this->getArgs().size()) {{
-        verif = sxeval::{class_name}(this->getArgs()[i]->getResult(),
-            this->getArgs()[i + 1]->getResult());
+    while (verif && (i + 1) < this->_args.size()) {{
+        verif = sxeval::{class_name}(this->_args[i].get(),
+            this->_args[i + 1].get());
         ++i;
     }}
     if (verif) {{
-        this->getResult() = static_cast<T>(1);
+        this->_result = static_cast<T>(1);
     }}
     else {{
-        this->getResult() = static_cast<T>(0);
+        this->_result = static_cast<T>(0);
     }}'''.format(class_name=class_name)
         elif "::" in operation:
-            execute = '''this->getResult() = this->getArgs().front()->getResult();
-    for (size_t i = 1; i < this->getArgs().size(); ++i) {{
-        this->getResult() = static_cast<T>({operation}(this->getResult(),
-            this->getArgs()[i]->getResult()));
+            execute = '''this->_result = this->_args.front();
+    for (size_t i = 1; i < this->_args.size(); ++i) {{
+        this->_result = static_cast<T>({operation}(this->_result,
+            this->_args[i].get()));
     }}'''.format(operation=operation)
-        elif operation != "":
-            execute = '''this->getResult() = this->getArgs().front()->getResult();
-    for (size_t i = 1; i < this->getArgs().size(); ++i) {{
-        this->getResult() {operation}= this->getArgs()[i]->getResult();
+        else:
+            execute = '''this->_result = this->_args.front();
+    for (size_t i = 1; i < this->_args.size(); ++i) {{
+        this->_result {operation}= this->_args[i].get();
     }}'''.format(operation=operation)
-    else:
-        execute = "this->getResult() = "
 
     includes = ""
     if "std::" in operation:

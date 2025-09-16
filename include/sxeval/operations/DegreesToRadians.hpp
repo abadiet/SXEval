@@ -13,10 +13,10 @@ template <typename T>
 class DegreesToRadians : public AOperation<T> {
 public:
     static constexpr const char* KEY = "deg2rad";
-    static const int ARITY_MIN = 1;
-    static const int ARITY_MAX = 1;
+    static constexpr const int ARITY_MIN = 1;
+    static constexpr const int ARITY_MAX = 1;
 
-    inline DegreesToRadians(const std::vector<AInstruction<T>*>& args) :
+    inline DegreesToRadians(const std::vector<IInstruction<T>*>& args) :
         AOperation<T>(args) {}
 
     void execute() override;
@@ -33,7 +33,8 @@ public:
 
 template <typename T>
 void sxeval::operations::DegreesToRadians<T>::execute() {
-    this->getResult() = this->getArgs()[0]->getResult() * static_cast<T>(SXEVAL_PI / 180.0);
+    this->_result = this->_args.front().get() *
+        static_cast<T>(SXEVAL_PI / 180.0);
 }
 
 #endif /* SXEVAL_OPERATIONS_DEGREESTORADIANS_HPP */

@@ -2,7 +2,7 @@
 #define SXEVAL_SXEVAL_HPP
 
 #include "sxeval/AOperation.hpp"
-#include "sxeval/AOperand.hpp"
+#include "sxeval/IOperand.hpp"
 #include "sxeval/operations/OperationsFactory.hpp"
 #include "sxeval/Value.hpp"
 #include "sxeval/Variable.hpp"
@@ -181,7 +181,7 @@ public:
 
 private:
     struct _Node {
-        std::unique_ptr<AInstruction<T>> instruct;
+        std::unique_ptr<IInstruction<T>> instruct;
         _Node* parent;
         std::vector<_Node> subnodes;
 
@@ -278,13 +278,13 @@ T sxeval::SXEval<T>::_interpret(const std::string& exp, size_t* idx,
         /* ### OPERATION ### */
         (*idx)++;
         const auto symbol = _getNextSymbol(exp, idx);
-        std::vector<std::unique_ptr<AInstruction<T>>> args;
-        std::vector<AInstruction<T>*> pargs;
+        std::vector<std::unique_ptr<IInstruction<T>>> args;
+        std::vector<IInstruction<T>*> pargs;
         _skipChars(exp, idx);
         while (exp[*idx] != ')') {
             const auto val = _interpret(exp, idx, resolveVariable,
                 resolveEncapsulated);
-            args.push_back(std::unique_ptr<AInstruction<T>>(new Value<T>(val)));
+            args.push_back(std::unique_ptr<IInstruction<T>>(new Value<T>(val)));
             pargs.push_back(args.back().get());
             _skipChars(exp, idx);
         }
@@ -403,7 +403,7 @@ typename sxeval::SXEval<T>::_Node sxeval::SXEval<T>::_build(size_t* idx,
             _skipChars(_expression, idx);
         }
         (*idx)++;
-        std::vector<AInstruction<T>*> args;
+        std::vector<IInstruction<T>*> args;
         for (auto& subnode : node.subnodes) {
             args.push_back(subnode.instruct.get());
         }
@@ -418,7 +418,7 @@ typename sxeval::SXEval<T>::_Node sxeval::SXEval<T>::_build(size_t* idx,
         _Node node;
         try {
             T val = StringToType<T>(symbol);
-            node = { std::unique_ptr<AInstruction<T>>(new Value<T>(val)),
+            node = { std::unique_ptr<IInstruction<T>>(new Value<T>(val)),
                 nullptr, {} };
             #ifdef SXEVAL_DEBUG
             {
@@ -436,7 +436,7 @@ typename sxeval::SXEval<T>::_Node sxeval::SXEval<T>::_build(size_t* idx,
             try {
                 T& var = resolveVariable(symbol);
                 node = {
-                    std::unique_ptr<AInstruction<T>>(
+                    std::unique_ptr<IInstruction<T>>(
                         new Variable<T>(var, symbol)
                     ), nullptr, {} };
                 #ifdef SXEVAL_DEBUG
@@ -456,7 +456,7 @@ typename sxeval::SXEval<T>::_Node sxeval::SXEval<T>::_build(size_t* idx,
                 try {
                     auto get = resolveEncapsulated(symbol);
                     node = {
-                        std::unique_ptr<AInstruction<T>>(
+                        std::unique_ptr<IInstruction<T>>(
                             new EncapsulatedVariable<T>(get, symbol)
                         ), nullptr, {} };
                     _encapsulated.push_back(
@@ -478,11 +478,11 @@ typename sxeval::SXEval<T>::_Node sxeval::SXEval<T>::_build(size_t* idx,
                      */
                     if (symbol == "true") {
                         node = {
-                            std::unique_ptr<AInstruction<T>>(new Value<T>(1)),
+                            std::unique_ptr<IInstruction<T>>(new Value<T>(1)),
                             nullptr, {} };
                     } else if (symbol == "false") {
                         node = {
-                            std::unique_ptr<AInstruction<T>>(new Value<T>(0)),
+                            std::unique_ptr<IInstruction<T>>(new Value<T>(0)),
                             nullptr, {} };
                     } else {
                         throw std::runtime_error("Unknown variable: " + symbol);

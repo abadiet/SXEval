@@ -1,7 +1,7 @@
 #ifndef SXEVAL_VALUE_HPP
 #define SXEVAL_VALUE_HPP
 
-#include "sxeval/AOperand.hpp"
+#include "sxeval/IOperand.hpp"
 #include <string>
 
 
@@ -17,14 +17,21 @@ namespace sxeval {
  * double and long double.
  */
 template <typename T>
-class Value : public AOperand<T> {
+class Value : public virtual IOperand<T> {
 public:
     /**
      * @brief Default constructor.
      *
      * @param val The value to store.
      */
-    inline Value(T val) : AOperand<T>(_val), _val(val) {}
+    inline Value(T val) : _val(val) {}
+
+    /**
+     * @brief Get a reference to the value.
+     *
+     * @return A reference to the value.
+     */
+    inline T& getResult() override { return _val; }
 
     inline std::string toString() const override {
         return std::to_string(_val); }

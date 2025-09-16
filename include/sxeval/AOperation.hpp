@@ -1,7 +1,7 @@
 #ifndef SXEVAL_AOPERATION_HPP
 #define SXEVAL_AOPERATION_HPP
 
-#include "sxeval/AInstruction.hpp"
+#include "sxeval/IInstruction.hpp"
 #include <vector>
 
 
@@ -19,12 +19,12 @@ namespace sxeval {
  * unsigned long int, float, double and long double.
  */
 template <typename T>
-class AOperation : public AInstruction<T> {
+class AOperation : public virtual IInstruction<T> {
 public:
     /**
      * @brief The value for an unlimited number of arguments. 
      */
-    static const int UNLIMITED_ARITY = -1;
+    static constexpr const int UNLIMITED_ARITY = -1;
 
     /**
      * @brief Default key for the operation.
@@ -34,18 +34,17 @@ public:
     /**
      * @brief Default minimum number of arguments for the operation.
      */
-    static const int ARITY_MIN = 0;
+    static constexpr const int ARITY_MIN = 0;
 
     /**
      * @brief Default maximum number of arguments for the operation.
      */
-    static const int ARITY_MAX = UNLIMITED_ARITY;
+    static constexpr const int ARITY_MAX = UNLIMITED_ARITY;
 
     /**
      * @brief Constructor that initializes the operation.
      */
-    inline AOperation(const std::vector<AInstruction<T>*>& args) 
-        : AInstruction<T>(_result), _args(args) {}
+    AOperation(const std::vector<IInstruction<T>*>& args);
 
     /**
      * @brief Copy constructor.
@@ -53,8 +52,7 @@ public:
      * @param other The operation to copy.
      */
     inline AOperation(const AOperation& other)
-        : AInstruction<T>(_result), _result(other._result),
-        _args(other._args) {}
+        : _result(other._result), _args(other._args) {}
 
     /**
      * @brief Default destructor.
@@ -62,18 +60,11 @@ public:
     virtual ~AOperation() override = default;
 
     /**
-     * @brief Return the arguments of the operation.
-     *
-     * @return A vector of pointers to the arguments of the operation.
-     */
-    inline const std::vector<AInstruction<T>*>& getArgs() const { return _args; }
-
-    /**
      * @brief Get the result of the operation.
      *
      * @return A reference to the result of the operation.
      */
-    inline T& getResult() { return _result; }
+    inline T& getResult() override { return _result; }
 
     /**
      * @brief Execute the operation.
@@ -83,11 +74,22 @@ public:
      */
     virtual void execute() = 0;
 
-private:
-    T _result = T();
-    const std::vector<AInstruction<T>*> _args;
+protected:
+    T _result;
+    std::vector<std::reference_wrapper<T>> _args;
 
 };
 
 } /* namespace sxeval */
+
+
+/* IMPLEMENTATIONS */
+
+template <typename T>
+sxeval::AOperation<T>::AOperation(const std::vector<IInstruction<T>*>& args) {
+    for (const auto& arg : args) {
+        _args.push_back(arg->getResult());
+    }
+}
+
 #endif /* SXEVAL_AOPERATION_HPP */

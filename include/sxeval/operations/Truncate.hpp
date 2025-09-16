@@ -14,10 +14,10 @@ template <typename T>
 class Truncate : public AOperation<T> {
 public:
     static constexpr const char* KEY = "trunc";
-    static const int ARITY_MIN = 1;
-    static const int ARITY_MAX = 1;
+    static constexpr const int ARITY_MIN = 1;
+    static constexpr const int ARITY_MAX = 1;
 
-    inline Truncate(const std::vector<AInstruction<T>*>& args) :
+    inline Truncate(const std::vector<IInstruction<T>*>& args) :
         AOperation<T>(args) {}
 
     void execute() override;
@@ -34,7 +34,7 @@ public:
 
 template <typename T>
 void sxeval::operations::Truncate<T>::execute() {
-    this->getResult() = static_cast<T>(std::trunc(this->getArgs().front()->getResult()));
+    this->_result = static_cast<T>(std::trunc(this->_args.front().get()));
 }
 
 #endif /* SXEVAL_OPERATIONS_TRUNCATE_HPP */

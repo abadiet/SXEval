@@ -14,10 +14,10 @@ template <typename T>
 class Hypotenuse : public AOperation<T> {
 public:
     static constexpr const char* KEY = "hypot";
-    static const int ARITY_MIN = 2;
-    static const int ARITY_MAX = 2;
+    static constexpr const int ARITY_MIN = 2;
+    static constexpr const int ARITY_MAX = 2;
 
-    inline Hypotenuse(const std::vector<AInstruction<T>*>& args) :
+    inline Hypotenuse(const std::vector<IInstruction<T>*>& args) :
         AOperation<T>(args) {}
 
     void execute() override;
@@ -34,8 +34,8 @@ public:
 
 template <typename T>
 void sxeval::operations::Hypotenuse<T>::execute() {
-    this->getResult() = static_cast<T>(std::hypot(this->getArgs().front()->getResult(),
-        this->getArgs().back()->getResult()));
+    this->_result = static_cast<T>(std::hypot(this->_args.front().get(),
+        this->_args.back().get()));
 }
 
 #endif /* SXEVAL_OPERATIONS_HYPOTENUSE_HPP */

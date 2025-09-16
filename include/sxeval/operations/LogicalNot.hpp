@@ -14,10 +14,10 @@ template <typename T>
 class LogicalNot : public AOperation<T> {
 public:
     static constexpr const char* KEY = "not";
-    static const int ARITY_MIN = 1;
-    static const int ARITY_MAX = 1;
+    static constexpr const int ARITY_MIN = 1;
+    static constexpr const int ARITY_MAX = 1;
 
-    inline LogicalNot(const std::vector<AInstruction<T>*>& args) :
+    inline LogicalNot(const std::vector<IInstruction<T>*>& args) :
         AOperation<T>(args) {}
 
     void execute() override;
@@ -34,8 +34,8 @@ public:
 
 template <typename T>
 void sxeval::operations::LogicalNot<T>::execute() {
-    this->getResult() = static_cast<T>(sxeval::LogicalNot(
-        this->getArgs().front()->getResult()));
+    this->_result = static_cast<T>(
+        sxeval::LogicalNot(this->_args.front().get()));
 }
 
 #endif /* SXEVAL_OPERATIONS_LOGICALNOT_HPP */

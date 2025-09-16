@@ -70,7 +70,7 @@ Equal(const T& a, const T& b) {
  */
 template<typename T>
 inline bool NotEqual(const T& a, const T& b) {
-    return !Equal(a, b);
+    return !Equal<T>(a, b);
 }
 
 /**
@@ -82,7 +82,7 @@ inline bool NotEqual(const T& a, const T& b) {
  */
 template<typename T>
 inline bool GreaterOrEqual(const T& a, const T& b) {
-    return Greater(a, b) || Equal(a, b);
+    return Greater<T>(a, b) || Equal<T>(a, b);
 }
 
 /**
@@ -94,7 +94,7 @@ inline bool GreaterOrEqual(const T& a, const T& b) {
  */
 template<typename T>
 inline bool Less(const T& a, const T& b) {
-    return !GreaterOrEqual(a, b);
+    return !GreaterOrEqual<T>(a, b);
 }
 
 /**
@@ -106,7 +106,7 @@ inline bool Less(const T& a, const T& b) {
  */
 template<typename T>
 inline bool LessOrEqual(const T& a, const T& b) {
-    return Less(a, b) || Equal(a, b);
+    return Less<T>(a, b) || Equal<T>(a, b);
 }
 
 /**
@@ -146,7 +146,7 @@ TypeToBool(const T& val) {
  */
 template<typename T>
 inline bool LogicalAnd(const T& a, const T& b) {
-    return TypeToBool(a) && TypeToBool(b);
+    return TypeToBool<T>(a) && TypeToBool<T>(b);
 }
 
 /**
@@ -158,7 +158,7 @@ inline bool LogicalAnd(const T& a, const T& b) {
  */
 template<typename T>
 inline bool LogicalOr(const T& a, const T& b) {
-    return TypeToBool(a) || TypeToBool(b);
+    return TypeToBool<T>(a) || TypeToBool<T>(b);
 }
 
 /**
@@ -169,7 +169,7 @@ inline bool LogicalOr(const T& a, const T& b) {
  */
 template<typename T>
 inline bool LogicalNot(const T& a) {
-    return !TypeToBool(a);
+    return !TypeToBool<T>(a);
 }
 
 /**
@@ -181,7 +181,7 @@ inline bool LogicalNot(const T& a) {
  */
 template<typename T>
 inline bool LogicalXor(const T& a, const T& b) {
-    return TypeToBool(a) != TypeToBool(b);
+    return TypeToBool<T>(a) != TypeToBool<T>(b);
 }
 
 /**
@@ -193,7 +193,7 @@ inline bool LogicalXor(const T& a, const T& b) {
  */
 template<typename T>
 inline bool LogicalNand(const T& a, const T& b) {
-    return !LogicalAnd(a, b);
+    return !LogicalAnd<T>(a, b);
 }
 
 /**
@@ -205,7 +205,7 @@ inline bool LogicalNand(const T& a, const T& b) {
  */
 template<typename T>
 inline bool LogicalNor(const T& a, const T& b) {
-    return !LogicalOr(a, b);
+    return !LogicalOr<T>(a, b);
 }
 
 /**
@@ -217,7 +217,7 @@ inline bool LogicalNor(const T& a, const T& b) {
  */
 template<typename T>
 inline bool LogicalXnor(const T& a, const T& b) {
-    return !LogicalXor(a, b);
+    return !LogicalXor<T>(a, b);
 }
 
 /**

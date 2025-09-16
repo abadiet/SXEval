@@ -1,7 +1,7 @@
 #ifndef SXEVAL_ENCASPULATED_VARIABLE_HPP
 #define SXEVAL_ENCASPULATED_VARIABLE_HPP
 
-#include "sxeval/AOperand.hpp"
+#include "sxeval/IOperand.hpp"
 #include <functional>
 
 namespace sxeval {
@@ -15,7 +15,7 @@ namespace sxeval {
  * double and long double.
  */
 template <typename T>
-class EncapsulatedVariable : public AOperand<T> {
+class EncapsulatedVariable : public virtual IOperand<T> {
 public:
     /**
      * @brief Default constructor.
@@ -25,8 +25,14 @@ public:
      * @note The name is used for debugging and string representation purposes.
      */
     inline EncapsulatedVariable(const std::function<T(void)> get,
-        const std::string& name) :
-        AOperand<T>(_var), _get(get), _name(name) {}
+        const std::string& name) : _get(get), _name(name) {}
+
+    /**
+     * @brief Get a reference to the variable.
+     *
+     * @return A reference to the variable.
+     */
+    inline T& getResult() override { return _var; }
 
     /**
      * @brief Retrieve the value of the encapsulated variable.
