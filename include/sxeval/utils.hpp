@@ -5,6 +5,7 @@
 #include <cmath>
 #include <stdexcept>
 #include <cstdio>
+#include <limits>
 
 #define SXEVAL_PI 3.14159265358979323846
 
