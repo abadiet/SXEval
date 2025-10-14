@@ -23,11 +23,11 @@ package sxeval {
     end note
 
     class SXEval<T> {
-        - _Node : struct {instruct : std::unique_ptr<IInstruction<T>>, parent : _Node*, subnodes : std::vector<_Node>}
+        - Node : struct {instruct : std::unique_ptr<IInstruction<T>>, parent : Node*, subnodes : std::vector<Node>}
         -_operationsFactory : OperationsFactory<T>
         -_operations : std::vector<std::unique_ptr<AOperation<T>>>
         -_encapsulated : std::vector<EncapsulatedVariable<T>*>
-        -_lastOperation : _Node
+        -_lastOperation : Node
         -_expression : std::string
         +SXEval()
         +template registerOperation<OP>()
@@ -39,9 +39,9 @@ package sxeval {
         +toString() : std::string
         -_skipChars(exp : std::string&)
         -_getNextSymbol(exp : std::string&) : std::string&
-        -_build(exp : std::string&, resolveVariable : const resolveVariable_t<T>&)  : _Node
-        -_fillParents(parent : _Node&)
-        -_buildTreeStr(std::opstream& os, const _Node& node, size_t depth) : void
+        -_build(exp : std::string&, resolveVariable : const resolveVariable_t<T>&)  : Node
+        -_fillParents(parent : Node&)
+        -_buildTreeStr(std::opstream& os, const Node& node, size_t depth) : void
     }
 
     interface IInstruction<T> {
@@ -126,7 +126,7 @@ package sxeval {
 
     }
 
-    SXEval *--> IInstruction : _Node::instruct\n0..*
+    SXEval *--> IInstruction : Node::instruct\n0..*
     SXEval *--> OperationsFactory : _operationsFactory\n1..1
     SXEval o--> AOperation : _operations\n0..*
     SXEval o--> EncapsulatedVariable : _encapsulated\n0..*

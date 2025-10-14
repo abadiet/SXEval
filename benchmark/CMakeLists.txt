@@ -9,7 +9,9 @@ file(GLOB_RECURSE SOURCES src/*.cpp src/*.hpp)
 add_executable(${TARGET_NAME} ${SOURCES})
 
 # Flags
-set(CHIBI_FLAGS -Wno-undef -Wno-old-style-cast -Wno-zero-as-null-pointer-constant)
+set(CHIBI_FLAGS -Wno-undef -Wno-old-style-cast
+	-Wno-zero-as-null-pointer-constant -Wno-reserved-macro-identifier
+	-Wno-reserved-identifier)
 set(GUILE_FLAGS -Wno-sign-conversion)
 target_compile_options(${TARGET_NAME} PRIVATE
 $<$<CXX_COMPILER_ID:AppleClang>:-O3 -Wall -Wextra -Werror

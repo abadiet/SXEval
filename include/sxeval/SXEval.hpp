@@ -180,10 +180,10 @@ public:
     std::string toString() const;
 
 private:
-    struct _Node {
+    struct Node {
         std::unique_ptr<IInstruction<T>> instruct;
-        _Node* parent;
-        std::vector<_Node> subnodes;
+        Node* parent;
+        std::vector<Node> subnodes;
 
         #ifdef SXEVAL_DEBUG
         int id = -1;
@@ -192,10 +192,10 @@ private:
 
     static void _skipChars(const std::string& s, size_t* idx);
     static std::string _getNextSymbol(const std::string& s, size_t* idx);
-    _Node _build(size_t* idx, const resolveVariable_t<T>& resolveVariable,
+    Node _build(size_t* idx, const resolveVariable_t<T>& resolveVariable,
         const resolveEncapsulated_t<T>& resolveEncapsulated);
-    static void _fillParents(_Node& parent);
-    static void _buildTreeStr(std::ostream& oss, const _Node& node, size_t depth
+    static void _fillParents(Node& parent);
+    static void _buildTreeStr(std::ostream& oss, const Node& node, size_t depth
         );
     T _interpret(const std::string& exp, size_t* idx,
         const resolveVariable_t<T>& resolveVariable,
@@ -208,7 +208,7 @@ private:
     operations::OperationsFactory<T> _operationsFactory;
     std::vector<AOperation<T>*> _operations;
     std::vector<EncapsulatedVariable<T>*> _encapsulated;
-    _Node _lastOperation;
+    Node _lastOperation;
     std::string _expression;
 
 };
@@ -355,7 +355,7 @@ std::string sxeval::SXEval<T>::_getNextSymbol(const std::string& s, size_t* i) {
 }
 
 template <typename T>
-typename sxeval::SXEval<T>::_Node sxeval::SXEval<T>::_build(size_t* idx,
+typename sxeval::SXEval<T>::Node sxeval::SXEval<T>::_build(size_t* idx,
     const resolveVariable_t<T>& resolveVariable,
     const resolveEncapsulated_t<T>& resolveEncapsulated)
 {
@@ -374,7 +374,7 @@ typename sxeval::SXEval<T>::_Node sxeval::SXEval<T>::_build(size_t* idx,
         /* ### OPERATION ### */
         (*idx)++;
         const auto symbol = _getNextSymbol(_expression, idx);
-        _Node node;
+        Node node;
         node.parent = nullptr;
         #ifdef SXEVAL_DEBUG
         {
@@ -415,7 +415,7 @@ typename sxeval::SXEval<T>::_Node sxeval::SXEval<T>::_build(size_t* idx,
     } else {
         /* ### OPERANDS ### */
         const auto symbol = _getNextSymbol(_expression, idx);
-        _Node node;
+        Node node;
         try {
             T val = StringToType<T>(symbol);
             node = { std::unique_ptr<IInstruction<T>>(new Value<T>(val)),
@@ -506,7 +506,7 @@ typename sxeval::SXEval<T>::_Node sxeval::SXEval<T>::_build(size_t* idx,
 }
 
 template <typename T>
-void sxeval::SXEval<T>::_fillParents(_Node& parent) {
+void sxeval::SXEval<T>::_fillParents(Node& parent) {
     for (auto& child : parent.subnodes) {
         child.parent = &parent;
         _fillParents(child);
@@ -514,13 +514,13 @@ void sxeval::SXEval<T>::_fillParents(_Node& parent) {
 }
 
 template <typename T>
-void sxeval::SXEval<T>::_buildTreeStr(std::ostream& oss, const _Node& node,
+void sxeval::SXEval<T>::_buildTreeStr(std::ostream& oss, const Node& node,
     size_t depth)
 {
     if (depth > 0) {
         for (size_t i = 0; i < depth - 1; ++i) {
-            const _Node* parent = &node;
-            const _Node* child = nullptr;
+            const Node* parent = &node;
+            const Node* child = nullptr;
             for (size_t j = 0; j < depth - i; ++j) {
                 child = parent;
                 parent = parent->parent;

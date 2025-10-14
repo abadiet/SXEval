@@ -11,6 +11,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 > Backward compatibility is not guaranteed outside.
 
 ## Untracked
+### Fixed
+- AppleClang 17.0.0.17000319 compilation errors
 
 ## [v1.0.4] - 2025-09-16
 ### Added
