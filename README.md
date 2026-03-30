@@ -1,5 +1,5 @@
 # SXEval
-A very fast, generic s-expression compiler & interpreter library in pure C++11.
+A very fast, generic s-expression JIT compiler library in pure C++11.
 
 *400x faster than [GNU Guile](https://www.gnu.org/software/guile/)*
 
